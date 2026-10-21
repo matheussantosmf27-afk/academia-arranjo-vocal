@@ -1,0 +1,32 @@
+.studio { display: flex; flex-direction: column; gap: 12px; }
+.toolbar {
+  display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px;
+  padding: 10px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); position: sticky; top: 0; z-index: 5;
+}
+.field { display: flex; flex-direction: column; gap: 2px; font-size: 0.78rem; }
+.sep { width: 1px; align-self: stretch; background: var(--line); margin: 0 4px; }
+.zoom { min-width: 44px; text-align: center; font-size: 0.85rem; align-self: center; }
+.header { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
+.title { font-family: var(--font-serif); font-size: 1.5rem; border: 1px solid transparent; background: transparent; padding: 2px 4px; width: min(100%, 640px); }
+.title:hover, .title:focus { border-color: var(--line-2); background: #fff; }
+.inline { display: inline-flex; align-items: center; gap: 6px; }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
+.main { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+.side { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow-y: auto; }
+.panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
+.panelTitle { font-size: 1.02rem; margin: 0 0 8px; }
+.scoreFocus { border-radius: var(--radius-sm); }
+.scoreFocus:focus-visible { outline: 3px solid var(--focus); }
+.status { min-height: 1.4em; margin: 0; font-size: 0.88rem; color: var(--ink-2); }
+.events summary { cursor: pointer; font-weight: 600; font-size: 0.92rem; }
+.rowSelected td { background: var(--accent-soft); }
+.newForm { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; padding: 12px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); }
+.newForm label { display: flex; flex-direction: column; gap: 2px; }
+
+@media (max-width: 1100px) {
+  .layout { grid-template-columns: 1fr; }
+  .side { position: static; max-height: none; }
+}
+@media (max-width: 860px) {
+  .toolbar { position: static; }
+}

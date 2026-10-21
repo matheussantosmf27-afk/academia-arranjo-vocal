@@ -1,0 +1,9 @@
+.example { margin: 18px 0; padding: 14px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--card); display: flex; flex-direction: column; gap: 10px; }
+.exampleHead { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.commentary { margin: 0; }
+.listening { margin: 18px 0; padding: 14px; border: 1px dashed var(--line-2); border-radius: var(--radius); background: #fbf8f2; display: flex; flex-direction: column; gap: 10px; }
+.listening h4 { margin: 0; }
+.listening ol { margin: 0; padding-left: 20px; }
+.objectives { margin: 0; padding-left: 20px; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 12px; }
+.body { max-width: 860px; }
