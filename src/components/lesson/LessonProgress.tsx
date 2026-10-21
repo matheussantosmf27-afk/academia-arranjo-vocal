@@ -1,6 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import { useState } from "react";
+import { recordAttemptRemote } from "@/app/actions/progress";
+import { useAuth } from "@/lib/auth/useAuth";
 import { getLesson } from "@/content/curriculum/curriculum";
 import type { Lesson } from "@/content/curriculum/types";
 import { bestAttempt, lessonStatus, missingPrerequisites } from "@/lib/progress/model";
@@ -44,6 +47,8 @@ export function PrerequisiteNotice({ lesson }: { lesson: Lesson }) {
 
 export function LessonExercises({ lesson }: { lesson: Lesson }) {
   const { state, hydrated, recordAttempt, markRead } = useProgress();
+  const { user } = useAuth();
+  const [syncMsg, setSyncMsg] = useState<string | null>(null);
   if (!lesson.exercises) return null;
   const locked = !hydrated || missingPrerequisites(state, lesson).length > 0;
   const best = bestAttempt(state, lesson.id);
@@ -63,11 +68,34 @@ export function LessonExercises({ lesson }: { lesson: Lesson }) {
         spec={lesson.exercises}
         lessonId={lesson.id}
         locked={locked}
-        onAttempt={(a) => {
-          recordAttempt(a);
+        onAttempt={async (a) => {
           markRead(lesson.id);
+          if (!user) {
+            recordAttempt(a);
+            setSyncMsg("Tentativa registrada neste navegador. Entre na conta para guardá-la com segurança.");
+            return;
+          }
+          // Na conta, o servidor recorrige pela semente e devolve o resultado oficial.
+          const r = await recordAttemptRemote({
+            lessonId: a.lessonId,
+            seed: a.seed,
+            startedAt: a.startedAt,
+            answers: a.answers.map((x) => ({ itemId: x.itemId, chosenOptionId: x.chosenOptionId })),
+          });
+          if (r.ok) {
+            recordAttempt(r.attempt);
+            setSyncMsg("Tentativa registrada na sua conta.");
+          } else {
+            recordAttempt(a);
+            setSyncMsg(`Registrada só neste navegador: ${r.error}`);
+          }
         }}
       />
+      {syncMsg && (
+        <p className="muted" role="status" style={{ fontSize: "0.85rem" }}>
+          {syncMsg}
+        </p>
+      )}
     </section>
   );
 }

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { type KeyboardEvent, useCallback, useMemo, useRef, useState } from "react";
+import { type KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DURATION_NAMES_PT, DURATION_TYPES, type DurationType, durationNamePt } from "@/domain/music/duration";
 import { EXAMPLE_SCORES, CHORALE_SATB_C } from "@/domain/music/examples";
 import { type FormationId, type VoiceId, getFormation, staffOfVoice, writtenPitch, clefNamePt } from "@/domain/music/formations";
@@ -25,6 +25,8 @@ import { parseScore } from "@/domain/music/schema";
 import { type Score, type StyleProfileId, findEvent, voiceTimeline } from "@/domain/music/score";
 import { parseKey } from "@/domain/music/text-notation";
 import { type Diagnostic, STYLE_PROFILES, analyzeHarmony, validateScore } from "@/domain/validation";
+import { loadArrangement, saveArrangementVersion } from "@/app/actions/arrangements";
+import { useAuth } from "@/lib/auth/useAuth";
 import { loadDraft, saveDraft } from "@/lib/projects/store";
 import { DiagnosticList } from "../diagnostics/DiagnosticList";
 import { ScoreView } from "../notation/ScoreView";
@@ -66,9 +68,15 @@ export function Studio() {
   const [activeDiag, setActiveDiag] = useState<string | null>(null);
   const [showNew, setShowNew] = useState(false);
   const fileRef = useRef<HTMLInputElement>(null);
+  const { user } = useAuth();
+  const [cloudId, setCloudId] = useState<string | null>(params.get("arranjo"));
+  const [savingCloud, setSavingCloud] = useState(false);
+  /** Arranjo já presente no editor (salvo agora): a mudança de URL não deve recarregá-lo. */
+  const inEditorCloudId = useRef<string | null>(null);
   const editorRef = useRef<HTMLDivElement>(null);
 
   const load = useCallback((s: Score, message: string) => {
+    setCloudId(null);
     setHistory(createHistory(s));
     setSelected(firstEventId(s));
     setStyle(s.metadata.style);
@@ -76,6 +84,24 @@ export function Studio() {
     setActiveDiag(null);
     setStatus(message);
   }, []);
+
+  // Arranjo da conta indicado na URL (?arranjo=<uuid>): carregado pelo servidor, validado pelo esquema.
+  const requestedCloud = params.get("arranjo");
+  useEffect(() => {
+    if (!requestedCloud || !user || requestedCloud === inEditorCloudId.current) return;
+    let active = true;
+    void loadArrangement(requestedCloud).then((r) => {
+      if (!active) return;
+      if (r.ok) {
+        load(r.score, `Arranjo da conta aberto (versão ${r.versionNumber}).`);
+        setCloudId(requestedCloud);
+        inEditorCloudId.current = requestedCloud;
+      } else setStatus(r.error);
+    });
+    return () => {
+      active = false;
+    };
+  }, [requestedCloud, user, load]);
 
   const apply = useCallback(
     (fn: (s: Score) => Score, message?: string) => {
@@ -213,6 +239,20 @@ export function Studio() {
     if (r.ok) router.replace(`/estudio?projeto=${encodeURIComponent(score.id)}`, { scroll: false });
   };
 
+  const saveCloud = async () => {
+    setSavingCloud(true);
+    const r = await saveArrangementVersion({ ...score, metadata: { ...score.metadata, style } }, cloudId);
+    setSavingCloud(false);
+    if (!r.ok) {
+      setStatus(`Falha ao salvar na conta: ${r.error}`);
+      return;
+    }
+    setCloudId(r.arrangementId);
+    inEditorCloudId.current = r.arrangementId;
+    setStatus(`Versão ${r.versionNumber} salva na sua conta (com relatório do motor de validação).`);
+    router.replace(`/estudio?arranjo=${r.arrangementId}`, { scroll: false });
+  };
+
   return (
     <div className={styles.studio} onKeyDown={onKeyDown} ref={editorRef}>
       <div className={styles.toolbar} role="toolbar" aria-label="Ferramentas do Estúdio">
@@ -254,8 +294,13 @@ export function Studio() {
           +
         </button>
         <span className={styles.sep} />
-        <button type="button" className="btn btn-sm btn-primary" onClick={save}>
-          Salvar rascunho
+        {user ? (
+          <button type="button" className="btn btn-sm btn-primary" onClick={() => void saveCloud()} disabled={savingCloud}>
+            {savingCloud ? "Salvando…" : cloudId ? "Salvar nova versão" : "Salvar na conta"}
+          </button>
+        ) : null}
+        <button type="button" className={`btn btn-sm ${user ? "" : "btn-primary"}`} onClick={save}>
+          Salvar rascunho local
         </button>
         <button type="button" className="btn btn-sm" onClick={exportJson}>
           Exportar JSON

@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { AccountLink } from "./AccountLink";
+import { AccountSync } from "./AccountSync";
 import styles from "./AppShell.module.css";
 
 const NAV: Array<{ href: string; label: string; icon: ReactNode }> = [
@@ -49,9 +51,9 @@ export function AppShell({ children }: { children: ReactNode }) {
             </Link>
           ))}
         </nav>
-        <p className={styles.footer}>
-          Versão inicial (etapa 3). Progresso e rascunhos ficam salvos neste navegador até a integração com a conta.
-        </p>
+        <AccountLink className={styles.account} />
+        <AccountSync />
+        <p className={styles.footer}>Sem conta, progresso e rascunhos ficam salvos apenas neste navegador.</p>
       </aside>
       <main id="conteudo" className={styles.main} tabIndex={-1}>
         {children}

@@ -12,6 +12,8 @@ export interface ProgressRepository {
   load(): ProgressState;
   recordAttempt(attempt: Attempt): ProgressState;
   markRead(lessonId: string): ProgressState;
+  /** Incorpora tentativas vindas da conta (união por ID). */
+  mergeAttempts(attempts: readonly Attempt[]): ProgressState;
   reset(): ProgressState;
 }
 
@@ -72,6 +74,13 @@ export const localProgressRepository: ProgressRepository = {
     const s = read();
     if (s.lessonsRead.includes(lessonId)) return s;
     return write({ ...s, lessonsRead: [...s.lessonsRead, lessonId] });
+  },
+  mergeAttempts(attempts) {
+    const s = read();
+    const known = new Set(s.attempts.map((a) => a.id));
+    const fresh = attempts.filter((a) => !known.has(a.id));
+    if (fresh.length === 0) return s;
+    return write({ ...s, attempts: [...s.attempts, ...fresh].sort((a, b) => a.finishedAt.localeCompare(b.finishedAt)) });
   },
   reset() {
     return write(EMPTY_PROGRESS);

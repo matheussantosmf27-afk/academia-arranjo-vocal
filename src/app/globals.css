@@ -238,7 +238,7 @@ caption { caption-side: top; text-align: left; font-weight: 600; padding: 8px 10
   transition: left 60ms linear;
 }
 
-select, input[type="text"], input[type="number"] {
+select, input[type="text"], input[type="number"], input[type="email"], input[type="password"] {
   max-width: 100%;
   font: inherit;
   font-size: 0.93rem;

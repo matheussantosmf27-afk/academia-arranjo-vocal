@@ -21,7 +21,7 @@ export function ExercisePanel({
 }: {
   spec: ExerciseSetSpec;
   lessonId: string;
-  onAttempt?: (a: Attempt) => void;
+  onAttempt?: (a: Attempt) => void | Promise<void>;
   locked?: boolean;
   practice?: boolean;
 }) {
@@ -125,7 +125,7 @@ export function ExercisePanel({
     }
     const result = evaluateMastery(spec, phase.items, answers);
     if (!practice && onAttempt) {
-      onAttempt({
+      void onAttempt({
         id: `${lessonId}-${Date.now()}`,
         lessonId,
         exerciseSetId: spec.id,

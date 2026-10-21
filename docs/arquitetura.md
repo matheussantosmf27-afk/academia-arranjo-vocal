@@ -41,7 +41,7 @@ docs/                 decisões e convenções
 | Validação de entrada | Zod 4 | Toda partitura vinda de armazenamento/arquivo passa por `parseScore` |
 | Testes | Vitest (unidade), Playwright (interface) | Rápidos; Chromium já disponível no ambiente |
 | Estilo | CSS global com tokens + CSS Modules | Identidade própria, sem framework de UI |
-| Persistência (etapa 3) | `localStorage` atrás de uma interface `ProgressRepository` | Permite usar o app antes da conta; a implementação Supabase entra na etapa 7 sem mudar a interface |
+| Persistência | Sem conta: `localStorage`. Com conta: Supabase via ações de servidor (`@supabase/ssr`, chave publicável + RLS) | O app funciona sem login; com login, o servidor valida e recorrige tudo |
 
 ## Modelo musical (resumo)
 
@@ -74,7 +74,7 @@ Ver `supabase/migrations/20261021000000_esquema_inicial.sql`:
 | 4 | Editor completo: inserir/mover eventos entre posições, colar, seleção múltipla, quiálteras, dinâmicas/articulações na notação, compassos e tonalidade editáveis | parcial (edição de altura, duração, pausas, ligaduras, letra, desfazer/refazer já funcionam) |
 | 5 | Reprodução: cursor sincronizado, metrônomo, soundfont vocal, loop de trecho | parcial (tocar/pausar/reiniciar, vozes isoladas/combinadas e cursor por onset já funcionam) |
 | 6 | Motor de validação: notas estranhas (passagem, bordadura, retardo), paralelas entre tempos fortes, ritmo harmônico, prosódia | parcial (21 regras implementadas e testadas) |
-| 7 | Supabase exclusivo: Auth, migrations, RLS, repositórios no servidor, testes de integração | aguardando autorização/credenciais |
+| 7 | Supabase exclusivo: Auth, migrations, RLS, repositórios no servidor, testes de integração | código, migrations e testes prontos (validados na stack local); projeto remoto bloqueado pelo limite do plano gratuito — ver `docs/supabase.md` |
 | 8 | Lições restantes, exercícios de condução, projetos com rubrica | estrutura pronta |
 | 9 | MusicXML e MIDI (import/export), PDF, tutor de IA baseado em diagnósticos | pendente |
 | 10 | Revisão de segurança, acessibilidade, responsividade, documentação, implantação | pendente |
