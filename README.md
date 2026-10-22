@@ -2,7 +2,7 @@
 
 Plataforma web de formação em arranjo vocal **SATB** e **TTBB**: currículo progressivo com critério de domínio, notação musical real, reprodução por voz e um motor determinístico de validação de condução de vozes. Produto independente (repositório e futuro projeto Supabase próprios).
 
-> **Situação:** etapas 1–3 concluídas; etapa 7 (Supabase) implementada e testada contra a stack local — o projeto remoto ainda não existe (limite do plano gratuito; ver `docs/supabase.md`). Sem configuração, o app funciona em modo local (navegador). Plano completo em `docs/arquitetura.md`.
+> **Situação:** etapas 1–3 e 7 concluídas. Projeto Supabase exclusivo `academia-arranjo-vocal` criado, com migrations, catálogo e RLS aplicados (ver `docs/supabase.md`). Sem as variáveis de ambiente, o app funciona em modo local (navegador). Plano completo em `docs/arquitetura.md`.
 
 ## O que já funciona
 - **Painel**, **Currículo** (5 níveis, 8 unidades, 22 lições; 3 publicadas com conteúdo completo) e **Competências** (desempenho por habilidade, histórico com semente reprodutível).
@@ -38,4 +38,4 @@ Variáveis de ambiente: veja `.env.example` (opcionais — sem elas, modo local)
 - `docs/convencoes-musicais.md` — oitavas, MIDI, altura escrita × sonora, pautas
 - `docs/motor-de-validacao.md` — regras, categorias, estilos e limitações
 - `docs/supabase.md` — banco, segurança, desenvolvimento local e ativação do projeto remoto
-- `supabase/migrations/` — esquema com RLS (aplicado e testado localmente; **não aplicado em nenhum projeto remoto**)
+- `supabase/migrations/` — esquema com RLS (aplicado no projeto `academia-arranjo-vocal`)

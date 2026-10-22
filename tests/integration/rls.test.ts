@@ -24,6 +24,11 @@ describe.skipIf(!ADMIN_URL)("persistência e RLS (Postgres local com shim do Sup
     expect(r.rows).toEqual([{ id: A, preferred_formation: "SATB" }]);
   });
 
+  it("a função de trigger handle_new_user não pode ser chamada por usuários", async () => {
+    await expect(as(client, null, (q) => q("select public.handle_new_user()"))).rejects.toThrow(/permission denied/);
+    await expect(as(client, A, (q) => q("select public.handle_new_user()"))).rejects.toThrow(/permission denied/);
+  });
+
   it("catálogo é público para leitura e protegido para escrita", async () => {
     const r = await as(client, null, (q) => q("select count(*)::int as n from lessons where status = 'disponivel'"));
     expect(r.rows[0].n).toBe(3);

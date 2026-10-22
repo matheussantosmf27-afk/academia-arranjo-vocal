@@ -54,7 +54,7 @@ docs/                 decisões e convenções
 
 ## Modelo de dados (Supabase, etapa 7)
 
-Ver `supabase/migrations/20261021000000_esquema_inicial.sql`:
+Ver `supabase/migrations/20261022170550_esquema_inicial.sql`:
 
 - `profiles` (1:1 com `auth.users`)
 - Catálogo somente leitura: `levels`, `units`, `lessons`, `lesson_prerequisites`
@@ -74,7 +74,7 @@ Ver `supabase/migrations/20261021000000_esquema_inicial.sql`:
 | 4 | Editor completo: inserir/mover eventos entre posições, colar, seleção múltipla, quiálteras, dinâmicas/articulações na notação, compassos e tonalidade editáveis | parcial (edição de altura, duração, pausas, ligaduras, letra, desfazer/refazer já funcionam) |
 | 5 | Reprodução: cursor sincronizado, metrônomo, soundfont vocal, loop de trecho | parcial (tocar/pausar/reiniciar, vozes isoladas/combinadas e cursor por onset já funcionam) |
 | 6 | Motor de validação: notas estranhas (passagem, bordadura, retardo), paralelas entre tempos fortes, ritmo harmônico, prosódia | parcial (21 regras implementadas e testadas) |
-| 7 | Supabase exclusivo: Auth, migrations, RLS, repositórios no servidor, testes de integração | código, migrations e testes prontos (validados na stack local); projeto remoto bloqueado pelo limite do plano gratuito — ver `docs/supabase.md` |
+| 7 | Supabase exclusivo: Auth, migrations, RLS, repositórios no servidor, testes de integração | ✅ projeto exclusivo criado, migrations e catálogo aplicados, advisors limpos — ver `docs/supabase.md` |
 | 8 | Lições restantes, exercícios de condução, projetos com rubrica | estrutura pronta |
 | 9 | MusicXML e MIDI (import/export), PDF, tutor de IA baseado em diagnósticos | pendente |
 | 10 | Revisão de segurança, acessibilidade, responsividade, documentação, implantação | pendente |

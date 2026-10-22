@@ -1,5 +1,5 @@
--- Academia de Arranjo Vocal — esquema inicial (etapa 3: modelado, AINDA NÃO APLICADO).
--- Aplicar somente no projeto Supabase exclusivo e autorizado deste produto (etapa 7).
+-- Academia de Arranjo Vocal — esquema inicial.
+-- Aplicar somente no projeto Supabase exclusivo deste produto (academia-arranjo-vocal).
 -- Conteúdo pedagógico vive no código (src/content) e é espelhado no catálogo abaixo
 -- para integridade referencial; dados de alunos são privados e protegidos por RLS.
 

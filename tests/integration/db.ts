@@ -22,9 +22,10 @@ export async function createTestDatabase(): Promise<{ client: Client; drop: () =
   await client.connect();
   for (const f of [
     "supabase/tests/supabase-shim.sql",
-    "supabase/migrations/20261021000000_esquema_inicial.sql",
-    "supabase/migrations/20261021000100_indices_fk.sql",
-    "supabase/tests/grants.sql",
+    "supabase/migrations/20261022170550_esquema_inicial.sql",
+    "supabase/migrations/20261022170558_indices_fk.sql",
+    "supabase/tests/grants.sql", // no Supabase estes privilégios já existem quando as funções são criadas
+    "supabase/migrations/20261022170818_revoga_rpc_handle_new_user.sql",
     "supabase/seed/catalog.sql",
   ]) {
     await client.query(file(f));
