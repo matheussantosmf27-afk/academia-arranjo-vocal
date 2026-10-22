@@ -2,7 +2,7 @@ import { type Duration, durationTicks, measureTicks, ticksToDurations } from "./
 import type { VoiceId } from "./formations";
 import { type Key, moveChromatic, moveDiatonic } from "./key";
 import type { Pitch } from "./pitch";
-import { type MusicEvent, type NoteEvent, type Score, findEvent } from "./score";
+import { type Articulation, type Dynamic, type MusicEvent, type NoteEvent, type Score, findEvent } from "./score";
 
 /**
  * Operações de edição PURAS e imutáveis: recebem uma partitura e devolvem outra.
@@ -116,6 +116,28 @@ export function setDuration(score: Score, eventId: string, duration: Duration, i
   }
   const parts = score.parts.map((p) => (p === part ? { ...p, events } : p));
   return { ...score, parts };
+}
+
+/** Liga/desliga uma articulação na nota. */
+export function toggleArticulation(score: Score, eventId: string, art: Articulation): Score {
+  return mapEvent(score, eventId, (e) => {
+    if (e.kind !== "note") return e;
+    const cur = e.articulations ?? [];
+    const next = cur.includes(art) ? cur.filter((a) => a !== art) : [...cur, art];
+    const { articulations: _a, ...rest } = e;
+    void _a;
+    return next.length ? { ...rest, articulations: next } : rest;
+  });
+}
+
+/** Define (ou remove, com null) a dinâmica a partir da nota. */
+export function setDynamic(score: Score, eventId: string, dynamic: Dynamic | null): Score {
+  return mapEvent(score, eventId, (e) => {
+    if (e.kind !== "note") return e;
+    const { dynamic: _d, ...rest } = e;
+    void _d;
+    return dynamic ? { ...rest, dynamic } : rest;
+  });
 }
 
 /** Exclui um evento substituindo-o por pausa de mesma duração (mantém o alinhamento das vozes). */

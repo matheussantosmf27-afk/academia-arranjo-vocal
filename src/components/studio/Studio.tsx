@@ -19,11 +19,24 @@ import {
   transposeEventDiatonic,
   transposeEventOctave,
   setPitch,
+  setDynamic,
+  toggleArticulation,
 } from "@/domain/music/operations";
 import { type Step, formatPitch, formatPitchPt, toMidi } from "@/domain/music/pitch";
 import { parseScore } from "@/domain/music/schema";
-import { type Score, type StyleProfileId, findEvent, voiceTimeline } from "@/domain/music/score";
+import { type Articulation, type Dynamic, type MusicEvent, type Score, type StyleProfileId, findEvent, voiceTimeline } from "@/domain/music/score";
 import { parseKey } from "@/domain/music/text-notation";
+import {
+  changeKey,
+  eventRange,
+  mergeWithNext,
+  normalizeBarlines,
+  pasteAt,
+  setMeasureCount,
+  setTimeSignature,
+  splitEvent,
+  swapWithNext,
+} from "@/domain/music/timeline-ops";
 import { type Diagnostic, STYLE_PROFILES, analyzeHarmony, validateScore } from "@/domain/validation";
 import { loadArrangement, saveArrangementVersion } from "@/app/actions/arrangements";
 import { useAuth } from "@/lib/auth/useAuth";
@@ -125,6 +138,18 @@ export function Studio() {
   }, [report]);
   const formation = getFormation(score.formation);
   const dimmed = useMemo(() => new Set<string>(formation.voices.map((v) => v.id).filter((v) => !voices.has(v))), [formation, voices]);
+  const [anchor, setAnchor] = useState<string | null>(null);
+  const [clipboard, setClipboard] = useState<MusicEvent[] | null>(null);
+  const range = useMemo(() => (anchor && selected && anchor !== selected ? eventRange(score, anchor, selected) : null), [anchor, selected, score]);
+  const rangeIds = useMemo(() => (range ? new Set(range.events.map((e) => e.id)) : undefined), [range]);
+  const select = useCallback(
+    (id: string | null, extend = false) => {
+      if (extend && selected) setAnchor((a) => a ?? selected);
+      else setAnchor(null);
+      setSelected(id);
+    },
+    [selected],
+  );
   const sel = selected ? findEvent(score, selected) : null;
   const selTimed = sel ? voiceTimeline(sel.part, score.timeSignature)[sel.index] : undefined;
 
@@ -164,9 +189,28 @@ export function Studio() {
           const ref = ev.kind === "note" ? toMidi(ev.pitch) : toMidi(defaultPitchFor(score, sel.part.voice));
           return apply((s) => setPitch(s, id, nearestWithLetter(s, arg as Step, ref)));
         }
+        case "split":
+          return apply((s) => splitEvent(s, id), "Evento dividido em dois.");
+        case "merge":
+          return apply((s) => mergeWithNext(s, id), "Evento unido ao seguinte.");
+        case "swap":
+          return apply((s) => swapWithNext(s, id), "Evento trocado de lugar com o seguinte.");
+        case "articulation":
+          return apply((s) => toggleArticulation(s, id, arg as Articulation));
+        case "dynamic":
+          return apply((s) => setDynamic(s, id, (arg || null) as Dynamic | null));
+        case "copy": {
+          const clip = range?.events ?? [ev];
+          setClipboard([...clip]);
+          setStatus(`${clip.length} evento(s) copiado(s).`);
+          return;
+        }
+        case "paste":
+          if (!clipboard) return setStatus("Nada copiado ainda.");
+          return apply((s) => pasteAt(s, id, clipboard), `${clipboard.length} evento(s) colado(s) a partir da seleção.`);
       }
     },
-    [selected, sel, apply, score],
+    [selected, sel, apply, score, range, clipboard],
   );
 
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -184,11 +228,24 @@ export function Studio() {
       return;
     }
     if (!selected) return;
+    if (mod && e.key.toLowerCase() === "c") {
+      e.preventDefault();
+      act("copy");
+      return;
+    }
+    if (mod && e.key.toLowerCase() === "v") {
+      e.preventDefault();
+      act("paste");
+      return;
+    }
     const map: Record<string, () => void> = {
-      ArrowUp: () => (e.altKey ? setSelected(verticalNeighbor(score, selected, -1) ?? selected) : act(mod ? "octUp" : e.shiftKey ? "sharp" : "up")),
-      ArrowDown: () => (e.altKey ? setSelected(verticalNeighbor(score, selected, 1) ?? selected) : act(mod ? "octDown" : e.shiftKey ? "flat" : "down")),
-      ArrowLeft: () => setSelected(neighborEvent(score, selected, -1) ?? selected),
-      ArrowRight: () => setSelected(neighborEvent(score, selected, 1) ?? selected),
+      ArrowUp: () => (e.altKey ? select(verticalNeighbor(score, selected, -1) ?? selected) : act(mod ? "octUp" : e.shiftKey ? "sharp" : "up")),
+      ArrowDown: () => (e.altKey ? select(verticalNeighbor(score, selected, 1) ?? selected) : act(mod ? "octDown" : e.shiftKey ? "flat" : "down")),
+      ArrowLeft: () => select(neighborEvent(score, selected, -1) ?? selected, e.shiftKey),
+      ArrowRight: () => (mod && e.shiftKey ? act("swap") : select(neighborEvent(score, selected, 1) ?? selected, e.shiftKey)),
+      "/": () => act("split"),
+      j: () => act("merge"),
+      J: () => act("merge"),
       ".": () => act("dot"),
       r: () => act("rest"),
       R: () => act("rest"),
@@ -209,7 +266,7 @@ export function Studio() {
   const focusDiagnostic = (d: Diagnostic) => {
     setActiveDiag(d.id);
     const first = d.location.eventIds[0];
-    if (first) setSelected(first);
+    if (first) select(first);
   };
 
   const exportJson = () => {
@@ -375,7 +432,9 @@ export function Studio() {
             </label>
             <span className="muted" style={{ fontSize: "0.82rem" }}>
               Clique numa nota para selecioná-la. Atalhos: <kbd>↑</kbd>/<kbd>↓</kbd> grau, <kbd>Shift</kbd> semitom, <kbd>Ctrl</kbd> oitava, <kbd>←</kbd>/<kbd>→</kbd> evento,{" "}
-              <kbd>Alt</kbd>+<kbd>↑↓</kbd> voz, <kbd>A</kbd>–<kbd>G</kbd> nota, <kbd>1</kbd>–<kbd>5</kbd> figura, <kbd>.</kbd> ponto, <kbd>R</kbd> pausa, <kbd>L</kbd> ligadura.
+              <kbd>Alt</kbd>+<kbd>↑↓</kbd> voz, <kbd>A</kbd>–<kbd>G</kbd> nota, <kbd>1</kbd>–<kbd>5</kbd> figura, <kbd>.</kbd> ponto, <kbd>R</kbd> pausa, <kbd>L</kbd> ligadura,{" "}
+              <kbd>/</kbd> dividir, <kbd>J</kbd> juntar, <kbd>Shift</kbd>+<kbd>←→</kbd> selecionar trecho, <kbd>Ctrl</kbd>+<kbd>C</kbd>/<kbd>V</kbd> copiar/colar,{" "}
+              <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>→</kbd> mover para a direita.
             </span>
           </div>
           <div tabIndex={0} className={styles.scoreFocus} aria-label="Partitura editável. Use os atalhos de teclado para editar a nota selecionada.">
@@ -386,8 +445,9 @@ export function Studio() {
               flagged={flagged}
               {...(harmony ? { harmony } : {})}
               dimmedVoices={dimmed}
-              onSelectEvent={(id) => {
-                setSelected(id);
+              rangeEventIds={rangeIds}
+              onSelectEvent={(id, extend) => {
+                select(id, extend);
                 editorRef.current?.querySelector<HTMLElement>(`.${styles.scoreFocus}`)?.focus();
               }}
               playhead={playhead}
@@ -396,7 +456,8 @@ export function Studio() {
           <p className={styles.status} role="status" aria-live="polite">
             {status}
           </p>
-          <EventList score={score} selected={selected} onSelect={setSelected} />
+          <ScoreProperties score={score} apply={apply} />
+          <EventList score={score} selected={selected} onSelect={(id) => select(id)} />
         </div>
 
         <aside className={styles.side} aria-label="Inspetor e diagnósticos">
@@ -469,6 +530,62 @@ export function Studio() {
                     Ligadura
                   </button>
                 </div>
+                <fieldset>
+                  <legend>Ritmo e posição</legend>
+                  <div className="row">
+                    <button type="button" className="btn btn-sm" onClick={() => act("split")} title="Divide o evento em duas metades (/)">
+                      Dividir
+                    </button>
+                    <button type="button" className="btn btn-sm" onClick={() => act("merge")} title="Junta com o evento seguinte (J)">
+                      Juntar com o seguinte
+                    </button>
+                    <button type="button" className="btn btn-sm" onClick={() => act("swap")} title="Troca de lugar com o evento seguinte (Ctrl+Shift+→)">
+                      Mover →
+                    </button>
+                  </div>
+                </fieldset>
+                <fieldset>
+                  <legend>Trecho</legend>
+                  <div className="row">
+                    <span className="muted" style={{ fontSize: "0.82rem" }}>
+                      {range ? `${range.events.length} eventos selecionados` : "Shift+clique ou Shift+←→ para selecionar um trecho"}
+                    </span>
+                    <button type="button" className="btn btn-sm" onClick={() => act("copy")}>
+                      Copiar
+                    </button>
+                    <button type="button" className="btn btn-sm" onClick={() => act("paste")} disabled={!clipboard}>
+                      Colar aqui{clipboard ? ` (${clipboard.length})` : ""}
+                    </button>
+                  </div>
+                </fieldset>
+                {sel.event.kind === "note" && (
+                  <fieldset>
+                    <legend>Articulação e dinâmica</legend>
+                    <div className="row">
+                      {(
+                        [
+                          ["staccato", "staccato"],
+                          ["accent", "acento"],
+                          ["tenuto", "tenuto"],
+                          ["fermata", "fermata"],
+                        ] as const
+                      ).map(([a, label]) => (
+                        <button key={a} type="button" className="btn btn-sm" aria-pressed={sel.event.kind === "note" && !!sel.event.articulations?.includes(a)} onClick={() => act("articulation", a)}>
+                          {label}
+                        </button>
+                      ))}
+                      <label className={styles.inline}>
+                        Dinâmica
+                        <select value={sel.event.dynamic ?? ""} onChange={(e) => act("dynamic", e.target.value)}>
+                          <option value="">—</option>
+                          {["pp", "p", "mp", "mf", "f", "ff"].map((d) => (
+                            <option key={d}>{d}</option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                  </fieldset>
+                )}
                 {sel.event.kind === "note" && (
                   <label className="stack" style={{ gap: 2 }}>
                     Sílaba da letra
@@ -517,6 +634,14 @@ export function Studio() {
             <p className="muted" style={{ fontSize: "0.82rem" }}>
               {STYLE_PROFILES[style].description}
             </p>
+            {report.diagnostics.some((d) => d.ruleId === "estrutura.nota-atravessa-barra") && (
+              <p className="notice">
+                Há figuras atravessando a barra.{" "}
+                <button type="button" className="btn btn-sm" onClick={() => apply((s) => normalizeBarlines(s), "Figuras divididas nas barras com ligaduras.")}>
+                  Dividir nas barras com ligaduras
+                </button>
+              </p>
+            )}
             {report.ruleFailures.length > 0 && (
               <p className="notice" role="alert">
                 Falha interna em {report.ruleFailures.length} regra(s): {report.ruleFailures.map((f) => f.ruleId).join(", ")}.
@@ -661,5 +786,79 @@ export function StudioFallback() {
     <p className="muted">
       Carregando o Estúdio… <Link href="/curriculo">Ir para o currículo</Link>
     </p>
+  );
+}
+
+const TIME_OPTIONS = ["4/4", "3/4", "2/4", "2/2", "6/8", "3/8", "9/8", "12/8"];
+
+/** Propriedades globais: tonalidade (manter alturas ou transpor), fórmula de compasso e número de compassos. */
+function ScoreProperties({ score, apply }: { score: Score; apply: (fn: (s: Score) => Score, message?: string) => void }) {
+  const currentKey = `${score.key.tonic.step}${score.key.tonic.alter === 1 ? "#" : score.key.tonic.alter === -1 ? "b" : ""}${score.key.mode === "minor" ? "m" : ""}`;
+  const [key, setKey] = useState(currentKey);
+  const [keyMode, setKeyMode] = useState<"manter" | "transpor">("transpor");
+  const [measures, setMeasures] = useState(score.measureCount);
+  // Sincroniza os campos quando a partitura muda por outra via (desfazer, abrir arquivo…), sem fechar o painel.
+  const [seen, setSeen] = useState({ key: currentKey, measures: score.measureCount });
+  if (seen.key !== currentKey || seen.measures !== score.measureCount) {
+    setSeen({ key: currentKey, measures: score.measureCount });
+    setKey(currentKey);
+    setMeasures(score.measureCount);
+  }
+  const time = `${score.timeSignature.beats}/${score.timeSignature.beatType}`;
+  return (
+    <details className={styles.events}>
+      <summary>Propriedades da partitura (tonalidade, compasso, tamanho)</summary>
+      <div className={styles.props}>
+        <fieldset>
+          <legend>Tonalidade</legend>
+          <div className="row">
+            <select value={key} onChange={(e) => setKey(e.target.value)} aria-label="Nova tonalidade">
+              {KEYS.map((k) => (
+                <option key={k} value={k}>
+                  {keyNamePt(parseKey(k))}
+                </option>
+              ))}
+            </select>
+            <select value={keyMode} onChange={(e) => setKeyMode(e.target.value as "manter" | "transpor")} aria-label="Como aplicar">
+              <option value="transpor">transpor as notas</option>
+              <option value="manter">só trocar a armadura</option>
+            </select>
+            <button
+              type="button"
+              className="btn btn-sm"
+              disabled={key === currentKey}
+              onClick={() => apply((s) => changeKey(s, parseKey(key), keyMode), keyMode === "transpor" ? `Transposto para ${keyNamePt(parseKey(key))}.` : `Armadura trocada para ${keyNamePt(parseKey(key))}.`)}
+            >
+              Aplicar
+            </button>
+          </div>
+        </fieldset>
+        <fieldset>
+          <legend>Fórmula de compasso</legend>
+          <select
+            value={time}
+            onChange={(e) => {
+              const [beats, beatType] = e.target.value.split("/").map(Number) as [number, 1 | 2 | 4 | 8 | 16];
+              apply((s) => setTimeSignature(s, { beats, beatType }), `Compasso alterado para ${e.target.value}; figuras que atravessavam barras foram ligadas.`);
+            }}
+            aria-label="Fórmula de compasso"
+          >
+            {TIME_OPTIONS.map((t) => (
+              <option key={t}>{t}</option>
+            ))}
+          </select>
+        </fieldset>
+        <fieldset>
+          <legend>Número de compassos</legend>
+          <div className="row">
+            <input type="number" min={1} max={512} value={measures} onChange={(e) => setMeasures(Math.max(1, Math.min(512, Number(e.target.value) || 1)))} style={{ width: 80 }} aria-label="Número de compassos" />
+            <button type="button" className="btn btn-sm" disabled={measures === score.measureCount} onClick={() => apply((s) => setMeasureCount(s, measures), `Partitura com ${measures} compasso(s).`)}>
+              Aplicar
+            </button>
+          </div>
+          {measures < score.measureCount && <small className="muted">Os compassos finais serão removidos (pode desfazer).</small>}
+        </fieldset>
+      </div>
+    </details>
   );
 }

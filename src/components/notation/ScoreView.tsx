@@ -9,17 +9,19 @@ export interface ScoreViewProps {
   readonly score: Score;
   readonly zoom?: number;
   readonly selectedEventId?: string | null;
+  readonly rangeEventIds?: ReadonlySet<string>;
   readonly flagged?: ReadonlyMap<string, "erro" | "alerta" | "sugestao" | "info">;
   readonly harmony?: readonly HarmonicLabel[];
   readonly dimmedVoices?: ReadonlySet<string>;
-  readonly onSelectEvent?: (eventId: string) => void;
+  /** `extend` = Shift pressionado (estende a seleção). */
+  readonly onSelectEvent?: (eventId: string, extend: boolean) => void;
   /** Posição de reprodução em ticks (null = sem cursor). */
   readonly playhead?: number | null;
   readonly label?: string;
 }
 
 /** Partitura renderizada a partir do modelo (VexFlow/SVG). Clique numa nota para selecioná-la. */
-export function ScoreView({ score, zoom = 1, selectedEventId, flagged, harmony, dimmedVoices, onSelectEvent, playhead, label }: ScoreViewProps) {
+export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices, onSelectEvent, playhead, label }: ScoreViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -48,6 +50,7 @@ export function ScoreView({ score, zoom = 1, selectedEventId, flagged, harmony, 
             width,
             zoom,
             selectedEventId: selectedEventId ?? null,
+            ...(rangeEventIds ? { rangeEventIds } : {}),
             ...(flagged ? { flagged } : {}),
             ...(harmony ? { harmony } : {}),
             ...(dimmedVoices ? { dimmedVoices } : {}),
@@ -65,7 +68,7 @@ export function ScoreView({ score, zoom = 1, selectedEventId, flagged, harmony, 
     return () => {
       cancelled = true;
     };
-  }, [score, width, zoom, selectedEventId, flagged, harmony, dimmedVoices]);
+  }, [score, width, zoom, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices]);
 
   const cursor = playhead == null ? null : [...onsets].reverse().find((o) => o.onset <= playhead) ?? onsets[0];
 
@@ -83,7 +86,7 @@ export function ScoreView({ score, zoom = 1, selectedEventId, flagged, harmony, 
           if (!onSelectEvent) return;
           const target = (e.target as Element).closest('[id^="vf-"]');
           const id = target?.id.replace(/^vf-/, "");
-          if (id && score.parts.some((p) => p.events.some((ev) => ev.id === id))) onSelectEvent(id);
+          if (id && score.parts.some((p) => p.events.some((ev) => ev.id === id))) onSelectEvent(id, e.shiftKey);
         }}
       />
       {cursor && (

@@ -25,6 +25,8 @@ export interface RenderOptions {
   readonly width: number;
   readonly zoom: number;
   readonly selectedEventId?: string | null;
+  /** Intervalo selecionado (copiar/colar): destacado em cor mais clara. */
+  readonly rangeEventIds?: ReadonlySet<string>;
   /** IDs de eventos com diagnóstico, por gravidade de cor. */
   readonly flagged?: ReadonlyMap<string, "erro" | "alerta" | "sugestao" | "info">;
   readonly harmony?: readonly HarmonicLabel[];
@@ -38,6 +40,8 @@ export interface OnsetPosition {
   readonly x: number;
   readonly top: number;
   readonly bottom: number;
+  /** Índice do sistema (linha) em que o onset aparece. */
+  readonly system: number;
 }
 
 export interface RenderResult {
@@ -47,6 +51,7 @@ export interface RenderResult {
 
 const COLORS = {
   selected: "#b4235a",
+  range: "#d4789c",
   erro: "#c0392b",
   alerta: "#c77700",
   sugestao: "#2f6fb0",
@@ -64,7 +69,7 @@ function estimateMeasureWidth(measureEvents: number): number {
 }
 
 export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score, opts: RenderOptions): RenderResult {
-  const { Renderer, Stave, StaveNote, Voice, Formatter, Accidental, StaveConnector, StaveTie, Dot, Annotation, Beam, Barline } = VF;
+  const { Renderer, Stave, StaveNote, Voice, Formatter, Accidental, StaveConnector, StaveTie, Dot, Annotation, Beam, Barline, Articulation, Modifier } = VF;
   container.innerHTML = "";
   const formation = getFormation(score.formation);
   const measures = prepareNotation(score);
@@ -108,6 +113,8 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
   const noteSystem = new Map<string, number>();
   const onsets: OnsetPosition[] = [];
   const tieQueue: NotationEvent[] = [];
+  /** Sistemas com dinâmica/articulação sob a pauta inferior: a cifragem desce para não colidir. */
+  const crowdedBelow = new Set<number>();
 
   systems.forEach((sys, si) => {
     const top = 20 + si * systemHeight;
@@ -172,10 +179,25 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
             ann.setVerticalJustification(Annotation.VerticalJustify.BOTTOM);
             note.addModifier(ann, 0);
           }
+          if (ev.kind === "note") {
+            const above = ne.stem === 1;
+            if (!above && v.staff === 1 && (ev.dynamic || ev.articulations?.length)) crowdedBelow.add(si);
+            for (const art of ev.articulations ?? []) {
+              const code = { staccato: "a.", accent: "a>", tenuto: "a-", fermata: above ? "a@a" : "a@u" }[art];
+              note.addModifier(new Articulation(code).setPosition(above ? Modifier.Position.ABOVE : Modifier.Position.BELOW), 0);
+            }
+            if (ev.dynamic) {
+              const dyn = new Annotation(ev.dynamic);
+              dyn.setFont("Academico, serif", 13, "bold", "italic");
+              dyn.setVerticalJustification(above ? Annotation.VerticalJustify.TOP : Annotation.VerticalJustify.BOTTOM);
+              note.addModifier(dyn, 0);
+            }
+          }
           const flag = opts.flagged?.get(ev.id);
           let color: string | null = null;
           if (opts.dimmedVoices?.has(v.id)) color = COLORS.dim;
           if (flag) color = COLORS[flag];
+          if (opts.rangeEventIds?.has(ev.id)) color = COLORS.range;
           if (opts.selectedEventId === ev.id) color = COLORS.selected;
           if (color) note.setStyle({ fillStyle: color, strokeStyle: color });
           noteObjects.set(ev.id, note);
@@ -207,7 +229,7 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
           const n = noteObjects.get(ne.timed.event.id);
           if (!n) continue;
           seen.add(ne.timed.onset);
-          onsets.push({ onset: ne.timed.onset, x: (n.getAbsoluteX() + 4) * zoom, top: (staves[0].getYForLine(0) - 12) * zoom, bottom: (staves[1].getYForLine(4) + 12) * zoom });
+          onsets.push({ onset: ne.timed.onset, x: (n.getAbsoluteX() + 4) * zoom, top: (staves[0].getYForLine(0) - 12) * zoom, bottom: (staves[1].getYForLine(4) + 12) * zoom, system: si });
         }
       }
       x += w;
@@ -237,7 +259,7 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
     for (const h of opts.harmony) {
       const pos = onsets.find((o) => o.onset === h.onset);
       if (!pos || !h.roman) continue;
-      ctx.fillText(h.roman, pos.x / zoom - 4, pos.bottom / zoom + 40);
+      ctx.fillText(h.roman, pos.x / zoom - 4, pos.bottom / zoom + (crowdedBelow.has(pos.system) ? 62 : 40));
     }
     ctx.restore();
   }
