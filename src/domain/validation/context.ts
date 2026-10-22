@@ -2,6 +2,7 @@ import { type ChordIdentification, identifyChord } from "../music/chord";
 import { type FormationSpec, type PitchRange, type VoiceId, getFormation } from "../music/formations";
 import type { Pitch } from "../music/pitch";
 import { type Score, type Sonority, type TimedEvent, sonorities, voiceTimeline } from "../music/score";
+import { melodicNeighbors, reduceSonority } from "./reduction";
 import type { ValidationConfig } from "./types";
 
 export interface VoicedSonority {
@@ -14,6 +15,13 @@ export interface VoicedSonority {
   readonly chord: ChordIdentification | null;
   /** Todas as vozes têm nota (sem pausas). */
   readonly complete: boolean;
+  /**
+   * Acorde subjacente: igual a `chord` quando as notas formam acorde; senão, o acorde
+   * obtido removendo notas estranhas (ver reduction.ts).
+   */
+  readonly harmony: ChordIdentification | null;
+  /** Vozes cujas notas foram tratadas como estranhas ao acorde nesta sonoridade. */
+  readonly nonChordVoices: readonly VoiceId[];
 }
 
 export interface ValidationContext {
@@ -35,6 +43,7 @@ export function buildContext(score: Score, config: ValidationConfig): Validation
   const timelines = new Map<VoiceId, TimedEvent[]>();
   for (const part of score.parts) timelines.set(part.voice, voiceTimeline(part, score.timeSignature));
 
+  let previousHarmony: ChordIdentification | null = null;
   const voiced: VoicedSonority[] = sonorities(score).map((s) => {
     const pitches = new Map<VoiceId, Pitch | null>();
     const events = new Map<VoiceId, TimedEvent | null>();
@@ -44,12 +53,18 @@ export function buildContext(score: Score, config: ValidationConfig): Validation
       pitches.set(v, entry && entry.timed.event.kind === "note" ? entry.timed.event.pitch : null);
     }
     const sounding = [...pitches.values()].filter((p): p is Pitch => p !== null);
+    const chord = sounding.length >= 2 ? identifyChord(sounding) : null;
+    const reduction = chord ? null : reduceSonority(pitches, voices, (v) => melodicNeighbors(timelines.get(v) ?? [], events.get(v)), previousHarmony, (v) => s.voices.get(v)?.attacked ?? false);
+    const harmony = chord ?? reduction?.chord ?? null;
+    if (harmony) previousHarmony = harmony;
     return {
       sonority: s,
       pitches,
       events,
-      chord: sounding.length >= 2 ? identifyChord(sounding) : null,
+      chord,
       complete: sounding.length === voices.length,
+      harmony,
+      nonChordVoices: reduction?.nonChordVoices ?? [],
     };
   });
 

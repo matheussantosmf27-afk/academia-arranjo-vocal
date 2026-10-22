@@ -13,12 +13,14 @@ import {
 } from "./rules/harmony";
 import { augmentedMelodicRule, consecutiveLeapsRule, largeLeapRule, leapRecoveryRule } from "./rules/melodic";
 import { contraryPerfectRule, directOuterRule, parallelPerfectRule, unequalFifthsRule } from "./rules/parallels";
+import { nonChordToneRule } from "./rules/nct";
+import { breathingRule, doublingRule, harmonicSyncopationRule, retrogressionRule, sixFourRule, strongBeatParallelsRule } from "./rules/progression";
 import { absoluteRangeRule, tessituraRule } from "./rules/range";
 import { barlineCrossingRule, measureLengthRule } from "./rules/structure";
 import { type Diagnostic, type DiagnosticCategory, SEVERITY_ORDER, type Severity, type ValidationConfig } from "./types";
 
 /** Versão do motor: muda quando o comportamento das regras muda (rastreabilidade de avaliações). */
-export const ENGINE_VERSION = "0.1.0";
+export const ENGINE_VERSION = "0.2.0";
 
 export const RULES: readonly Rule[] = [
   measureLengthRule,
@@ -33,6 +35,7 @@ export const RULES: readonly Rule[] = [
   contraryPerfectRule,
   unequalFifthsRule,
   directOuterRule,
+  strongBeatParallelsRule,
   augmentedMelodicRule,
   largeLeapRule,
   leapRecoveryRule,
@@ -40,8 +43,14 @@ export const RULES: readonly Rule[] = [
   leadingToneDoublingRule,
   leadingToneResolutionRule,
   seventhResolutionRule,
+  nonChordToneRule,
   nonTertianStrongBeatRule,
+  doublingRule,
+  sixFourRule,
+  retrogressionRule,
+  harmonicSyncopationRule,
   finalChordRule,
+  breathingRule,
 ];
 
 export interface ValidationReport {
@@ -105,7 +114,7 @@ export interface HarmonicLabel {
 export function analyzeHarmony(score: Score): HarmonicLabel[] {
   const ctx = buildContext(score, { style: score.metadata.style });
   return ctx.sonorities.map((s) => {
-    const chord = s.chord;
+    const chord = s.harmony;
     return {
       onset: s.sonority.onset,
       measure: s.sonority.measure,

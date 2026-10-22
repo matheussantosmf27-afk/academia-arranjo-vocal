@@ -8,7 +8,7 @@ localização exata (compasso, tempo, onset, vozes, IDs de eventos) · mensagem 
 ## Estilos
 `coral-tradicional` (prática comum), `coral-contemporaneo`, `popular-a-cappella`. O estilo altera a gravidade — ou desliga a regra —, nunca a detecção do fato musical.
 
-## Regras (v0.1.0)
+## Regras (v0.2.0)
 | ID | Categoria | Notas |
 |---|---|---|
 | estrutura.duracao-da-voz | erro objetivo | |
@@ -30,11 +30,22 @@ localização exata (compasso, tempo, onset, vozes, IDs de eventos) · mensagem 
 | harmonia.sensivel-dobrada | convenção | só em função dominante |
 | harmonia.resolucao-da-sensivel | convenção | exceção reconhecida: sensível frustrada em voz interna |
 | harmonia.resolucao-da-setima | convenção | exceção reconhecida: V⁴₃ → I⁶ |
-| harmonia.sonoridade-nao-terciana | recomendação (observação) | não "adivinha" acordes |
+| harmonia.notas-estranhas | escolha estética (classificação) / convenção (sem tratamento) | passagem, bordadura, retardo (com cifra 4–3, 7–6, 9–8), retardo ascendente, apojatura, escapada, antecipação; dissonância sem preparação/resolução → alerta no tradicional |
+| harmonia.sonoridade-nao-terciana | recomendação (observação) | só quando nem a redução harmônica encontra acorde |
+| vozes.duplicacao | recomendação | terça dobrada em tríade no estado fundamental (exceção: vi após V); acorde sem terça no meio da frase |
+| harmonia.seis-quatro | convenção | aceita ⁶₄ cadencial, de passagem, de pedal e arpejado |
+| harmonia.retrogressao | convenção | D → S; ignora funções secundárias |
+| harmonia.sincope-harmonica | recomendação | mesma harmonia e inversão do tempo fraco para o forte |
+| conducao.paralelas-em-tempos-fortes | convenção | só vozes extremas e só quando o que separa os tempos fortes são notas estranhas |
+| escrita.respiracao | recomendação | mais de 15 s de canto contínuo (heurística) |
 | harmonia.acorde-final | escolha estética | |
 
+## Redução harmônica (v0.2.0)
+Quando as notas soando não formam acorde, o motor procura o acorde subjacente removendo uma ou duas notas candidatas a estranhas (`reduction.ts`). Considera também a nota de **resolução** (retardo 4–3, em que a terça só soa depois) e a **persistência** da harmonia anterior quando nenhuma nota do acorde foi rearticulada (antecipação, escapada). As regras de sensível, sétima e cifragem usam esse acorde reduzido. A cifragem romana reconhece **dominantes secundárias** (V/x, V⁷/x, vii°/x, viiø7/x).
+
 ## Limitações conhecidas
-- Paralelismos são avaliados entre sonoridades **consecutivas**; paralelas "atravessando" notas de passagem ou entre tempos fortes ainda não são detectadas (etapa 6).
-- Notas estranhas não são classificadas ainda: uma sonoridade não terciana no tempo forte gera apenas observação.
-- Identificação de acordes cobre tríades e tétrades tercianas; acordes com notas acrescentadas (add9, sus) aparecem como não tercianos.
-- Análise romana não reconhece dominantes secundárias nem modulações.
+- Paralelas diretas são avaliadas entre sonoridades consecutivas; as "estruturais" só entre tempos fortes das vozes extremas.
+- A redução considera no máximo duas notas estranhas simultâneas; notas pedais longas e dupla bordadura (cambiata) ainda não são classificadas.
+- Acordes com notas acrescentadas (add9, sus) e harmonia quartal aparecem como não tercianos.
+- Modulações não são detectadas: a cifragem usa sempre a tonalidade da partitura (tonicizações aparecem como funções secundárias).
+- Prosódia (sílaba tônica × tempo forte) exige marcação de acento nas sílabas e entra junto com o trabalho de texto.

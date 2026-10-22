@@ -75,6 +75,7 @@ export function Studio() {
   const [zoom, setZoom] = useState(1);
   const [style, setStyle] = useState<StyleProfileId>(initial.score.metadata.style);
   const [showHarmony, setShowHarmony] = useState(true);
+  const [showInfo, setShowInfo] = useState(true);
   const [voices, setVoices] = useState<Set<VoiceId>>(() => new Set(getFormation(initial.score.formation).voices.map((v) => v.id)));
   const [playhead, setPlayhead] = useState<number | null>(null);
   const [status, setStatus] = useState(initial.message);
@@ -647,7 +648,10 @@ export function Studio() {
                 Falha interna em {report.ruleFailures.length} regra(s): {report.ruleFailures.map((f) => f.ruleId).join(", ")}.
               </p>
             )}
-            <DiagnosticList diagnostics={report.diagnostics} onFocus={focusDiagnostic} activeId={activeDiag} />
+            <label className={styles.inline} style={{ fontSize: "0.85rem", marginBottom: 6 }}>
+              <input type="checkbox" checked={showInfo} onChange={(e) => setShowInfo(e.target.checked)} /> Mostrar observações (análise de notas estranhas, escolhas estéticas)
+            </label>
+            <DiagnosticList diagnostics={showInfo ? report.diagnostics : report.diagnostics.filter((d) => d.severity !== "info")} onFocus={focusDiagnostic} activeId={activeDiag} />
             <p className="muted" style={{ fontSize: "0.78rem", marginTop: 8 }}>
               Motor de validação v{report.engineVersion} — regras determinísticas; o mesmo arranjo e estilo produzem sempre os mesmos diagnósticos.
             </p>

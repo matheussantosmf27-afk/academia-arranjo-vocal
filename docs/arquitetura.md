@@ -71,9 +71,9 @@ Ver `supabase/migrations/20261022170550_esquema_inicial.sql`:
 | 1 | Inspeção do repositório | ✅ `docs/estado-inicial.md` |
 | 2 | Arquitetura, decisões, estrutura, dados | ✅ este documento |
 | 3 | Versão executável: painel, currículo, 3 lições completas, estúdio experimental, testes | ✅ |
-| 4 | Editor completo: inserir/mover eventos entre posições, colar, seleção múltipla, quiálteras, dinâmicas/articulações na notação, compassos e tonalidade editáveis | parcial (edição de altura, duração, pausas, ligaduras, letra, desfazer/refazer já funcionam) |
-| 5 | Reprodução: cursor sincronizado, metrônomo, soundfont vocal, loop de trecho | parcial (tocar/pausar/reiniciar, vozes isoladas/combinadas e cursor por onset já funcionam) |
-| 6 | Motor de validação: notas estranhas (passagem, bordadura, retardo), paralelas entre tempos fortes, ritmo harmônico, prosódia | parcial (21 regras implementadas e testadas) |
+| 4 | Editor completo: inserir/mover eventos, dividir/juntar, seleção de trecho, copiar/colar, dinâmicas/articulações, compasso, tonalidade e tamanho editáveis | ✅ (quiálteras e múltiplas vozes por naipe ainda não) |
+| 5 | Reprodução: cursor sincronizado, metrônomo, contagem, loop de trecho, tocar da seleção, interpretação de dinâmicas/articulações/fermatas, timbres de vogal | ✅ (amostras vocais reais/soundfont: avaliar depois) |
+| 6 | Motor de validação: redução harmônica, notas estranhas, paralelas estruturais, progressão, ⁶₄, duplicação, respiração, dominantes secundárias | ✅ v0.2.0, 28 regras (prosódia depende de marcação de sílabas) |
 | 7 | Supabase exclusivo: Auth, migrations, RLS, repositórios no servidor, testes de integração | ✅ projeto exclusivo criado, migrations e catálogo aplicados, advisors limpos — ver `docs/supabase.md` |
 | 8 | Lições restantes, exercícios de condução, projetos com rubrica | estrutura pronta |
 | 9 | MusicXML e MIDI (import/export), PDF, tutor de IA baseado em diagnósticos | pendente |

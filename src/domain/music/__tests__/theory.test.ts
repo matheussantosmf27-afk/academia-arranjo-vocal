@@ -148,3 +148,25 @@ describe("durações e métrica", () => {
     expect(ticksToDurations(PPQ * 4 + PPQ / 4).map((d) => d.type)).toEqual(["w", "16"]);
   });
 });
+
+describe("dominantes secundárias", () => {
+  const chord = (...ps: string[]) => identifyChord(ps.map(P))!;
+  const C = parseKey("C");
+  it("reconhece V/V, V⁷/IV, V⁶₅/ii e vii°7/V", () => {
+    expect(romanNumeral(chord("D3", "F#3", "A3", "D4"), C)).toBe("V/V");
+    expect(romanNumeral(chord("C3", "E3", "G3", "Bb3"), C)).toBe("V7/IV");
+    expect(romanNumeral(chord("C#3", "E3", "G3", "A3"), C)).toBe("V⁶₅/ii");
+    expect(romanNumeral(chord("F#3", "A3", "C4", "Eb4"), C)).toBe("vii°7/V");
+  });
+  it("acordes diatônicos continuam com o numeral comum", () => {
+    expect(romanNumeral(chord("G2", "B3", "D4", "F4"), C)).toBe("V7");
+    expect(romanNumeral(chord("F3", "A3", "C4"), C)).toBe("IV");
+    expect(romanNumeral(chord("E3", "G#3", "B3"), parseKey("Am"))).toBe("V");
+  });
+  it("não tonicaliza a tônica nem acordes diminutos", () => {
+    // B major em Dó: alvo seria E (iii) → V/iii
+    expect(romanNumeral(chord("B2", "D#3", "F#3"), C)).toBe("V/iii");
+    // E major em Lá menor é V diatônico (sensível da harmônica), não V/…
+    expect(romanNumeral(chord("E3", "G#3", "B3", "D4"), parseKey("Am"))).toBe("V7");
+  });
+});

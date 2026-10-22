@@ -2,12 +2,14 @@
 
 Plataforma web de formação em arranjo vocal **SATB** e **TTBB**: currículo progressivo com critério de domínio, notação musical real, reprodução por voz e um motor determinístico de validação de condução de vozes. Produto independente (repositório e futuro projeto Supabase próprios).
 
-> **Situação:** etapas 1–3 e 7 concluídas. Projeto Supabase exclusivo `academia-arranjo-vocal` criado, com migrations, catálogo e RLS aplicados (ver `docs/supabase.md`). Sem as variáveis de ambiente, o app funciona em modo local (navegador). Plano completo em `docs/arquitetura.md`.
+> **Situação:** etapas 1–7 concluídas. Projeto Supabase exclusivo `academia-arranjo-vocal` criado, com migrations, catálogo e RLS aplicados (ver `docs/supabase.md`). Sem as variáveis de ambiente, o app funciona em modo local (navegador). Plano completo em `docs/arquitetura.md`.
 
 ## O que já funciona
 - **Painel**, **Currículo** (5 níveis, 8 unidades, 22 lições; 3 publicadas com conteúdo completo) e **Competências** (desempenho por habilidade, histórico com semente reprodutível).
 - **Lições completas:** *Vozes, claves e extensões (SATB/TTBB)*, *Intervalos*, *Tríades e inversões* — objetivos mensuráveis, explicações, exemplos corretos e incorretos validados pelo motor, escuta guiada por voz, exercícios gerados com respostas comentadas, critério de domínio com itens essenciais, aplicação no Estúdio. Lições seguintes só liberam exercícios após domínio dos pré-requisitos; novas tentativas são ilimitadas.
-- **Estúdio experimental:** notação VexFlow gerada do modelo (duas vozes por pauta, clave de sol oitavada para tenores), seleção por clique ou teclado, edição de altura (grau, semitom, oitava, letra), duração/ponto, nota↔pausa, ligaduras, letra, andamento, desfazer/refazer, zoom, novo arranjo SATB/TTBB, rascunhos locais, exportação/importação JSON validada, cifragem romana, diagnósticos ao vivo por estilo, reprodução completa / por voz / pares com cursor.
+- **Estúdio:** notação VexFlow gerada do modelo (duas vozes por pauta, clave de sol oitavada para tenores); edição de altura, ritmo, pausas, ligaduras, letra, articulações e dinâmicas; dividir/juntar/mover eventos; seleção de trecho com copiar/colar; tonalidade (transpor ou só armadura), compasso e número de compassos editáveis; desfazer/refazer, zoom, rascunhos e versões na conta; cifragem romana com dominantes secundárias; diagnósticos ao vivo por estilo.
+- **Reprodução:** conjunto, voz isolada, pares ou qualquer combinação; tocar/pausar/parar/reiniciar/tocar da seleção; cursor sincronizado; metrônomo, contagem, trecho em loop; dinâmicas, acentos, staccato e fermatas interpretados; timbres neutro e de vogal.
+- **Motor de validação v0.2.0:** 28 regras determinísticas, incluindo redução harmônica e classificação de notas estranhas (ver `docs/motor-de-validacao.md`).
 - **Laboratório auditivo:** intervalos e acordes de ouvido (prática livre).
 - **Conta (quando o Supabase está configurado):** cadastro/entrada por e-mail e senha, tentativas registradas e **recorrigidas no servidor**, domínio por lição, arranjos com histórico de versões e relatório do motor, RLS em todas as tabelas.
 

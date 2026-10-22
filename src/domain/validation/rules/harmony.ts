@@ -35,7 +35,7 @@ export const leadingToneDoublingRule: Rule = {
   check(ctx, emit) {
     const key = ctx.score.key;
     for (const s of ctx.sonorities) {
-      if (!s.chord || !isDominantFunction(s.chord, key)) continue;
+      if (!s.harmony || !isDominantFunction(s.harmony, key)) continue;
       const voices = ctx.voices.filter((v) => {
         const p = s.pitches.get(v);
         return p ? isLeadingTone(p, key) : false;
@@ -49,12 +49,12 @@ export const leadingToneDoublingRule: Rule = {
         beat: s.sonority.beat,
         voices,
         events: voices.map((v) => s.events.get(v)),
-        message: `A sensível (${formatPitchClassPt(s.pitches.get(voices[0] as VoiceId) as Pitch)}) está dobrada em ${voices.map((v) => ctx.voiceName(v)).join(" e ")} no acorde ${romanNumeral(s.chord, key)}.`,
+        message: `A sensível (${formatPitchClassPt(s.pitches.get(voices[0] as VoiceId) as Pitch)}) está dobrada em ${voices.map((v) => ctx.voiceName(v)).join(" e ")} no acorde ${romanNumeral(s.harmony, key)}.`,
         explanation:
           "A sensível tem tendência forte a subir para a tônica. Dobrada, ou as duas vozes resolvem juntas (oitavas paralelas), ou uma delas contraria a tendência. Além disso, a nota fica com peso excessivo no acorde.",
         suggestions: ["Dobre a fundamental do acorde de dominante em vez da sensível.", "Em V⁶, dobre a quinta ou a fundamental, nunca o baixo (que é a sensível)."],
         exceptions: "Em sequências harmônicas (progressões por quintas) a sensível pode aparecer dobrada de passagem, sem função cadencial.",
-        evidence: { chord: romanNumeral(s.chord, key), count: voices.length },
+        evidence: { chord: romanNumeral(s.harmony, key), count: voices.length },
       });
     }
   },
@@ -73,7 +73,7 @@ export const leadingToneResolutionRule: Rule = {
     const top = ctx.voices[0];
     const bass = ctx.voices[ctx.voices.length - 1];
     for (const s of ctx.sonorities) {
-      if (!s.chord || !isDominantFunction(s.chord, key)) continue;
+      if (!s.harmony || !isDominantFunction(s.harmony, key)) continue;
       for (const v of ctx.voices) {
         const p = s.pitches.get(v);
         const te = s.events.get(v);
@@ -82,8 +82,8 @@ export const leadingToneResolutionRule: Rule = {
         const last = [...ctx.sonorities].reverse().find((x) => x.events.get(v) === te);
         if (last !== s) continue;
         const nx = nextNote(ctx, v, te);
-        if (!nx || !nx.sonority.chord) continue;
-        const target = scaleDegree(nx.sonority.chord.root, key).degree;
+        if (!nx || !nx.sonority.harmony) continue;
+        const target = scaleDegree(nx.sonority.harmony.root, key).degree;
         if (target !== 1 && target !== 6) continue;
         if (nx.te.event.kind !== "note") continue;
         const to = nx.te.event.pitch;
@@ -123,23 +123,24 @@ export const seventhResolutionRule: Rule = {
   check(ctx, emit) {
     const key = ctx.score.key;
     for (const s of ctx.sonorities) {
-      if (!s.chord || !s.chord.isSeventh) continue;
+      const chord = s.harmony;
+      if (!chord || !chord.isSeventh) continue;
       for (const v of ctx.voices) {
         const p = s.pitches.get(v);
         const te = s.events.get(v);
-        if (!p || !te || memberOf(p, s.chord.root) !== "seventh") continue;
+        if (!p || !te || memberOf(p, chord.root) !== "seventh") continue;
         const last = [...ctx.sonorities].reverse().find((x) => x.events.get(v) === te);
         if (last !== s) continue;
         const nx = nextNote(ctx, v, te);
         if (!nx || nx.te.event.kind !== "note") continue;
-        const nextChord = nx.sonority.chord;
-        if (nextChord && samePitchClass(nextChord.root, s.chord.root) && nextChord.quality === s.chord.quality) continue;
+        const nextChord = nx.sonority.harmony;
+        if (nextChord && samePitchClass(nextChord.root, chord.root) && nextChord.quality === chord.quality) continue;
         const to = nx.te.event.pitch;
         const mv = intervalBetween(p, to);
         if (mv.direction === -1 && mv.number === 2) continue;
         const v43toI6 =
-          s.chord.quality === "dominant7" &&
-          s.chord.inversion === 2 &&
+          chord.quality === "dominant7" &&
+          chord.inversion === 2 &&
           !!nextChord &&
           scaleDegree(nextChord.root, key).degree === 1 &&
           nextChord.inversion === 1 &&
@@ -151,7 +152,7 @@ export const seventhResolutionRule: Rule = {
           beat: nx.te.beat,
           voices: [v],
           events: [te, nx.te],
-          message: `${ctx.voiceName(v)}: a sétima ${formatPitch(p)} de ${romanNumeral(s.chord, key)} vai para ${formatPitch(to)} em vez de descer por grau conjunto.`,
+          message: `${ctx.voiceName(v)}: a sétima ${formatPitch(p)} de ${romanNumeral(chord, key)} vai para ${formatPitch(to)} em vez de descer por grau conjunto.`,
           explanation:
             "A sétima é uma dissonância: na prática comum ela é preparada (ou atacada por grau) e resolve descendo um grau. Sem essa resolução a tensão fica 'pendurada'.",
           suggestions: ["Faça a sétima descer um grau no acorde seguinte."],
@@ -176,7 +177,7 @@ export const nonTertianStrongBeatRule: Rule = {
   },
   check(ctx, emit) {
     for (const s of ctx.sonorities) {
-      if (!s.complete || s.chord) continue;
+      if (!s.complete || s.harmony) continue;
       if (!isStrongBeat(s.sonority.onset, ctx.score.timeSignature)) continue;
       const pcs = new Set([...s.pitches.values()].filter((p): p is Pitch => !!p).map((p) => pitchClassNumber(p)));
       if (pcs.size < 3) continue;
