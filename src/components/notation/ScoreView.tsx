@@ -70,7 +70,13 @@ export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, fla
     };
   }, [score, width, zoom, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices]);
 
-  const cursor = playhead == null ? null : [...onsets].reverse().find((o) => o.onset <= playhead) ?? onsets[0];
+  const cursor = playhead == null ? null : ([...onsets].reverse().find((o) => o.onset <= playhead) ?? onsets[0]);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const cursorTop = cursor?.top;
+  // Ao mudar de sistema (linha), rola apenas o necessário para manter o cursor visível.
+  useEffect(() => {
+    if (cursorTop != null) cursorRef.current?.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "smooth" });
+  }, [cursorTop]);
 
   return (
     <div className="score-surface" aria-label={label ?? `Partitura: ${score.title}`}>
@@ -90,7 +96,7 @@ export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, fla
         }}
       />
       {cursor && (
-        <div className="play-cursor" aria-hidden="true" style={{ left: cursor.x, top: cursor.top, height: cursor.bottom - cursor.top }} />
+        <div ref={cursorRef} className="play-cursor" aria-hidden="true" style={{ left: cursor.x, top: cursor.top, height: cursor.bottom - cursor.top }} />
       )}
     </div>
   );

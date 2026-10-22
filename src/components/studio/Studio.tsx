@@ -425,7 +425,7 @@ export function Studio() {
 
       <div className={styles.layout}>
         <div className={styles.main}>
-          <VoicePlayer score={score} voices={voices} onVoicesChange={setVoices} onPosition={setPlayhead} presets={[formation.voices.map((v) => v.id), [formation.voices[0]!.id, formation.voices[3]!.id]]} />
+          <VoicePlayer score={score} voices={voices} onVoicesChange={setVoices} onPosition={setPlayhead} startTick={selTimed?.onset ?? null} presets={[formation.voices.map((v) => v.id), [formation.voices[0]!.id, formation.voices[3]!.id]]} />
           <div className="row" style={{ margin: "10px 0 6px" }}>
             <label className={styles.inline}>
               <input type="checkbox" checked={showHarmony} onChange={(e) => setShowHarmony(e.target.checked)} /> Mostrar cifragem harmônica
