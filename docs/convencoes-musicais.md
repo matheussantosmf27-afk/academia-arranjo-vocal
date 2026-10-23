@@ -25,3 +25,8 @@ Extensões e tessituras: `src/domain/music/formations.ts` (padrões didáticos c
 
 ## Notação textual (exemplos e testes)
 `"C4:q D4:q E4:h | F4:q~ F4:q r:h"` — `altura:figura[.][~]["sílaba]`; `r` = pausa; `|` é verificado (soma do compasso).
+
+## Intercâmbio de arquivos
+- **MusicXML:** `<pitch>` é a altura **sonora**; tenores (TTBB e T1/T2) usam clave de sol com `<clef-octave-change>-1</clef-octave-change>`. `divisions` = 480 (o PPQ do modelo). Figuras que cruzam a barra são divididas com ligadura antes de exportar. Letra usa `<syllabic>` (`begin`/`middle`/`end`/`single`) a partir do hífen final da sílaba.
+- **Importação MusicXML:** cada par (parte, pauta, `<voice>`) é uma linha; exigem-se exatamente 4 linhas com notas, ordenadas da mais aguda para a mais grave. A formação vem dos nomes das partes ou, sem pistas, da altura média (voz superior abaixo de Sol4 ⇒ TTBB).
+- **MIDI:** uma faixa por voz em altura sonora; notas ligadas viram uma nota longa; dinâmicas viram *velocity*. A armadura é gravada diretamente (o `@tonejs/midi` 2.0.28 grava o índice errado). Na importação, a grafia segue a armadura do arquivo (`spellInKey`).

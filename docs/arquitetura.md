@@ -4,8 +4,8 @@
 
 1. **O modelo musical é a fonte única de verdade.** Notação, áudio, validação, exercícios e persistência leem o mesmo `Score` tipado. Nada é desenhado "à mão".
 2. **Domínio puro e testável.** `src/domain` não importa React, DOM nem bibliotecas de UI. Tudo ali roda em Node e é coberto por testes unitários.
-3. **Validação determinística antes de IA.** O tutor (etapa 9) só poderá explicar diagnósticos que o motor produziu, citando as evidências registradas.
-4. **Honestidade de interface.** Funcionalidades futuras aparecem desabilitadas e rotuladas com a etapa em que chegam.
+3. **Validação determinística antes de IA.** O tutor só pode explicar diagnósticos que o motor produziu, citando as evidências registradas.
+4. **Honestidade de interface.** Funcionalidades indisponíveis (ex.: tutor sem chave de API, conta sem Supabase) aparecem desabilitadas e explicam o motivo.
 
 ## Estrutura de pastas
 
@@ -17,15 +17,21 @@ src/
                     acidentes de exibição, notação textual, exemplos
     validation/     motor de regras determinísticas (contexto, regras, relatório, análise harmônica)
     exercises/      geradores determinísticos (semente), correção e critério de domínio
+    evaluation/     rubrica de projetos (9 critérios) e comparação de versões
+    io/             MusicXML e MIDI (exportação e importação)
+    tutor/          contrato do tutor de IA: esquema, prompt e verificação de citações
   content/curriculum/  níveis, unidades, lições (conteúdo pedagógico tipado)
   lib/
     notation/       adaptador VexFlow (layout independente + renderização SVG)
     audio/          agendamento (puro) + síntese Web Audio
     progress/       modelo de progresso (puro) + repositório local
     projects/       rascunhos locais validados pelo esquema
+    export/         PDF (VexFlow em canvas + jsPDF) e download
+    tutor/          chamada à Claude API (somente servidor)
+    supabase/       clientes SSR/navegador
   components/       interface (painel, currículo, lição, exercícios, estúdio, laboratório…)
   app/              rotas Next.js (App Router)
-supabase/migrations/  SQL versionado (não aplicado)
+supabase/migrations/  SQL versionado (aplicado no projeto exclusivo)
 e2e/                  testes de interface (Playwright)
 docs/                 decisões e convenções
 ```
@@ -73,8 +79,8 @@ Ver `supabase/migrations/20261022170550_esquema_inicial.sql`:
 | 3 | Versão executável: painel, currículo, 3 lições completas, estúdio experimental, testes | ✅ |
 | 4 | Editor completo: inserir/mover eventos, dividir/juntar, seleção de trecho, copiar/colar, dinâmicas/articulações, compasso, tonalidade e tamanho editáveis | ✅ (quiálteras e múltiplas vozes por naipe ainda não) |
 | 5 | Reprodução: cursor sincronizado, metrônomo, contagem, loop de trecho, tocar da seleção, interpretação de dinâmicas/articulações/fermatas, timbres de vogal | ✅ (amostras vocais reais/soundfont: avaliar depois) |
-| 6 | Motor de validação: redução harmônica, notas estranhas, paralelas estruturais, progressão, ⁶₄, duplicação, respiração, dominantes secundárias | ✅ v0.2.0, 28 regras (prosódia depende de marcação de sílabas) |
+| 6 | Motor de validação: redução harmônica, notas estranhas, paralelas estruturais, progressão, ⁶₄, duplicação, respiração, dominantes secundárias | ✅ v0.3.0, 28 regras (prosódia depende de marcação de sílabas) |
 | 7 | Supabase exclusivo: Auth, migrations, RLS, repositórios no servidor, testes de integração | ✅ projeto exclusivo criado, migrations e catálogo aplicados, advisors limpos — ver `docs/supabase.md` |
-| 8 | Lições restantes, exercícios de condução, projetos com rubrica | estrutura pronta |
-| 9 | MusicXML e MIDI (import/export), PDF, tutor de IA baseado em diagnósticos | pendente |
-| 10 | Revisão de segurança, acessibilidade, responsividade, documentação, implantação | pendente |
+| 8 | Lições restantes, exercícios de condução, projetos com rubrica | ✅ 22 lições, 11 tipos de exercício, 3 projetos práticos com rubrica de 9 critérios e comparação de versões |
+| 9 | MusicXML e MIDI (import/export), PDF, tutor de IA baseado em diagnósticos | ✅ `src/domain/io`, `src/lib/export/pdf.ts`, `src/domain/tutor` (ver README) |
+| 10 | Revisão de segurança, acessibilidade, responsividade, documentação, CI | ✅ CSP e cabeçalhos, axe WCAG 2.1 AA, E2E em viewport móvel, `.github/workflows/ci.yml`. Implantação (hospedagem) depende de decisão do responsável |

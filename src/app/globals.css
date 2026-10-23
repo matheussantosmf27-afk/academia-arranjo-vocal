@@ -142,12 +142,13 @@ small, .muted { color: var(--ink-3); }
   white-space: nowrap;
 }
 .chip-satb { background: var(--accent-soft); color: var(--accent-ink); }
-.chip-ttbb { background: var(--ttbb-soft); color: var(--ttbb); }
-.chip-ok { background: var(--ok-soft); color: var(--ok); }
-.chip-lock { background: var(--paper-2); color: var(--ink-3); }
-.chip-erro { background: var(--erro-soft); color: var(--erro); }
-.chip-alerta { background: var(--alerta-soft); color: var(--alerta); }
-.chip-sugestao { background: var(--sugestao-soft); color: var(--sugestao); }
+/* tons mais escuros para texto pequeno sobre fundo suave (contraste ≥ 4,5:1) */
+.chip-ttbb { background: var(--ttbb-soft); color: #145a55; }
+.chip-ok { background: var(--ok-soft); color: #1f5f3a; }
+.chip-lock { background: var(--paper-2); color: var(--ink-2); }
+.chip-erro { background: var(--erro-soft); color: #962a1f; }
+.chip-alerta { background: var(--alerta-soft); color: #7f4a00; }
+.chip-sugestao { background: var(--sugestao-soft); color: #22558a; }
 .chip-info { background: var(--info-soft); color: var(--info); }
 
 /* ---------- Cartões e layout ---------- */
