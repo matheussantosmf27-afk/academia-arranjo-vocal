@@ -1,0 +1,4 @@
+-- Privilégios padrão que o Supabase concede ao schema public (necessários para que o RLS seja o controle efetivo).
+grant usage on schema public to anon, authenticated, service_role;
+grant all on all tables in schema public to anon, authenticated, service_role;
+grant all on all functions in schema public to anon, authenticated, service_role;
