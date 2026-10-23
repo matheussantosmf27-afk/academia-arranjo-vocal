@@ -33,6 +33,8 @@ export interface RenderOptions {
   readonly showLyrics?: boolean;
   /** Vozes silenciadas na reprodução aparecem esmaecidas. */
   readonly dimmedVoices?: ReadonlySet<string>;
+  /** "canvas" exige que o container seja um <canvas> (usado na exportação PDF). */
+  readonly backend?: "svg" | "canvas";
 }
 
 export interface OnsetPosition {
@@ -47,6 +49,8 @@ export interface OnsetPosition {
 export interface RenderResult {
   readonly height: number;
   readonly onsets: readonly OnsetPosition[];
+  /** Geometria dos sistemas (em pixels já com zoom) — usada para paginar o PDF. */
+  readonly systems: readonly { readonly top: number; readonly height: number }[];
 }
 
 const COLORS = {
@@ -70,7 +74,7 @@ function estimateMeasureWidth(measureEvents: number): number {
 
 export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score, opts: RenderOptions): RenderResult {
   const { Renderer, Stave, StaveNote, Voice, Formatter, Accidental, StaveConnector, StaveTie, Dot, Annotation, Beam, Barline, Articulation, Modifier } = VF;
-  container.innerHTML = "";
+  if (opts.backend !== "canvas") container.innerHTML = "";
   const formation = getFormation(score.formation);
   const measures = prepareNotation(score);
   const zoom = opts.zoom;
@@ -98,7 +102,10 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
 
   const systemHeight = STAFF_GAP + 80 + SYSTEM_GAP;
   const totalHeight = 30 + systems.length * systemHeight;
-  const renderer = new Renderer(container as HTMLDivElement, Renderer.Backends.SVG);
+  const renderer =
+    opts.backend === "canvas"
+      ? new Renderer(container as HTMLCanvasElement, Renderer.Backends.CANVAS)
+      : new Renderer(container as HTMLDivElement, Renderer.Backends.SVG);
   renderer.resize(logicalWidth * zoom, totalHeight * zoom);
   const ctx = renderer.getContext();
   ctx.scale(zoom, zoom);
@@ -265,7 +272,11 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
   }
 
   onsets.sort((a, b) => a.onset - b.onset);
-  return { height: totalHeight * zoom, onsets };
+  return {
+    height: totalHeight * zoom,
+    onsets,
+    systems: systems.map((_, si) => ({ top: (5 + si * systemHeight) * zoom, height: systemHeight * zoom })),
+  };
 }
 
 export interface StaffSnippetOptions {

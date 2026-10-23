@@ -38,11 +38,13 @@ import {
   swapWithNext,
 } from "@/domain/music/timeline-ops";
 import { type Diagnostic, STYLE_PROFILES, analyzeHarmony, validateScore } from "@/domain/validation";
+import { downloadBlob, fileSlug } from "@/lib/export/download";
 import { loadArrangement, saveArrangementVersion } from "@/app/actions/arrangements";
 import { useAuth } from "@/lib/auth/useAuth";
 import { loadDraft, saveDraft } from "@/lib/projects/store";
 import { getProject } from "@/content/projects";
 import { ProjectPanel } from "./ProjectPanel";
+import { TutorPanel } from "./TutorPanel";
 import { DiagnosticList } from "../diagnostics/DiagnosticList";
 import { ScoreView } from "../notation/ScoreView";
 import { VoicePlayer } from "../audio/VoicePlayer";
@@ -279,24 +281,60 @@ export function Studio() {
     if (first) select(first);
   };
 
-  const exportJson = () => {
-    const blob = new Blob([JSON.stringify(score, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `${score.title.replace(/[^\p{L}\p{N}]+/gu, "-").toLowerCase() || "arranjo"}.aav.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-    setStatus("Arquivo JSON exportado.");
+  const [exporting, setExporting] = useState(false);
+
+  const exportAs = async (format: "json" | "musicxml" | "midi" | "pdf") => {
+    const base = fileSlug(score.title);
+    const current = { ...score, metadata: { ...score.metadata, style } };
+    setExporting(true);
+    try {
+      if (format === "json") {
+        downloadBlob(new Blob([JSON.stringify(current, null, 2)], { type: "application/json" }), `${base}.aav.json`);
+      } else if (format === "musicxml") {
+        const { exportMusicXml } = await import("@/domain/io/musicxml");
+        downloadBlob(new Blob([exportMusicXml(current)], { type: "application/vnd.recordare.musicxml+xml" }), `${base}.musicxml`);
+      } else if (format === "midi") {
+        const { exportMidi } = await import("@/domain/io/midi");
+        const bytes = exportMidi(current);
+        downloadBlob(new Blob([bytes.buffer as ArrayBuffer], { type: "audio/midi" }), `${base}.mid`);
+      } else {
+        const { exportScorePdf } = await import("@/lib/export/pdf");
+        downloadBlob(await exportScorePdf(current, { includeHarmony: showHarmony }), `${base}.pdf`);
+      }
+      setStatus(`Arquivo ${format === "musicxml" ? "MusicXML" : format.toUpperCase()} exportado.`);
+    } catch (err) {
+      setStatus(`Falha ao exportar: ${err instanceof Error ? err.message : "erro desconhecido"}`);
+    } finally {
+      setExporting(false);
+    }
   };
 
-  const importJson = async (file: File) => {
+  const importFile = async (file: File) => {
+    const name = file.name.toLowerCase();
     try {
-      const parsed = parseScore(JSON.parse(await file.text()));
-      if (parsed.ok) load(parsed.score, `Arquivo "${file.name}" importado.`);
-      else setStatus(`Arquivo inválido: ${parsed.errors.slice(0, 3).join("; ")}`);
+      if (file.size > 5 * 1024 * 1024) {
+        setStatus("Arquivo muito grande (limite: 5 MB).");
+        return;
+      }
+      if (name.endsWith(".json")) {
+        const parsed = parseScore(JSON.parse(await file.text()));
+        if (parsed.ok) load(parsed.score, `Arquivo "${file.name}" importado.`);
+        else setStatus(`Arquivo inválido: ${parsed.errors.slice(0, 3).join("; ")}`);
+        return;
+      }
+      if (name.endsWith(".mxl")) {
+        setStatus("MusicXML comprimido (.mxl) não é suportado: exporte como MusicXML não comprimido (.musicxml ou .xml).");
+        return;
+      }
+      const result = name.endsWith(".mid") || name.endsWith(".midi")
+        ? (await import("@/domain/io/midi")).importMidi(new Uint8Array(await file.arrayBuffer()), { title: file.name.replace(/\.(mid|midi)$/i, "") })
+        : (await import("@/domain/io/musicxml")).importMusicXml(await file.text());
+      if (result.ok && result.score) {
+        setStyle(result.score.metadata.style);
+        load(result.score, `"${file.name}" importado (${result.score.formation}, ${result.score.measureCount} compassos).${result.warnings.length ? ` Avisos: ${result.warnings.slice(0, 3).join(" ")}` : ""}`);
+      } else setStatus(`Não foi possível importar "${file.name}": ${result.errors.slice(0, 3).join(" ")}`);
     } catch {
-      setStatus("Não foi possível ler o arquivo (JSON inválido).");
+      setStatus(`Não foi possível ler "${file.name}".`);
     }
   };
 
@@ -369,16 +407,39 @@ export function Studio() {
         <button type="button" className={`btn btn-sm ${user ? "" : "btn-primary"}`} onClick={save}>
           Salvar rascunho local
         </button>
-        <button type="button" className="btn btn-sm" onClick={exportJson}>
-          Exportar JSON
-        </button>
+        <label className={styles.field}>
+          <span>Exportar</span>
+          <select
+            value=""
+            disabled={exporting}
+            aria-label="Exportar partitura"
+            onChange={(e) => {
+              const f = e.target.value as "json" | "musicxml" | "midi" | "pdf" | "";
+              if (f) void exportAs(f);
+            }}
+          >
+            <option value="">{exporting ? "Gerando…" : "Formato…"}</option>
+            <option value="pdf">PDF (partitura)</option>
+            <option value="musicxml">MusicXML</option>
+            <option value="midi">MIDI</option>
+            <option value="json">JSON (Academia)</option>
+          </select>
+        </label>
         <button type="button" className="btn btn-sm" onClick={() => fileRef.current?.click()}>
-          Importar JSON
+          Importar (MusicXML, MIDI, JSON)
         </button>
-        <input ref={fileRef} type="file" accept=".json,application/json" hidden onChange={(e) => e.target.files?.[0] && void importJson(e.target.files[0])} />
-        <button type="button" className="btn btn-sm" disabled title="MusicXML, MIDI e PDF serão implementados na etapa 9">
-          MusicXML / MIDI / PDF (etapa 9)
-        </button>
+        <input
+          ref={fileRef}
+          type="file"
+          accept=".json,.musicxml,.xml,.mxl,.mid,.midi,application/json,application/vnd.recordare.musicxml+xml,audio/midi"
+          hidden
+          data-testid="importar-arquivo"
+          onChange={(e) => {
+            const f = e.target.files?.[0];
+            e.target.value = "";
+            if (f) void importFile(f);
+          }}
+        />
       </div>
 
       {showNew && (
@@ -618,6 +679,8 @@ export function Studio() {
               <p className="muted">Nenhum evento selecionado.</p>
             )}
           </section>
+
+          <TutorPanel score={score} style={style} diagnostics={report.diagnostics} onFocus={focusDiagnostic} />
 
           <section className={styles.panel} aria-labelledby="diag">
             <div className="row">

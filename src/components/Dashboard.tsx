@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { COMPETENCIES, LESSONS, LEVELS, getLesson } from "@/content/curriculum/curriculum";
-import { lessonStatus, itemsToReview } from "@/lib/progress/model";
+import { recommendLessons } from "@/domain/tutor/recommend";
+import { lessonStatus, itemsToReview, skillSummary } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/useProgress";
 import styles from "./Dashboard.module.css";
 
@@ -14,6 +15,7 @@ export function Dashboard() {
     ? available.find((l) => ["disponivel", "em-andamento"].includes(lessonStatus(state, l)))
     : available[0];
   const review = hydrated ? itemsToReview(state) : [];
+  const recommendations = hydrated ? recommendLessons(skillSummary(state)) : [];
   const recent = hydrated ? [...state.attempts].sort((a, b) => b.finishedAt.localeCompare(a.finishedAt)).slice(0, 5) : [];
 
   return (
@@ -72,6 +74,29 @@ export function Dashboard() {
               ).map(([lessonId, n]) => (
                 <li key={lessonId}>
                   <Link href={`/licoes/${lessonId}#exercicios`}>{getLesson(lessonId)?.title}</Link> — {n} item(ns) a revisar
+                </li>
+              ))}
+            </ul>
+          )}
+        </section>
+
+        <section className="card" aria-labelledby="dash-recomendacoes">
+          <h2 id="dash-recomendacoes" className={styles.cardTitle}>
+            Recomendações de estudo
+          </h2>
+          {recommendations.length === 0 ? (
+            <p className="muted">Sem habilidades abaixo de 70% nas suas tentativas. Continue no currículo.</p>
+          ) : (
+            <ul className={styles.list}>
+              {recommendations.map((r) => (
+                <li key={r.skill}>
+                  {r.skill} ({Math.round(r.rate * 100)}%):{" "}
+                  {r.lessonIds.map((id, i) => (
+                    <span key={id}>
+                      {i > 0 && ", "}
+                      <Link href={`/licoes/${id}`}>{getLesson(id)?.title}</Link>
+                    </span>
+                  ))}
                 </li>
               ))}
             </ul>

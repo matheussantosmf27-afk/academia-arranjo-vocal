@@ -15,8 +15,13 @@
     "db:catalog": "tsx --tsconfig tsconfig.json scripts/generate-catalog-seed.ts"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^1.1.0",
     "@supabase/ssr": "^0.12.7",
     "@supabase/supabase-js": "^2.118.0",
+    "@tonejs/midi": "^2.0.28",
+    "@xmldom/xmldom": "^0.9.12",
+    "jspdf": "^4.2.1",
+    "midi-file": "1.2.4",
     "next": "16.4.2",
     "react": "19.3.0",
     "react-dom": "19.3.0",

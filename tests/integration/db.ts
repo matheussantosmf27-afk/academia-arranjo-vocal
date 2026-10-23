@@ -26,6 +26,7 @@ export async function createTestDatabase(): Promise<{ client: Client; drop: () =
     "supabase/migrations/20261022170558_indices_fk.sql",
     "supabase/tests/grants.sql", // no Supabase estes privilégios já existem quando as funções são criadas
     "supabase/migrations/20261022170818_revoga_rpc_handle_new_user.sql",
+    "supabase/migrations/20261023124616_tutor_interactions.sql",
     "supabase/seed/catalog.sql",
   ]) {
     await client.query(file(f));
