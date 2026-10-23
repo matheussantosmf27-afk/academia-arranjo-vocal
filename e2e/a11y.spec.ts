@@ -5,6 +5,8 @@ const PAGES = [
   { path: "/", ready: "h1" },
   { path: "/curriculo", ready: "h1" },
   { path: "/licoes/intervalos", ready: "h1" },
+  { path: "/licoes/oficio-do-arranjador", ready: "h1" },
+  { path: "/disciplinas/s1-arv", ready: "h1" },
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },

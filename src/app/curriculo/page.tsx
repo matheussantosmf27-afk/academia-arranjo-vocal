@@ -1,17 +1,21 @@
 import type { Metadata } from "next";
 import { CurriculumView } from "@/components/CurriculumView";
+import { LESSONS, LEVELS } from "@/content/curriculum/curriculum";
 
-export const metadata: Metadata = { title: "Currículo" };
+export const metadata: Metadata = { title: "Grade curricular" };
 
 export default function CurriculumPage() {
+  const disciplines = LEVELS.reduce((n, l) => n + l.units.length, 0);
+  const hours = Math.round(LESSONS.reduce((m, l) => m + l.estimatedMinutes, 0) / 60);
   return (
     <div className="page">
       <header className="page-header">
-        <p className="eyebrow">Currículo</p>
-        <h1>Do intervalo ao arranjo completo</h1>
+        <p className="eyebrow">Grade curricular</p>
+        <h1>Curso de Arranjo Vocal</h1>
         <p>
-          Cinco níveis progressivos, com SATB e TTBB desde o início. Cada lição exige domínio demonstrado nos exercícios antes de liberar as seguintes — você pode
-          revisar e refazer tentativas sempre que quiser.
+          {LEVELS.length} semestres, {disciplines} disciplinas e {LESSONS.length} aulas (≈ {hours} horas de estudo, sem contar a prática). O curso parte de teoria
+          básica e vai até o arranjo completo em estilo coral, pop a cappella, gospel e música popular brasileira. Cada aula termina com uma verificação: o
+          domínio demonstrado libera as aulas seguintes. Você pode refazer as verificações quantas vezes quiser.
         </p>
       </header>
       <CurriculumView />

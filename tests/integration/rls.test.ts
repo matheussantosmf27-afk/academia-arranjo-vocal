@@ -2,6 +2,7 @@ import type { Client } from "pg";
 import { afterAll, beforeAll, describe, expect, it } from "vitest";
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { validateScore } from "@/domain/validation";
+import { LESSONS } from "@/content/curriculum/curriculum";
 import { ADMIN_URL, as, createTestDatabase } from "./db";
 
 const A = "00000000-0000-4000-8000-00000000000a";
@@ -31,7 +32,7 @@ describe.skipIf(!ADMIN_URL)("persistência e RLS (Postgres local com shim do Sup
 
   it("catálogo é público para leitura e protegido para escrita", async () => {
     const r = await as(client, null, (q) => q("select count(*)::int as n from lessons where status = 'disponivel'"));
-    expect(r.rows[0].n).toBe(3);
+    expect(r.rows[0].n).toBe(LESSONS.filter((l) => l.status === "disponivel").length);
     await expect(as(client, A, (q) => q("insert into levels (id, number, title) values ('x', 99, 'x')"))).rejects.toThrow(/row-level security/);
     const upd = await as(client, A, (q) => q("update lessons set title = 'hack'"));
     expect(upd.rowCount).toBe(0);

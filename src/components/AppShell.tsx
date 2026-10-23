@@ -8,17 +8,17 @@ import { AccountSync } from "./AccountSync";
 import styles from "./AppShell.module.css";
 
 const NAV: Array<{ href: string; label: string; icon: ReactNode }> = [
-  { href: "/", label: "Painel", icon: <path d="M3 13h7V3H3zm11 8h7V11h-7zM3 21h7v-6H3zm11-18v6h7V3z" /> },
-  { href: "/curriculo", label: "Currículo", icon: <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4zm4 4v2h8V8zm0 4v2h6v-2z" /> },
-  { href: "/estudio", label: "Estúdio", icon: <path d="M2 6h20M2 9h20M2 12h20M2 15h20M2 18h20M8 4v10" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
+  { href: "/", label: "Início", icon: <path d="M3 13h7V3H3zm11 8h7V11h-7zM3 21h7v-6H3zm11-18v6h7V3z" /> },
+  { href: "/curriculo", label: "Grade curricular", icon: <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4zm4 4v2h8V8zm0 4v2h6v-2z" /> },
   { href: "/laboratorio", label: "Laboratório auditivo", icon: <path d="M12 3a7 7 0 0 0-7 7v5a3 3 0 0 0 3 3h1v-7H7v-1a5 5 0 0 1 10 0v1h-2v7h1a3 3 0 0 0 3-3v-5a7 7 0 0 0-7-7z" /> },
-  { href: "/projetos", label: "Projetos", icon: <path d="M3 5h7l2 2h9v12H3z" /> },
+  { href: "/projetos", label: "Trabalhos práticos", icon: <path d="M3 5h7l2 2h9v12H3z" /> },
+  { href: "/estudio", label: "Laboratório de escrita", icon: <path d="M2 6h20M2 9h20M2 12h20M2 15h20M2 18h20M8 4v10" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
   { href: "/perfil", label: "Competências", icon: <path d="M12 2l2.9 6.3L22 9.2l-5.2 4.7L18.2 21 12 17.3 5.8 21l1.4-7.1L2 9.2l7.1-.9z" /> },
 ];
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href) || (href === "/curriculo" && pathname.startsWith("/licoes")));
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href) || (href === "/curriculo" && (pathname.startsWith("/licoes") || pathname.startsWith("/disciplinas"))));
   return (
     <div className={styles.shell}>
       <a className="skip-link" href="#conteudo">
@@ -38,7 +38,7 @@ export function AppShell({ children }: { children: ReactNode }) {
           </svg>
           <span className={styles.brandText}>
             Academia de Arranjo Vocal
-            <small>SATB · TTBB</small>
+            <small>Curso de arranjo vocal</small>
           </span>
         </Link>
         <nav className={styles.nav}>

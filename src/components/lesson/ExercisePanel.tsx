@@ -41,7 +41,7 @@ export function ExercisePanel({
         <h3>{spec.title}</h3>
         <p>{spec.instructions}</p>
         {locked ? (
-          <p className="notice">Os exercícios desta lição ficam disponíveis quando os pré-requisitos forem dominados.</p>
+          <p className="notice">Os exercícios desta aula ficam disponíveis quando as aulas pré-requisito forem concluídas.</p>
         ) : (
           <button type="button" className="btn btn-accent" onClick={start}>
             Iniciar {practice ? "prática" : "tentativa"}

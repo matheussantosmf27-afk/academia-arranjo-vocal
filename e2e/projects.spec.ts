@@ -2,7 +2,7 @@ import { expect, test } from "@playwright/test";
 
 test("projeto prático: justificar, avaliar por rubrica e comparar versões", async ({ page }) => {
   await page.goto("/projetos");
-  await page.getByRole("heading", { name: "Projetos práticos" }).waitFor();
+  await page.getByRole("heading", { name: "Trabalhos dos semestres" }).waitFor();
   await page.locator(".card", { hasText: "Hino a quatro vozes" }).getByRole("link", { name: "Abrir projeto" }).click();
   await expect(page.getByRole("heading", { name: "Hino a quatro vozes (SATB)" })).toBeVisible();
   await expect(page.getByText(/A melodia dada está no Soprano/)).toBeVisible();

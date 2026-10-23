@@ -12,7 +12,7 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  return { title: getLesson(id)?.title ?? "Lição" };
+  return { title: getLesson(id)?.title ?? "Aula" };
 }
 
 export default async function LessonPage({ params }: { params: Promise<{ id: string }> }) {
@@ -23,13 +23,24 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
   const unit = level?.units.find((u) => u.id === lesson.unitId);
   const index = LESSONS.findIndex((l) => l.id === lesson.id);
   const next = LESSONS.slice(index + 1).find((l) => l.status === "disponivel");
+  const position = unit ? unit.lessonIds.indexOf(lesson.id) + 1 : 0;
 
   return (
     <article className="page">
       <nav aria-label="Trilha" className="muted" style={{ fontSize: "0.88rem", marginBottom: 8 }}>
-        <Link href="/curriculo">Currículo</Link> › Nível {level?.number} — {level?.title} › {unit?.title}
+        <Link href="/curriculo">Grade curricular</Link> › {level?.number}º semestre ›{" "}
+        {unit && (
+          <Link href={`/disciplinas/${unit.id}`}>
+            {unit.code} {unit.title}
+          </Link>
+        )}
       </nav>
       <header className="page-header">
+        {unit && (
+          <p className="eyebrow">
+            {unit.code} · Aula {position} de {unit.lessonIds.length}
+          </p>
+        )}
         <h1>{lesson.title}</h1>
         <div className={styles.meta}>
           <LessonStatusBadge lesson={lesson} />
@@ -45,8 +56,8 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
 
       {lesson.status === "em-preparacao" ? (
         <div className="card">
-          <h2 style={{ marginTop: 0 }}>Lição em preparação</h2>
-          <p>A estrutura desta lição está definida no currículo; o conteúdo completo, os exemplos e os exercícios serão publicados numa próxima etapa.</p>
+          <h2 style={{ marginTop: 0 }}>Aula em preparação</h2>
+          <p>A estrutura desta aula está definida na grade; o conteúdo completo, os exemplos e os exercícios serão publicados numa próxima etapa.</p>
           {lesson.plannedTopics && (
             <>
               <h3>Tópicos previstos</h3>
@@ -76,7 +87,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
             <h2 id="objetivos" style={{ marginTop: 0 }}>
               Objetivos
             </h2>
-            <p className="muted">Ao final desta lição, você deverá ser capaz de:</p>
+            <p className="muted">Ao final desta aula, você deverá ser capaz de:</p>
             <ul className={styles.objectives}>
               {lesson.objectives.map((o) => (
                 <li key={o}>{o}</li>
@@ -105,7 +116,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
                 ))}
               </ol>
               <Link className="btn btn-primary" href="/estudio">
-                Abrir o Estúdio
+                Abrir o laboratório de escrita
               </Link>
             </section>
           )}
@@ -113,7 +124,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
       )}
       {next && (
         <p style={{ marginTop: 32 }}>
-          Próxima lição no currículo: <Link href={`/licoes/${next.id}`}>{next.title}</Link> (liberada após o domínio desta e dos demais pré-requisitos).
+          Próxima aula na grade: <Link href={`/licoes/${next.id}`}>{next.title}</Link> (liberada após a conclusão desta e dos demais pré-requisitos).
         </p>
       )}
     </article>
