@@ -36,9 +36,9 @@ describe("integridade do currículo", () => {
       expect(l.masteryDescription).toBeTruthy();
       expect(l.application?.steps.length).toBeGreaterThan(0);
       const blocks = l.sections.flatMap((s) => s.blocks);
-      expect(blocks.some((b) => b.type === "example" && b.verdict === "correto")).toBe(true);
-      expect(blocks.some((b) => b.type === "example" && b.verdict !== "correto")).toBe(true);
-      expect(blocks.some((b) => b.type === "listening")).toBe(true);
+      expect(blocks.some((b) => b.type === "example" && b.verdict === "correto"), `${l.id}: exemplo correto`).toBe(true);
+      expect(blocks.some((b) => b.type === "example" && b.verdict !== "correto"), `${l.id}: exemplo incorreto/observação`).toBe(true);
+      expect(blocks.some((b) => b.type === "listening"), `${l.id}: escuta`).toBe(true);
     }
   });
   it("o veredito de cada exemplo é coerente com o motor de validação", () => {

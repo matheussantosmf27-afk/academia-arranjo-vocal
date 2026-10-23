@@ -34,7 +34,15 @@ export type ExerciseItem = ChoiceItem;
 export type GeneratorSpec =
   | { readonly type: "interval-identification"; readonly count: number; readonly earOnly?: boolean; readonly maxNumber?: number }
   | { readonly type: "chord-identification"; readonly count: number }
-  | { readonly type: "range-check"; readonly count: number };
+  | { readonly type: "range-check"; readonly count: number }
+  | { readonly type: "key-signature"; readonly count: number }
+  | { readonly type: "scale-degree"; readonly count: number }
+  | { readonly type: "seventh-identification"; readonly count: number }
+  | { readonly type: "function-identification"; readonly count: number }
+  | { readonly type: "motion-type"; readonly count: number }
+  | { readonly type: "voice-leading-error"; readonly count: number; readonly ruleIds?: readonly string[] }
+  | { readonly type: "cadence-identification"; readonly count: number }
+  | { readonly type: "nct-identification"; readonly count: number };
 
 export interface ExerciseSetSpec {
   readonly id: string;

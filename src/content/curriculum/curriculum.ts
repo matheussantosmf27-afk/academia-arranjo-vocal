@@ -1,143 +1,48 @@
 import { lessonIntervalos } from "./lessons/intervalos";
+import { lessonCadencias, lessonEscalas, lessonFuncoes, lessonRitmo, lessonTetrades } from "./lessons/nivel1";
+import { lessonDuplicacoes, lessonEspacamento, lessonMovimentos, lessonNotasEstranhas, lessonParalelas, lessonSetimas } from "./lessons/nivel2";
+import {
+  lessonAcompanhamento,
+  lessonAnaliseMelodica,
+  lessonContraponto,
+  lessonEscritaTtbb,
+  lessonEstilo,
+  lessonHarmonizacao,
+  lessonModulacao,
+  lessonProsodia,
+} from "./lessons/nivel3a5";
 import { lessonTriades } from "./lessons/triades-inversoes";
 import { lessonVozes } from "./lessons/vozes-claves-extensoes";
 import type { CompetencyId, Lesson, Level } from "./types";
-
-/** Lições previstas (estrutura definida; conteúdo completo nas próximas etapas). */
-function planned(
-  id: string,
-  title: string,
-  levelId: string,
-  unitId: string,
-  prerequisites: string[],
-  competencies: CompetencyId[],
-  plannedTopics: string[],
-): Lesson {
-  return {
-    id,
-    title,
-    summary: plannedTopics.slice(0, 3).join(" · "),
-    levelId,
-    unitId,
-    status: "em-preparacao",
-    prerequisites,
-    estimatedMinutes: 60,
-    competencies,
-    objectives: [],
-    sections: [],
-    plannedTopics,
-  };
-}
 
 export const LESSONS: readonly Lesson[] = [
   // Nível 1 — Fundamentos para o arranjador
   lessonVozes,
   lessonIntervalos,
-  planned("escalas-tonalidades", "Escalas, tonalidades e armaduras", "n1", "n1-u1", ["intervalos"], ["leitura-vocal", "intervalos"], [
-    "Escalas maiores e as três formas da menor",
-    "Ciclo de quintas e armaduras",
-    "Tonalidades relativas e homônimas",
-    "Escolha de tonalidade conforme a extensão do coro (SATB × TTBB)",
-  ]),
-  planned("ritmo-metrica-texto", "Ritmo, métrica e acentuação do texto", "n1", "n1-u1", ["vozes-claves-extensoes"], ["leitura-vocal", "texto-e-prosodia"], [
-    "Compassos simples e compostos",
-    "Figuras, pausas, pontos e ligaduras",
-    "Sílaba tônica × tempo forte (prosódia em português)",
-    "Ditado rítmico",
-  ]),
+  lessonEscalas,
+  lessonRitmo,
   lessonTriades,
-  planned("tetrades", "Tétrades e acordes de sétima", "n1", "n1-u2", ["triades-inversoes"], ["acordes"], [
-    "V7, ii7, viiø7, vii°7 e IV7M",
-    "Inversões e cifras ⁶₅, ⁴₃, ⁴₂",
-    "Omissões em quatro vozes",
-    "Sétimas em TTBB e o acorde de barbershop",
-  ]),
-  planned("graus-funcoes", "Graus e funções harmônicas", "n1", "n1-u2", ["triades-inversoes"], ["harmonia-funcional"], [
-    "Tônica, subdominante e dominante",
-    "Acordes relativos e anti-relativos",
-    "Progressões típicas e ritmo harmônico",
-    "Reconhecimento auditivo de funções",
-  ]),
-  planned("cadencias", "Cadências", "n1", "n1-u2", ["graus-funcoes"], ["harmonia-funcional", "percepcao"], [
-    "Autêntica perfeita e imperfeita",
-    "Plagal, à dominante (semicadência) e de engano",
-    "I⁶₄ cadencial",
-    "Cadências e pontuação do texto",
-  ]),
+  lessonTetrades,
+  lessonFuncoes,
+  lessonCadencias,
   // Nível 2 — Condução de vozes
-  planned("movimentos", "Movimentos entre vozes", "n2", "n2-u1", ["cadencias"], ["conducao-de-vozes"], [
-    "Paralelo, semelhante, contrário e oblíquo",
-    "Independência melódica",
-    "Notas comuns e menor movimento",
-  ]),
-  planned("paralelas", "Quintas e oitavas paralelas, diretas e por contrário", "n2", "n2-u1", ["movimentos"], ["conducao-de-vozes"], [
-    "Por que a prática comum evita paralelismos",
-    "Exceções: quintas desiguais, diretas com soprano por grau",
-    "Paralelismo como recurso em estilos populares",
-  ]),
-  planned("espacamento-cruzamento", "Espaçamento, cruzamento e sobreposição", "n2", "n2-u1", ["movimentos"], ["conducao-de-vozes", "escrita-ttbb"], [
-    "Limites de espaçamento",
-    "Limites graves de intervalo",
-    "Cruzamentos intencionais em TTBB",
-  ]),
-  planned("duplicacoes", "Duplicações e omissões", "n2", "n2-u1", ["paralelas"], ["conducao-de-vozes", "acordes"], [
-    "Duplicação por inversão e função",
-    "Sensível e sétima",
-    "Acordes incompletos",
-  ]),
-  planned("notas-estranhas", "Notas estranhas ao acorde", "n2", "n2-u2", ["duplicacoes"], ["conducao-de-vozes", "contraponto"], [
-    "Passagem e bordadura",
-    "Apojatura, retardo e antecipação",
-    "Preparação e resolução de dissonâncias",
-  ]),
-  planned("setimas-resolucao", "Dissonância e resolução das sétimas", "n2", "n2-u2", ["notas-estranhas"], ["conducao-de-vozes"], [
-    "Resolução do V7 e do vii°7",
-    "Exceções (V⁴₃–I⁶)",
-    "Sétimas em cadeias",
-  ]),
+  lessonMovimentos,
+  lessonParalelas,
+  lessonEspacamento,
+  lessonDuplicacoes,
+  lessonNotasEstranhas,
+  lessonSetimas,
   // Nível 3 — Harmonização de melodias
-  planned("analise-melodica", "Análise melódica e frase", "n3", "n3-u1", ["setimas-resolucao"], ["harmonia-funcional", "texto-e-prosodia"], [
-    "Contorno, ponto culminante e notas estruturais",
-    "Frases, semifrases e cadências implícitas",
-    "Respiração e texto",
-  ]),
-  planned("harmonizacao-satb", "Harmonização de melodias em SATB", "n3", "n3-u1", ["analise-melodica"], ["escrita-satb", "harmonia-funcional"], [
-    "Escolha de acordes a partir da melodia",
-    "Escrita do baixo e das vozes internas",
-    "Revisão com o motor de validação",
-  ]),
-  planned("escrita-ttbb", "Escrita para TTBB", "n3", "n3-u2", ["harmonizacao-satb"], ["escrita-ttbb"], [
-    "Melodia no Tenor II",
-    "Fechamento, limites graves e falsete",
-    "Adaptação de SATB para TTBB",
-  ]),
+  lessonAnaliseMelodica,
+  lessonHarmonizacao,
+  lessonEscritaTtbb,
   // Nível 4 — Linhas, contraponto e texto
-  planned("contraponto-aplicado", "Contraponto aplicado ao coro", "n4", "n4-u1", ["escrita-ttbb"], ["contraponto"], [
-    "Espécies como treino de independência",
-    "Imitação e entradas",
-    "Linhas internas cantáveis",
-  ]),
-  planned("prosodia-respiracao", "Prosódia, fraseado e respiração", "n4", "n4-u1", ["contraponto-aplicado"], ["texto-e-prosodia"], [
-    "Acentos do português e métrica",
-    "Melismas e silabação",
-    "Pontos de respiração escalonada",
-  ]),
+  lessonContraponto,
+  lessonProsodia,
   // Nível 5 — Arranjo avançado
-  planned("acompanhamento-introducoes", "Acompanhamento, introduções e interlúdios", "n5", "n5-u1", ["prosodia-respiracao"], ["arranjo"], [
-    "Funções do acompanhamento",
-    "Introduções a partir de motivos",
-    "Interlúdios e transições",
-  ]),
-  planned("modulacao-reharmonizacao", "Modulação e reharmonização", "n5", "n5-u1", ["acompanhamento-introducoes"], ["arranjo", "harmonia-funcional"], [
-    "Modulação por acorde comum e cromática",
-    "Dominantes secundárias e empréstimos",
-    "Reharmonização com coerência de condução",
-  ]),
-  planned("analise-estilistica-revisao", "Análise estilística, revisão e preparação de partituras", "n5", "n5-u1", ["modulacao-reharmonizacao"], ["arranjo"], [
-    "Comparação de estilos (coral tradicional, contemporâneo, popular)",
-    "Revisão sistemática com diagnósticos",
-    "Partitura de ensaio: letra, dinâmica, respirações",
-  ]),
+  lessonAcompanhamento,
+  lessonModulacao,
+  lessonEstilo,
 ];
 
 export const LEVELS: readonly Level[] = [

@@ -38,6 +38,7 @@ describe("progresso e domínio", () => {
     expect(itemsToReview(s)).toEqual([]);
   });
   it("lições em preparação nunca aparecem como disponíveis", () => {
-    expect(lessonStatus(EMPTY_PROGRESS, getLesson("tetrades")!)).toBe("em-preparacao");
+    const planned = { ...getLesson("tetrades")!, status: "em-preparacao" as const };
+    expect(lessonStatus(EMPTY_PROGRESS, planned)).toBe("em-preparacao");
   });
 });

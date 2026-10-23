@@ -1,4 +1,14 @@
 import { generateChordItems, generateIntervalItems, generateRangeItems } from "./generators";
+import {
+  generateCadenceItems,
+  generateErrorItems,
+  generateFunctionItems,
+  generateKeySignatureItems,
+  generateMotionItems,
+  generateNctItems,
+  generateScaleDegreeItems,
+  generateSeventhItems,
+} from "./generators2";
 import { createRng, shuffle } from "./random";
 import type { AnswerRecord, ExerciseItem, ExerciseSetSpec, MasteryResult } from "./types";
 
@@ -10,7 +20,15 @@ export function buildExerciseSet(spec: ExerciseSetSpec, seed: number): ExerciseI
     if (g.type === "interval-identification") {
       generated.push(...generateIntervalItems(rng, g.count, { ...(g.earOnly ? { earOnly: true } : {}), ...(g.maxNumber ? { maxNumber: g.maxNumber } : {}) }));
     } else if (g.type === "chord-identification") generated.push(...generateChordItems(rng, g.count));
-    else generated.push(...generateRangeItems(rng, g.count));
+    else if (g.type === "range-check") generated.push(...generateRangeItems(rng, g.count));
+    else if (g.type === "key-signature") generated.push(...generateKeySignatureItems(rng, g.count));
+    else if (g.type === "scale-degree") generated.push(...generateScaleDegreeItems(rng, g.count));
+    else if (g.type === "seventh-identification") generated.push(...generateSeventhItems(rng, g.count));
+    else if (g.type === "function-identification") generated.push(...generateFunctionItems(rng, g.count));
+    else if (g.type === "motion-type") generated.push(...generateMotionItems(rng, g.count));
+    else if (g.type === "voice-leading-error") generated.push(...generateErrorItems(rng, g.count, g.ruleIds));
+    else if (g.type === "cadence-identification") generated.push(...generateCadenceItems(rng, g.count));
+    else generated.push(...generateNctItems(rng, g.count));
   }
   // Itens estáticos mantêm a ordem pedagógica; gerados são embaralhados entre si.
   const items = [...spec.staticItems, ...shuffle(rng, generated)];

@@ -24,6 +24,17 @@ describe("notas estranhas: classificação", () => {
     expect(d[0]).toMatchObject({ severity: "info", category: "escolha-estetica", location: { measure: 1, beat: 2, eventIds: ["S-2"] } });
     expect(d[0]!.message).toMatch(/Nota de passagem em Soprano: F5 sobre I/);
   });
+  it("passagens que formariam acordes de sétima continuam sendo notas de passagem", () => {
+    const s = satb({ S: "G4:q A4:q B4:q C5:q", A: "E4:w", T: "G3:w", B: "C3:w" });
+    expect(ncts(s).map((n) => n.kind)).toEqual(["passagem", "passagem"]);
+    expect(analyzeHarmony(s).map((h) => h.roman)).toEqual(["I", "I", "I", "I"]);
+    expect(validateScore(s).diagnostics.filter((d) => d.severity !== "info")).toEqual([]);
+  });
+  it("acorde de sétima real (várias vozes se movem) continua sendo acorde", () => {
+    const s = satb({ S: "C5:h B4:h", A: "G4:h F4:h", T: "E4:h D4:h", B: "C3:h G2:h" });
+    expect(analyzeHarmony(s).map((h) => h.roman)).toEqual(["I", "V7"]);
+    expect(ncts(s)).toEqual([]);
+  });
   it("bordadura", () => {
     expect(ncts(satb({ S: "E5:q F5:q E5:h", ...C_CHORD }))[0]?.kind).toBe("bordadura");
   });

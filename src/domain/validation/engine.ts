@@ -20,7 +20,7 @@ import { barlineCrossingRule, measureLengthRule } from "./rules/structure";
 import { type Diagnostic, type DiagnosticCategory, SEVERITY_ORDER, type Severity, type ValidationConfig } from "./types";
 
 /** Versão do motor: muda quando o comportamento das regras muda (rastreabilidade de avaliações). */
-export const ENGINE_VERSION = "0.2.0";
+export const ENGINE_VERSION = "0.3.0";
 
 export const RULES: readonly Rule[] = [
   measureLengthRule,

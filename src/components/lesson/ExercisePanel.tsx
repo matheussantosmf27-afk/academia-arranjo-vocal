@@ -8,6 +8,7 @@ import { playPitches } from "@/lib/audio/player";
 import type { Attempt } from "@/lib/progress/model";
 import { ScoreView } from "../notation/ScoreView";
 import { StaffSnippet } from "../notation/StaffSnippet";
+import { VoicePlayer } from "../audio/VoicePlayer";
 import styles from "./Exercise.module.css";
 
 type Phase = { kind: "idle" } | { kind: "running"; seed: number; items: ExerciseItem[]; index: number; answers: AnswerRecord[]; startedAt: string } | { kind: "done"; items: ExerciseItem[]; answers: AnswerRecord[]; result: MasteryResult };
@@ -183,7 +184,8 @@ function ItemView({ item, chosen, onChoose }: { item: ExerciseItem; chosen: stri
           </button>
         )}
         {showNotation && staff && <StaffSnippet clef={staff.clef} attacks={staff.attacks} label="Notas do exercício" />}
-        {showNotation && item.notation && <ScoreView score={item.notation} label="Acorde do exercício" />}
+        {item.notation && !audio && <VoicePlayer score={item.notation} compact />}
+        {showNotation && item.notation && <ScoreView score={item.notation} label="Trecho do exercício" />}
         {!showNotation && <span className="muted">Notação oculta até a resposta (exercício auditivo).</span>}
       </div>
       <div className={styles.options}>

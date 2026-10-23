@@ -121,7 +121,7 @@ export function voiceTriadSATB(root: { step: Step; alter: Alter }, quality: keyo
   return [...upper, bass];
 }
 
-function chordScore(pitches: readonly Pitch[], id: string, formation: FormationId = "SATB"): Score {
+export function chordScore(pitches: readonly Pitch[], id: string, formation: FormationId = "SATB"): Score {
   const voices = FORMATIONS[formation].voices.map((v) => v.id);
   return {
     schemaVersion: 1,

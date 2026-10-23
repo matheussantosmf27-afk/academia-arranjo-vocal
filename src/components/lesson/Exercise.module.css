@@ -3,6 +3,7 @@
 .prompt { font-weight: 600; font-size: 1.02rem; color: var(--ink); padding: 0; margin-bottom: 10px; }
 .media { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 14px; }
 .media > :global(.score-surface) { max-width: 100%; }
+.media > :global(.stack) { flex: 1 1 100%; }
 .options { display: grid; gap: 8px; grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr)); }
 .option {
   text-align: left; font: inherit; font-size: 0.95rem; padding: 10px 12px; min-height: 44px;

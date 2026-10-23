@@ -2,7 +2,7 @@ import { type ChordIdentification, identifyChord } from "../music/chord";
 import { type FormationSpec, type PitchRange, type VoiceId, getFormation } from "../music/formations";
 import type { Pitch } from "../music/pitch";
 import { type Score, type Sonority, type TimedEvent, sonorities, voiceTimeline } from "../music/score";
-import { melodicNeighbors, reduceSonority } from "./reduction";
+import { melodicNeighbors, passingSeventhReading, reduceSonority } from "./reduction";
 import type { ValidationConfig } from "./types";
 
 export interface VoicedSonority {
@@ -54,8 +54,11 @@ export function buildContext(score: Score, config: ValidationConfig): Validation
     }
     const sounding = [...pitches.values()].filter((p): p is Pitch => p !== null);
     const chord = sounding.length >= 2 ? identifyChord(sounding) : null;
-    const reduction = chord ? null : reduceSonority(pitches, voices, (v) => melodicNeighbors(timelines.get(v) ?? [], events.get(v)), previousHarmony, (v) => s.voices.get(v)?.attacked ?? false);
-    const harmony = chord ?? reduction?.chord ?? null;
+    const attackedOf = (v: VoiceId) => s.voices.get(v)?.attacked ?? false;
+    const neighborsOf = (v: VoiceId) => melodicNeighbors(timelines.get(v) ?? [], events.get(v));
+    const melodicSeventh = chord?.isSeventh ? passingSeventhReading(pitches, voices, previousHarmony, attackedOf, neighborsOf) : null;
+    const reduction = melodicSeventh ?? (chord ? null : reduceSonority(pitches, voices, neighborsOf, previousHarmony, attackedOf));
+    const harmony = melodicSeventh ? melodicSeventh.chord : (chord ?? reduction?.chord ?? null);
     if (harmony) previousHarmony = harmony;
     return {
       sonority: s,
