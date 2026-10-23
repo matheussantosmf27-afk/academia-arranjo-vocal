@@ -1,8 +1,11 @@
 import type { NextConfig } from "next";
+import { normalizeSupabaseUrl } from "./src/lib/supabase/url";
 
 const isDev = process.env.NODE_ENV !== "production";
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
-const supabaseOrigin = supabaseUrl ? new URL(supabaseUrl).origin : "";
+const supabaseOrigin = normalizeSupabaseUrl(process.env.NEXT_PUBLIC_SUPABASE_URL) ?? "";
+if (process.env.NEXT_PUBLIC_SUPABASE_URL && !supabaseOrigin) {
+  console.warn("⚠ NEXT_PUBLIC_SUPABASE_URL não é uma URL válida (ex.: https://<ref>.supabase.co); o app funcionará em modo local.");
+}
 const supabaseWs = supabaseOrigin.replace(/^http/, "ws");
 
 /**

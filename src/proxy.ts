@@ -1,12 +1,13 @@
 import { createServerClient } from "@supabase/ssr";
 import { type NextRequest, NextResponse } from "next/server";
+import { supabasePublicEnv } from "@/lib/supabase/config";
 
 /** Renova a sessão do Supabase Auth nos cookies a cada requisição (quando configurado). */
 export async function proxy(request: NextRequest) {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY;
   let response = NextResponse.next({ request });
-  if (!url || !key) return response;
+  const env = supabasePublicEnv();
+  if (!env) return response;
+  const { url, key } = env;
   const supabase = createServerClient(url, key, {
     cookies: {
       getAll: () => request.cookies.getAll(),
