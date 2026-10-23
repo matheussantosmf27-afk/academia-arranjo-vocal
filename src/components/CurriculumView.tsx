@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { LESSONS, LEVELS } from "@/content/curriculum/curriculum";
+import { PROJECTS } from "@/content/projects";
 import { lessonStatus } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/useProgress";
 import styles from "./CurriculumView.module.css";
@@ -55,13 +56,18 @@ export function CurriculumView() {
               </ol>
               {unit.project && (
                 <p className={styles.project}>
-                  <strong>Projeto da unidade:</strong> {unit.project.title} — {unit.project.description} <em>(em preparação)</em>
+                  <strong>Projeto da unidade:</strong> {unit.project.title} — {unit.project.description} <em>(faça no Estúdio, revisando com o motor)</em>
                 </p>
               )}
             </div>
           ))}
           <p className={styles.final}>
-            <strong>{level.finalProject.title}:</strong> {level.finalProject.description} <em>(projetos práticos com rubrica: etapa 8)</em>
+            <strong>{level.finalProject.title}:</strong> {level.finalProject.description}{" "}
+            {PROJECTS.some((p) => p.level === level.number) ? (
+              <Link href="/projetos">Abrir nos projetos práticos com rubrica</Link>
+            ) : (
+              <em>(use o Estúdio e a revisão por diagnósticos)</em>
+            )}
           </p>
         </section>
       ))}

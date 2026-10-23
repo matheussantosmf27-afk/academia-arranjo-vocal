@@ -9,7 +9,7 @@ export default function ProjectsPage() {
       <header className="page-header">
         <p className="eyebrow">Biblioteca</p>
         <h1>Projetos</h1>
-        <p>Rascunhos salvos neste navegador e exemplos de referência. Projetos práticos guiados, com rubrica de avaliação, chegam na etapa 8.</p>
+        <p>Rascunhos salvos neste navegador e exemplos de referência. Projetos práticos guiados com rubrica de avaliação, rascunhos e arranjos salvos.</p>
       </header>
       <ProjectLibrary />
     </div>

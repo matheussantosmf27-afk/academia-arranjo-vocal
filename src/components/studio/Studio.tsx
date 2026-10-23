@@ -41,6 +41,8 @@ import { type Diagnostic, STYLE_PROFILES, analyzeHarmony, validateScore } from "
 import { loadArrangement, saveArrangementVersion } from "@/app/actions/arrangements";
 import { useAuth } from "@/lib/auth/useAuth";
 import { loadDraft, saveDraft } from "@/lib/projects/store";
+import { getProject } from "@/content/projects";
+import { ProjectPanel } from "./ProjectPanel";
 import { DiagnosticList } from "../diagnostics/DiagnosticList";
 import { ScoreView } from "../notation/ScoreView";
 import { VoicePlayer } from "../audio/VoicePlayer";
@@ -55,6 +57,12 @@ function firstEventId(score: Score): string | null {
 
 /** Partitura inicial: rascunho (?projeto=) ou exemplo (?exemplo=) da URL; senão, o coral SATB. */
 function resolveInitial(params: URLSearchParams): { score: Score; message: string } {
+  const practice = params.get("pratica");
+  const project = practice ? getProject(practice) : undefined;
+  if (project) {
+    const saved = loadDraft(project.starting.id);
+    return saved.ok ? { score: saved.score, message: `Projeto "${project.title}": rascunho retomado.` } : { score: project.starting, message: `Projeto "${project.title}" iniciado.` };
+  }
   const draft = params.get("projeto");
   const ex = params.get("exemplo");
   if (draft) {
@@ -69,6 +77,7 @@ export function Studio() {
   const params = useSearchParams();
   const router = useRouter();
   const [initial] = useState(() => resolveInitial(new URLSearchParams(params.toString())));
+  const [practiceProject] = useState(() => getProject(params.get("pratica") ?? ""));
   const [history, setHistory] = useState<History<Score>>(() => createHistory(initial.score));
   const score = history.present;
   const [selected, setSelected] = useState<string | null>(firstEventId(initial.score));
@@ -294,7 +303,7 @@ export function Studio() {
   const save = () => {
     const r = saveDraft(score);
     setStatus(r.ok ? `Rascunho salvo neste navegador (${new Date(r.updatedAt).toLocaleTimeString("pt-BR")}).` : `Falha ao salvar: ${r.error}`);
-    if (r.ok) router.replace(`/estudio?projeto=${encodeURIComponent(score.id)}`, { scroll: false });
+    if (r.ok && !practiceProject) router.replace(`/estudio?projeto=${encodeURIComponent(score.id)}`, { scroll: false });
   };
 
   const saveCloud = async () => {
@@ -381,6 +390,8 @@ export function Studio() {
           onCancel={() => setShowNew(false)}
         />
       )}
+
+      {practiceProject && <ProjectPanel project={practiceProject} score={score} style={style} onStatus={setStatus} />}
 
       <div className={styles.header}>
         <div>

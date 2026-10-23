@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { type CloudArrangement, deleteArrangement, listArrangements } from "@/app/actions/arrangements";
 import { useAuth } from "@/lib/auth/useAuth";
+import { PROJECTS } from "@/content/projects";
 import { EXAMPLE_SCORES } from "@/domain/music/examples";
 import { deleteDraft, listDrafts } from "@/lib/projects/store";
 import { useHydrated } from "@/lib/useHydrated";
@@ -15,6 +16,7 @@ export function ProjectLibrary() {
   const [confirm, setConfirm] = useState<string | null>(null);
   return (
     <div className="stack" style={{ gap: 24 }}>
+      <PracticeProjects />
       <CloudArrangements />
       <section aria-labelledby="rasc">
         <h2 id="rasc">Rascunhos neste navegador</h2>
@@ -157,6 +159,31 @@ function CloudArrangements() {
           ))}
         </ul>
       )}
+    </section>
+  );
+}
+
+function PracticeProjects() {
+  return (
+    <section aria-labelledby="praticos">
+      <h2 id="praticos">Projetos práticos</h2>
+      <p className="muted">Partem de uma melodia e chegam a um arranjo completo, com justificativas, comparação de versões e avaliação por rubrica.</p>
+      <div className="grid">
+        {PROJECTS.map((p) => (
+          <div key={p.id} className="card stack" style={{ gap: 6 }}>
+            <span className={`chip ${p.starting.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`} style={{ alignSelf: "flex-start" }}>
+              {p.starting.formation} · Nível {p.level}
+            </span>
+            <strong>{p.title}</strong>
+            <p className="muted" style={{ margin: 0, fontSize: "0.88rem" }}>
+              {p.summary}
+            </p>
+            <Link className="btn btn-sm btn-accent" href={`/estudio?pratica=${p.id}`} style={{ alignSelf: "flex-start" }}>
+              Abrir projeto
+            </Link>
+          </div>
+        ))}
+      </div>
     </section>
   );
 }

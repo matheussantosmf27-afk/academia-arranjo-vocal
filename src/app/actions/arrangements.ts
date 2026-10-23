@@ -22,7 +22,7 @@ export interface CloudArrangement {
  * Salva uma NOVA versão (versões são imutáveis). Valida a partitura no servidor,
  * executa o motor de validação e grava o relatório junto com a versão.
  */
-export async function saveArrangementVersion(input: unknown, arrangementId: string | null, note?: string): Promise<ActionResult<{ arrangementId: string; versionNumber: number }>> {
+export async function saveArrangementVersion(input: unknown, arrangementId: string | null, note?: string): Promise<ActionResult<{ arrangementId: string; versionNumber: number; versionId: string }>> {
   const auth = await requireUser();
   if ("error" in auth) return { ok: false, error: auth.error };
   const parsed = parseScore(input);
@@ -59,7 +59,7 @@ export async function saveArrangementVersion(input: unknown, arrangementId: stri
     counts: { severity: report.countsBySeverity, category: report.countsByCategory },
   });
   await supabase.from("arrangements").update({ current_version_id: ver.id }).eq("id", id);
-  return { ok: true, arrangementId: id, versionNumber };
+  return { ok: true, arrangementId: id, versionNumber, versionId: ver.id as string };
 }
 
 export async function listArrangements(): Promise<ActionResult<{ items: CloudArrangement[] }>> {
