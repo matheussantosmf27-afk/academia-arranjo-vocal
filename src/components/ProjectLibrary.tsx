@@ -5,7 +5,7 @@ import { useEffect, useMemo, useState } from "react";
 import { type CloudArrangement, deleteArrangement, listArrangements } from "@/app/actions/arrangements";
 import { useAuth } from "@/lib/auth/useAuth";
 import { PROJECTS } from "@/content/projects";
-import { EXAMPLE_SCORES } from "@/domain/music/examples";
+import { LAB_EXAMPLES } from "@/content/lab-examples";
 import { deleteDraft, listDrafts } from "@/lib/projects/store";
 import { useHydrated } from "@/lib/useHydrated";
 
@@ -24,7 +24,7 @@ export function ProjectLibrary() {
           <p className="muted">Carregando…</p>
         ) : drafts.length === 0 ? (
           <p className="muted">
-            Nenhum rascunho salvo. Crie um no <Link href="/estudio">Estúdio</Link> e use “Salvar rascunho”.
+            Nenhum rascunho salvo. Crie um no <Link href="/estudio">laboratório de escrita</Link> e use “Salvar rascunho”.
           </p>
         ) : (
           <ul className="stack" style={{ listStyle: "none", padding: 0 }}>
@@ -67,7 +67,7 @@ export function ProjectLibrary() {
       <section aria-labelledby="exs">
         <h2 id="exs">Exemplos de referência</h2>
         <div className="grid">
-          {EXAMPLE_SCORES.map((s) => (
+          {LAB_EXAMPLES.map((s) => (
             <div key={s.id} className="card stack" style={{ gap: 6 }}>
               <span className={`chip ${s.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`} style={{ alignSelf: "flex-start" }}>
                 {s.formation}
@@ -75,7 +75,7 @@ export function ProjectLibrary() {
               <strong>{s.title}</strong>
               {s.metadata.notes && <p className="muted" style={{ margin: 0, fontSize: "0.88rem" }}>{s.metadata.notes}</p>}
               <Link className="btn btn-sm" href={`/estudio?exemplo=${s.id}`} style={{ alignSelf: "flex-start" }}>
-                Abrir no Estúdio
+                Abrir no laboratório
               </Link>
             </div>
           ))}
@@ -118,7 +118,7 @@ function CloudArrangements() {
       ) : items === null ? (
         <p className="muted">Carregando…</p>
       ) : items.length === 0 ? (
-        <p className="muted">Nenhum arranjo salvo na conta. No Estúdio, use “Salvar na conta”.</p>
+        <p className="muted">Nenhum arranjo salvo na conta. No laboratório de escrita, use “Salvar na conta”.</p>
       ) : (
         <ul className="stack" style={{ listStyle: "none", padding: 0 }}>
           {items.map((a) => (
@@ -166,13 +166,13 @@ function CloudArrangements() {
 function PracticeProjects() {
   return (
     <section aria-labelledby="praticos">
-      <h2 id="praticos">Projetos práticos</h2>
+      <h2 id="praticos">Trabalhos dos semestres</h2>
       <p className="muted">Partem de uma melodia e chegam a um arranjo completo, com justificativas, comparação de versões e avaliação por rubrica.</p>
       <div className="grid">
         {PROJECTS.map((p) => (
           <div key={p.id} className="card stack" style={{ gap: 6 }}>
             <span className={`chip ${p.starting.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`} style={{ alignSelf: "flex-start" }}>
-              {p.starting.formation} · Nível {p.level}
+              {p.starting.formation} · {p.level}º semestre
             </span>
             <strong>{p.title}</strong>
             <p className="muted" style={{ margin: 0, fontSize: "0.88rem" }}>

@@ -28,7 +28,7 @@ export function CompetencyProfile() {
           Por habilidade
         </h2>
         {skills.length === 0 ? (
-          <p className="muted">Faça os exercícios de uma lição para gerar seu perfil.</p>
+          <p className="muted">Faça as verificações de uma aula para gerar seu perfil.</p>
         ) : (
           <div className="table-wrap">
             <table className="data">
@@ -70,7 +70,7 @@ export function CompetencyProfile() {
               <thead>
                 <tr>
                   <th scope="col">Data</th>
-                  <th scope="col">Lição</th>
+                  <th scope="col">Aula</th>
                   <th scope="col">Resultado</th>
                   <th scope="col">Semente</th>
                 </tr>

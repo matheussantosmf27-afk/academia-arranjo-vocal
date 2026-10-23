@@ -1,18 +1,28 @@
 # Academia de Arranjo Vocal
 
-Plataforma web de formação em arranjo vocal **SATB** e **TTBB**: currículo progressivo com critério de domínio, notação musical real, reprodução por voz, motor determinístico de validação de condução de vozes, projetos práticos avaliados por rubrica e um tutor de IA que só comenta o que o motor diagnosticou. Produto independente, com repositório e projeto Supabase próprios.
+Curso on-line de **arranjo vocal**, organizado como uma graduação: 4 semestres, 14 disciplinas (com código, ementa, trabalho e bibliografia) e 39 aulas que ensinam a escrever, estruturar e criar arranjos para coro (sacro, erudito e MPB), pop a cappella, gospel/louvor e música popular brasileira. Cada aula tem objetivos, explicação, exemplos certos e errados para ouvir voz por voz e uma verificação com resposta comentada; o laboratório de escrita (editor de partitura com motor de validação) é a ferramenta de prática. Produto independente, com repositório e projeto Supabase próprios.
 
 > **Situação:** etapas 1–10 concluídas (plano em `docs/arquitetura.md`). Sem as variáveis de ambiente, o app funciona em modo local (progresso e rascunhos no navegador).
 
+## Grade curricular
+| Semestre | Disciplinas |
+|---|---|
+| 1º — Fundamentos do arranjo vocal | ARV101 Introdução ao Arranjo Vocal · VOZ101 A Voz como Instrumento · HAR101 Harmonia para Arranjadores I (revisão aplicada) |
+| 2º — Escrita a quatro vozes | CDV201 Condução de Vozes · HMZ201 Harmonização de Melodias (SATB, TTBB, três vozes) · TEX201 Texturas e Distribuição Vocal |
+| 3º — Forma, texto e linguagem harmônica | FOR301 Forma e Estrutura do Arranjo · TXT301 Texto e Contraponto · HAR301 Harmonia para Arranjadores II |
+| 4º — Estilos e prática profissional | EST401 Arranjo Coral · EST402 Pop e A Cappella · EST403 Gospel e Louvor · EST404 Música Popular Brasileira · PRF401 Prática Profissional |
+
+A grade, as disciplinas e os pré-requisitos estão em `src/content/curriculum/curriculum.ts`; as aulas, em `src/content/curriculum/lessons/`. Todo exemplo musical de aula é conferido pelo motor de validação no teste de integridade do currículo (o veredito "correto", "incorreto" ou "observação" do texto precisa coincidir com o diagnóstico, no estilo indicado).
+
 ## Funcionalidades
-- **Painel** com progresso, próximas lições e recomendações de estudo derivadas dos seus erros mais frequentes; **Currículo** (5 níveis, 22 lições); **Competências** (desempenho por habilidade, histórico com semente reprodutível).
-- **Lições:** objetivos mensuráveis, explicações, exemplos corretos e incorretos validados pelo motor, escuta guiada por voz, exercícios gerados (11 tipos: intervalos, acordes, sétimas, funções, cadências, notas estranhas, tipos de movimento, erros de condução, extensões…) com respostas comentadas e critério de domínio com itens essenciais.
-- **Estúdio:** notação VexFlow gerada do modelo (duas vozes por pauta; clave de sol oitavada para tenores); edição de altura, ritmo, pausas, ligaduras, letra, articulações e dinâmicas; dividir/juntar/mover; seleção com copiar/colar; tonalidade, compasso e tamanho editáveis; desfazer/refazer; cifragem romana; diagnósticos ao vivo por estilo.
+- **Início** com o percurso por semestre, progresso e recomendações de estudo derivadas dos seus erros; **Grade curricular** e página de cada **disciplina** (ementa, objetivos, aulas, trabalho, bibliografia); **Competências** (desempenho por habilidade, histórico com semente reprodutível).
+- **Aulas:** objetivos mensuráveis, explicações, exemplos corretos e incorretos validados pelo motor, escuta guiada por voz, exercícios gerados (11 tipos: intervalos, acordes, sétimas, funções, cadências, notas estranhas, tipos de movimento, erros de condução, extensões…) com respostas comentadas e critério de domínio com itens essenciais.
+- **Laboratório de escrita** (`/estudio`): notação VexFlow gerada do modelo (duas vozes por pauta; clave de sol oitavada para tenores); edição de altura, ritmo, pausas, ligaduras, letra, articulações e dinâmicas; dividir/juntar/mover; seleção com copiar/colar; tonalidade, compasso e tamanho editáveis; desfazer/refazer; cifragem romana; diagnósticos ao vivo por estilo.
 - **Exportação e importação:** **PDF** A4 (mesmo motor de notação, paginado por sistemas), **MusicXML 4.0** (uma parte por voz; importa 4 partes ou 2 pautas com 2 vozes), **MIDI** tipo 1 (uma faixa por voz; importação quantizada à semicolcheia) e JSON nativo. Recursos não suportados (quiálteras, `.mxl` comprimido, acordes dentro de uma voz) geram erro ou aviso explícito — nada é inventado.
 - **Reprodução:** conjunto, voz isolada, pares ou qualquer combinação; cursor sincronizado; metrônomo, contagem, loop; dinâmicas, acentos, staccato e fermatas; timbres neutro e de vogal.
 - **Motor de validação v0.3.0:** 28 regras determinísticas com localização exata, explicação, gravidade, sugestões e exceções; distingue erro objetivo, convenção estilística, recomendação e escolha estética; perfis de estilo (ver `docs/motor-de-validacao.md`).
 - **Projetos práticos** (`/projetos`): hino SATB, adaptação TTBB e arranjo completo, com justificativas, autoavaliação e **rubrica de 9 critérios** (não uma nota única) e comparação entre versões.
-- **Tutor de IA** (no Estúdio): recebe a partitura e **somente** os diagnósticos do motor; responde em formato estruturado (resposta, perguntas socráticas, revisões ligadas a diagnósticos, lições sugeridas). Citações de diagnósticos inexistentes são descartadas no servidor. Exige conta, `ANTHROPIC_API_KEY` no servidor e tem limite de 30 perguntas/hora por usuário; cada interação é registrada (`tutor_interactions`).
+- **Tutor de IA** (no laboratório de escrita): recebe a partitura e **somente** os diagnósticos do motor; responde em formato estruturado (resposta, perguntas socráticas, revisões ligadas a diagnósticos, lições sugeridas). Citações de diagnósticos inexistentes são descartadas no servidor. Exige conta, `ANTHROPIC_API_KEY` no servidor e tem limite de 30 perguntas/hora por usuário; cada interação é registrada (`tutor_interactions`).
 - **Laboratório auditivo:** intervalos e acordes de ouvido.
 - **Conta (Supabase):** e-mail e senha; tentativas **recorrigidas no servidor** a partir da semente; arranjos com histórico de versões e relatório do motor; avaliações de projeto; RLS em todas as tabelas.
 

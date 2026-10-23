@@ -14,7 +14,7 @@ const STATUS_LABEL = {
   bloqueada: { label: "Bloqueada", cls: "chip-lock" },
   disponivel: { label: "Disponível", cls: "" },
   "em-andamento": { label: "Em andamento", cls: "chip-alerta" },
-  dominada: { label: "Dominada", cls: "chip-ok" },
+  dominada: { label: "Concluída", cls: "chip-ok" },
   "em-preparacao": { label: "Em preparação", cls: "chip-lock" },
 } as const;
 
@@ -32,8 +32,8 @@ export function PrerequisiteNotice({ lesson }: { lesson: Lesson }) {
   if (missing.length === 0) return null;
   return (
     <div className="callout callout-atencao" role="note">
-      <strong>Pré-requisitos ainda não dominados</strong>
-      Você pode ler esta lição, mas os exercícios — e o avanço no currículo — dependem do domínio de:{" "}
+      <strong>Aulas pré-requisito ainda não concluídas</strong>
+      Você pode ler esta aula, mas os exercícios — e o avanço no curso — dependem da conclusão de:{" "}
       {missing.map((id, i) => (
         <span key={id}>
           {i > 0 && ", "}
@@ -55,13 +55,13 @@ export function LessonExercises({ lesson }: { lesson: Lesson }) {
   const attempts = state.attempts.filter((a) => a.lessonId === lesson.id).length;
   return (
     <section aria-labelledby="exercicios">
-      <h2 id="exercicios">Exercícios e critério de domínio</h2>
+      <h2 id="exercicios">Verificação da aula</h2>
       <p>
         <strong>Critério:</strong> {lesson.masteryDescription}
       </p>
       {hydrated && attempts > 0 && (
         <p className="muted">
-          {attempts} tentativa(s) registrada(s). Melhor resultado: {Math.round((best?.result.score ?? 0) * 100)}%{best?.result.passed ? " (domínio demonstrado)" : ""}.
+          {attempts} tentativa(s) registrada(s). Melhor resultado: {Math.round((best?.result.score ?? 0) * 100)}%{best?.result.passed ? " (aula concluída)" : ""}.
         </p>
       )}
       <ExercisePanel

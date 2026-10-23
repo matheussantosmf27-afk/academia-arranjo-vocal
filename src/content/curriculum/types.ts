@@ -67,14 +67,22 @@ export interface Lesson {
   readonly plannedTopics?: readonly string[];
 }
 
+/** Disciplina de um semestre. */
 export interface Unit {
   readonly id: string;
+  /** Código da disciplina (ex.: ARV101). */
+  readonly code: string;
   readonly title: string;
+  /** Ementa: o que a disciplina cobre. */
   readonly description: string;
   readonly lessonIds: readonly string[];
+  /** Trabalho da disciplina. */
   readonly project?: { readonly title: string; readonly description: string };
+  /** Leituras e escutas recomendadas. */
+  readonly bibliography?: readonly string[];
 }
 
+/** Semestre do curso. */
 export interface Level {
   readonly id: string;
   readonly number: number;

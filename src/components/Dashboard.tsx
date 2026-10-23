@@ -1,61 +1,96 @@
 "use client";
 
 import Link from "next/link";
-import { COMPETENCIES, LESSONS, LEVELS, getLesson } from "@/content/curriculum/curriculum";
+import { LESSONS, LEVELS, getLesson } from "@/content/curriculum/curriculum";
 import { recommendLessons } from "@/domain/tutor/recommend";
-import { lessonStatus, itemsToReview, skillSummary } from "@/lib/progress/model";
+import { itemsToReview, lessonStatus, skillSummary } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/useProgress";
 import styles from "./Dashboard.module.css";
 
 export function Dashboard() {
   const { state, hydrated } = useProgress();
   const available = LESSONS.filter((l) => l.status === "disponivel");
+  const done = (id: string) => hydrated && lessonStatus(state, getLesson(id)!) === "dominada";
   const mastered = hydrated ? available.filter((l) => lessonStatus(state, l) === "dominada") : [];
-  const nextLesson = hydrated
-    ? available.find((l) => ["disponivel", "em-andamento"].includes(lessonStatus(state, l)))
-    : available[0];
+  const nextLesson = hydrated ? available.find((l) => ["disponivel", "em-andamento"].includes(lessonStatus(state, l))) : available[0];
+  const nextUnit = nextLesson ? LEVELS.flatMap((lv) => lv.units).find((u) => u.id === nextLesson.unitId) : undefined;
   const review = hydrated ? itemsToReview(state) : [];
   const recommendations = hydrated ? recommendLessons(skillSummary(state)) : [];
-  const recent = hydrated ? [...state.attempts].sort((a, b) => b.finishedAt.localeCompare(a.finishedAt)).slice(0, 5) : [];
+  const hours = Math.round(LESSONS.reduce((m, l) => m + l.estimatedMinutes, 0) / 60);
 
   return (
     <div className="page">
       <header className={styles.hero}>
         <div>
-          <p className="eyebrow">Academia de Arranjo Vocal</p>
-          <h1>Escreva para vozes reais.</h1>
+          <p className="eyebrow">Curso de Arranjo Vocal</p>
+          <h1>Aprenda a escrever, estruturar e criar arranjos vocais.</h1>
           <p className={styles.lead}>
-            Harmonia, condução de vozes, percepção e escrita coral para <span className="chip chip-satb">SATB</span> e <span className="chip chip-ttbb">TTBB</span>, com
-            diagnósticos explicados e reproduzíveis.
+            Um curso em {LEVELS.length} semestres, com aulas em texto, exemplos para ouvir voz por voz, verificações com resposta comentada e trabalhos avaliados
+            por rubrica — do papel do arranjador ao arranjo completo para coro, pop a cappella, gospel e música popular brasileira.
           </p>
           <div className="row">
             {nextLesson && (
               <Link className="btn btn-accent" href={`/licoes/${nextLesson.id}`}>
-                {mastered.length === 0 ? "Começar" : "Continuar"}: {nextLesson.title}
+                {mastered.length === 0 ? "Começar o curso" : "Continuar"}: {nextLesson.title}
               </Link>
             )}
-            <Link className="btn" href="/estudio">
-              Abrir o Estúdio
+            <Link className="btn" href="/curriculo">
+              Ver a grade curricular
             </Link>
           </div>
+          {nextUnit && hydrated && mastered.length > 0 && (
+            <p className="muted" style={{ marginTop: 10, marginBottom: 0 }}>
+              Você está em {nextUnit.code} — {nextUnit.title}.
+            </p>
+          )}
         </div>
       </header>
 
-      <div className="grid">
+      <h2>Seu percurso</h2>
+      <div className={styles.semesters}>
+        {LEVELS.map((level) => {
+          const ids = level.units.flatMap((u) => u.lessonIds);
+          const n = ids.filter(done).length;
+          return (
+            <section key={level.id} className="card" aria-labelledby={`dash-${level.id}`}>
+              <p className="eyebrow" style={{ margin: 0 }}>
+                {level.number}º semestre
+              </p>
+              <h3 id={`dash-${level.id}`} className={styles.cardTitle}>
+                {level.title}
+              </h3>
+              <ul className={styles.list}>
+                {level.units.map((u) => (
+                  <li key={u.id}>
+                    <Link href={`/disciplinas/${u.id}`}>
+                      <span className={styles.code}>{u.code}</span> {u.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+              <div className="progress-bar" aria-hidden="true">
+                <span style={{ width: `${(n / ids.length) * 100}%` }} />
+              </div>
+              <p className="muted" style={{ margin: "6px 0 0", fontSize: "0.85rem" }}>
+                {n}/{ids.length} aulas concluídas
+              </p>
+            </section>
+          );
+        })}
+      </div>
+
+      <div className="grid" style={{ marginTop: 16 }}>
         <section className="card" aria-labelledby="dash-progresso">
           <h2 id="dash-progresso" className={styles.cardTitle}>
-            Progresso
+            Progresso no curso
           </h2>
           <p className={styles.big}>
             {mastered.length}/{available.length}
           </p>
-          <p className="muted">lições publicadas com domínio demonstrado</p>
+          <p className="muted">aulas concluídas (≈ {hours} h de estudo no total)</p>
           <div className="progress-bar" aria-hidden="true">
             <span style={{ width: `${available.length ? (mastered.length / available.length) * 100 : 0}%` }} />
           </div>
-          <p className="muted" style={{ marginTop: 10, marginBottom: 0 }}>
-            {LESSONS.length} lições planejadas em {LEVELS.length} níveis; {available.length} já publicadas.
-          </p>
         </section>
 
         <section className="card" aria-labelledby="dash-revisao">
@@ -63,7 +98,7 @@ export function Dashboard() {
             Revisão de erros
           </h2>
           {review.length === 0 ? (
-            <p className="muted">Nenhum item pendente. Os erros da última tentativa de cada lição aparecem aqui.</p>
+            <p className="muted">Nenhum item pendente. Os erros da última verificação de cada aula aparecem aqui.</p>
           ) : (
             <ul className={styles.list}>
               {Object.entries(
@@ -85,7 +120,7 @@ export function Dashboard() {
             Recomendações de estudo
           </h2>
           {recommendations.length === 0 ? (
-            <p className="muted">Sem habilidades abaixo de 70% nas suas tentativas. Continue no currículo.</p>
+            <p className="muted">Sem habilidades abaixo de 70% nas suas verificações. Siga a grade.</p>
           ) : (
             <ul className={styles.list}>
               {recommendations.map((r) => (
@@ -102,33 +137,15 @@ export function Dashboard() {
             </ul>
           )}
         </section>
-
-        <section className="card" aria-labelledby="dash-recentes">
-          <h2 id="dash-recentes" className={styles.cardTitle}>
-            Tentativas recentes
-          </h2>
-          {recent.length === 0 ? (
-            <p className="muted">Ainda não há tentativas registradas.</p>
-          ) : (
-            <ul className={styles.list}>
-              {recent.map((a) => (
-                <li key={a.id}>
-                  {getLesson(a.lessonId)?.title}: {Math.round(a.result.score * 100)}% {a.result.passed ? "✓" : ""}
-                </li>
-              ))}
-            </ul>
-          )}
-        </section>
       </div>
 
-      <h2>Ambientes</h2>
+      <h2>Como o curso funciona</h2>
       <div className="grid">
         {[
-          { href: "/curriculo", title: "Currículo", text: "Níveis, unidades, pré-requisitos e projetos — do intervalo ao arranjo completo." },
-          { href: "/estudio", title: "Estúdio", text: "Editor de quatro vozes com notação real, reprodução por voz e diagnóstico de condução." },
+          { href: "/curriculo", title: "Aulas", text: "Cada aula tem objetivos, explicação, exemplos certos e errados para ouvir, e uma verificação. Concluir libera as aulas seguintes." },
+          { href: "/projetos", title: "Trabalhos práticos", text: "Ao fim de cada semestre, um arranjo avaliado por rubrica em nove critérios, com comparação entre versões." },
+          { href: "/estudio", title: "Laboratório de escrita", text: "Onde você pratica: escreva a quatro vozes, ouça cada naipe e receba o diagnóstico do motor." },
           { href: "/laboratorio", title: "Laboratório auditivo", text: "Treino de intervalos e acordes de ouvido, com prática ilimitada." },
-          { href: "/projetos", title: "Projetos", text: "Rascunhos salvos e exemplos para abrir no Estúdio." },
-          { href: "/perfil", title: "Competências", text: `Desempenho por habilidade: ${Object.values(COMPETENCIES).slice(0, 4).join(", ")}…` },
         ].map((c) => (
           <Link key={c.href} href={c.href} className={`card ${styles.tile}`}>
             <h3>{c.title}</h3>

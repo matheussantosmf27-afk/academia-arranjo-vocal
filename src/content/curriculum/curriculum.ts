@@ -11,105 +11,303 @@ import {
   lessonModulacao,
   lessonProsodia,
 } from "./lessons/nivel3a5";
+import { lessonLeadSheet, lessonOficio, lessonProcesso, lessonVozCantada } from "./lessons/s1-arranjo";
+import { lessonSilabas, lessonTexturas, lessonTresVozes, lessonVoicings } from "./lessons/s2-escrita";
+import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-forma";
+import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
 import { lessonTriades } from "./lessons/triades-inversoes";
 import { lessonVozes } from "./lessons/vozes-claves-extensoes";
 import type { CompetencyId, Lesson, Level } from "./types";
 
-export const LESSONS: readonly Lesson[] = [
-  // Nível 1 — Fundamentos para o arranjador
+/**
+ * Grade curricular: quatro semestres, cada um com disciplinas (código, ementa,
+ * aulas, trabalho e bibliografia). O aluno parte de teoria básica; HAR101 é
+ * revisão aplicada e pode ser concluída rapidamente por quem já domina o conteúdo.
+ */
+export const LEVELS: readonly Level[] = [
+  {
+    id: "s1",
+    number: 1,
+    title: "Fundamentos do arranjo vocal",
+    description: "O que é arranjar, o método de trabalho, a voz humana como instrumento e a harmonia revisada do ponto de vista de quem escreve para vozes.",
+    units: [
+      {
+        id: "s1-arv",
+        code: "ARV101",
+        title: "Introdução ao Arranjo Vocal",
+        description: "O papel do arranjador; as três camadas de um arranjo; estilos e convenções; método em sete etapas; lead sheet, análise da canção e mapa do arranjo.",
+        lessonIds: ["oficio-do-arranjador", "processo-de-arranjo", "lead-sheet-e-mapa"],
+        project: { title: "Lead sheet e mapa de arranjo", description: "Transcrever uma canção (melodia, letra e cifra) e planejar o arranjo seção por seção." },
+        bibliography: ["Ian Guest — Arranjo: método prático (Lumiar)", "Deke Sharon e Dylan Bell — A Cappella Arranging (Hal Leonard)"],
+      },
+      {
+        id: "s1-voz",
+        code: "VOZ101",
+        title: "A Voz como Instrumento",
+        description: "Classificação vocal, claves e extensões em SATB e TTBB; tessitura, registros e passagem; vogais, respiração e fadiga; ritmo e acentuação do texto.",
+        lessonIds: ["vozes-claves-extensoes", "voz-cantada", "ritmo-metrica-texto"],
+        bibliography: ["Escuta: gravações de coros amadores e profissionais do mesmo repertório, comparando tessituras"],
+      },
+      {
+        id: "s1-har",
+        code: "HAR101",
+        title: "Harmonia para Arranjadores I (revisão aplicada)",
+        description: "Intervalos, escalas e tonalidades, tríades e inversões, tétrades, graus e funções, cadências — sempre a quatro vozes.",
+        lessonIds: ["intervalos", "escalas-tonalidades", "triades-inversoes", "tetrades", "graus-funcoes", "cadencias"],
+        project: { title: "Cadências em SATB e TTBB", description: "Escrever as quatro cadências principais nas duas formações, com análise." },
+        bibliography: ["Walter Piston — Harmony", "Ian Guest — Harmonia: método prático (Lumiar)"],
+      },
+    ],
+    finalProject: {
+      title: "Trabalho do 1º semestre — Mapa de arranjo",
+      description: "Lead sheet completa de uma canção, análise da forma, briefing (formação, estilo, tonalidade) e mapa do arranjo com curva de intensidade.",
+    },
+  },
+  {
+    id: "s2",
+    number: 2,
+    title: "Escrita a quatro vozes",
+    description: "Condução de vozes, harmonização de melodias em SATB, TTBB e três vozes, e as texturas e distribuições que dão cor ao arranjo.",
+    units: [
+      {
+        id: "s2-cdv",
+        code: "CDV201",
+        title: "Condução de Vozes",
+        description: "Movimentos entre vozes, paralelismos, espaçamento, duplicações, notas estranhas e resolução de sétimas.",
+        lessonIds: ["movimentos", "paralelas", "espacamento-cruzamento", "duplicacoes", "notas-estranhas", "setimas-resolucao"],
+        bibliography: ["Walter Piston — Harmony", "J. S. Bach — 371 corais a quatro vozes (escuta e análise)"],
+      },
+      {
+        id: "s2-hmz",
+        code: "HMZ201",
+        title: "Harmonização de Melodias",
+        description: "Análise melódica, harmonização em SATB, escrita para coro masculino (TTBB) e para três vozes (SAB, SSA, TTB).",
+        lessonIds: ["analise-melodica", "harmonizacao-satb", "escrita-ttbb", "tres-vozes"],
+        project: { title: "Hino a quatro vozes", description: "Harmonizar a melodia de um hino em SATB e adaptá-la para TTBB e para SAB." },
+      },
+      {
+        id: "s2-tex",
+        code: "TEX201",
+        title: "Texturas e Distribuição Vocal",
+        description: "Uníssono, homofonia, melodia com pad, acompanhamento rítmico e contracanto; posição fechada e aberta; blocos; sílabas de apoio.",
+        lessonIds: ["texturas-vocais", "voicings-posicoes", "silabas-de-apoio"],
+        bibliography: ["Deke Sharon e Dylan Bell — A Cappella Arranging (Hal Leonard)"],
+      },
+    ],
+    finalProject: {
+      title: "Trabalho do 2º semestre — Hino em três versões",
+      description: "Um hino em SATB (homofonia), TTBB (melodia no Tenor II) e uma versão com melodia e pad, sem erros de condução no estilo tradicional.",
+    },
+  },
+  {
+    id: "s3",
+    number: 3,
+    title: "Forma, texto e linguagem harmônica",
+    description: "Como o arranjo se organiza no tempo, como o texto e as linhas se relacionam e como a harmonia ganha cor com tensões, modulações e rearmonização.",
+    units: [
+      {
+        id: "s3-for",
+        code: "FOR301",
+        title: "Forma e Estrutura do Arranjo",
+        description: "Repetição e contraste, curva de energia e clímax; introduções, acompanhamento e codas; variação e desenvolvimento das seções repetidas.",
+        lessonIds: ["forma-e-energia", "acompanhamento-introducoes", "variacao-e-desenvolvimento"],
+        project: { title: "Três refrões", description: "Escrever o mesmo refrão três vezes, cada uma com técnica de variação diferente." },
+      },
+      {
+        id: "s3-txt",
+        code: "TXT301",
+        title: "Texto e Contraponto",
+        description: "Prosódia e respiração em português; contraponto aplicado ao coro: linhas independentes, imitação e contracanto.",
+        lessonIds: ["prosodia-respiracao", "contraponto-aplicado"],
+      },
+      {
+        id: "s3-har",
+        code: "HAR301",
+        title: "Harmonia para Arranjadores II",
+        description: "Sétimas, nonas, sus e add9 para vozes; notas-guia; modulação e rearmonização.",
+        lessonIds: ["tensoes-e-extensoes", "modulacao-reharmonizacao"],
+        bibliography: ["Ian Guest — Harmonia: método prático (Lumiar)"],
+      },
+    ],
+    finalProject: {
+      title: "Trabalho do 3º semestre — Canção arranjada com forma planejada",
+      description: "Arranjo de uma canção folclórica ou de domínio público com introdução, variação dos refrões, uma modulação e final, acompanhado do mapa e da curva de energia.",
+    },
+  },
+  {
+    id: "s4",
+    number: 4,
+    title: "Estilos e prática profissional",
+    description: "As linguagens do coral sacro e erudito, do pop a cappella, do gospel e da música popular brasileira, e a entrega profissional do arranjo.",
+    units: [
+      {
+        id: "s4-cor",
+        code: "EST401",
+        title: "Arranjo Coral: Sacro, Erudito e MPB para Coro",
+        description: "A tradição do hino e do coral; retardos e cadências expressivas; adaptação de canções populares para coro misto.",
+        lessonIds: ["arranjo-coral"],
+        bibliography: ["J. S. Bach — corais (análise)", "Heitor Villa-Lobos — Guia Prático (escuta e análise)"],
+      },
+      {
+        id: "s4-pop",
+        code: "EST402",
+        title: "Pop e A Cappella",
+        description: "Papéis no grupo (lead, backing, baixo, percussão), transcrição da banda para vozes, equilíbrio; baixo vocal e percussão vocal.",
+        lessonIds: ["a-cappella-pop", "baixo-e-percussao-vocal"],
+        bibliography: ["Deke Sharon e Dylan Bell — A Cappella Arranging (Hal Leonard)", "Escuta: Pentatonix, The Real Group, Take 6"],
+      },
+      {
+        id: "s4-gos",
+        code: "EST403",
+        title: "Gospel e Louvor",
+        description: "Bloco de três vozes, acordes sobre baixo, chamada e resposta, vamp, modulações em degraus, escrita com banda e congregação.",
+        lessonIds: ["gospel-louvor"],
+        bibliography: ["Escuta: corais gospel norte-americanos e brasileiros; ministérios de louvor com vocal de apoio"],
+      },
+      {
+        id: "s4-mpb",
+        code: "EST404",
+        title: "Música Popular Brasileira para Vozes",
+        description: "Samba, bossa nova e baião: ritmo, harmonia com tensões, modos nordestinos e prosódia brasileira.",
+        lessonIds: ["mpb-vocal"],
+        bibliography: ["Escuta: Quarteto em Cy, MPB4, Boca Livre"],
+      },
+      {
+        id: "s4-prf",
+        code: "PRF401",
+        title: "Prática Profissional",
+        description: "Análise estilística e revisão; partitura final, kit de ensaio e adaptação ao nível do grupo.",
+        lessonIds: ["analise-estilistica-revisao", "partitura-e-ensaio"],
+      },
+    ],
+    finalProject: {
+      title: "Trabalho de conclusão — Arranjo completo",
+      description: "Arranjo original em um dos estilos estudados, com introdução, variação, modulação e final, partitura revisada, kit de ensaio e avaliação por rubrica.",
+    },
+  },
+];
+
+/** Posição de cada aula na grade e seus pré-requisitos (domínio exigido). */
+const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readonly string[] }>> = {
+  // 1º semestre
+  "oficio-do-arranjador": { unitId: "s1-arv", prerequisites: [] },
+  "processo-de-arranjo": { unitId: "s1-arv", prerequisites: ["oficio-do-arranjador"] },
+  "lead-sheet-e-mapa": { unitId: "s1-arv", prerequisites: ["processo-de-arranjo"] },
+  "vozes-claves-extensoes": { unitId: "s1-voz", prerequisites: [] },
+  "voz-cantada": { unitId: "s1-voz", prerequisites: ["vozes-claves-extensoes"] },
+  "ritmo-metrica-texto": { unitId: "s1-voz", prerequisites: ["voz-cantada"] },
+  intervalos: { unitId: "s1-har", prerequisites: [] },
+  "escalas-tonalidades": { unitId: "s1-har", prerequisites: ["intervalos"] },
+  "triades-inversoes": { unitId: "s1-har", prerequisites: ["intervalos"] },
+  tetrades: { unitId: "s1-har", prerequisites: ["triades-inversoes"] },
+  "graus-funcoes": { unitId: "s1-har", prerequisites: ["triades-inversoes", "escalas-tonalidades"] },
+  cadencias: { unitId: "s1-har", prerequisites: ["graus-funcoes"] },
+  // 2º semestre
+  movimentos: { unitId: "s2-cdv", prerequisites: ["cadencias", "processo-de-arranjo"] },
+  paralelas: { unitId: "s2-cdv", prerequisites: ["movimentos"] },
+  "espacamento-cruzamento": { unitId: "s2-cdv", prerequisites: ["paralelas", "vozes-claves-extensoes"] },
+  duplicacoes: { unitId: "s2-cdv", prerequisites: ["espacamento-cruzamento"] },
+  "notas-estranhas": { unitId: "s2-cdv", prerequisites: ["duplicacoes"] },
+  "setimas-resolucao": { unitId: "s2-cdv", prerequisites: ["notas-estranhas", "tetrades"] },
+  "analise-melodica": { unitId: "s2-hmz", prerequisites: ["lead-sheet-e-mapa", "cadencias"] },
+  "harmonizacao-satb": { unitId: "s2-hmz", prerequisites: ["analise-melodica", "duplicacoes"] },
+  "escrita-ttbb": { unitId: "s2-hmz", prerequisites: ["harmonizacao-satb"] },
+  "tres-vozes": { unitId: "s2-hmz", prerequisites: ["harmonizacao-satb"] },
+  "texturas-vocais": { unitId: "s2-tex", prerequisites: ["harmonizacao-satb"] },
+  "voicings-posicoes": { unitId: "s2-tex", prerequisites: ["texturas-vocais", "espacamento-cruzamento"] },
+  "silabas-de-apoio": { unitId: "s2-tex", prerequisites: ["texturas-vocais", "voz-cantada"] },
+  // 3º semestre
+  "forma-e-energia": { unitId: "s3-for", prerequisites: ["texturas-vocais"] },
+  "acompanhamento-introducoes": { unitId: "s3-for", prerequisites: ["forma-e-energia"] },
+  "variacao-e-desenvolvimento": { unitId: "s3-for", prerequisites: ["acompanhamento-introducoes"] },
+  "prosodia-respiracao": { unitId: "s3-txt", prerequisites: ["ritmo-metrica-texto", "harmonizacao-satb"] },
+  "contraponto-aplicado": { unitId: "s3-txt", prerequisites: ["prosodia-respiracao", "notas-estranhas"] },
+  "tensoes-e-extensoes": { unitId: "s3-har", prerequisites: ["setimas-resolucao", "voicings-posicoes"] },
+  "modulacao-reharmonizacao": { unitId: "s3-har", prerequisites: ["tensoes-e-extensoes"] },
+  // 4º semestre
+  "arranjo-coral": { unitId: "s4-cor", prerequisites: ["variacao-e-desenvolvimento", "contraponto-aplicado"] },
+  "a-cappella-pop": { unitId: "s4-pop", prerequisites: ["variacao-e-desenvolvimento", "silabas-de-apoio"] },
+  "baixo-e-percussao-vocal": { unitId: "s4-pop", prerequisites: ["a-cappella-pop"] },
+  "gospel-louvor": { unitId: "s4-gos", prerequisites: ["variacao-e-desenvolvimento", "tensoes-e-extensoes"] },
+  "mpb-vocal": { unitId: "s4-mpb", prerequisites: ["tensoes-e-extensoes", "modulacao-reharmonizacao"] },
+  "analise-estilistica-revisao": { unitId: "s4-prf", prerequisites: ["variacao-e-desenvolvimento", "modulacao-reharmonizacao"] },
+  "partitura-e-ensaio": { unitId: "s4-prf", prerequisites: ["analise-estilistica-revisao"] },
+};
+
+const ALL_LESSONS: readonly Lesson[] = [
+  lessonOficio,
+  lessonProcesso,
+  lessonLeadSheet,
   lessonVozes,
+  lessonVozCantada,
+  lessonRitmo,
   lessonIntervalos,
   lessonEscalas,
-  lessonRitmo,
   lessonTriades,
   lessonTetrades,
   lessonFuncoes,
   lessonCadencias,
-  // Nível 2 — Condução de vozes
   lessonMovimentos,
   lessonParalelas,
   lessonEspacamento,
   lessonDuplicacoes,
   lessonNotasEstranhas,
   lessonSetimas,
-  // Nível 3 — Harmonização de melodias
   lessonAnaliseMelodica,
   lessonHarmonizacao,
   lessonEscritaTtbb,
-  // Nível 4 — Linhas, contraponto e texto
-  lessonContraponto,
-  lessonProsodia,
-  // Nível 5 — Arranjo avançado
+  lessonTresVozes,
+  lessonTexturas,
+  lessonVoicings,
+  lessonSilabas,
+  lessonFormaEnergia,
   lessonAcompanhamento,
+  lessonVariacao,
+  lessonProsodia,
+  lessonContraponto,
+  lessonTensoes,
   lessonModulacao,
+  lessonArranjoCoral,
+  lessonACappellaPop,
+  lessonBaixoPercussao,
+  lessonGospel,
+  lessonMpbVocal,
   lessonEstilo,
+  lessonPartituraEnsaio,
 ];
 
-export const LEVELS: readonly Level[] = [
-  {
-    id: "n1",
-    number: 1,
-    title: "Fundamentos para o arranjador",
-    description: "Vozes reais, leitura, intervalos, acordes e funções — revisados do ponto de vista de quem escreve para coro.",
-    units: [
-      {
-        id: "n1-u1",
-        title: "Vozes e materiais",
-        description: "Extensões SATB/TTBB, claves, intervalos, escalas e ritmo.",
-        lessonIds: ["vozes-claves-extensoes", "intervalos", "escalas-tonalidades", "ritmo-metrica-texto"],
-      },
-      {
-        id: "n1-u2",
-        title: "Acordes e funções",
-        description: "Tríades, tétrades, graus, funções e cadências a quatro vozes.",
-        lessonIds: ["triades-inversoes", "tetrades", "graus-funcoes", "cadencias"],
-        project: { title: "Cadências em SATB e TTBB", description: "Escrever as quatro cadências principais nas duas formações, com análise." },
-      },
-    ],
-    finalProject: {
-      title: "Projeto 1 — Hino a quatro vozes",
-      description: "Harmonizar uma melodia de hino de 8 compassos em SATB com acordes primários e cadências, e adaptá-la para TTBB.",
-    },
-  },
-  {
-    id: "n2",
-    number: 2,
-    title: "Condução de vozes",
-    description: "Movimentos, paralelismos, espaçamento, duplicações e tratamento de dissonâncias.",
-    units: [
-      { id: "n2-u1", title: "Princípios de condução", description: "Como as vozes se movem umas em relação às outras.", lessonIds: ["movimentos", "paralelas", "espacamento-cruzamento", "duplicacoes"] },
-      { id: "n2-u2", title: "Dissonância", description: "Notas estranhas e resolução de sétimas.", lessonIds: ["notas-estranhas", "setimas-resolucao"] },
-    ],
-    finalProject: { title: "Projeto 2 — Coral em estilo tradicional", description: "Coral de 16 compassos sem erros de condução, com notas de passagem e uma cadência de engano." },
-  },
-  {
-    id: "n3",
-    number: 3,
-    title: "Harmonização de melodias",
-    description: "Da melodia ao arranjo: análise, escolha harmônica e escrita para as duas formações.",
-    units: [
-      { id: "n3-u1", title: "Da melodia ao SATB", description: "Análise melódica e harmonização.", lessonIds: ["analise-melodica", "harmonizacao-satb"] },
-      { id: "n3-u2", title: "Escrita masculina", description: "Particularidades do TTBB.", lessonIds: ["escrita-ttbb"] },
-    ],
-    finalProject: { title: "Projeto 3 — Canção folclórica", description: "Arranjo de uma canção de domínio público em SATB e TTBB, com justificativa das escolhas." },
-  },
-  {
-    id: "n4",
-    number: 4,
-    title: "Linhas, contraponto e texto",
-    description: "Independência melódica, imitação, prosódia e respiração.",
-    units: [{ id: "n4-u1", title: "Linhas que cantam", description: "Contraponto e texto.", lessonIds: ["contraponto-aplicado", "prosodia-respiracao"] }],
-    finalProject: { title: "Projeto 4 — Moteto breve", description: "Peça curta com entradas imitativas e texto em português." },
-  },
-  {
-    id: "n5",
-    number: 5,
-    title: "Arranjo avançado",
-    description: "Forma, acompanhamento, modulação, reharmonização, estilo e partitura final.",
-    units: [{ id: "n5-u1", title: "O arranjo completo", description: "Do esboço à partitura de ensaio.", lessonIds: ["acompanhamento-introducoes", "modulacao-reharmonizacao", "analise-estilistica-revisao"] }],
-    finalProject: { title: "Projeto final — Arranjo completo", description: "Arranjo original com introdução, modulação e versões SATB e TTBB, avaliado por rubrica." },
-  },
-];
+function place(lesson: Lesson): Lesson {
+  const p = PLACEMENT[lesson.id];
+  if (!p) throw new Error(`Aula sem posição na grade: ${lesson.id}`);
+  const level = LEVELS.find((lv) => lv.units.some((u) => u.id === p.unitId));
+  if (!level) throw new Error(`Disciplina inexistente: ${p.unitId}`);
+  return { ...lesson, levelId: level.id, unitId: p.unitId, prerequisites: p.prerequisites };
+}
+
+/** Aulas na ordem da grade (semestre → disciplina → aula). */
+export const LESSONS: readonly Lesson[] = LEVELS.flatMap((lv) =>
+  lv.units.flatMap((u) =>
+    u.lessonIds.map((id) => {
+      const lesson = ALL_LESSONS.find((l) => l.id === id);
+      if (!lesson) throw new Error(`Aula inexistente: ${id}`);
+      return place(lesson);
+    }),
+  ),
+);
+
+/** Carga horária estimada de uma disciplina (soma das aulas), em horas. */
+export function unitHours(unit: Level["units"][number]): number {
+  const minutes = unit.lessonIds.reduce((acc, id) => acc + (LESSONS.find((l) => l.id === id)?.estimatedMinutes ?? 0), 0);
+  return Math.max(1, Math.round(minutes / 60));
+}
+
+export function getUnit(unitId: string): { level: Level; unit: Level["units"][number] } | undefined {
+  for (const level of LEVELS) {
+    const unit = level.units.find((u) => u.id === unitId);
+    if (unit) return { level, unit };
+  }
+  return undefined;
+}
 
 export function getLesson(id: string): Lesson | undefined {
   return LESSONS.find((l) => l.id === id);

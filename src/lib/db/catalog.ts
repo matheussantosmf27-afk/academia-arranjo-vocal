@@ -1,17 +1,21 @@
 import { LESSONS, LEVELS } from "@/content/curriculum/curriculum";
 
 /** Versão do conteúdo: muda quando lições são publicadas ou reestruturadas. */
-export const CONTENT_VERSION = "2026.10.21";
+export const CONTENT_VERSION = "2026.10.23";
 
 const q = (s: string) => `'${s.replace(/'/g, "''")}'`;
 
 /**
  * SQL idempotente que espelha o currículo do código no catálogo do banco
- * (níveis, unidades, lições, pré-requisitos). Executado com privilégios de
+ * (semestres, disciplinas, aulas, pré-requisitos). Executado com privilégios de
  * service role — usuários não escrevem no catálogo.
  */
 export function catalogSeedSql(): string {
   const lines: string[] = ["-- Gerado por scripts/generate-catalog-seed.ts — não editar à mão.", "begin;"];
+  const levelIds = LEVELS.map((lv) => q(lv.id)).join(", ");
+  const unitIds = LEVELS.flatMap((lv) => lv.units.map((u) => q(u.id))).join(", ");
+  // Níveis que saíram da grade liberam seus números (únicos) antes do upsert.
+  lines.push(`update public.levels set number = number + 100 where id not in (${levelIds}) and number < 100;`);
   for (const lv of LEVELS) {
     lines.push(
       `insert into public.levels (id, number, title) values (${q(lv.id)}, ${lv.number}, ${q(lv.title)}) on conflict (id) do update set number = excluded.number, title = excluded.title;`,
@@ -32,6 +36,9 @@ export function catalogSeedSql(): string {
       });
     }
   }
+  // Disciplinas e semestres que saíram da grade (todas as aulas já foram realocadas acima).
+  lines.push(`delete from public.units where id not in (${unitIds}) and not exists (select 1 from public.lessons l where l.unit_id = units.id);`);
+  lines.push(`delete from public.levels where id not in (${levelIds}) and not exists (select 1 from public.units u where u.level_id = levels.id);`);
   lines.push("delete from public.lesson_prerequisites;");
   for (const l of LESSONS) {
     for (const p of l.prerequisites) {

@@ -23,7 +23,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
   {
     id: "hino-satb",
     title: "Hino a quatro vozes (SATB)",
-    level: 3,
+    level: 2,
     lessonId: "harmonizacao-satb",
     summary: "Harmonize uma melodia original de hino em Sol maior com acordes primários, ii e cadências claras.",
     steps: [
@@ -48,7 +48,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
   {
     id: "adaptacao-ttbb",
     title: "Adaptação para coro masculino (TTBB)",
-    level: 3,
+    level: 2,
     lessonId: "escrita-ttbb",
     summary: "A melodia do coral de referência está no Tenor II. Reescreva o arranjo para TTBB respeitando extensões e limites graves.",
     steps: [
@@ -73,7 +73,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
   {
     id: "arranjo-completo",
     title: "Arranjo completo com introdução",
-    level: 5,
+    level: 4,
     lessonId: "analise-estilistica-revisao",
     summary: "Harmonize a melodia em duas frases, escreva dois compassos de introdução e prepare a partitura final com dinâmicas e respirações.",
     steps: [

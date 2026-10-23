@@ -4,7 +4,8 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { type KeyboardEvent, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { DURATION_NAMES_PT, DURATION_TYPES, type DurationType, durationNamePt } from "@/domain/music/duration";
-import { EXAMPLE_SCORES, CHORALE_SATB_C } from "@/domain/music/examples";
+import { CHORALE_SATB_C } from "@/domain/music/examples";
+import { LAB_EXAMPLES } from "@/content/lab-examples";
 import { type FormationId, type VoiceId, getFormation, staffOfVoice, writtenPitch, clefNamePt } from "@/domain/music/formations";
 import { type History, canRedo, canUndo, createHistory, pushHistory, redo, undo } from "@/domain/music/history";
 import { keyNamePt } from "@/domain/music/key";
@@ -71,7 +72,7 @@ function resolveInitial(params: URLSearchParams): { score: Score; message: strin
     const r = loadDraft(draft);
     return r.ok ? { score: r.score, message: `Rascunho "${r.score.title}" aberto.` } : { score: CHORALE_SATB_C, message: r.error };
   }
-  const s = ex ? EXAMPLE_SCORES.find((e) => e.id === ex) : undefined;
+  const s = ex ? LAB_EXAMPLES.find((e) => e.id === ex) : undefined;
   return s ? { score: s, message: `Exemplo "${s.title}" aberto.` } : { score: CHORALE_SATB_C, message: "" };
 }
 
@@ -366,12 +367,12 @@ export function Studio() {
           <select
             value=""
             onChange={(e) => {
-              const s = EXAMPLE_SCORES.find((x) => x.id === e.target.value);
+              const s = LAB_EXAMPLES.find((x) => x.id === e.target.value);
               if (s) load(s, `Exemplo "${s.title}" aberto.`);
             }}
           >
             <option value="">Escolha…</option>
-            {EXAMPLE_SCORES.map((s) => (
+            {LAB_EXAMPLES.map((s) => (
               <option key={s.id} value={s.id}>
                 {s.title}
               </option>

@@ -1,17 +1,27 @@
 import { expect, test } from "@playwright/test";
 
-test("painel e navegação para o currículo @mobile", async ({ page }) => {
+test("início e navegação para a grade curricular @mobile", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Escreva para vozes reais." })).toBeVisible();
-  await page.getByRole("link", { name: "Currículo" }).first().click();
-  await expect(page.getByRole("heading", { name: /Nível 1/ })).toBeVisible();
-  await expect(page.getByText("Vozes, claves e extensões: SATB e TTBB")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Aprenda a escrever, estruturar e criar arranjos vocais." })).toBeVisible();
+  await page.getByRole("link", { name: "Ver a grade curricular" }).click();
+  await expect(page.getByRole("heading", { name: /1º semestre — Fundamentos do arranjo vocal/ })).toBeVisible();
+  await expect(page.getByText("O ofício do arranjador vocal").first()).toBeVisible();
 });
 
-test("lição com pré-requisito não dominado bloqueia os exercícios", async ({ page }) => {
-  await page.goto("/licoes/intervalos");
-  await expect(page.getByText("Pré-requisitos ainda não dominados")).toBeVisible();
-  await expect(page.getByText(/ficam disponíveis quando os pré-requisitos forem dominados/)).toBeVisible();
+test("página da disciplina com ementa, aulas e bibliografia", async ({ page }) => {
+  await page.goto("/curriculo");
+  await page.getByRole("link", { name: /ARV101 Introdução ao Arranjo Vocal/ }).click();
+  await expect(page.getByRole("heading", { name: "Introdução ao Arranjo Vocal", level: 1 })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Ementa" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /O processo de arranjo, passo a passo/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Bibliografia e escuta recomendadas" })).toBeVisible();
+});
+
+test("aula com pré-requisito não concluído bloqueia a verificação", async ({ page }) => {
+  await page.goto("/licoes/processo-de-arranjo");
+  await expect(page.getByText("ARV101 · Aula 2 de 3")).toBeVisible();
+  await expect(page.getByText("Aulas pré-requisito ainda não concluídas")).toBeVisible();
+  await expect(page.getByText(/ficam disponíveis quando as aulas pré-requisito forem concluídas/)).toBeVisible();
 });
 
 test("tentativa completa de exercícios com feedback e registro no perfil", async ({ page }) => {
