@@ -14,3 +14,14 @@ describe("normalizeSupabaseUrl", () => {
     expect(normalizeSupabaseUrl(raw)).toBeNull();
   });
 });
+
+describe("isSecretKey", () => {
+  const jwt = (role: string) => `x.${btoa(JSON.stringify({ role })).replace(/=+$/, "")}.y`;
+  it("recusa chaves secretas", async () => {
+    const { isSecretKey } = await import("../config");
+    expect(isSecretKey("sb_secret_abc")).toBe(true);
+    expect(isSecretKey(jwt("service_role"))).toBe(true);
+    expect(isSecretKey("sb_publishable_abc")).toBe(false);
+    expect(isSecretKey(jwt("anon"))).toBe(false);
+  });
+});

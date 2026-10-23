@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { isSecretKey } from "./src/lib/supabase/config";
 import { normalizeSupabaseUrl } from "./src/lib/supabase/url";
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -28,6 +29,15 @@ const csp = [
   "form-action 'self'",
   "frame-ancestors 'none'",
 ].join("; ");
+
+const publicKey = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY?.trim() ?? "";
+if (publicKey && isSecretKey(publicKey)) {
+  // Falha o build: uma chave secreta em NEXT_PUBLIC_* seria embutida no JavaScript público.
+  throw new Error(
+    "NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY contém uma chave SECRETA do Supabase (sb_secret_/service_role). " +
+      "Use a chave publishable (sb_publishable_…) e revogue a chave secreta exposta no painel do Supabase.",
+  );
+}
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
