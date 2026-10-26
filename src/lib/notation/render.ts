@@ -33,6 +33,8 @@ export interface RenderOptions {
   readonly showLyrics?: boolean;
   /** Vozes silenciadas na reprodução aparecem esmaecidas. */
   readonly dimmedVoices?: ReadonlySet<string>;
+  /** Cor base das notas de cada voz (diagnósticos e seleção têm prioridade). */
+  readonly voiceColors?: Readonly<Record<string, string>>;
   /** "canvas" exige que o container seja um <canvas> (usado na exportação PDF). */
   readonly backend?: "svg" | "canvas";
 }
@@ -54,8 +56,8 @@ export interface RenderResult {
 }
 
 const COLORS = {
-  selected: "#b4235a",
-  range: "#d4789c",
+  selected: "#6d28d9",
+  range: "#a78bfa",
   erro: "#c0392b",
   alerta: "#c77700",
   sugestao: "#2f6fb0",
@@ -201,7 +203,7 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
             }
           }
           const flag = opts.flagged?.get(ev.id);
-          let color: string | null = null;
+          let color: string | null = opts.voiceColors?.[v.id] ?? null;
           if (opts.dimmedVoices?.has(v.id)) color = COLORS.dim;
           if (flag) color = COLORS[flag];
           if (opts.rangeEventIds?.has(ev.id)) color = COLORS.range;

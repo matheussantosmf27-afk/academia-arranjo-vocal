@@ -6,6 +6,7 @@ import { analyzeHarmony, validateScore } from "@/domain/validation";
 import { DiagnosticList } from "../diagnostics/DiagnosticList";
 import { ScoreView } from "../notation/ScoreView";
 import { VoicePlayer } from "../audio/VoicePlayer";
+import { PianoRoll } from "../visual/PianoRoll";
 import styles from "./Lesson.module.css";
 
 const VERDICT = {
@@ -24,6 +25,7 @@ export function ExampleBlock({ score, verdict, caption, commentary }: { score: S
   }, [report]);
   const [playhead, setPlayhead] = useState<number | null>(null);
   const [showDiag, setShowDiag] = useState(verdict !== "correto");
+  const [showRoll, setShowRoll] = useState(false);
   return (
     <figure className={styles.example}>
       <figcaption className={styles.exampleHead}>
@@ -33,6 +35,10 @@ export function ExampleBlock({ score, verdict, caption, commentary }: { score: S
       </figcaption>
       <ScoreView score={score} flagged={flagged} harmony={harmony} playhead={playhead} />
       <VoicePlayer score={score} onPosition={setPlayhead} compact />
+      <button type="button" className={`btn btn-sm btn-ghost ${styles.rollToggle}`} onClick={() => setShowRoll((v) => !v)} aria-expanded={showRoll}>
+        {showRoll ? "Ocultar" : "Ver"} rolo de piano (vozes em cores)
+      </button>
+      {showRoll && <PianoRoll score={score} playhead={playhead} />}
       <p className={styles.commentary}>{commentary}</p>
       <button type="button" className="btn btn-sm" onClick={() => setShowDiag((v) => !v)} aria-expanded={showDiag}>
         {showDiag ? "Ocultar" : "Ver"} diagnósticos do motor ({report.diagnostics.length})

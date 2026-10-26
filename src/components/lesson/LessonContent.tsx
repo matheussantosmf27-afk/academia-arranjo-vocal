@@ -1,6 +1,8 @@
 import type { ContentBlock, Lesson } from "@/content/curriculum/types";
+import type { ChoiceItem } from "@/domain/exercises/types";
 import { ExampleBlock } from "./ExampleBlock";
 import { ListeningBlock } from "./ListeningBlock";
+import { QuickCheck } from "./QuickCheck";
 import styles from "./Lesson.module.css";
 
 function Block({ block }: { block: ContentBlock }) {
@@ -43,15 +45,28 @@ function Block({ block }: { block: ContentBlock }) {
   }
 }
 
+export const sectionId = (i: number) => `secao-${i + 1}`;
+
+/**
+ * Perguntas rápidas intercaladas: usa as perguntas conceituais da verificação
+ * (sem notação nem áudio), uma ao fim de cada seção, sem repetir.
+ */
+function quickChecksFor(lesson: Lesson): (ChoiceItem | null)[] {
+  const pool = (lesson.exercises?.staticItems ?? []).filter((i) => !i.notation && !i.staff && !i.audio);
+  return lesson.sections.map((_, i) => pool[i] ?? null);
+}
+
 export function LessonContent({ lesson }: { lesson: Lesson }) {
+  const checks = quickChecksFor(lesson);
   return (
     <div className={styles.body}>
-      {lesson.sections.map((s) => (
-        <section key={s.title} aria-labelledby={`sec-${s.title}`}>
-          <h2 id={`sec-${s.title}`}>{s.title}</h2>
-          {s.blocks.map((b, i) => (
-            <Block key={i} block={b} />
+      {lesson.sections.map((s, i) => (
+        <section key={s.title} id={sectionId(i)} aria-labelledby={`${sectionId(i)}-t`} data-lesson-section>
+          <h2 id={`${sectionId(i)}-t`}>{s.title}</h2>
+          {s.blocks.map((b, k) => (
+            <Block key={k} block={b} />
           ))}
+          {checks[i] && <QuickCheck item={checks[i]} />}
         </section>
       ))}
     </div>

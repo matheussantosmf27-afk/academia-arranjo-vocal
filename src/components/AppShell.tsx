@@ -7,57 +7,77 @@ import { AccountLink } from "./AccountLink";
 import { AccountSync } from "./AccountSync";
 import styles from "./AppShell.module.css";
 
-const NAV: Array<{ href: string; label: string; icon: ReactNode }> = [
-  { href: "/", label: "Início", icon: <path d="M3 13h7V3H3zm11 8h7V11h-7zM3 21h7v-6H3zm11-18v6h7V3z" /> },
-  { href: "/curriculo", label: "Grade curricular", icon: <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4zm4 4v2h8V8zm0 4v2h6v-2z" /> },
-  { href: "/laboratorio", label: "Laboratório auditivo", icon: <path d="M12 3a7 7 0 0 0-7 7v5a3 3 0 0 0 3 3h1v-7H7v-1a5 5 0 0 1 10 0v1h-2v7h1a3 3 0 0 0 3-3v-5a7 7 0 0 0-7-7z" /> },
-  { href: "/projetos", label: "Trabalhos práticos", icon: <path d="M3 5h7l2 2h9v12H3z" /> },
-  { href: "/estudio", label: "Laboratório de escrita", icon: <path d="M2 6h20M2 9h20M2 12h20M2 15h20M2 18h20M8 4v10" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
-  { href: "/perfil", label: "Competências", icon: <path d="M12 2l2.9 6.3L22 9.2l-5.2 4.7L18.2 21 12 17.3 5.8 21l1.4-7.1L2 9.2l7.1-.9z" /> },
+const NAV: Array<{ href: string; label: string; short: string; icon: ReactNode }> = [
+  { href: "/", label: "Início", short: "Início", icon: <path d="M3 11.5 12 4l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z" /> },
+  { href: "/curriculo", label: "Grade curricular", short: "Grade", icon: <path d="M4 4h12a4 4 0 0 1 4 4v12H8a4 4 0 0 1-4-4zm4 4v2h8V8zm0 4v2h6v-2z" /> },
+  { href: "/laboratorio", label: "Laboratório auditivo", short: "Auditivo", icon: <path d="M12 3a7 7 0 0 0-7 7v5a3 3 0 0 0 3 3h1v-7H7v-1a5 5 0 0 1 10 0v1h-2v7h1a3 3 0 0 0 3-3v-5a7 7 0 0 0-7-7z" /> },
+  { href: "/projetos", label: "Trabalhos práticos", short: "Trabalhos", icon: <path d="M3 5h7l2 2h9v12H3z" /> },
+  { href: "/estudio", label: "Laboratório de escrita", short: "Escrita", icon: <path d="M3 6h18M3 9h18M3 12h18M3 15h18M3 18h18M8 4v10" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
+  { href: "/perfil", label: "Competências", short: "Competências", icon: <path d="M12 2l2.9 6.3L22 9.2l-5.2 4.7L18.2 21 12 17.3 5.8 21l1.4-7.1L2 9.2l7.1-.9z" /> },
 ];
+
+/** Logotipo: quatro barras de equalizador nas cores das vozes. */
+function BrandMark() {
+  return (
+    <svg className={styles.brandMark} viewBox="0 0 40 40" aria-hidden="true">
+      <defs>
+        <linearGradient id="brandBg" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stopColor="#c2185b" />
+          <stop offset="1" stopColor="#6d28d9" />
+        </linearGradient>
+      </defs>
+      <rect width="40" height="40" rx="11" fill="url(#brandBg)" />
+      {[
+        { x: 8, h: 14, c: "#ff4d9d" },
+        { x: 15.5, h: 22, c: "#ffb547" },
+        { x: 23, h: 17, c: "#2ee6ff" },
+        { x: 30.5, h: 10, c: "#a3e635" },
+      ].map((b, i) => (
+        <rect key={b.x} className={styles.bar} style={{ animationDelay: `${i * 0.18}s` }} x={b.x - 2} y={20 - b.h / 2} width="4" height={b.h} rx="2" fill={b.c} />
+      ))}
+    </svg>
+  );
+}
 
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
-  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href) || (href === "/curriculo" && (pathname.startsWith("/licoes") || pathname.startsWith("/disciplinas"))));
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname.startsWith(href) || (href === "/curriculo" && (pathname.startsWith("/licoes") || pathname.startsWith("/disciplinas")));
   return (
     <div className={styles.shell}>
       <a className="skip-link" href="#conteudo">
         Pular para o conteúdo
       </a>
-      <aside className={styles.sidebar} aria-label="Navegação principal">
-        <Link href="/" className={styles.brand}>
-          <svg className={styles.brandMark} viewBox="0 0 40 40" aria-hidden="true">
-            <rect width="40" height="40" rx="9" fill="#b4235a" />
-            {[12, 17, 22, 27].map((y) => (
-              <line key={y} x1="7" x2="33" y1={y} y2={y} stroke="#fff" strokeOpacity="0.45" strokeWidth="1" />
+      <header className={styles.topbar}>
+        <div className={styles.topInner}>
+          <Link href="/" className={styles.brand}>
+            <BrandMark />
+            <span className={styles.brandText}>
+              Academia de Arranjo Vocal
+              <small>Curso de arranjo vocal</small>
+            </span>
+          </Link>
+          <nav className={styles.nav} aria-label="Navegação principal">
+            {NAV.map((item) => (
+              <Link key={item.href} href={item.href} className={styles.navLink} aria-label={item.label} aria-current={isActive(item.href) ? "page" : undefined}>
+                <svg className={styles.navIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  {item.icon}
+                </svg>
+                <span>{item.short}</span>
+              </Link>
             ))}
-            <ellipse cx="14" cy="22" rx="3.6" ry="2.6" fill="#fff" transform="rotate(-20 14 22)" />
-            <ellipse cx="26" cy="14.5" rx="3.6" ry="2.6" fill="#fff" transform="rotate(-20 26 14.5)" />
-            <path d="M17.3 21.2V9.5h12" stroke="#fff" strokeWidth="1.6" fill="none" />
-            <path d="M29.3 13.6V9.5" stroke="#fff" strokeWidth="1.6" />
-          </svg>
-          <span className={styles.brandText}>
-            Academia de Arranjo Vocal
-            <small>Curso de arranjo vocal</small>
-          </span>
-        </Link>
-        <nav className={styles.nav}>
-          {NAV.map((item) => (
-            <Link key={item.href} href={item.href} className={styles.navLink} aria-current={isActive(item.href) ? "page" : undefined}>
-              <svg className={styles.navIcon} viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                {item.icon}
-              </svg>
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-        <AccountLink className={styles.account} />
-        <AccountSync />
-        <p className={styles.footer}>Sem conta, progresso e rascunhos ficam salvos apenas neste navegador.</p>
-      </aside>
+          </nav>
+          <AccountLink className={styles.account} />
+        </div>
+      </header>
+      <AccountSync />
       <main id="conteudo" className={styles.main} tabIndex={-1}>
         {children}
       </main>
+      <footer className={styles.footer}>
+        <span>Academia de Arranjo Vocal</span>
+        <span>Sem conta, progresso e rascunhos ficam salvos apenas neste navegador.</span>
+      </footer>
     </div>
   );
 }
