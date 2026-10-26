@@ -6,6 +6,7 @@ import {
   generateKeySignatureItems,
   generateMotionItems,
   generateNctItems,
+  generateRealizationItems,
   generateScaleDegreeItems,
   generateSeventhItems,
 } from "./generators2";
@@ -28,6 +29,7 @@ export function buildExerciseSet(spec: ExerciseSetSpec, seed: number): ExerciseI
     else if (g.type === "motion-type") generated.push(...generateMotionItems(rng, g.count));
     else if (g.type === "voice-leading-error") generated.push(...generateErrorItems(rng, g.count, g.ruleIds));
     else if (g.type === "cadence-identification") generated.push(...generateCadenceItems(rng, g.count));
+    else if (g.type === "realization") generated.push(...generateRealizationItems(rng, g.count, g.mode));
     else generated.push(...generateNctItems(rng, g.count));
   }
   // Itens estáticos mantêm a ordem pedagógica; gerados são embaralhados entre si.

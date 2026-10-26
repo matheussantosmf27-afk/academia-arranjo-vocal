@@ -62,3 +62,69 @@ export const NCT_SNIPPETS: readonly NctSnippet[] = [
   { score: s("nct-escapada", { S: "C5:q D5:q G4:h", ...C_CHORD_2 }), kind: "escapada" },
   { score: s("nct-antecipacao", { S: "B4:h B4:q C5:q | C5:w", A: "G4:w | G4:w", T: "D4:w | E4:w", B: "G2:w | C3:w" }), kind: "antecipacao" },
 ];
+
+type Voices = Record<"S" | "A" | "T" | "B", string>;
+
+/**
+ * Baixo dado e canto dado: uma voz é dada e o aluno escolhe a realização das
+ * outras três. A realização correta não tem erros nem alertas no motor; cada
+ * alternativa errada contém um problema de condução que o motor identifica.
+ */
+export interface RealizationProblem {
+  readonly id: string;
+  readonly mode: "baixo-dado" | "canto-dado";
+  readonly key: string;
+  readonly correct: Voices;
+  readonly wrong: readonly Voices[];
+}
+
+export const REALIZATION_PROBLEMS: readonly RealizationProblem[] = [
+  {
+    id: "bd-i-v-i",
+    mode: "baixo-dado",
+    key: "C",
+    correct: { S: "E5:h D5:h | C5:w", A: "G4:h G4:h | E4:w", T: "C4:h B3:h | C4:w", B: "C3:h G2:h | C3:w" },
+    wrong: [
+      { S: "E5:h D5:h | C5:w", A: "G4:h G4:h | E4:w", T: "E4:h D4:h | C4:w", B: "C3:h G2:h | C3:w" },
+      { S: "E5:h B4:h | C5:w", A: "G4:h G4:h | E4:w", T: "C4:h B3:h | C4:w", B: "C3:h G2:h | C3:w" },
+      { S: "E5:h D5:h | C5:w", A: "C4:h B3:h | E4:w", T: "G4:h G4:h | C4:w", B: "C3:h G2:h | C3:w" },
+    ],
+  },
+  {
+    id: "bd-iv-v-i",
+    mode: "baixo-dado",
+    key: "G",
+    correct: { S: "G4:h F#4:h | G4:w", A: "E4:h D4:h | D4:w", T: "C4:h A3:h | B3:w", B: "C3:h D3:h | G2:w" },
+    wrong: [
+      { S: "G4:h A4:h | G4:w", A: "E4:h F#4:h | G4:w", T: "C4:h D4:h | D4:w", B: "C3:h D3:h | G2:w" },
+      { S: "G4:h F#4:h | G4:w", A: "E4:h D4:h | D4:w", T: "C4:h F#3:h | B3:w", B: "C3:h D3:h | G2:w" },
+      { S: "G4:h F#4:h | G4:w", A: "E4:h A4:h | D4:w", T: "C4:h D4:h | B3:w", B: "C3:h D3:h | G2:w" },
+    ],
+  },
+  {
+    id: "cd-i-v-i",
+    mode: "canto-dado",
+    key: "C",
+    correct: { S: "C5:h B4:h | C5:w", A: "G4:h G4:h | G4:w", T: "E4:h D4:h | E4:w", B: "C3:h G2:h | C3:w" },
+    wrong: [
+      { S: "C5:h B4:h | C5:w", A: "G4:h G4:h | G4:w", T: "E4:h D4:h | E4:w", B: "C3:h B2:h | C3:w" },
+      { S: "C5:h B4:h | C5:w", A: "G4:h G4:h | G4:w", T: "E4:h B3:h | C4:w", B: "C3:h G2:h | C3:w" },
+      { S: "C5:h B4:h | C5:w", A: "G4:h D5:h | G4:w", T: "E4:h G4:h | E4:w", B: "C3:h G2:h | C3:w" },
+    ],
+  },
+  {
+    id: "cd-i-v-i-fa",
+    mode: "canto-dado",
+    key: "F",
+    correct: { S: "A4:h G4:h | F4:w", A: "F4:h E4:h | F4:w", T: "C4:h C4:h | A3:w", B: "F3:h C3:h | F3:w" },
+    wrong: [
+      { S: "A4:h G4:h | F4:w", A: "F4:h E4:h | F4:w", T: "C4:h G3:h | A3:w", B: "F3:h C3:h | F3:w" },
+      { S: "A4:h G4:h | F4:w", A: "F4:h E4:h | F4:w", T: "C4:h E4:h | A3:w", B: "F3:h C3:h | F3:w" },
+      { S: "A4:h G4:h | F4:w", A: "F4:h A4:h | F4:w", T: "C4:h E4:h | A3:w", B: "F3:h C3:h | F3:w" },
+    ],
+  },
+];
+
+export function realizationScore(p: RealizationProblem, voices: Voices): Score {
+  return s(`${p.id}-${Object.values(voices).join("").length}`, voices, p.key);
+}

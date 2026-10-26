@@ -1,7 +1,7 @@
 import { type ChordQuality, chordQualityPt, harmonicFunction, identifyChord, inversionPt, romanNumeral } from "../music/chord";
 import { type IntervalQuality, transposeByInterval } from "../music/interval";
 import { type Key, keyFifths, keyNamePt, scale, scaleDegree } from "../music/key";
-import { type Alter, type Pitch, type Step, formatPitchClassPt, toMidi } from "../music/pitch";
+import { type Alter, type Pitch, type Step, formatPitchClassPt, formatPitchPt, toMidi } from "../music/pitch";
 import type { Score } from "../music/score";
 import { changeKey } from "../music/timeline-ops";
 import { parseKey } from "../music/text-notation";
@@ -10,7 +10,7 @@ import { buildContext } from "../validation/context";
 import { classifyMotion, MOTION_PT, type MotionType } from "../validation/motion";
 import { NCT_PT, analyzeNonChordTones } from "../validation/rules/nct";
 import { chordScore } from "./generators";
-import { CADENCE_PT, CADENCE_SNIPPETS, ERROR_SNIPPETS, NCT_SNIPPETS } from "./library";
+import { CADENCE_PT, CADENCE_SNIPPETS, ERROR_SNIPPETS, NCT_SNIPPETS, REALIZATION_PROBLEMS, type RealizationProblem, realizationScore } from "./library";
 import { pick, shuffle } from "./random";
 import type { ChoiceItem, ChoiceOption } from "./types";
 
@@ -301,6 +301,57 @@ export function generateNctItems(rng: Rng, count: number): ChoiceItem[] {
         notation: score,
       }),
     );
+  }
+  return items;
+}
+
+const VOICE_PT = { S: "Soprano", A: "Contralto", T: "Tenor", B: "Baixo" } as const;
+
+/** Notas de uma voz, por extenso ("Mi5 – Ré5 – Dó5"). */
+function voiceLine(score: Score, voice: "S" | "A" | "T" | "B"): string {
+  const part = score.parts.find((p) => p.voice === voice)!;
+  return part.events.flatMap((e) => (e.kind === "note" ? [formatPitchPt(e.pitch)] : [])).join(" – ");
+}
+
+/**
+ * Baixo dado / canto dado: mostra a voz dada e pede a realização correta das
+ * outras três. A certa é limpa no motor; cada errada traz o diagnóstico que a
+ * reprova como comentário específico.
+ */
+export function generateRealizationItems(rng: Rng, count: number, mode?: RealizationProblem["mode"]): ChoiceItem[] {
+  const pool = REALIZATION_PROBLEMS.filter((p) => !mode || p.mode === mode);
+  const items: ChoiceItem[] = [];
+  for (const p of shuffle(rng, pool).slice(0, count)) {
+    const given = p.mode === "baixo-dado" ? "B" : "S";
+    const others = (["S", "A", "T", "B"] as const).filter((v) => v !== given);
+    const correct = realizationScore(p, p.correct);
+    if (validateScore(correct).diagnostics.some((d) => d.severity !== "info")) continue;
+    const wrong = p.wrong.map((w) => realizationScore(p, w)).map((sc) => ({ sc, d: validateScore(sc).diagnostics.find((d) => d.severity === "erro" || d.severity === "alerta") }));
+    if (wrong.some((w) => !w.d)) continue;
+    const label = (sc: Score) => others.map((v) => `${VOICE_PT[v]}: ${voiceLine(sc, v)}`).join(" · ");
+    const entries = shuffle(rng, [{ label: label(correct), ok: true, feedback: "" }, ...wrong.map((w) => ({ label: label(w.sc), ok: false, feedback: `${w.d!.message} ${w.d!.explanation}` }))]);
+    const options: ChoiceOption[] = entries.map((e, i) => ({ id: `o${i}`, label: e.label }));
+    const optionFeedback: Record<string, string> = {};
+    entries.forEach((e, i) => {
+      if (!e.ok) optionFeedback[`o${i}`] = e.feedback;
+    });
+    const notation: Score = {
+      ...correct,
+      parts: correct.parts.map((part) =>
+        part.voice === given ? part : { ...part, events: part.events.map((e) => ({ id: e.id, kind: "rest" as const, duration: e.duration })) },
+      ),
+    };
+    items.push({
+      id: `real-${items.length + 1}`,
+      kind: "choice",
+      skill: "conducao-de-vozes",
+      prompt: `${p.mode === "baixo-dado" ? "Baixo dado" : "Canto dado"} em ${keyNamePt(correct.key)}: qual realização das outras vozes não tem erros de condução?`,
+      options,
+      correctOptionId: options[entries.findIndex((e) => e.ok)]!.id,
+      explanation: `A realização correta completa cada acorde (fundamental, terça e quinta, com a dobra adequada), resolve a sensível e evita paralelas: ${label(correct)}.`,
+      optionFeedback,
+      notation,
+    });
   }
   return items;
 }

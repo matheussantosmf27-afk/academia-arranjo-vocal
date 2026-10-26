@@ -105,3 +105,33 @@ describe("geradores: respostas calculadas pelo domínio", () => {
 function scaleDegreeOf(pc: Parameters<typeof scaleDegree>[0], key: ReturnType<typeof parseKey>) {
   return scaleDegree(pc, key).degree;
 }
+
+describe("baixo dado e canto dado", () => {
+  it("a realização certa é limpa e cada errada tem erro ou alerta no motor", async () => {
+    const { REALIZATION_PROBLEMS, realizationScore } = await import("../library");
+    expect(REALIZATION_PROBLEMS.some((p) => p.mode === "baixo-dado")).toBe(true);
+    expect(REALIZATION_PROBLEMS.some((p) => p.mode === "canto-dado")).toBe(true);
+    for (const p of REALIZATION_PROBLEMS) {
+      expect(validateScore(realizationScore(p, p.correct)).diagnostics.filter((d) => d.severity !== "info"), p.id).toEqual([]);
+      for (const w of p.wrong) {
+        expect(validateScore(realizationScore(p, w)).diagnostics.some((d) => d.severity === "erro" || d.severity === "alerta"), p.id).toBe(true);
+      }
+    }
+  });
+  it("gera itens bem formados, com a voz dada na notação e comentário em cada alternativa errada", async () => {
+    const { generateRealizationItems } = await import("../generators2");
+    for (const mode of ["baixo-dado", "canto-dado"] as const) {
+      const items = generateRealizationItems(createRng(7), 2, mode);
+      expect(items.length).toBe(2);
+      wellFormed(items);
+      for (const i of items) {
+        const given = mode === "baixo-dado" ? "B" : "S";
+        for (const part of i.notation!.parts) {
+          const hasNotes = part.events.some((e) => e.kind === "note");
+          expect(hasNotes, `${i.id} ${part.voice}`).toBe(part.voice === given);
+        }
+        for (const o of i.options) if (o.id !== i.correctOptionId) expect(i.optionFeedback?.[o.id]).toBeTruthy();
+      }
+    }
+  });
+});

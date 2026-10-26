@@ -88,3 +88,11 @@ test("estúdio TTBB com clave de sol oitavada @mobile", async ({ page }) => {
   await expect(page.getByText("Coro / quarteto masculino (TTBB)")).toBeVisible();
   await expect(page.getByText(/Escrita em clave de sol oitavada \(8vb\): D5/)).toBeVisible();
 });
+
+test("aula de baixo dado e canto dado e exercícios em branco no laboratório", async ({ page }) => {
+  await page.goto("/disciplinas/s2-hmz");
+  await expect(page.getByRole("link", { name: /Baixo dado e canto dado: o treino clássico de harmonia/ })).toBeVisible();
+  await page.goto("/estudio?exemplo=exa-exercicio-baixo-dado");
+  await expect(page.locator(".score-surface svg")).toBeVisible();
+  await expect(page.getByLabel("Título")).toHaveValue("Exercício: baixo dado (escreva soprano, contralto e tenor)");
+});

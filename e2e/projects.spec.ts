@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 
-test("projeto prático: justificar, avaliar por rubrica e comparar versões", async ({ page }) => {
+test("projeto prático: justificar, avaliar por rubrica, registrar rascunho e comparar versões", async ({ page }) => {
   await page.goto("/projetos");
   await page.getByRole("heading", { name: "Trabalhos dos semestres" }).waitFor();
   await page.locator(".card", { hasText: "Hino a quatro vozes" }).getByRole("link", { name: "Abrir projeto" }).click();
@@ -17,12 +17,19 @@ test("projeto prático: justificar, avaliar por rubrica e comparar versões", as
   await expect(table).toContainText("Vozes sem nenhuma nota");
   await expect(table).toContainText("Melodia dada preservada");
 
-  // versão 1, edição (contralto ganha uma nota), comparação
-  await page.getByRole("button", { name: "Guardar versão para comparar" }).click();
-  await expect(page.getByText("Versão 1 guardada para comparação.")).toBeVisible();
+  // rascunho: só depois do checklist de escuta completo
+  const registrar = page.getByRole("button", { name: "Registrar rascunho" });
+  await expect(registrar).toBeDisabled();
+  for (const label of ["Ouvi cada voz isolada no reprodutor", "Cantei (ou solfejei) as vozes internas", "Ouvi o arranjo inteiro no andamento real", "Revisei letra, respirações e dinâmicas em todas as vozes"]) {
+    await page.getByLabel(label).check();
+  }
+  await registrar.click();
+  await expect(page.getByText("Rascunho 1 registrado.", { exact: false })).toBeVisible();
+
+  // edição (contralto ganha uma nota) e comparação com o rascunho, já selecionado
   await page.locator('[id="vf-A-1"]').click();
   await page.keyboard.press("r"); // pausa → nota
-  await page.getByLabel("Versão anterior para comparar").selectOption({ index: 1 });
+  await expect(page.getByLabel("Versão anterior para comparar")).not.toHaveValue("");
   await page.getByRole("button", { name: "Comparar", exact: true }).click();
   await expect(page.getByRole("heading", { name: "Comparação com a versão anterior" })).toBeVisible();
 });
