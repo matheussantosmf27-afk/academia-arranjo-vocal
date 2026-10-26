@@ -7,6 +7,7 @@ const PAGES = [
   { path: "/licoes/intervalos", ready: "h1" },
   { path: "/licoes/oficio-do-arranjador", ready: "h1" },
   { path: "/disciplinas/s1-arv", ready: "h1" },
+  { path: "/licoes/escrita-em-bloco", ready: "h1" },
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },

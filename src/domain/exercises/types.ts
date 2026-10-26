@@ -42,7 +42,9 @@ export type GeneratorSpec =
   | { readonly type: "motion-type"; readonly count: number }
   | { readonly type: "voice-leading-error"; readonly count: number; readonly ruleIds?: readonly string[] }
   | { readonly type: "cadence-identification"; readonly count: number }
-  | { readonly type: "nct-identification"; readonly count: number };
+  | { readonly type: "nct-identification"; readonly count: number }
+  /** Baixo dado / canto dado: escolher a realização das outras vozes. */
+  | { readonly type: "realization"; readonly count: number; readonly mode?: "baixo-dado" | "canto-dado" };
 
 export interface ExerciseSetSpec {
   readonly id: string;

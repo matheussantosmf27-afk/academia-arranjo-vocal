@@ -5,6 +5,10 @@ import { EXA } from "./curriculum/examples-arranjo";
 /** Exemplos que o laboratório de escrita oferece em "Abrir exemplo" (referenciados pelas aulas). */
 export const LAB_EXAMPLES: readonly Score[] = [
   ...EXAMPLE_SCORES,
+  EXA.exercicioBaixoDado,
+  EXA.exercicioCantoDado,
+  EXA.duetoTercas,
+  EXA.contracantoAtivo,
   EXA.melodiaHarmonizada,
   EXA.melodiaPad,
   EXA.melodiaNoTenor,
@@ -14,4 +18,6 @@ export const LAB_EXAMPLES: readonly Score[] = [
   EXA.baixoVocal,
   EXA.gospelBloco,
   EXA.bossa,
+  EXA.quartas,
+  EXA.emprestimo,
 ];

@@ -8,7 +8,7 @@ import { type CriterionId, LEVEL_PT, type Level, type RubricResult, type Version
 import { getFormation } from "@/domain/music/formations";
 import type { Score, StyleProfileId } from "@/domain/music/score";
 import { useAuth } from "@/lib/auth/useAuth";
-import { type PracticeState, loadPractice, savePractice } from "@/lib/projects/practice";
+import { LISTENING_CHECKLIST, type PracticeState, loadPractice, savePractice } from "@/lib/projects/practice";
 import styles from "./ProjectPanel.module.css";
 
 const SELF: Array<{ id: CriterionId; label: string }> = [
@@ -43,14 +43,14 @@ export function ProjectPanel({ project, score, style, onStatus }: { project: Pro
     <section className={styles.panel} aria-labelledby="proj-title">
       <div className={styles.head}>
         <div>
-          <p className="eyebrow">Projeto prático · Nível {project.level}</p>
+          <p className="eyebrow">Trabalho prático · {project.level}º semestre</p>
           <h2 id="proj-title" className={styles.title}>
             {project.title}
           </h2>
           <p style={{ margin: 0 }}>{project.summary}</p>
         </div>
         <Link href={`/licoes/${project.lessonId}`} className="btn btn-sm">
-          Lição de referência
+          Aula de referência
         </Link>
       </div>
       <details open className={styles.block}>
@@ -106,6 +106,42 @@ export function ProjectPanel({ project, score, style, onStatus }: { project: Pro
           ))}
         </div>
       </details>
+      <details className={styles.block} open={!state.draftAt}>
+        <summary>
+          Rascunho e escuta ({state.draftAt ? "rascunho registrado" : `${state.checklist.length}/${LISTENING_CHECKLIST.length}`})
+        </summary>
+        <p className="muted" style={{ fontSize: "0.85rem", margin: "6px 0" }}>
+          Como nas aulas de arranjo das faculdades, o trabalho passa por um rascunho ouvido e cantado antes da entrega. Confirme cada item (autodeclarado) e
+          registre o rascunho: ele fica guardado para você comparar com a versão final.
+        </p>
+        {LISTENING_CHECKLIST.map((c) => (
+          <label key={c.id} className={styles.check}>
+            <input
+              type="checkbox"
+              checked={state.checklist.includes(c.id)}
+              onChange={(e) => update({ ...state, checklist: e.target.checked ? [...state.checklist, c.id] : state.checklist.filter((x) => x !== c.id) })}
+            />
+            {c.label}
+          </label>
+        ))}
+        <div className="row" style={{ marginTop: 6 }}>
+          <button
+            type="button"
+            className="btn btn-sm"
+            disabled={state.checklist.length < LISTENING_CHECKLIST.length}
+            onClick={() => {
+              const at = new Date().toISOString();
+              const label = `Rascunho ${state.snapshots.filter((x) => x.label.startsWith("Rascunho")).length + 1}`;
+              update({ ...state, draftAt: at, snapshots: [...state.snapshots, { at, label, score }].slice(-20) });
+              setCompareWith(at);
+              onStatus(`${label} registrado. Continue revisando e compare com a versão final.`);
+            }}
+          >
+            Registrar rascunho
+          </button>
+          {state.draftAt && <span className="muted">Último rascunho: {new Date(state.draftAt).toLocaleString("pt-BR")}</span>}
+        </div>
+      </details>
       <div className="row" style={{ marginTop: 8 }}>
         <button type="button" className="btn btn-sm btn-accent" onClick={() => setResult(evaluateRubric(rubricInput(score)))}>
           Avaliar com a rubrica
@@ -147,7 +183,8 @@ export function ProjectPanel({ project, score, style, onStatus }: { project: Pro
           <button
             type="button"
             className="btn btn-sm btn-primary"
-            disabled={saving}
+            disabled={saving || !state.draftAt}
+            title={state.draftAt ? undefined : "Registre um rascunho antes da entrega final"}
             onClick={async () => {
               setSaving(true);
               const r = await saveProjectEvaluation({ ...score, metadata: { ...score.metadata, style } }, { projectId: project.id, arrangementId: cloudId, justifications: state.justifications, selfAssessment: state.selfAssessment });
@@ -158,7 +195,7 @@ export function ProjectPanel({ project, score, style, onStatus }: { project: Pro
               } else onStatus(`Falha ao salvar a avaliação: ${r.error}`);
             }}
           >
-            {saving ? "Salvando…" : "Salvar avaliação na conta"}
+            {saving ? "Salvando…" : state.draftAt ? "Entregar: salvar avaliação na conta" : "Entrega final (registre o rascunho antes)"}
           </button>
         )}
       </div>

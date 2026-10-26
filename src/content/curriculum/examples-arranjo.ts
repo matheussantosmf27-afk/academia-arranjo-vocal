@@ -117,4 +117,39 @@ export const EXA = {
   }),
   tessituraAlta: satb("exa-tessitura-alta", "Soprano amador sustentado em Lá5", { S: "A5:w | A5:w", A: "C5:w | C5:w", T: "F4:w | F4:w", B: "F3:w | F3:w" }, { key: "F" }),
   ttbbMelodiaT2: ttbb("exa-ttbb-t2", "TTBB com a melodia no Tenor II", { T1: "B3:h C4:h | B3:w", T2: "G3:h A3:h | G3:w", B1: "D3:h E3:h | D3:w", B2: "G2:h C3:h | G2:w" }),
+  // 2º semestre — duas vozes e contracanto
+  duetoTercas: satb("exa-dueto-tercas", "Dueto: a segunda voz em terças e sextas sob a melodia", {
+    S: MELODIA,
+    A: 'C4:q"Vou E4:q"pe- F4:q"lo E4:q"ca- | E4:h"mi- E4:h"nho | F4:q"com E4:q"a G4:h"gen- | E4:h."te r:q',
+    T: R(4),
+    B: R(4),
+  }),
+  contracantoAtivo: satb("exa-contracanto-ativo", "Contracanto ativo no tenor: move-se quando a melodia para", {
+    S: MELODIA,
+    A: "C4:q E4:h. | F4:h E4:h | E4:h G4:h | E4:h. r:q",
+    T: 'G3:h"uh C4:h | C4:q A3:q G3:q C4:q | C4:h D4:h | C4:q G3:q C4:q r:q',
+    B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q",
+  }),
+  // 2º semestre — escrita em bloco (estilo popular)
+  quartas: satb(
+    "exa-quartas",
+    "Acorde por quartas sobre Dó (estrutura quartal)",
+    { S: "D5:w", A: "A4:w", T: "E4:w", B: "C3:w" },
+    { style: "popular-a-cappella" },
+  ),
+  // 3º semestre — harmonia cromática
+  emprestimo: satb("exa-emprestimo", "Empréstimo modal: I – iv – I (Fá menor dentro de Dó maior)", {
+    S: "C5:h C5:h | C5:w",
+    A: "G4:h Ab4:h | G4:w",
+    T: "E4:h C4:h | E4:w",
+    B: "C3:h F3:h | C3:w",
+  }),
+  // Laboratório — exercícios em branco
+  exercicioBaixoDado: satb("exa-exercicio-baixo-dado", "Exercício: baixo dado (escreva soprano, contralto e tenor)", {
+    S: R(3),
+    A: R(3),
+    T: R(3),
+    B: "C3:q F3:q G3:q C3:q | A2:q D3:q G2:h | C3:w",
+  }),
+  exercicioCantoDado: satb("exa-exercicio-canto-dado", "Exercício: canto dado (escreva contralto, tenor e baixo)", { S: MELODIA, A: R(4), T: R(4), B: R(4) }),
 } as const;
