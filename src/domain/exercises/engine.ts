@@ -11,13 +11,11 @@ import {
   generateSeventhItems,
 } from "./generators2";
 import { createRng, shuffle } from "./random";
-import type { AnswerRecord, ExerciseItem, ExerciseSetSpec, MasteryResult } from "./types";
+import type { AnswerRecord, ExerciseItem, ExerciseSetSpec, GeneratorSpec, MasteryResult } from "./types";
 
-/** Monta o conjunto de itens de uma tentativa. Mesma semente ⇒ mesmos itens, na mesma ordem. */
-export function buildExerciseSet(spec: ExerciseSetSpec, seed: number): ExerciseItem[] {
-  const rng = createRng(seed);
+function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typeof createRng>): ExerciseItem[] {
   const generated: ExerciseItem[] = [];
-  for (const g of spec.generators) {
+  for (const g of generators) {
     if (g.type === "interval-identification") {
       generated.push(...generateIntervalItems(rng, g.count, { ...(g.earOnly ? { earOnly: true } : {}), ...(g.maxNumber ? { maxNumber: g.maxNumber } : {}) }));
     } else if (g.type === "chord-identification") generated.push(...generateChordItems(rng, g.count));
@@ -32,9 +30,35 @@ export function buildExerciseSet(spec: ExerciseSetSpec, seed: number): ExerciseI
     else if (g.type === "realization") generated.push(...generateRealizationItems(rng, g.count, g.mode));
     else generated.push(...generateNctItems(rng, g.count));
   }
+  return generated;
+}
+
+/** Monta o conjunto de itens de uma tentativa. Mesma semente ⇒ mesmos itens, na mesma ordem. */
+export function buildExerciseSet(spec: ExerciseSetSpec, seed: number): ExerciseItem[] {
+  const rng = createRng(seed);
+  const generated = generateItems(spec.generators, rng);
   // Itens estáticos mantêm a ordem pedagógica; gerados são embaralhados entre si.
   const items = [...spec.staticItems, ...shuffle(rng, generated)];
   return items.map((item, i) => (spec.staticItems.includes(item) ? item : { ...item, id: `${item.id}-${i}` }));
+}
+
+/**
+ * Itens de prática formativa ("Pare e pense"): só itens GERADOS, nunca os estáticos
+ * da verificação — assim a resposta comentada não antecipa itens pontuados, que
+ * são sorteados de novo a cada tentativa. Alterna entre os geradores da lição.
+ */
+export function buildPracticeItems(spec: ExerciseSetSpec, seed: number, count: number): ExerciseItem[] {
+  const rng = createRng(seed);
+  const perGenerator = Math.max(1, Math.ceil(count / Math.max(1, spec.generators.length)));
+  const byGenerator = spec.generators.map((g) => generateItems([{ ...g, count: perGenerator }], rng));
+  const out: ExerciseItem[] = [];
+  for (let round = 0; out.length < count && byGenerator.some((list) => list.length > round); round++) {
+    for (const list of byGenerator) {
+      const item = list[round];
+      if (item && out.length < count) out.push({ ...item, id: `pratica-${item.id}-${out.length}` });
+    }
+  }
+  return out;
 }
 
 export function checkAnswer(item: ExerciseItem, chosenOptionId: string): AnswerRecord {

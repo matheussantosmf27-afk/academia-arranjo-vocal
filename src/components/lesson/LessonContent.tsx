@@ -1,4 +1,5 @@
 import type { ContentBlock, Lesson } from "@/content/curriculum/types";
+import { buildPracticeItems } from "@/domain/exercises/engine";
 import type { ChoiceItem } from "@/domain/exercises/types";
 import { ExampleBlock } from "./ExampleBlock";
 import { ListeningBlock } from "./ListeningBlock";
@@ -47,12 +48,19 @@ function Block({ block }: { block: ContentBlock }) {
 
 export const sectionId = (i: number) => `secao-${i + 1}`;
 
+/** Semente fixa por aula: a página renderiza igual no servidor e no cliente. */
+function lessonSeed(id: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < id.length; i++) h = Math.imul(h ^ id.charCodeAt(i), 16777619);
+  return h >>> 0;
+}
+
 /**
- * Perguntas rápidas intercaladas: usa as perguntas conceituais da verificação
- * (sem notação nem áudio), uma ao fim de cada seção, sem repetir.
+ * Perguntas rápidas intercaladas, uma ao fim de cada seção. Vêm dos geradores da
+ * aula (prática nova), nunca dos itens estáticos pontuados na verificação.
  */
-function quickChecksFor(lesson: Lesson): (ChoiceItem | null)[] {
-  const pool = (lesson.exercises?.staticItems ?? []).filter((i) => !i.notation && !i.staff && !i.audio);
+export function quickChecksFor(lesson: Lesson): (ChoiceItem | null)[] {
+  const pool = lesson.exercises ? buildPracticeItems(lesson.exercises, lessonSeed(lesson.id), lesson.sections.length) : [];
   return lesson.sections.map((_, i) => pool[i] ?? null);
 }
 

@@ -15,7 +15,7 @@ test.describe("interações de aprendizagem", () => {
     await page.goto("/licoes/oficio-do-arranjador");
     await expect(page.getByRole("navigation", { name: "Seções da aula" })).toBeVisible();
     const quick = page.getByRole("complementary", { name: "Pare e pense" }).first();
-    await quick.getByRole("button").first().click();
+    await quick.getByRole("group", { name: "Alternativas" }).getByRole("button").first().click();
     await expect(quick.getByRole("status")).toContainText(/Isso!|Quase\./);
   });
 

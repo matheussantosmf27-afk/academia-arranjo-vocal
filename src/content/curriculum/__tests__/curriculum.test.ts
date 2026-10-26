@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { validateScore } from "@/domain/validation";
 import { buildExerciseSet } from "@/domain/exercises/engine";
+import { quickChecksFor } from "@/components/lesson/LessonContent";
 import { parseScore } from "@/domain/music/schema";
 import { LESSONS, LEVELS } from "../curriculum";
 
@@ -62,6 +63,16 @@ describe("integridade do currículo", () => {
       const items = buildExerciseSet(l.exercises, 123);
       expect(items.length).toBeGreaterThanOrEqual(8);
       for (const req of l.exercises.requiredItemIds ?? []) expect(items.some((i) => i.id === req)).toBe(true);
+    }
+  });
+  it("as perguntas rápidas das aulas são prática gerada, nunca itens estáticos da verificação", () => {
+    for (const l of LESSONS) {
+      if (!l.exercises) continue;
+      const checks = quickChecksFor(l).filter((c) => c !== null);
+      expect(checks.length, l.id).toBeGreaterThan(0);
+      for (const c of checks) {
+        expect(l.exercises.staticItems.some((s) => s.id === c.id || s.prompt === c.prompt), `${l.id}: ${c.prompt}`).toBe(false);
+      }
     }
   });
 });

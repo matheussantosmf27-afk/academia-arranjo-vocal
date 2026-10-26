@@ -311,6 +311,6 @@ export function renderStaffSnippet(VF: VexFlowApi, container: HTMLElement, opts:
   voice.addTickables(notes);
   new Formatter().joinVoices([voice]).format([voice], opts.width - 100);
   voice.draw(ctx, stave);
-  const svg = container.querySelector("svg");
-  svg?.setAttribute("role", "img");
+  // O contêiner já é role="img" com rótulo; o SVG interno é só a imagem.
+  container.querySelector("svg")?.setAttribute("aria-hidden", "true");
 }

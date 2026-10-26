@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import type { ChoiceItem } from "@/domain/exercises/types";
+import { ItemMedia } from "./ExercisePanel";
 import styles from "./Exercise.module.css";
 
 /**
  * "Pare e pense": uma pergunta rápida no meio da aula, com resposta comentada
- * imediata. Não conta para a verificação — serve para fixar antes de seguir.
+ * imediata. Usa itens de prática gerados (nunca os da verificação) e não conta
+ * para o domínio — serve para fixar antes de seguir.
  */
 export function QuickCheck({ item }: { item: ChoiceItem }) {
   const [chosen, setChosen] = useState<string | null>(null);
@@ -18,7 +20,8 @@ export function QuickCheck({ item }: { item: ChoiceItem }) {
         <span aria-hidden="true">⚡</span> Pare e pense
       </div>
       <p className={styles.prompt}>{item.prompt}</p>
-      <div className={styles.options}>
+      <ItemMedia item={item} answered={answered} />
+      <div className={styles.options} role="group" aria-label="Alternativas">
         {item.options.map((o) => {
           const cls = answered ? (o.id === item.correctOptionId ? styles.correct : o.id === chosen ? styles.wrong : "") : "";
           return (
