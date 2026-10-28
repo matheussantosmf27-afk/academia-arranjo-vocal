@@ -46,6 +46,19 @@ describe("rubrica de avaliação", () => {
     const alterada = { ...p.starting, parts: p.starting.parts.map((x) => (x.voice === "S" ? { ...x, events: x.events.map((e, i) => (i === 0 && e.kind === "note" ? { ...e, pitch: { ...e.pitch, step: "A" as const } } : e)) } : x)) };
     expect(crit(evaluateRubric({ score: alterada, style: p.style, starting: p.starting, melodyVoice: "S" }), "requisitos").evidence).toContain("A melodia dada foi alterada");
   });
+  it("requisitos: notas novas nos compassos vazios da voz da melodia não contam como alteração", () => {
+    const p = PROJECTS.find((x) => x.id === "acappella-gospel-ttbb")!;
+    const voice = p.starting.parts.find((x) => x.voice === p.melodyVoice)!;
+    let filled = 0;
+    const continuada = {
+      ...p.starting,
+      parts: p.starting.parts.map((x) =>
+        x === voice ? { ...x, events: x.events.map((e) => (e.kind === "rest" && filled++ < 2 ? { id: e.id, kind: "note" as const, pitch: { step: "E" as const, alter: 0 as const, octave: 3 }, duration: e.duration } : e)) } : x,
+      ),
+    };
+    const r = evaluateRubric({ score: continuada, style: p.style, starting: p.starting, melodyVoice: p.melodyVoice });
+    expect(crit(r, "requisitos").evidence).toContain("Melodia dada preservada");
+  });
   it("TTBB de referência é adequado à formação", () => {
     expect(crit(evaluateRubric({ score: CHORALE_TTBB_G, style: "coral-tradicional" }), "adequacao-formacao").level).toBe(4);
   });

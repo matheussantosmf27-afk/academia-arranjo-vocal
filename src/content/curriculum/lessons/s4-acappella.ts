@@ -159,7 +159,7 @@ export const lessonAcappellaVocalBand: Lesson = {
       blocks: [
         { type: "paragraph", text: "Num arranjo de vocal band, duas vozes fazem o papel da guitarra ou do teclado com um riff curto ('bop bop ba da bop'), o baixo sustenta as fundamentais e a melodia fica numa terceira voz. O riff precisa de consoantes de ataque e de pausas: sem respiro, vira ruído." },
         { type: "example", score: EXA2.riffBop, verdict: "correto", caption: "Riff nos tenores, melodia no barítono", commentary: "Tenores em terças, sempre começando no contratempo; o barítono canta a melodia em notas longas por baixo; o baixo segura Sol e Dó em 'bm'." },
-        { type: "example", score: EXA2.riffGrave, verdict: "observacao", caption: "O riff levado para o grave", commentary: "As mesmas terças em barítono e baixo (Sol2–Si2) ficam abaixo do limite grave e o espaço até o lead passa de uma oitava. Riffs em terças funcionam no médio e no agudo." },
+        { type: "example", score: EXA2.riffGrave, verdict: "observacao", caption: "O riff levado para o grave", commentary: "As notas estão dentro das extensões, mas a terça maior Sol2–Si2 fica abaixo do limite grave de intervalo (Si♭2 para a nota de baixo) e embola; além disso, o espaço entre lead e barítono passa de uma oitava. Riffs em terças funcionam no médio e no agudo." },
         { type: "listening", title: "Separe as camadas", score: EXA2.riffBop, instructions: ["Ouça só os tenores (o riff).", "Ouça barítono e baixo (melodia e chão).", "Ouça tudo."], focus: [["T1", "T2"], ["B1", "B2"], ["T1", "T2", "B1", "B2"]] },
       ],
     },
