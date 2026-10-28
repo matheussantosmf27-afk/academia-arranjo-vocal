@@ -583,3 +583,72 @@ export function generateCounterpointIntervalItems(rng: Rng, count: number): Choi
   }
   return items;
 }
+
+type Gesture = "baixo" | "dentro" | "fora" | "cima";
+const GESTURE_PT: Record<Gesture, string> = { baixo: "Para baixo", dentro: "Para dentro (esquerda)", fora: "Para fora (direita)", cima: "Para cima" };
+/** Padrões de regência da mão direita (a direção de cada tempo). */
+export const CONDUCTING_PATTERNS: Readonly<Record<string, readonly Gesture[]>> = {
+  "2/4": ["baixo", "cima"],
+  "3/4": ["baixo", "fora", "cima"],
+  "4/4": ["baixo", "dentro", "fora", "cima"],
+  "6/8": ["baixo", "dentro", "dentro", "fora", "fora", "cima"],
+};
+/** Limite de frase sem respiração usado pelo motor (regra escrita.respiracao), em segundos. */
+const BREATH_LIMIT_S = 15;
+
+/**
+ * Regência e ensaio: direção do gesto em cada tempo, tempo da preparação
+ * numa anacruse e duração de uma frase em segundos a partir do andamento.
+ */
+export function generateConductingItems(rng: Rng, count: number): ChoiceItem[] {
+  const items: ChoiceItem[] = [];
+  const kinds = shuffle(rng, ["padrao", "anacruse", "duracao"] as const);
+  for (let k = 0; items.length < count && k < count * 10; k++) {
+    const kind = kinds[items.length % kinds.length]!;
+    const id = `reg-${items.length + 1}`;
+    if (kind === "padrao") {
+      const time = pick(rng, Object.keys(CONDUCTING_PATTERNS));
+      const pattern = CONDUCTING_PATTERNS[time]!;
+      const beat = 1 + Math.floor(rng() * pattern.length);
+      const answer = pattern[beat - 1]!;
+      items.push({
+        id,
+        kind: "choice",
+        skill: "regencia",
+        prompt: `Regendo em ${time}${time === "6/8" ? " (em seis)" : ""} com a mão direita: para onde vai o gesto do tempo ${beat}?`,
+        options: (Object.keys(GESTURE_PT) as Gesture[]).map((g) => ({ id: g, label: GESTURE_PT[g] })),
+        correctOptionId: answer,
+        explanation: `Padrão de ${time}: ${pattern.map((g, i) => `${i + 1} ${GESTURE_PT[g].toLowerCase()}`).join(", ")}. O primeiro tempo sempre desce e o último sempre sobe, preparando o compasso seguinte.`,
+      });
+    } else if (kind === "anacruse") {
+      const time = pick(rng, ["3/4", "4/4"]);
+      const beats = CONDUCTING_PATTERNS[time]!.length;
+      const entry = beats - Math.floor(rng() * 2); // entrada no último ou penúltimo tempo
+      const prep = entry - 1;
+      items.push({
+        id,
+        kind: "choice",
+        skill: "regencia",
+        prompt: `Uma música em ${time} começa com anacruse no tempo ${entry}. Em qual tempo o regente faz o gesto de preparação (a respiração do coro)?`,
+        options: Array.from({ length: beats }, (_, i) => ({ id: `t${i + 1}`, label: `Tempo ${i + 1}` })),
+        correctOptionId: `t${prep}`,
+        explanation: `A preparação é o tempo imediatamente anterior à entrada: o coro respira junto com esse gesto e canta no tempo ${entry}. Começar a reger do tempo 1 confunde quem entra na anacruse.`,
+      });
+    } else {
+      const bpm = pick(rng, [60, 72, 80, 90, 120]);
+      const beatsPerBar = pick(rng, [3, 4]);
+      const bars = pick(rng, [2, 4, 8]);
+      const seconds = (bars * beatsPerBar * 60) / bpm;
+      const fmt = (s: number) => `${Number.isInteger(s) ? s : s.toFixed(1).replace(".", ",")} s`;
+      const correct = fmt(seconds);
+      const distractors = [fmt(seconds * 2), fmt(seconds / 2), fmt((bars * 60) / bpm), fmt((bars * beatsPerBar * bpm) / 60)].filter((d) => d !== correct);
+      const fits = seconds <= BREATH_LIMIT_S;
+      items.push(
+        choice(id, "regencia", `Uma frase de ${bars} compassos em ${beatsPerBar}/4, a ♩ = ${bpm}, cantada sem pausa: quanto tempo ela dura?`, correct, distractors, rng, {
+          explanation: `${bars} compassos × ${beatsPerBar} tempos = ${bars * beatsPerBar} tempos; cada tempo dura 60/${bpm} s, então a frase dura ${correct}. ${fits ? `Cabe numa respiração (o motor alerta a partir de ${BREATH_LIMIT_S} s).` : `Passa de ${BREATH_LIMIT_S} s: o regente precisa marcar uma respiração (ou respiração escalonada) ou escolher um andamento mais rápido.`}`,
+        }),
+      );
+    }
+  }
+  return items;
+}

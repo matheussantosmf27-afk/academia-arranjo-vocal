@@ -162,3 +162,13 @@ test("estúdio SSAA com duas pautas em clave de sol @mobile", async ({ page }) =
   await expect(page.locator(".score-surface svg")).toBeVisible();
   await expect(page.getByText("Coro feminino / vozes iguais (SSAA)")).toBeVisible();
 });
+
+test("disciplina de regência: oito aulas, padrões de regência e exemplo com anacruse", async ({ page }) => {
+  await page.goto("/disciplinas/s4-reg");
+  await expect(page.getByRole("heading", { name: "Regência Coral e Preparação de Ensaio", level: 1 })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Adaptar ao grupo real: tonalidade, naipes faltando e divisões/ })).toBeVisible();
+  await page.getByRole("link", { name: /Gesto básico: padrões, preparação, entrada e corte/ }).click();
+  await expect(page.getByText("REG401 · Aula 1 de 8")).toBeVisible();
+  await expect(page.getByRole("table", { name: "Padrões de regência (mão direita)" })).toBeVisible();
+  await expect(page.locator(".score-surface svg").first()).toBeVisible();
+});

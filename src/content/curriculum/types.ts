@@ -11,6 +11,7 @@ export type CompetencyId =
   | "escrita-satb"
   | "escrita-ttbb"
   | "escrita-ssaa"
+  | "regencia-e-ensaio"
   | "percepcao"
   | "contraponto"
   | "texto-e-prosodia"

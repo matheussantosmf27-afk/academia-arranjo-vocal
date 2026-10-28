@@ -18,6 +18,8 @@ const PAGES = [
   { path: "/licoes/cp-quarta-especie", ready: "h1" },
   { path: "/disciplinas/s4-ssa", ready: "h1" },
   { path: "/licoes/ssa-baixo", ready: "h1" },
+  { path: "/disciplinas/s4-reg", ready: "h1" },
+  { path: "/licoes/reg-gesto", ready: "h1" },
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },

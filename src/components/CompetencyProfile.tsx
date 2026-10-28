@@ -14,6 +14,7 @@ const SKILL_NAMES: Record<string, string> = {
   "escrita-satb": "Escrita SATB",
   "escrita-ttbb": "Escrita TTBB",
   "escrita-ssaa": "Escrita SSA/SSAA",
+  regencia: "Regência e ensaio",
   conceito: "Conceitos",
 };
 
