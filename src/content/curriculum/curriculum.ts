@@ -23,6 +23,7 @@ import { lessonLeadSheet, lessonOficio, lessonProcesso, lessonVozCantada } from 
 import { lessonSilabas, lessonTexturas, lessonTresVozes, lessonVoicings } from "./lessons/s2-escrita";
 import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-forma";
 import { lessonAcappellaBaixo, lessonAcappellaBlocos, lessonAcappellaModulacoes, lessonAcappellaSolistas, lessonAcappellaTexturas, lessonAcappellaVocalBand } from "./lessons/s4-acappella";
+import { lessonRearmBaixo, lessonRearmDiatonica, lessonRearmDiminutos, lessonRearmDominantes, lessonRearmFundamentos, lessonRearmModal, lessonRearmNoArranjo, lessonRearmSubV } from "./lessons/s4-rearm";
 import { lessonQuartetoMasculino, lessonTtbbChamadaResposta, lessonTtbbCores, lessonTtbbModulacao, lessonTtbbUnissono, lessonTtbbVoicing } from "./lessons/s4-quarteto";
 import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
 import { lessonTriades } from "./lessons/triades-inversoes";
@@ -151,6 +152,24 @@ export const LEVELS: readonly Level[] = [
     description: "As linguagens do coral sacro e erudito, do pop a cappella, do gospel e da música popular brasileira, e a entrega profissional do arranjo.",
     units: [
       {
+        id: "s4-rea",
+        code: "HAR402",
+        title: "Rearmonização para Vozes",
+        description:
+          "O que pode mudar numa rearmonização e o que segura a forma; substituições diatônicas e inversões; dominantes secundárias, ii–V e cadeias; substituto de trítono e tensões; empréstimo modal e planing; diminutos de passagem e auxiliares; rearmonizar a partir do baixo e com pedal; onde e quanto rearmonizar num arranjo vocal e como escrever as vozes.",
+        lessonIds: ["rearm-fundamentos", "rearm-diatonica", "rearm-dominantes", "rearm-subv", "rearm-modal", "rearm-diminutos", "rearm-baixo", "rearm-no-arranjo"],
+        project: {
+          title: "Rearmonização do segundo refrão",
+          description: "Manter a primeira apresentação de uma melodia e rearmonizar a repetição com ao menos três técnicas, com vozes cantáveis e justificativa de cada escolha.",
+        },
+        bibliography: [
+          "Ian Guest — Harmonia: método prático, vols. 1 e 2 (Lumiar)",
+          "Almir Chediak — Harmonia e improvisação, vols. 1 e 2 (Lumiar)",
+          "Walter Piston — Harmony (dominantes secundárias, empréstimo modal)",
+          "Escuta: Take 6, Gaither Vocal Band, The Real Group, Boca Livre e arranjos corais de MPB, comparando a primeira e a segunda vez de cada refrão",
+        ],
+      },
+      {
         id: "s4-cor",
         code: "EST401",
         title: "Arranjo Coral: Sacro, Erudito e MPB para Coro",
@@ -274,6 +293,14 @@ const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readon
   "modulacao-reharmonizacao": { unitId: "s3-har", prerequisites: ["tensoes-e-extensoes"] },
   "harmonia-cromatica-moderna": { unitId: "s3-har", prerequisites: ["modulacao-reharmonizacao"] },
   // 4º semestre
+  "rearm-fundamentos": { unitId: "s4-rea", prerequisites: ["modulacao-reharmonizacao", "harmonia-cromatica-moderna"] },
+  "rearm-diatonica": { unitId: "s4-rea", prerequisites: ["rearm-fundamentos"] },
+  "rearm-dominantes": { unitId: "s4-rea", prerequisites: ["rearm-diatonica"] },
+  "rearm-subv": { unitId: "s4-rea", prerequisites: ["rearm-dominantes", "tensoes-e-extensoes"] },
+  "rearm-modal": { unitId: "s4-rea", prerequisites: ["rearm-diatonica"] },
+  "rearm-diminutos": { unitId: "s4-rea", prerequisites: ["rearm-dominantes"] },
+  "rearm-baixo": { unitId: "s4-rea", prerequisites: ["rearm-diatonica"] },
+  "rearm-no-arranjo": { unitId: "s4-rea", prerequisites: ["rearm-subv", "rearm-modal", "rearm-diminutos", "rearm-baixo"] },
   "arranjo-coral": { unitId: "s4-cor", prerequisites: ["variacao-e-desenvolvimento", "contraponto-aplicado"] },
   "a-cappella-pop": { unitId: "s4-pop", prerequisites: ["variacao-e-desenvolvimento", "silabas-de-apoio"] },
   "baixo-e-percussao-vocal": { unitId: "s4-pop", prerequisites: ["a-cappella-pop"] },
@@ -334,6 +361,14 @@ const ALL_LESSONS: readonly Lesson[] = [
   lessonTensoes,
   lessonModulacao,
   lessonHarmoniaCromatica,
+  lessonRearmFundamentos,
+  lessonRearmDiatonica,
+  lessonRearmDominantes,
+  lessonRearmSubV,
+  lessonRearmModal,
+  lessonRearmDiminutos,
+  lessonRearmBaixo,
+  lessonRearmNoArranjo,
   lessonArranjoCoral,
   lessonACappellaPop,
   lessonBaixoPercussao,

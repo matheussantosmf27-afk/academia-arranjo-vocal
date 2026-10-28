@@ -171,3 +171,24 @@ describe("distribuição TTBB", () => {
     }
   });
 });
+
+describe("rearmonização", () => {
+  it("a harmonia certa é limpa e cada errada tem erro ou alerta no motor", async () => {
+    const { REHARM_PROBLEMS, reharmScore } = await import("../library");
+    expect(REHARM_PROBLEMS.length).toBeGreaterThanOrEqual(3);
+    for (const p of REHARM_PROBLEMS) {
+      expect(validateScore(reharmScore(p, p.correct)).diagnostics.filter((d) => d.severity !== "info"), p.id).toEqual([]);
+      for (const w of p.wrong) expect(validateScore(reharmScore(p, w)).diagnostics.some((d) => d.severity === "erro" || d.severity === "alerta"), `${p.id} ${w.label}`).toBe(true);
+    }
+  });
+  it("gera itens bem formados, com a harmonia original na notação e comentário em cada errada", async () => {
+    const { generateReharmItems } = await import("../generators2");
+    const items = generateReharmItems(createRng(3), 3);
+    expect(items.length).toBe(3);
+    wellFormed(items);
+    for (const i of items) {
+      expect(i.notation).toBeDefined();
+      for (const o of i.options) if (o.id !== i.correctOptionId) expect(i.optionFeedback?.[o.id]).toBeTruthy();
+    }
+  });
+});

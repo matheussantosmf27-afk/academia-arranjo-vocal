@@ -128,3 +128,65 @@ export const REALIZATION_PROBLEMS: readonly RealizationProblem[] = [
 export function realizationScore(p: RealizationProblem, voices: Voices): Score {
   return s(`${p.id}-${Object.values(voices).join("").length}`, voices, p.key);
 }
+
+/**
+ * Rearmonização: a melodia (soprano) fica; muda a harmonia. A alternativa certa
+ * não tem erros nem alertas no motor (coral tradicional); cada errada traz um
+ * problema que o motor identifica — nota da melodia sem apoio, paralelas,
+ * sensível ou sétima mal resolvidas.
+ */
+type Lower = Record<"A" | "T" | "B", string>;
+export interface ReharmOption {
+  readonly label: string;
+  readonly voices: Lower;
+}
+export interface ReharmProblem {
+  readonly id: string;
+  readonly key: string;
+  readonly melody: string;
+  readonly original: ReharmOption;
+  readonly correct: ReharmOption;
+  readonly wrong: readonly ReharmOption[];
+}
+
+export const REHARM_PROBLEMS: readonly ReharmProblem[] = [
+  {
+    id: "rh-mi-re-do",
+    key: "C",
+    melody: "E5:h D5:h | C5:w",
+    original: { label: "C – G – C", voices: { A: "G4:h G4:h | G4:w", T: "C4:h B3:h | C4:w", B: "C3:h G2:h | C3:w" } },
+    correct: { label: "C – E7/G♯ – Am", voices: { A: "G4:h E4:h | E4:w", T: "C4:h B3:h | A3:w", B: "C3:h G#2:h | A2:w" } },
+    wrong: [
+      { label: "C – Dm – C", voices: { A: "G4:h A4:h | G4:w", T: "C4:h D4:h | C4:w", B: "C3:h D3:h | C3:w" } },
+      { label: "C – G7 – Am", voices: { A: "G4:h F4:h | E4:w", T: "C4:h B3:h | A3:w", B: "C3:h G2:h | A2:w" } },
+      { label: "C – Bm – Am", voices: { A: "G4:h F#4:h | E4:w", T: "C4:h B3:h | A3:w", B: "C3:h B2:h | A2:w" } },
+    ],
+  },
+  {
+    id: "rh-do-mi-re",
+    key: "C",
+    melody: "C5:h E5:h | D5:w",
+    original: { label: "C – C – G", voices: { A: "E4:h G4:h | G4:w", T: "C4:h C4:h | B3:w", B: "C3:h C3:h | G2:w" } },
+    correct: { label: "Am – A7/C♯ – Dm", voices: { A: "E4:h G4:h | F4:w", T: "A3:h A3:h | A3:w", B: "A2:h C#3:h | D3:w" } },
+    wrong: [
+      { label: "Am – A7 – Dm", voices: { A: "E4:h G4:h | A4:w", T: "A3:h C#4:h | F4:w", B: "A2:h A2:h | D3:w" } },
+      { label: "Am – E – Dm", voices: { A: "E4:h G#4:h | F4:w", T: "A3:h B3:h | A3:w", B: "A2:h E3:h | D3:w" } },
+      { label: "C – Em – G", voices: { A: "E4:h G4:h | G4:w", T: "C4:h B3:h | B3:w", B: "C3:h E3:h | G2:w" } },
+    ],
+  },
+  {
+    id: "rh-re-si-do",
+    key: "C",
+    melody: "D5:h B4:h | C5:w",
+    original: { label: "G – G7 – C", voices: { A: "G4:h F4:h | E4:w", T: "B3:h D4:h | C4:w", B: "G2:h G2:h | C3:w" } },
+    correct: { label: "Dm – G7 – C", voices: { A: "F4:h F4:h | E4:w", T: "A3:h G3:h | G3:w", B: "D3:h G2:h | C3:w" } },
+    wrong: [
+      { label: "Dm7/F – G7 – C", voices: { A: "A4:h F4:h | E4:w", T: "C4:h G3:h | G3:w", B: "F3:h G2:h | C3:w" } },
+      { label: "Dm – E7 – C", voices: { A: "F4:h G#4:h | G4:w", T: "A3:h D4:h | E4:w", B: "D3:h E3:h | C3:w" } },
+    ],
+  },
+];
+
+export function reharmScore(p: ReharmProblem, o: ReharmOption): Score {
+  return s(`${p.id}-${o.label}`, { S: p.melody, ...o.voices }, p.key);
+}

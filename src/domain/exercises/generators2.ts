@@ -10,7 +10,7 @@ import { buildContext } from "../validation/context";
 import { classifyMotion, MOTION_PT, type MotionType } from "../validation/motion";
 import { NCT_PT, analyzeNonChordTones } from "../validation/rules/nct";
 import { chordScore } from "./generators";
-import { CADENCE_PT, CADENCE_SNIPPETS, ERROR_SNIPPETS, NCT_SNIPPETS, REALIZATION_PROBLEMS, type RealizationProblem, realizationScore } from "./library";
+import { CADENCE_PT, CADENCE_SNIPPETS, ERROR_SNIPPETS, NCT_SNIPPETS, REALIZATION_PROBLEMS, REHARM_PROBLEMS, type RealizationProblem, realizationScore, reharmScore } from "./library";
 import { pick, shuffle } from "./random";
 import type { ChoiceItem, ChoiceOption } from "./types";
 
@@ -427,6 +427,39 @@ export function generateTtbbVoicingItems(rng: Rng, count: number): ChoiceItem[] 
       explanation: `Fundamental e quinta entre baixo e barítono, terça nos tenores, tudo dentro das extensões: o acorde soa claro no grave. (${correct.label})`,
       optionFeedback,
       audio: { pitches: correct.pitches, mode: "harmonico" },
+    });
+  }
+  return items;
+}
+
+/**
+ * Rearmonização: a melodia do soprano fica e a harmonia muda. Mostra a harmonia
+ * original e pede a rearmonização que passa limpa no motor; cada alternativa
+ * errada traz o diagnóstico que a reprova.
+ */
+export function generateReharmItems(rng: Rng, count: number): ChoiceItem[] {
+  const items: ChoiceItem[] = [];
+  for (const p of shuffle(rng, [...REHARM_PROBLEMS]).slice(0, count)) {
+    const original = reharmScore(p, p.original);
+    if (validateScore(reharmScore(p, p.correct)).diagnostics.some((d) => d.severity !== "info")) continue;
+    const wrong = p.wrong.map((w) => ({ w, d: mainProblem(validateScore(reharmScore(p, w)).diagnostics) }));
+    if (wrong.some((x) => !x.d || (x.d.severity !== "erro" && x.d.severity !== "alerta"))) continue;
+    const entries = shuffle(rng, [{ label: p.correct.label, feedback: "" }, ...wrong.map((x) => ({ label: x.w.label, feedback: `${x.d!.message} ${x.d!.explanation}` }))]);
+    const options: ChoiceOption[] = entries.map((e, i) => ({ id: `o${i}`, label: e.label }));
+    const optionFeedback: Record<string, string> = {};
+    entries.forEach((e, i) => {
+      if (e.feedback) optionFeedback[`o${i}`] = e.feedback;
+    });
+    items.push({
+      id: `rearm-${items.length + 1}`,
+      kind: "choice",
+      skill: "harmonia-funcional",
+      prompt: `A melodia do soprano (${voiceLine(original, "S")}) está harmonizada com ${p.original.label}. Qual rearmonização mantém a melodia e passa sem erros no coral tradicional?`,
+      options,
+      correctOptionId: options[entries.findIndex((e) => e.label === p.correct.label)]!.id,
+      explanation: `${p.correct.label}: cada nota da melodia pertence ao acorde novo e as vozes resolvem sensíveis e sétimas por grau.`,
+      optionFeedback,
+      notation: original,
     });
   }
   return items;

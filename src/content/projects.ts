@@ -166,6 +166,40 @@ export const PROJECTS: readonly ProjectSpec[] = [
       "Como você preparou a modulação e para onde foi a sétima da dominante?",
     ],
   },
+  {
+    id: "rearmonizacao-refrao",
+    title: "Rearmonização do segundo refrão (SATB)",
+    level: 4,
+    lessonId: "rearm-no-arranjo",
+    summary: "A melodia 'Luz da manhã' aparece duas vezes. A primeira já está harmonizada; rearmonize a repetição com pelo menos três técnicas da disciplina, mantendo a melodia.",
+    steps: [
+      "Compassos 1–4: ouça a harmonia simples e não altere nada.",
+      "Compassos 5–8: rearmonize com ao menos três técnicas (substituição diatônica, dominante secundária, SubV, empréstimo modal, diminuto, pedal ou linha de baixo).",
+      "Mantenha notas comuns nas mesmas vozes e resolva sensíveis e sétimas.",
+      "Cante cada voz interna, revise no motor e gere a avaliação.",
+    ],
+    starting: scoreFromText({
+      id: "projeto-rearmonizacao",
+      title: "Rearmonização do segundo refrão",
+      formation: "SATB",
+      key: "C",
+      time: "4/4",
+      tempo: 72,
+      voices: {
+        S: 'E5:h"Luz D5:h"da | C5:h"ma- E5:h"nhã | D5:h"vem B4:h"che- | C5:h"gar r:h | E5:h"Luz D5:h"da | C5:h"ma- E5:h"nhã | D5:h"vem B4:h"che- | C5:w"gar',
+        A: `G4:h G4:h | E4:h G4:h | G4:h F4:h | E4:h r:h | ${R4}`,
+        T: `C4:h B3:h | C4:h C4:h | B3:h D4:h | C4:h r:h | ${R4}`,
+        B: `C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:h r:h | ${R4}`,
+      },
+    }),
+    melodyVoice: "S",
+    style: "coral-contemporaneo",
+    justificationPrompts: [
+      "Quais técnicas de rearmonização você usou e em que compassos?",
+      "Que nota da melodia cada acorde novo apoia (fundamental, terça, quinta, sétima, tensão)?",
+      "Como você resolveu as sensíveis e sétimas das dominantes novas?",
+    ],
+  },
 ];
 
 export function getProject(id: string): ProjectSpec | undefined {
