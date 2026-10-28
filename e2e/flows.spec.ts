@@ -42,6 +42,18 @@ test("disciplina de grupo a cappella gospel: aulas, projeto e escuta por camada"
   await expect(page.locator(".card", { hasText: "Grupo a cappella gospel (TTBB)" })).toBeVisible();
 });
 
+test("disciplina de rearmonização: oito aulas, projeto e a mesma melodia rearmonizada", async ({ page }) => {
+  await page.goto("/disciplinas/s4-rea");
+  await expect(page.getByRole("heading", { name: "Rearmonização para Vozes", level: 1 })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Substituto de trítono e dominantes estendidas/ })).toBeVisible();
+  await page.getByRole("link", { name: /Dominantes secundárias, ii–V e dominantes em cadeia/ }).click();
+  await expect(page.getByText("HAR402 · Aula 3 de 8")).toBeVisible();
+  await expect(page.getByRole("table", { name: "Dominantes secundárias em Dó maior" })).toBeVisible();
+  await expect(page.locator(".score-surface svg").first()).toBeVisible();
+  await page.goto("/projetos");
+  await expect(page.locator(".card", { hasText: "Rearmonização do segundo refrão (SATB)" })).toBeVisible();
+});
+
 test("aula com pré-requisito não concluído bloqueia a verificação", async ({ page }) => {
   await page.goto("/licoes/processo-de-arranjo");
   await expect(page.getByText("ARV101 · Aula 2 de 3")).toBeVisible();

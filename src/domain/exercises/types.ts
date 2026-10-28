@@ -46,7 +46,9 @@ export type GeneratorSpec =
   /** Baixo dado / canto dado: escolher a realização das outras vozes. */
   | { readonly type: "realization"; readonly count: number; readonly mode?: "baixo-dado" | "canto-dado" }
   /** Distribuição de um acorde em TTBB: escolher o voicing claro no grave. */
-  | { readonly type: "ttbb-voicing"; readonly count: number };
+  | { readonly type: "ttbb-voicing"; readonly count: number }
+  /** Rearmonização: escolher a harmonia nova que mantém a melodia e passa no motor. */
+  | { readonly type: "reharm-choice"; readonly count: number };
 
 export interface ExerciseSetSpec {
   readonly id: string;

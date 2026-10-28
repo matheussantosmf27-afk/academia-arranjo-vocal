@@ -9,6 +9,7 @@ import {
   generateRealizationItems,
   generateScaleDegreeItems,
   generateSeventhItems,
+  generateReharmItems,
   generateTtbbVoicingItems,
 } from "./generators2";
 import { createRng, shuffle } from "./random";
@@ -30,6 +31,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     else if (g.type === "cadence-identification") generated.push(...generateCadenceItems(rng, g.count));
     else if (g.type === "realization") generated.push(...generateRealizationItems(rng, g.count, g.mode));
     else if (g.type === "ttbb-voicing") generated.push(...generateTtbbVoicingItems(rng, g.count));
+    else if (g.type === "reharm-choice") generated.push(...generateReharmItems(rng, g.count));
     else generated.push(...generateNctItems(rng, g.count));
   }
   return generated;
