@@ -131,6 +131,41 @@ export const PROJECTS: readonly ProjectSpec[] = [
       "Como você preparou a modulação e para onde foi a sétima do E♭7?",
     ],
   },
+  {
+    id: "acappella-gospel-ttbb",
+    title: "Grupo a cappella gospel (TTBB)",
+    level: 4,
+    lessonId: "acappella-modulacoes",
+    summary: "A melodia está no barítono, em Ré maior. Arranje para quarteto a cappella: solo com 'uh', refrão em bloco com eco, baixo em ostinato e a repetição do refrão um tom acima.",
+    steps: [
+      "Compassos 1–4: solo do barítono; baixo em 'uh' ou em ostinato, tenores em silêncio ou em pad.",
+      "Compassos 5–6: refrão em bloco (todos com o texto) e um eco curto de uma voz.",
+      "Compasso 6: prepare a modulação com a dominante de Mi maior (B7).",
+      "Compassos 7–8: repita o refrão em Mi maior e termine com uma tag.",
+      "Revise no estilo popular e gere a avaliação.",
+    ],
+    starting: scoreFromText({
+      id: "projeto-acappella-gospel",
+      title: "Grupo a cappella gospel",
+      formation: "TTBB",
+      key: "D",
+      time: "4/4",
+      tempo: 84,
+      voices: {
+        T1: R8,
+        T2: R8,
+        B1: 'D3:q"Can- E3:q"ta F#3:q"meu A3:q"co- | G3:h"ra- F#3:h"ção | E3:q"um F#3:q"can- G3:q"to E3:q"no- | D3:w"vo | r:w | r:w | r:w | r:w',
+        B2: R8,
+      },
+    }),
+    melodyVoice: "B1",
+    style: "popular-a-cappella",
+    justificationPrompts: [
+      "Como você distribuiu a melodia entre os solistas e o quarteto?",
+      "Onde está o eco ou o texto contra 'uh', e por que ali?",
+      "Como você preparou a modulação e para onde foi a sétima da dominante?",
+    ],
+  },
 ];
 
 export function getProject(id: string): ProjectSpec | undefined {

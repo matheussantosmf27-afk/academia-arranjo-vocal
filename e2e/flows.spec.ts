@@ -31,6 +31,17 @@ test("disciplina de quarteto masculino: aulas, projeto e aula com escuta por pap
   await expect(page.locator(".card", { hasText: "Quarteto gospel (TTBB)" })).toBeVisible();
 });
 
+test("disciplina de grupo a cappella gospel: aulas, projeto e escuta por camada", async ({ page }) => {
+  await page.goto("/disciplinas/s4-acp");
+  await expect(page.getByRole("heading", { name: "Grupo Vocal A Cappella Gospel", level: 1 })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Revezamento de solistas e dueto/ })).toBeVisible();
+  await page.getByRole("link", { name: /Vocal band: riffs, baixo em ostinato e beatbox/ }).click();
+  await expect(page.getByText("EST406 · Aula 3 de 6")).toBeVisible();
+  await expect(page.locator(".score-surface svg").first()).toBeVisible();
+  await page.goto("/projetos");
+  await expect(page.locator(".card", { hasText: "Grupo a cappella gospel (TTBB)" })).toBeVisible();
+});
+
 test("aula com pré-requisito não concluído bloqueia a verificação", async ({ page }) => {
   await page.goto("/licoes/processo-de-arranjo");
   await expect(page.getByText("ARV101 · Aula 2 de 3")).toBeVisible();
