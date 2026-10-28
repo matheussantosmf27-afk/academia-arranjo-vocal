@@ -9,6 +9,7 @@ import {
   generateRealizationItems,
   generateScaleDegreeItems,
   generateSeventhItems,
+  generateCounterpointIntervalItems,
   generateReharmItems,
   generateTtbbVoicingItems,
 } from "./generators2";
@@ -32,6 +33,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     else if (g.type === "realization") generated.push(...generateRealizationItems(rng, g.count, g.mode));
     else if (g.type === "ttbb-voicing") generated.push(...generateTtbbVoicingItems(rng, g.count));
     else if (g.type === "reharm-choice") generated.push(...generateReharmItems(rng, g.count));
+    else if (g.type === "counterpoint-interval") generated.push(...generateCounterpointIntervalItems(rng, g.count));
     else generated.push(...generateNctItems(rng, g.count));
   }
   return generated;

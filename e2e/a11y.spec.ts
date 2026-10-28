@@ -14,6 +14,8 @@ const PAGES = [
   { path: "/licoes/acappella-vocal-band", ready: "h1" },
   { path: "/disciplinas/s4-rea", ready: "h1" },
   { path: "/licoes/rearm-dominantes", ready: "h1" },
+  { path: "/disciplinas/s3-ctp", ready: "h1" },
+  { path: "/licoes/cp-quarta-especie", ready: "h1" },
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },

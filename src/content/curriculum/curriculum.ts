@@ -23,6 +23,7 @@ import { lessonLeadSheet, lessonOficio, lessonProcesso, lessonVozCantada } from 
 import { lessonSilabas, lessonTexturas, lessonTresVozes, lessonVoicings } from "./lessons/s2-escrita";
 import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-forma";
 import { lessonAcappellaBaixo, lessonAcappellaBlocos, lessonAcappellaModulacoes, lessonAcappellaSolistas, lessonAcappellaTexturas, lessonAcappellaVocalBand } from "./lessons/s4-acappella";
+import { lessonCpContracanto, lessonCpDescant, lessonCpFlorida, lessonCpImitacao, lessonCpPrimeira, lessonCpQuarta, lessonCpQuatroVozes, lessonCpSegundaTerceira } from "./lessons/s3-contraponto";
 import { lessonRearmBaixo, lessonRearmDiatonica, lessonRearmDiminutos, lessonRearmDominantes, lessonRearmFundamentos, lessonRearmModal, lessonRearmNoArranjo, lessonRearmSubV } from "./lessons/s4-rearm";
 import { lessonQuartetoMasculino, lessonTtbbChamadaResposta, lessonTtbbCores, lessonTtbbModulacao, lessonTtbbUnissono, lessonTtbbVoicing } from "./lessons/s4-quarteto";
 import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
@@ -130,6 +131,25 @@ export const LEVELS: readonly Level[] = [
         title: "Texto e Contraponto",
         description: "Prosódia e respiração em português; contraponto aplicado ao coro: linhas independentes, imitação e contracanto.",
         lessonIds: ["prosodia-respiracao", "contraponto-aplicado"],
+      },
+      {
+        id: "s3-ctp",
+        code: "CTP301",
+        title: "Contraponto Vocal",
+        description:
+          "As cinco espécies sobre cantus firmus (nota contra nota, passagem e bordadura, retardos, contraponto florido); imitação, cânone e contraponto invertível; independência real a três e quatro vozes; contracanto na canção; descant e quodlibet.",
+        lessonIds: ["cp-primeira-especie", "cp-segunda-terceira", "cp-quarta-especie", "cp-florida", "cp-imitacao", "cp-quatro-vozes", "cp-contracanto", "cp-descant-quodlibet"],
+        project: {
+          title: "Descant para um hino",
+          description: "Com a melodia no tenor, escrever um descant no soprano em movimento contrário, completar contralto e baixo e revisar no motor.",
+        },
+        bibliography: [
+          "Johann Joseph Fux — Gradus ad Parnassum (as cinco espécies)",
+          "Knud Jeppesen — Counterpoint: The Polyphonic Vocal Style of the Sixteenth Century",
+          "Kent Kennan — Counterpoint",
+          "H. J. Koellreutter — Contraponto modal do século XVI (Palestrina)",
+          "Escuta: cânones e rounds tradicionais, descants de última estrofe em hinários, quodlibets corais",
+        ],
       },
       {
         id: "s3-har",
@@ -289,6 +309,14 @@ const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readon
   "variacao-e-desenvolvimento": { unitId: "s3-for", prerequisites: ["acompanhamento-introducoes"] },
   "prosodia-respiracao": { unitId: "s3-txt", prerequisites: ["ritmo-metrica-texto", "harmonizacao-satb"] },
   "contraponto-aplicado": { unitId: "s3-txt", prerequisites: ["prosodia-respiracao", "notas-estranhas"] },
+  "cp-primeira-especie": { unitId: "s3-ctp", prerequisites: ["contraponto-aplicado"] },
+  "cp-segunda-terceira": { unitId: "s3-ctp", prerequisites: ["cp-primeira-especie"] },
+  "cp-quarta-especie": { unitId: "s3-ctp", prerequisites: ["cp-segunda-terceira"] },
+  "cp-florida": { unitId: "s3-ctp", prerequisites: ["cp-quarta-especie"] },
+  "cp-imitacao": { unitId: "s3-ctp", prerequisites: ["cp-florida"] },
+  "cp-quatro-vozes": { unitId: "s3-ctp", prerequisites: ["cp-quarta-especie"] },
+  "cp-contracanto": { unitId: "s3-ctp", prerequisites: ["cp-quatro-vozes", "contracanto-ativo-passivo"] },
+  "cp-descant-quodlibet": { unitId: "s3-ctp", prerequisites: ["cp-contracanto", "cp-imitacao"] },
   "tensoes-e-extensoes": { unitId: "s3-har", prerequisites: ["setimas-resolucao", "voicings-posicoes"] },
   "modulacao-reharmonizacao": { unitId: "s3-har", prerequisites: ["tensoes-e-extensoes"] },
   "harmonia-cromatica-moderna": { unitId: "s3-har", prerequisites: ["modulacao-reharmonizacao"] },
@@ -358,6 +386,14 @@ const ALL_LESSONS: readonly Lesson[] = [
   lessonVariacao,
   lessonProsodia,
   lessonContraponto,
+  lessonCpPrimeira,
+  lessonCpSegundaTerceira,
+  lessonCpQuarta,
+  lessonCpFlorida,
+  lessonCpImitacao,
+  lessonCpQuatroVozes,
+  lessonCpContracanto,
+  lessonCpDescant,
   lessonTensoes,
   lessonModulacao,
   lessonHarmoniaCromatica,

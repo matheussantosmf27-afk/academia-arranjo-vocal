@@ -48,7 +48,9 @@ export type GeneratorSpec =
   /** Distribuição de um acorde em TTBB: escolher o voicing claro no grave. */
   | { readonly type: "ttbb-voicing"; readonly count: number }
   /** Rearmonização: escolher a harmonia nova que mantém a melodia e passa no motor. */
-  | { readonly type: "reharm-choice"; readonly count: number };
+  | { readonly type: "reharm-choice"; readonly count: number }
+  /** Contraponto: classificar o intervalo harmônico entre duas vozes. */
+  | { readonly type: "counterpoint-interval"; readonly count: number };
 
 export interface ExerciseSetSpec {
   readonly id: string;
