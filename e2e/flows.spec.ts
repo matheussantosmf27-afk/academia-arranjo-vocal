@@ -145,3 +145,20 @@ test("disciplina de contraponto vocal: oito aulas, retardos e projeto de descant
   await page.goto("/projetos");
   await expect(page.locator(".card", { hasText: "Descant para um hino (SATB)" })).toBeVisible();
 });
+
+test("disciplina de vozes iguais: oito aulas, estúdio SSAA e projeto", async ({ page }) => {
+  await page.goto("/disciplinas/s4-ssa");
+  await expect(page.getByRole("heading", { name: "Vozes Iguais: Coro Feminino e Infantil (SSA/SSAA)", level: 1 })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Coro infantil: tessitura, uníssono e duas vozes/ })).toBeVisible();
+  await page.getByRole("link", { name: /O baixo sem baixo: a linha do Contralto II/ }).click();
+  await expect(page.getByText("EST407 · Aula 4 de 8")).toBeVisible();
+  await expect(page.locator(".score-surface svg").first()).toBeVisible();
+  await page.goto("/projetos");
+  await expect(page.locator(".card", { hasText: "Hino para coro feminino (SSAA)" })).toBeVisible();
+});
+
+test("estúdio SSAA com duas pautas em clave de sol @mobile", async ({ page }) => {
+  await page.goto("/estudio?exemplo=exemplo-coral-ssaa-sol");
+  await expect(page.locator(".score-surface svg")).toBeVisible();
+  await expect(page.getByText("Coro feminino / vozes iguais (SSAA)")).toBeVisible();
+});

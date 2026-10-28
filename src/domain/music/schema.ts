@@ -42,14 +42,14 @@ const restSchema = z.object({
   duration: durationSchema,
 });
 
-const voiceIdSchema = z.enum(["S", "A", "T", "B", "T1", "T2", "B1", "B2"]);
+const voiceIdSchema = z.enum(["S", "A", "T", "B", "T1", "T2", "B1", "B2", "S1", "S2", "A1", "A2"]);
 
 export const scoreSchema = z
   .object({
     schemaVersion: z.literal(SCORE_SCHEMA_VERSION),
     id: idSchema,
     title: z.string().min(1).max(200),
-    formation: z.enum(["SATB", "TTBB"]),
+    formation: z.enum(["SATB", "TTBB", "SSAA"]),
     key: z.object({
       tonic: z.object({ step: stepSchema, alter: alterSchema }),
       mode: z.enum(["major", "minor"]),

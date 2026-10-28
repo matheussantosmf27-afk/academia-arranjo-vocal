@@ -14,6 +14,7 @@ const SKILL_TO_COMPETENCY: Record<string, CompetencyId> = {
   "conducao-de-vozes": "conducao-de-vozes",
   "escrita-satb": "escrita-satb",
   "escrita-ttbb": "escrita-ttbb",
+  "escrita-ssaa": "escrita-ssaa",
   "leitura-vocal": "leitura-vocal",
   contraponto: "contraponto",
   "texto-e-prosodia": "texto-e-prosodia",

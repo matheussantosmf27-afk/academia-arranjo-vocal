@@ -16,6 +16,8 @@ const PAGES = [
   { path: "/licoes/rearm-dominantes", ready: "h1" },
   { path: "/disciplinas/s3-ctp", ready: "h1" },
   { path: "/licoes/cp-quarta-especie", ready: "h1" },
+  { path: "/disciplinas/s4-ssa", ready: "h1" },
+  { path: "/licoes/ssa-baixo", ready: "h1" },
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },

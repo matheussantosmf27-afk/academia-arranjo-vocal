@@ -10,6 +10,7 @@ export type CompetencyId =
   | "conducao-de-vozes"
   | "escrita-satb"
   | "escrita-ttbb"
+  | "escrita-ssaa"
   | "percepcao"
   | "contraponto"
   | "texto-e-prosodia"

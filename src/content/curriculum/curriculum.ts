@@ -24,6 +24,7 @@ import { lessonSilabas, lessonTexturas, lessonTresVozes, lessonVoicings } from "
 import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-forma";
 import { lessonAcappellaBaixo, lessonAcappellaBlocos, lessonAcappellaModulacoes, lessonAcappellaSolistas, lessonAcappellaTexturas, lessonAcappellaVocalBand } from "./lessons/s4-acappella";
 import { lessonCpContracanto, lessonCpDescant, lessonCpFlorida, lessonCpImitacao, lessonCpPrimeira, lessonCpQuarta, lessonCpQuatroVozes, lessonCpSegundaTerceira } from "./lessons/s3-contraponto";
+import { lessonSsaAdaptacao, lessonSsaBaixo, lessonSsaCores, lessonSsaFormacao, lessonSsaInfantil, lessonSsaQuatroVozes, lessonSsaTexturas, lessonSsaTresVozes } from "./lessons/s4-vozes-iguais";
 import { lessonRearmBaixo, lessonRearmDiatonica, lessonRearmDiminutos, lessonRearmDominantes, lessonRearmFundamentos, lessonRearmModal, lessonRearmNoArranjo, lessonRearmSubV } from "./lessons/s4-rearm";
 import { lessonQuartetoMasculino, lessonTtbbChamadaResposta, lessonTtbbCores, lessonTtbbModulacao, lessonTtbbUnissono, lessonTtbbVoicing } from "./lessons/s4-quarteto";
 import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
@@ -248,6 +249,23 @@ export const LEVELS: readonly Level[] = [
         ],
       },
       {
+        id: "s4-ssa",
+        code: "EST407",
+        title: "Vozes Iguais: Coro Feminino e Infantil (SSA/SSAA)",
+        description:
+          "A formação de vozes iguais agudas, sem baixo real: extensões e escrita em duas pautas de clave de sol; SSA com uma nota por voz; SSAA fechado, dobramentos e espaçamento; a linha do Contralto II como baixo; coro infantil (tessitura, uníssono, cânone e duas vozes); melodia em voz interna e outras texturas; adaptação de arranjos de coro misto; nonas, clusters e planing.",
+        lessonIds: ["ssa-formacao", "ssa-tres-vozes", "ssa-quatro-vozes", "ssa-baixo", "ssa-coro-infantil", "ssa-texturas", "ssa-adaptacao", "ssa-cores"],
+        project: {
+          title: "Hino para coro feminino",
+          description: "Harmonizar uma melodia dada para SSAA, com o Contralto II como linha de baixo, posição fechada e uma estrofe com a melodia em voz interna.",
+        },
+        bibliography: [
+          "Escuta e análise: repertório de coros femininos e infantis (coros juvenis brasileiros, canto orfeônico, arranjos para vozes iguais de cantigas de domínio público)",
+          "Heitor Villa-Lobos — Guia Prático e Canto Orfeônico (repertório escolar a uma, duas e três vozes, para estudo)",
+          "Kenneth H. Phillips — Teaching Kids to Sing (voz infantil, tessitura e desenvolvimento vocal)",
+        ],
+      },
+      {
         id: "s4-mpb",
         code: "EST404",
         title: "Música Popular Brasileira para Vozes",
@@ -345,6 +363,14 @@ const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readon
   "acappella-blocos-cromaticos": { unitId: "s4-acp", prerequisites: ["acappella-texturas", "harmonia-cromatica-moderna"] },
   "acappella-linhas-de-baixo": { unitId: "s4-acp", prerequisites: ["acappella-blocos-cromaticos"] },
   "acappella-modulacoes": { unitId: "s4-acp", prerequisites: ["acappella-linhas-de-baixo", "ttbb-modulacao-final"] },
+  "ssa-formacao": { unitId: "s4-ssa", prerequisites: ["harmonizacao-satb", "escrita-ttbb"] },
+  "ssa-tres-vozes": { unitId: "s4-ssa", prerequisites: ["ssa-formacao", "tres-vozes"] },
+  "ssa-quatro-vozes": { unitId: "s4-ssa", prerequisites: ["ssa-tres-vozes"] },
+  "ssa-baixo": { unitId: "s4-ssa", prerequisites: ["ssa-quatro-vozes"] },
+  "ssa-coro-infantil": { unitId: "s4-ssa", prerequisites: ["ssa-tres-vozes"] },
+  "ssa-texturas": { unitId: "s4-ssa", prerequisites: ["ssa-baixo", "texturas-vocais"] },
+  "ssa-adaptacao": { unitId: "s4-ssa", prerequisites: ["ssa-baixo"] },
+  "ssa-cores": { unitId: "s4-ssa", prerequisites: ["ssa-texturas", "ssa-adaptacao", "tensoes-e-extensoes"] },
   "mpb-vocal": { unitId: "s4-mpb", prerequisites: ["tensoes-e-extensoes", "modulacao-reharmonizacao"] },
   "analise-de-repertorio": { unitId: "s4-prf", prerequisites: ["variacao-e-desenvolvimento"] },
   "analise-estilistica-revisao": { unitId: "s4-prf", prerequisites: ["analise-de-repertorio", "modulacao-reharmonizacao"] },
@@ -421,6 +447,14 @@ const ALL_LESSONS: readonly Lesson[] = [
   lessonAcappellaBlocos,
   lessonAcappellaBaixo,
   lessonAcappellaModulacoes,
+  lessonSsaFormacao,
+  lessonSsaTresVozes,
+  lessonSsaQuatroVozes,
+  lessonSsaBaixo,
+  lessonSsaInfantil,
+  lessonSsaTexturas,
+  lessonSsaAdaptacao,
+  lessonSsaCores,
   lessonMpbVocal,
   lessonAnaliseRepertorio,
   lessonEstilo,
@@ -476,6 +510,7 @@ export const COMPETENCIES: Readonly<Record<CompetencyId, string>> = {
   "conducao-de-vozes": "Condução de vozes",
   "escrita-satb": "Escrita SATB",
   "escrita-ttbb": "Escrita TTBB",
+  "escrita-ssaa": "Escrita SSA/SSAA",
   percepcao: "Percepção auditiva",
   contraponto: "Contraponto",
   "texto-e-prosodia": "Texto e prosódia",

@@ -177,9 +177,9 @@ export function generateChordItems(rng: Rng, count: number): ChoiceItem[] {
 
 type RangeAnswer = "tessitura" | "extensao" | "fora";
 
-export function generateRangeItems(rng: Rng, count: number): ChoiceItem[] {
+export function generateRangeItems(rng: Rng, count: number, formations: readonly FormationId[] = ["SATB", "TTBB"]): ChoiceItem[] {
   const items: ChoiceItem[] = [];
-  const all: Array<{ formation: FormationId; voice: VoiceId }> = (["SATB", "TTBB"] as FormationId[]).flatMap((f) =>
+  const all: Array<{ formation: FormationId; voice: VoiceId }> = formations.flatMap((f) =>
     FORMATIONS[f].voices.map((v) => ({ formation: f, voice: v.id })),
   );
   const labels: Record<RangeAnswer, string> = {
@@ -208,7 +208,7 @@ export function generateRangeItems(rng: Rng, count: number): ChoiceItem[] {
     items.push({
       id: `ext-${items.length + 1}`,
       kind: "choice",
-      skill: formation === "SATB" ? "escrita-satb" : "escrita-ttbb",
+      skill: { SATB: "escrita-satb", TTBB: "escrita-ttbb", SSAA: "escrita-ssaa" }[formation],
       prompt: `${spec.name} (${formation}): a nota ${formatPitch(p)} (altura sonora) está…`,
       options,
       correctOptionId: answer,

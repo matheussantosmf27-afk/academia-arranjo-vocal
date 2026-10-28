@@ -8,6 +8,7 @@ import { PROJECTS } from "@/content/projects";
 import { LAB_EXAMPLES } from "@/content/lab-examples";
 import { deleteDraft, listDrafts } from "@/lib/projects/store";
 import { useHydrated } from "@/lib/useHydrated";
+import { formationChipClass } from "@/lib/voice-colors";
 
 export function ProjectLibrary() {
   const hydrated = useHydrated();
@@ -30,7 +31,7 @@ export function ProjectLibrary() {
           <ul className="stack" style={{ listStyle: "none", padding: 0 }}>
             {drafts.map((d) => (
               <li key={d.id} className="card row">
-                <span className={`chip ${d.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`}>{d.formation}</span>
+                <span className={`chip ${formationChipClass(d.formation)}`}>{d.formation}</span>
                 <strong>{d.title}</strong>
                 <span className="muted">salvo em {new Date(d.updatedAt).toLocaleString("pt-BR")}</span>
                 <span className="spacer" />
@@ -69,7 +70,7 @@ export function ProjectLibrary() {
         <div className="grid">
           {LAB_EXAMPLES.map((s) => (
             <div key={s.id} className="card stack" style={{ gap: 6 }}>
-              <span className={`chip ${s.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`} style={{ alignSelf: "flex-start" }}>
+              <span className={`chip ${formationChipClass(s.formation)}`} style={{ alignSelf: "flex-start" }}>
                 {s.formation}
               </span>
               <strong>{s.title}</strong>
@@ -123,7 +124,7 @@ function CloudArrangements() {
         <ul className="stack" style={{ listStyle: "none", padding: 0 }}>
           {items.map((a) => (
             <li key={a.id} className="card row">
-              <span className={`chip ${a.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`}>{a.formation}</span>
+              <span className={`chip ${formationChipClass(a.formation)}`}>{a.formation}</span>
               <strong>{a.title}</strong>
               <span className="muted">
                 {a.versions} versão(ões) · {new Date(a.updatedAt).toLocaleString("pt-BR")}
@@ -171,7 +172,7 @@ function PracticeProjects() {
       <div className="grid">
         {PROJECTS.map((p) => (
           <div key={p.id} className="card stack" style={{ gap: 6 }}>
-            <span className={`chip ${p.starting.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`} style={{ alignSelf: "flex-start" }}>
+            <span className={`chip ${formationChipClass(p.starting.formation)}`} style={{ alignSelf: "flex-start" }}>
               {p.starting.formation} · {p.level}º semestre
             </span>
             <strong>{p.title}</strong>

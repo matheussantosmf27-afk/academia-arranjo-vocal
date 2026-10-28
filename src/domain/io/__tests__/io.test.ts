@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { CHORALE_SATB_C, CHORALE_TTBB_G } from "../../music/examples";
+import { CHORALE_SATB_C, CHORALE_SSAA_G, CHORALE_TTBB_G } from "../../music/examples";
 import { scoreFromText } from "../../music/text-notation";
 import { type Score, voiceTimeline } from "../../music/score";
 import { toMidi } from "../../music/pitch";
@@ -31,7 +31,7 @@ const RICH = scoreFromText({
 });
 
 describe("MusicXML", () => {
-  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, RICH])("ida e volta preserva alturas, ritmo, ligaduras e letra ($title)", (score) => {
+  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, CHORALE_SSAA_G, RICH])("ida e volta preserva alturas, ritmo, ligaduras e letra ($title)", (score) => {
     const xml = exportMusicXml(score);
     const back = importMusicXml(xml);
     expect(back.errors).toEqual([]);
@@ -75,7 +75,7 @@ describe("MusicXML", () => {
 });
 
 describe("MIDI", () => {
-  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, RICH])("ida e volta preserva alturas, ritmo, armadura e andamento ($title)", (score) => {
+  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, CHORALE_SSAA_G, RICH])("ida e volta preserva alturas, ritmo, armadura e andamento ($title)", (score) => {
     const bytes = exportMidi(score);
     expect(String.fromCharCode(...bytes.slice(0, 4))).toBe("MThd");
     const back = importMidi(bytes);

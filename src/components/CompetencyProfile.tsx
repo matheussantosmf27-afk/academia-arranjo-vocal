@@ -13,6 +13,7 @@ const SKILL_NAMES: Record<string, string> = {
   "harmonia-funcional": "Harmonia funcional",
   "escrita-satb": "Escrita SATB",
   "escrita-ttbb": "Escrita TTBB",
+  "escrita-ssaa": "Escrita SSA/SSAA",
   conceito: "Conceitos",
 };
 

@@ -1,4 +1,4 @@
-import type { Clef } from "../music/formations";
+import type { Clef, FormationId } from "../music/formations";
 import type { Pitch } from "../music/pitch";
 import type { Score } from "../music/score";
 
@@ -34,7 +34,7 @@ export type ExerciseItem = ChoiceItem;
 export type GeneratorSpec =
   | { readonly type: "interval-identification"; readonly count: number; readonly earOnly?: boolean; readonly maxNumber?: number }
   | { readonly type: "chord-identification"; readonly count: number }
-  | { readonly type: "range-check"; readonly count: number }
+  | { readonly type: "range-check"; readonly count: number; readonly formations?: readonly FormationId[] }
   | { readonly type: "key-signature"; readonly count: number }
   | { readonly type: "scale-degree"; readonly count: number }
   | { readonly type: "seventh-identification"; readonly count: number }
@@ -50,7 +50,9 @@ export type GeneratorSpec =
   /** Rearmonização: escolher a harmonia nova que mantém a melodia e passa no motor. */
   | { readonly type: "reharm-choice"; readonly count: number }
   /** Contraponto: classificar o intervalo harmônico entre duas vozes. */
-  | { readonly type: "counterpoint-interval"; readonly count: number };
+  | { readonly type: "counterpoint-interval"; readonly count: number }
+  /** Distribuição de um acorde em SSAA (vozes iguais agudas, sem baixo real). */
+  | { readonly type: "ssaa-voicing"; readonly count: number };
 
 export interface ExerciseSetSpec {
   readonly id: string;

@@ -432,6 +432,75 @@ export function generateTtbbVoicingItems(rng: Rng, count: number): ChoiceItem[] 
   return items;
 }
 
+const SSAA_VOICINGS: { readonly correct: readonly (readonly [Above, Above, Above])[]; readonly wrong: readonly { readonly bass?: "oitava-abaixo" | "quinta"; readonly upper: readonly [Above, Above, Above] }[] } = {
+  // Contralto I, Soprano II, Soprano I (acima do Contralto II, que tem a fundamental).
+  correct: [
+    [[3, "M"], [5, "P"], [8, "P"]],
+    [[5, "P"], [8, "P"], [10, "M"]],
+    [[5, "P"], [10, "M"], [12, "P"]],
+  ],
+  wrong: [
+    { bass: "oitava-abaixo", upper: [[10, "M"], [12, "P"], [15, "P"]] }, // Contralto II escrita como baixo de coro misto
+    { bass: "quinta", upper: [[4, "P"], [6, "M"], [8, "P"]] }, // quinta na voz mais grave: acorde em segunda inversão
+    { upper: [[5, "P"], [10, "M"], [8, "P"]] }, // Soprano I abaixo do Soprano II
+    { upper: [[3, "M"], [12, "P"], [15, "P"]] }, // buraco entre contraltos e sopranos
+  ],
+};
+const SSAA_ROOTS = ["G3", "A3", "Bb3", "C4", "D4"];
+const SSAA_VOICE_PT = { A2: "Contralto II", A1: "Contralto I", S2: "Soprano II", S1: "Soprano I" } as const;
+
+/**
+ * Distribuição SSAA: qual voicing de um acorde maior funciona em vozes iguais
+ * agudas, sem baixo real? A certa é limpa no motor; cada errada traz o
+ * diagnóstico que a reprova.
+ */
+export function generateSsaaVoicingItems(rng: Rng, count: number): ChoiceItem[] {
+  const items: ChoiceItem[] = [];
+  let guard = 0;
+  while (items.length < count && guard++ < count * 20) {
+    const root = parsePitch(pick(rng, SSAA_ROOTS));
+    const build = (bass: Pitch, upper: readonly [Above, Above, Above]) => {
+      const [a1, s2, s1] = upper.map(([n, q]) => transposeByInterval(bass, n, q, 1)) as [Pitch, Pitch, Pitch];
+      const pitches = { A2: bass, A1: a1, S2: s2, S1: s1 };
+      const score = scoreFromText({
+        id: `ssaa-voicing-${items.length + 1}`,
+        title: "Acorde em SSAA",
+        formation: "SSAA",
+        key: "C",
+        time: "4/4",
+        voices: { S1: `${formatPitchAscii(s1)}:w`, S2: `${formatPitchAscii(s2)}:w`, A1: `${formatPitchAscii(a1)}:w`, A2: `${formatPitchAscii(bass)}:w` },
+      });
+      const label = (["A2", "A1", "S2", "S1"] as const).map((v) => `${SSAA_VOICE_PT[v]}: ${formatPitchPt(pitches[v])}`).join(" · ");
+      return { score, label, pitches: [bass, a1, s2, s1] };
+    };
+    const correct = build(root, pick(rng, SSAA_VOICINGS.correct));
+    if (validateScore(correct.score).diagnostics.some((d) => d.severity !== "info")) continue;
+    const wrong = shuffle(rng, [...SSAA_VOICINGS.wrong])
+      .slice(0, 3)
+      .map((w) => build(w.bass === "oitava-abaixo" ? transposeByInterval(root, 8, "P", -1) : w.bass === "quinta" ? transposeByInterval(root, 4, "P", -1) : root, w.upper))
+      .map((w) => ({ ...w, d: mainProblem(validateScore(w.score).diagnostics) }));
+    if (wrong.some((w) => !w.d)) continue;
+    const entries = shuffle(rng, [{ label: correct.label, feedback: "" }, ...wrong.map((w) => ({ label: w.label, feedback: `${w.d!.message} ${w.d!.explanation}` }))]);
+    const options: ChoiceOption[] = entries.map((e, i) => ({ id: `o${i}`, label: e.label }));
+    const optionFeedback: Record<string, string> = {};
+    entries.forEach((e, i) => {
+      if (e.feedback) optionFeedback[`o${i}`] = e.feedback;
+    });
+    items.push({
+      id: `ssaa-voicing-${items.length + 1}`,
+      kind: "choice",
+      skill: "escrita-ssaa",
+      prompt: `Acorde de ${formatPitchClassPt(root)} maior para coro feminino (SSAA), com a fundamental no Contralto II: qual distribuição funciona sem baixo real?`,
+      options,
+      correctOptionId: options[entries.findIndex((e) => e.label === correct.label)]!.id,
+      explanation: `Fundamental na voz mais grave, acorde completo e vozes próximas (no máximo uma oitava entre vizinhas), tudo dentro das extensões. (${correct.label})`,
+      optionFeedback,
+      audio: { pitches: correct.pitches, mode: "harmonico" },
+    });
+  }
+  return items;
+}
+
 /**
  * Rearmonização: a melodia do soprano fica e a harmonia muda. Mostra a harmonia
  * original e pede a rearmonização que passa limpa no motor; cada alternativa
