@@ -135,3 +135,39 @@ describe("baixo dado e canto dado", () => {
     }
   });
 });
+
+describe("distribuição TTBB", () => {
+  it("a alternativa certa é limpa no motor e cada errada tem um problema comentado", async () => {
+    const { generateTtbbVoicingItems } = await import("../generators2");
+    const { scoreFromText } = await import("../../music/text-notation");
+    const PT_TO_ASCII: Record<string, string> = { Dó: "C", Ré: "D", Mi: "E", Fá: "F", Sol: "G", Lá: "A", Si: "B" };
+    const toAscii = (pt: string) => {
+      const m = /^(Dó|Ré|Mi|Fá|Sol|Lá|Si)(♯|♭)?(\d)$/.exec(pt)!;
+      return `${PT_TO_ASCII[m[1]!]}${m[2] === "♯" ? "#" : m[2] === "♭" ? "b" : ""}${m[3]}`;
+    };
+    for (const seed of [1, 2, 3, 4, 5]) {
+      const items = generateTtbbVoicingItems(createRng(seed), 3);
+      expect(items.length).toBe(3);
+      wellFormed(items);
+      for (const i of items) {
+        for (const o of i.options) {
+          const notes = Object.fromEntries(o.label.split(" · ").map((part) => part.split(": ") as [string, string]));
+          const score = scoreFromText({
+            id: "t",
+            title: "t",
+            formation: "TTBB",
+            key: "C",
+            time: "4/4",
+            voices: { B2: `${toAscii(notes["Baixo"]!)}:w`, B1: `${toAscii(notes["Barítono"]!)}:w`, T2: `${toAscii(notes["Tenor II"]!)}:w`, T1: `${toAscii(notes["Tenor I"]!)}:w` },
+          });
+          const problems = validateScore(score).diagnostics.filter((d) => d.severity !== "info");
+          if (o.id === i.correctOptionId) expect(problems, o.label).toEqual([]);
+          else {
+            expect(problems.length, o.label).toBeGreaterThan(0);
+            expect(i.optionFeedback?.[o.id]).toBeTruthy();
+          }
+        }
+      }
+    }
+  });
+});
