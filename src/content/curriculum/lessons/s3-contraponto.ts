@@ -245,7 +245,7 @@ export const lessonCpImitacao: Lesson = {
       title: "1. Cânone",
       blocks: [
         { type: "paragraph", text: "No cânone, uma voz canta a melodia e outra a repete, igual, alguns tempos depois. Para funcionar, cada trecho da melodia precisa soar bem contra o trecho anterior. O jeito mais simples: todos os trechos sobre o mesmo acorde (como nos rounds infantis) ou sobre uma progressão que se repete." },
-        { type: "example", score: EXC.canone, verdict: "correto", caption: "Cânone à oitava sobre pedal", commentary: "O tenor canta a mesma melodia do soprano, uma oitava abaixo e um compasso depois. Todos os trechos cabem no acorde de Sol: terças e sextas aparecem entre as vozes o tempo todo." },
+        { type: "example", score: EXC.canone, verdict: "correto", caption: "Cânone à oitava sobre pedal", commentary: "O tenor canta a mesma melodia do soprano, uma oitava abaixo e um compasso depois. Os tempos fortes cabem no acorde de Sol, com terças, sextas e décimas entre as vozes. O Dó dos dois (2º tempo dos compassos 2 e 3) é nota de passagem: soa como quarta sobre o pedal e, no compasso 3, como sétima contra o Si do soprano, mas chega e sai por grau e resolve logo no Ré." },
         { type: "listening", title: "Siga as entradas", score: EXC.canone, instructions: ["Ouça o soprano.", "Ouça o tenor e perceba que é a mesma melodia, atrasada.", "Ouça os dois juntos."], focus: [["S"], ["T"], ["S", "T", "B"]] },
         { type: "example", score: EXC.canoneParalelo, verdict: "incorreto", caption: "Imitação sem defasagem", commentary: "Se a segunda voz canta a mesma melodia ao mesmo tempo, só que uma quinta abaixo, não há imitação: há quintas paralelas do começo ao fim." },
       ],
