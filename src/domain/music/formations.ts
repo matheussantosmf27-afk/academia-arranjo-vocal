@@ -4,12 +4,14 @@ import { type Pitch, parsePitch, shiftOctave } from "./pitch";
  * Formações vocais. As extensões são PADRÕES DIDÁTICOS configuráveis, não leis:
  * variam com idade, treino, repertório e estilo. Fontes de referência (consenso
  * aproximado de manuais de harmonia e regência coral): Aldwell & Schachter,
- * Kostka & Payne, e prática de coros masculinos/barbershop para TTBB.
+ * Kostka & Payne, prática de coros masculinos/barbershop para TTBB e de coros
+ * femininos e infantis (repertório SSA/SSAA) para vozes iguais agudas.
  */
-export type FormationId = "SATB" | "TTBB";
+export type FormationId = "SATB" | "TTBB" | "SSAA";
 export type SATBVoice = "S" | "A" | "T" | "B";
 export type TTBBVoice = "T1" | "T2" | "B1" | "B2";
-export type VoiceId = SATBVoice | TTBBVoice;
+export type SSAAVoice = "S1" | "S2" | "A1" | "A2";
+export type VoiceId = SATBVoice | TTBBVoice | SSAAVoice;
 
 /**
  * Claves:
@@ -168,7 +170,62 @@ export const TTBB: FormationSpec = {
   maxAdjacentSpacing: [12, 12, 19],
 };
 
-export const FORMATIONS: Readonly<Record<FormationId, FormationSpec>> = { SATB, TTBB };
+export const SSAA: FormationSpec = {
+  id: "SSAA",
+  name: "Coro feminino / vozes iguais (SSAA)",
+  description:
+    "Soprano I, Soprano II, Contralto I e Contralto II. Abrange cerca de duas oitavas, todas na região aguda: não há baixo real, então o Contralto II faz o papel de baixo e a harmonia precisa de cuidado com inversões e espaçamento. Em SSA, a pauta inferior usa só o Contralto I.",
+  voices: [
+    {
+      id: "S1",
+      name: "Soprano I",
+      shortName: "S1",
+      staff: 0,
+      stem: 1,
+      range: r("D4", "A5"),
+      tessitura: r("F4", "F5"),
+      timbre: "Brilho e projeção; acima de F5 cansa em coros amadores e infantis.",
+    },
+    {
+      id: "S2",
+      name: "Soprano II",
+      shortName: "S2",
+      staff: 0,
+      stem: -1,
+      range: r("C4", "F5"),
+      tessitura: r("D4", "D5"),
+      timbre: "Mais escuro que o Soprano I; segura terças e sextas sob a melodia.",
+    },
+    {
+      id: "A1",
+      name: "Contralto I",
+      shortName: "A1",
+      staff: 1,
+      stem: 1,
+      range: r("A3", "D5"),
+      tessitura: r("B3", "B4"),
+      timbre: "Centro da formação; em SSA é a voz mais grave e sustenta a harmonia.",
+    },
+    {
+      id: "A2",
+      name: "Contralto II",
+      shortName: "A2",
+      staff: 1,
+      stem: -1,
+      range: r("F3", "C5"),
+      tessitura: r("G3", "A4"),
+      timbre: "Faz o papel de baixo; abaixo de G3 perde volume e só funciona com contraltos graves confirmadas.",
+    },
+  ],
+  staves: [
+    { clef: "treble", voices: ["S1", "S2"] },
+    { clef: "treble", voices: ["A1", "A2"] },
+  ],
+  // Vozes iguais soam melhor fechadas: nenhuma distância maior que uma oitava.
+  maxAdjacentSpacing: [12, 12, 12],
+};
+
+export const FORMATIONS: Readonly<Record<FormationId, FormationSpec>> = { SATB, TTBB, SSAA };
 
 export function getFormation(id: FormationId): FormationSpec {
   return FORMATIONS[id];

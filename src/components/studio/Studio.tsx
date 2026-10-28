@@ -51,6 +51,7 @@ import { ScoreView } from "../notation/ScoreView";
 import { VoicePlayer } from "../audio/VoicePlayer";
 import { DURATION_KEYS, defaultPitchFor, nearestWithLetter, neighborEvent, verticalNeighbor } from "./editing";
 import styles from "./Studio.module.css";
+import { formationChipClass } from "@/lib/voice-colors";
 
 const KEYS = ["C", "G", "D", "A", "E", "F", "Bb", "Eb", "Ab", "Am", "Em", "Bm", "Dm", "Gm", "Cm"];
 
@@ -472,7 +473,7 @@ export function Studio() {
             }}
           />
           <div className="row" style={{ marginTop: 4 }}>
-            <span className={`chip ${score.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`}>{formation.name}</span>
+            <span className={`chip ${formationChipClass(score.formation)}`}>{formation.name}</span>
             <span className="chip">{keyNamePt(score.key)}</span>
             <span className="chip">
               {score.timeSignature.beats}/{score.timeSignature.beatType}
@@ -824,6 +825,7 @@ function NewScoreForm({ onCreate, onCancel }: { onCreate: (s: Score) => void; on
         <select value={formation} onChange={(e) => setFormation(e.target.value as FormationId)}>
           <option value="SATB">SATB — coro misto</option>
           <option value="TTBB">TTBB — coro masculino</option>
+          <option value="SSAA">SSAA — coro feminino ou infantil</option>
         </select>
       </label>
       <label>

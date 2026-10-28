@@ -1,10 +1,12 @@
 import { describe, expect, it } from "vitest";
-import { CHORALE_SATB_C, CHORALE_TTBB_G } from "../../music/examples";
+import { CHORALE_SATB_C, CHORALE_SSAA_G, CHORALE_TTBB_G } from "../../music/examples";
 import { scoreFromText } from "../../music/text-notation";
 import { type Score, voiceTimeline } from "../../music/score";
 import { toMidi } from "../../music/pitch";
 import { exportMusicXml, importMusicXml } from "../musicxml";
 import { exportMidi, importMidi } from "../midi";
+import { type RawLine, detectFormation } from "../assemble";
+import { parsePitch } from "../../music/pitch";
 
 /** Sequência (onset, midi|rest, ticks, tie) por voz — independe de ids. */
 function signature(score: Score) {
@@ -31,7 +33,7 @@ const RICH = scoreFromText({
 });
 
 describe("MusicXML", () => {
-  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, RICH])("ida e volta preserva alturas, ritmo, ligaduras e letra ($title)", (score) => {
+  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, CHORALE_SSAA_G, RICH])("ida e volta preserva alturas, ritmo, ligaduras e letra ($title)", (score) => {
     const xml = exportMusicXml(score);
     const back = importMusicXml(xml);
     expect(back.errors).toEqual([]);
@@ -75,7 +77,7 @@ describe("MusicXML", () => {
 });
 
 describe("MIDI", () => {
-  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, RICH])("ida e volta preserva alturas, ritmo, armadura e andamento ($title)", (score) => {
+  it.each([CHORALE_SATB_C, CHORALE_TTBB_G, CHORALE_SSAA_G, RICH])("ida e volta preserva alturas, ritmo, armadura e andamento ($title)", (score) => {
     const bytes = exportMidi(score);
     expect(String.fromCharCode(...bytes.slice(0, 4))).toBe("MThd");
     const back = importMidi(bytes);
@@ -104,5 +106,21 @@ describe("MIDI", () => {
 
   it("recusa bytes inválidos", () => {
     expect(importMidi(new Uint8Array([1, 2, 3])).ok).toBe(false);
+  });
+});
+
+describe("detecção de formação sem nomes de parte", () => {
+  const line = (pitches: string[]): RawLine => ({
+    label: "",
+    notes: pitches.map((p, i) => ({ onset: i * 480, dur: 480, pitch: parsePitch(p), dots: 0, tieStart: false, arts: [] })),
+  });
+  it("Contralto II com média em Sol3 ainda é SSAA", () => {
+    expect(detectFormation([line(["G4", "A4"]), line(["E4", "F4"]), line(["C4", "B3"]), line(["G3", "G3"])])).toBe("SSAA");
+  });
+  it("baixo de coro misto em torno de Dó3 continua SATB", () => {
+    expect(detectFormation([line(["G4", "A4"]), line(["E4", "F4"]), line(["C4", "B3"]), line(["C3", "G2"])])).toBe("SATB");
+  });
+  it("vozes masculinas continuam TTBB", () => {
+    expect(detectFormation([line(["D4", "E4"]), line(["B3", "C4"]), line(["G3", "G3"]), line(["G2", "C3"])])).toBe("TTBB");
   });
 });

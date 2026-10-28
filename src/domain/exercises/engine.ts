@@ -10,6 +10,7 @@ import {
   generateScaleDegreeItems,
   generateSeventhItems,
   generateCounterpointIntervalItems,
+  generateSsaaVoicingItems,
   generateReharmItems,
   generateTtbbVoicingItems,
 } from "./generators2";
@@ -22,7 +23,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     if (g.type === "interval-identification") {
       generated.push(...generateIntervalItems(rng, g.count, { ...(g.earOnly ? { earOnly: true } : {}), ...(g.maxNumber ? { maxNumber: g.maxNumber } : {}) }));
     } else if (g.type === "chord-identification") generated.push(...generateChordItems(rng, g.count));
-    else if (g.type === "range-check") generated.push(...generateRangeItems(rng, g.count));
+    else if (g.type === "range-check") generated.push(...generateRangeItems(rng, g.count, g.formations));
     else if (g.type === "key-signature") generated.push(...generateKeySignatureItems(rng, g.count));
     else if (g.type === "scale-degree") generated.push(...generateScaleDegreeItems(rng, g.count));
     else if (g.type === "seventh-identification") generated.push(...generateSeventhItems(rng, g.count));
@@ -34,6 +35,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     else if (g.type === "ttbb-voicing") generated.push(...generateTtbbVoicingItems(rng, g.count));
     else if (g.type === "reharm-choice") generated.push(...generateReharmItems(rng, g.count));
     else if (g.type === "counterpoint-interval") generated.push(...generateCounterpointIntervalItems(rng, g.count));
+    else if (g.type === "ssaa-voicing") generated.push(...generateSsaaVoicingItems(rng, g.count));
     else generated.push(...generateNctItems(rng, g.count));
   }
   return generated;

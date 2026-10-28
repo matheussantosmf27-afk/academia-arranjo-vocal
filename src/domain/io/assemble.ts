@@ -48,14 +48,20 @@ function averageMidi(line: RawLine): number {
 
 /**
  * Detecta a formação: nomes de parte explícitos têm prioridade; senão, a voz
- * mais aguda abaixo de G4 em média indica coro masculino (TTBB).
+ * mais aguda abaixo de G4 em média indica coro masculino (TTBB) e a mais grave
+ * a partir de F3 em média indica vozes iguais agudas (SSAA).
  */
 export function detectFormation(lines: readonly RawLine[]): FormationId {
   const names = lines.map((l) => l.label.toLowerCase()).join(" ");
+  if (/(sopr\w*|s) ?(ii|2)\b|(alto|contralto|a) ?(ii|2)\b/.test(names) && !/tenor|bass|baixo/.test(names)) return "SSAA";
   if (/sopr|alto|contralto/.test(names)) return "SATB";
   if (/tenor ?(i|1)\b|t1\b|barít|barit|baixo ?(i|1)|bass ?(i|1)\b/.test(names)) return "TTBB";
   const top = Math.max(...lines.map(averageMidi));
-  return top < 67 ? "TTBB" : "SATB";
+  const bottom = Math.min(...lines.map(averageMidi));
+  if (top < 67) return "TTBB";
+  // Linha mais grave com média a partir de Fá3 (limite grave do Contralto II): não há
+  // baixo real, vozes iguais agudas. O baixo de coro misto fica em torno de Dó3.
+  return bottom >= 53 ? "SSAA" : "SATB";
 }
 
 /**
@@ -67,7 +73,7 @@ export function assembleScore(input: AssembleInput): ImportResult {
   const warnings = input.warnings;
   const lineList = input.lines.filter((l) => l.notes.some((n) => n.pitch));
   if (lineList.length !== 4)
-    return { ok: false, warnings, errors: [`Foram encontradas ${lineList.length} linhas vocais com notas; são necessárias exatamente 4 (SATB ou TTBB).`] };
+    return { ok: false, warnings, errors: [`Foram encontradas ${lineList.length} linhas vocais com notas; são necessárias exatamente 4 (SATB, TTBB ou SSAA).`] };
   const sorted = [...lineList].sort((a, b) => averageMidi(b) - averageMidi(a));
   const formation = input.formation ?? detectFormation(sorted);
   const voices = FORMATIONS[formation].voices.map((v) => v.id);

@@ -39,6 +39,22 @@ export const CHORALE_TTBB_G: Score = scoreFromText({
   },
 });
 
+export const CHORALE_SSAA_G: Score = scoreFromText({
+  id: "exemplo-coral-ssaa-sol",
+  title: "Cadência em Sol maior (SSAA)",
+  formation: "SSAA",
+  key: "G",
+  time: "4/4",
+  tempo: 72,
+  notes: "I IV I V | I — vozes iguais fechadas; o Contralto II faz o baixo com fundamentais, sem descer de G3.",
+  voices: {
+    S1: "B4:q C5:q B4:q A4:q | B4:w",
+    S2: "G4:q G4:q G4:q F#4:q | G4:w",
+    A1: "D4:q E4:q D4:q D4:q | D4:w",
+    A2: "G3:q C4:q G3:q D4:q | G3:w",
+  },
+});
+
 /** Exemplo INCORRETO: quintas e oitavas paralelas na progressão I → ii. */
 export const PARALLELS_SATB: Score = scoreFromText({
   id: "exemplo-paralelas-satb",
@@ -71,4 +87,4 @@ export const PARALLELS_FIXED_SATB: Score = scoreFromText({
   },
 });
 
-export const EXAMPLE_SCORES: readonly Score[] = [CHORALE_SATB_C, CHORALE_TTBB_G, PARALLELS_SATB, PARALLELS_FIXED_SATB];
+export const EXAMPLE_SCORES: readonly Score[] = [CHORALE_SATB_C, CHORALE_TTBB_G, CHORALE_SSAA_G, PARALLELS_SATB, PARALLELS_FIXED_SATB];

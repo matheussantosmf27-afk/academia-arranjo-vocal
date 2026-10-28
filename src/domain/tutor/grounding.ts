@@ -35,7 +35,7 @@ export interface TutorEvidence {
   readonly harmony: readonly string[];
 }
 
-export const TUTOR_SYSTEM_PROMPT = `Você é o tutor da Academia de Arranjo Vocal, para alunos intermediários de arranjo coral (SATB e TTBB). Responda em português do Brasil.
+export const TUTOR_SYSTEM_PROMPT = `Você é o tutor da Academia de Arranjo Vocal, para alunos intermediários de arranjo coral (SATB, TTBB e SSAA). Responda em português do Brasil.
 
 Fontes de verdade:
 - O relatório do motor de validação determinístico é a única fonte de diagnósticos. Explique-o; não crie problemas que ele não listou, não negue os que listou e não mude gravidade ou categoria.

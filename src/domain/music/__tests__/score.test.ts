@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { computeDisplayedAccidentals } from "../accidentals";
-import { CHORALE_SATB_C, CHORALE_TTBB_G, EXAMPLE_SCORES } from "../examples";
-import { clefOctaveShift, soundingPitch, writtenPitch } from "../formations";
+import { CHORALE_SATB_C, CHORALE_SSAA_G, CHORALE_TTBB_G, EXAMPLE_SCORES } from "../examples";
+import { clefOctaveShift, getFormation, soundingPitch, writtenPitch } from "../formations";
 import { canRedo, canUndo, createHistory, pushHistory, redo, undo } from "../history";
 import { emptyScore, setDuration, setLyric, toggleTie, transposeEventDiatonic } from "../operations";
 import { formatPitch, parsePitch } from "../pitch";
@@ -32,6 +32,10 @@ describe("modelo de partitura", () => {
     expect(formatPitch(written)).toBe("D5");
     expect(soundingPitch(written, "treble8vb")).toEqual(sounding);
     expect(writtenPitch(sounding, "bass")).toEqual(sounding);
+  });
+  it("o exemplo SSAA usa as vozes femininas na ordem, com duas pautas em clave de sol", () => {
+    expect(CHORALE_SSAA_G.parts.map((p) => p.voice)).toEqual(["S1", "S2", "A1", "A2"]);
+    expect(getFormation("SSAA").staves.map((st) => st.clef)).toEqual(["treble", "treble"]);
   });
   it("o exemplo TTBB usa as vozes masculinas na ordem", () => {
     expect(CHORALE_TTBB_G.parts.map((p) => p.voice)).toEqual(["T1", "T2", "B1", "B2"]);

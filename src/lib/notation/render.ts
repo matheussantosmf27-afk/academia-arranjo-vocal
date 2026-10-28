@@ -1,6 +1,7 @@
 import type * as VFModule from "vexflow/bravura";
 import { durationToVexFlow, measureTicks } from "@/domain/music/duration";
 import { getFormation } from "@/domain/music/formations";
+import { toMidi } from "@/domain/music/pitch";
 import { keyToVexFlowSpec } from "@/domain/music/key";
 import type { Score } from "@/domain/music/score";
 import type { HarmonicLabel } from "@/domain/validation";
@@ -67,6 +68,8 @@ const COLORS = {
 };
 
 const STAFF_GAP = 95;
+/** Altura (MIDI, escrita) da última linha de cada clave. */
+const BOTTOM_LINE_MIDI = { treble: 64, treble8vb: 64, bass: 43 } as const;
 const SYSTEM_GAP = 90;
 const LEFT = 12;
 
@@ -191,6 +194,8 @@ export function renderScore(VF: VexFlowApi, container: HTMLElement, score: Score
           if (ev.kind === "note") {
             const above = ne.stem === 1;
             if (!above && v.staff === 1 && (ev.dynamic || ev.articulations?.length)) crowdedBelow.add(si);
+            // nota com haste para baixo abaixo da última linha (ex.: Contralto II em clave de sol): a cifragem desce
+            if (!above && v.staff === 1 && ne.written && toMidi(ne.written) < BOTTOM_LINE_MIDI[formation.staves[1].clef]) crowdedBelow.add(si);
             for (const art of ev.articulations ?? []) {
               const code = { staccato: "a.", accent: "a>", tenuto: "a-", fermata: above ? "a@a" : "a@u" }[art];
               note.addModifier(new Articulation(code).setPosition(above ? Modifier.Position.ABOVE : Modifier.Position.BELOW), 0);

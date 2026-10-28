@@ -234,6 +234,40 @@ export const PROJECTS: readonly ProjectSpec[] = [
       "Como você evitou oitavas e quintas paralelas entre descant e melodia?",
     ],
   },
+  {
+    id: "hino-coro-feminino",
+    title: "Hino para coro feminino (SSAA)",
+    level: 4,
+    lessonId: "ssa-adaptacao",
+    summary: "A melodia 'Canta o coral' está no Soprano I, em Sol maior. Escreva Soprano II, Contralto I e Contralto II, com o Contralto II como linha de baixo.",
+    steps: [
+      "Cante a melodia e escolha um acorde por mínima.",
+      "Escreva o Contralto II como linha de baixo (fundamentais e terças, entre Sol3 e Ré4).",
+      "Complete Soprano II e Contralto I em posição fechada, sem passar de uma oitava entre vizinhas.",
+      "Revise no motor (paralelas, cruzamentos, espaçamento) e gere a avaliação.",
+    ],
+    starting: scoreFromText({
+      id: "projeto-coro-feminino",
+      title: "Hino para coro feminino",
+      formation: "SSAA",
+      key: "G",
+      time: "4/4",
+      tempo: 72,
+      voices: {
+        S1: 'D5:h"Can- B4:h"ta | C5:q"o A4:q"co- B4:h"ral | A4:q"de G4:q"vo- A4:q"zes B4:q"i- | G4:w"guais',
+        S2: R4,
+        A1: R4,
+        A2: R4,
+      },
+    }),
+    melodyVoice: "S1",
+    style: "coral-tradicional",
+    justificationPrompts: [
+      "Qual é a linha do Contralto II e onde você usou inversões?",
+      "Que nota você dobrou em cada acorde e por quê?",
+      "Como você evitou paralelas e cruzamentos com a melodia?",
+    ],
+  },
 ];
 
 export function getProject(id: string): ProjectSpec | undefined {

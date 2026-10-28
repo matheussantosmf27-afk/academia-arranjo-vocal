@@ -32,7 +32,7 @@ function audioContext(): AudioContext {
   return sharedCtx;
 }
 
-const VOICE_PAN: Partial<Record<VoiceId, number>> = { S: -0.3, A: -0.1, T: 0.1, B: 0.3, T1: -0.3, T2: -0.1, B1: 0.1, B2: 0.3 };
+const VOICE_PAN: Partial<Record<VoiceId, number>> = { S: -0.3, A: -0.1, T: 0.1, B: 0.3, T1: -0.3, T2: -0.1, B1: 0.1, B2: 0.3, S1: -0.3, S2: -0.1, A1: 0.1, A2: 0.3 };
 
 function scheduleTone(ctx: AudioContext, dest: AudioNode, midi: number, start: number, duration: number, opts: { pan?: number; gain?: number; timbre?: Timbre } = {}) {
   const timbre = opts.timbre ?? "neutro";

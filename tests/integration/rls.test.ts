@@ -116,8 +116,19 @@ describe.skipIf(!ADMIN_URL)("persistência e RLS (Postgres local com shim do Sup
     expect((await as(client, B, (q) => q("select * from exercise_attempts"))).rowCount).toBe(0);
   });
 
+  it("aceita arranjos e preferência na formação SSAA", async () => {
+    const r = await as(client, A, async (q) => {
+      await q("update profiles set preferred_formation = 'SSAA' where id = $1", [A]);
+      const arr = await q("insert into arrangements (title, formation) values ('Vozes iguais', 'SSAA') returning formation");
+      const p = await q("select preferred_formation from profiles where id = $1", [A]);
+      await q("update profiles set preferred_formation = 'SATB' where id = $1", [A]);
+      return { arr: arr.rows[0].formation, pref: p.rows[0].preferred_formation };
+    });
+    expect(r).toEqual({ arr: "SSAA", pref: "SSAA" });
+  });
+
   it("restrições de integridade rejeitam dados inválidos", async () => {
-    await expect(as(client, A, (q) => q("insert into arrangements (title, formation) values ('x', 'SSAA')"))).rejects.toThrow(/check/);
+    await expect(as(client, A, (q) => q("insert into arrangements (title, formation) values ('x', 'SSA')"))).rejects.toThrow(/check/);
     await expect(
       as(client, A, (q) =>
         q(

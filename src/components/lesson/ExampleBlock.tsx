@@ -8,6 +8,7 @@ import { ScoreView } from "../notation/ScoreView";
 import { VoicePlayer } from "../audio/VoicePlayer";
 import { PianoRoll } from "../visual/PianoRoll";
 import styles from "./Lesson.module.css";
+import { formationChipClass } from "@/lib/voice-colors";
 
 const VERDICT = {
   correto: { label: "Exemplo correto", cls: "chip-ok" },
@@ -30,7 +31,7 @@ export function ExampleBlock({ score, verdict, caption, commentary }: { score: S
     <figure className={styles.example}>
       <figcaption className={styles.exampleHead}>
         <span className={`chip ${VERDICT[verdict].cls}`}>{VERDICT[verdict].label}</span>
-        <span className={`chip ${score.formation === "SATB" ? "chip-satb" : "chip-ttbb"}`}>{score.formation}</span>
+        <span className={`chip ${formationChipClass(score.formation)}`}>{score.formation}</span>
         <strong>{caption}</strong>
       </figcaption>
       <ScoreView score={score} flagged={flagged} harmony={harmony} playhead={playhead} />

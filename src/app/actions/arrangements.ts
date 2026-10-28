@@ -3,6 +3,7 @@
 import { z } from "zod";
 import { parseScore } from "@/domain/music/schema";
 import type { Score } from "@/domain/music/score";
+import type { FormationId } from "@/domain/music/formations";
 import { validateScore } from "@/domain/validation";
 import { requireUser } from "@/lib/supabase/server";
 
@@ -13,7 +14,7 @@ const uuid = z.string().uuid();
 export interface CloudArrangement {
   id: string;
   title: string;
-  formation: "SATB" | "TTBB";
+  formation: FormationId;
   updatedAt: string;
   versions: number;
 }
@@ -76,7 +77,7 @@ export async function listArrangements(): Promise<ActionResult<{ items: CloudArr
     items: (data ?? []).map((r) => ({
       id: r.id as string,
       title: r.title as string,
-      formation: r.formation as "SATB" | "TTBB",
+      formation: r.formation as FormationId,
       updatedAt: r.updated_at as string,
       versions: (r.arrangement_versions as unknown as Array<{ count: number }> | null)?.[0]?.count ?? 0,
     })),
