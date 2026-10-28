@@ -49,7 +49,7 @@ function averageMidi(line: RawLine): number {
 /**
  * Detecta a formação: nomes de parte explícitos têm prioridade; senão, a voz
  * mais aguda abaixo de G4 em média indica coro masculino (TTBB) e a mais grave
- * acima de A3 em média indica vozes iguais agudas (SSAA).
+ * a partir de F3 em média indica vozes iguais agudas (SSAA).
  */
 export function detectFormation(lines: readonly RawLine[]): FormationId {
   const names = lines.map((l) => l.label.toLowerCase()).join(" ");
@@ -59,8 +59,9 @@ export function detectFormation(lines: readonly RawLine[]): FormationId {
   const top = Math.max(...lines.map(averageMidi));
   const bottom = Math.min(...lines.map(averageMidi));
   if (top < 67) return "TTBB";
-  // Linha mais grave acima de Sol3 em média: não há baixo real, vozes iguais agudas.
-  return bottom >= 57 ? "SSAA" : "SATB";
+  // Linha mais grave com média a partir de Fá3 (limite grave do Contralto II): não há
+  // baixo real, vozes iguais agudas. O baixo de coro misto fica em torno de Dó3.
+  return bottom >= 53 ? "SSAA" : "SATB";
 }
 
 /**

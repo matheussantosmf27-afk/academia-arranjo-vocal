@@ -5,6 +5,8 @@ import { type Score, voiceTimeline } from "../../music/score";
 import { toMidi } from "../../music/pitch";
 import { exportMusicXml, importMusicXml } from "../musicxml";
 import { exportMidi, importMidi } from "../midi";
+import { type RawLine, detectFormation } from "../assemble";
+import { parsePitch } from "../../music/pitch";
 
 /** Sequência (onset, midi|rest, ticks, tie) por voz — independe de ids. */
 function signature(score: Score) {
@@ -104,5 +106,21 @@ describe("MIDI", () => {
 
   it("recusa bytes inválidos", () => {
     expect(importMidi(new Uint8Array([1, 2, 3])).ok).toBe(false);
+  });
+});
+
+describe("detecção de formação sem nomes de parte", () => {
+  const line = (pitches: string[]): RawLine => ({
+    label: "",
+    notes: pitches.map((p, i) => ({ onset: i * 480, dur: 480, pitch: parsePitch(p), dots: 0, tieStart: false, arts: [] })),
+  });
+  it("Contralto II com média em Sol3 ainda é SSAA", () => {
+    expect(detectFormation([line(["G4", "A4"]), line(["E4", "F4"]), line(["C4", "B3"]), line(["G3", "G3"])])).toBe("SSAA");
+  });
+  it("baixo de coro misto em torno de Dó3 continua SATB", () => {
+    expect(detectFormation([line(["G4", "A4"]), line(["E4", "F4"]), line(["C4", "B3"]), line(["C3", "G2"])])).toBe("SATB");
+  });
+  it("vozes masculinas continuam TTBB", () => {
+    expect(detectFormation([line(["D4", "E4"]), line(["B3", "C4"]), line(["G3", "G3"]), line(["G2", "C3"])])).toBe("TTBB");
   });
 });
