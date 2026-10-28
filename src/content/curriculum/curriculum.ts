@@ -22,6 +22,7 @@ import {
 import { lessonLeadSheet, lessonOficio, lessonProcesso, lessonVozCantada } from "./lessons/s1-arranjo";
 import { lessonSilabas, lessonTexturas, lessonTresVozes, lessonVoicings } from "./lessons/s2-escrita";
 import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-forma";
+import { lessonAcappellaBaixo, lessonAcappellaBlocos, lessonAcappellaModulacoes, lessonAcappellaSolistas, lessonAcappellaTexturas, lessonAcappellaVocalBand } from "./lessons/s4-acappella";
 import { lessonQuartetoMasculino, lessonTtbbChamadaResposta, lessonTtbbCores, lessonTtbbModulacao, lessonTtbbUnissono, lessonTtbbVoicing } from "./lessons/s4-quarteto";
 import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
 import { lessonTriades } from "./lessons/triades-inversoes";
@@ -191,6 +192,23 @@ export const LEVELS: readonly Level[] = [
         ],
       },
       {
+        id: "s4-acp",
+        code: "EST406",
+        title: "Grupo Vocal A Cappella Gospel",
+        description:
+          "Técnicas de grupos a cappella gospel: revezamento de solistas e dueto; estrofe em uníssono e refrão em bloco, eco, texto contra 'uh' e antecipação; vocal band com riffs, baixo em ostinato e beatbox; diminuto de passagem, planing e clichê de linha; linhas de baixo com inversões e pedal; modulações por tom e por terça.",
+        lessonIds: ["acappella-solistas-dueto", "acappella-texturas", "acappella-vocal-band", "acappella-blocos-cromaticos", "acappella-linhas-de-baixo", "acappella-modulacoes"],
+        project: {
+          title: "Grupo a cappella gospel",
+          description: "Arranjar uma canção para quarteto com solo, refrão em bloco com eco, baixo em ostinato e modulação pela dominante.",
+        },
+        bibliography: [
+          "Escuta e análise: Ministério Vox (Vox Acapella; Acapella Vol. 2 e Vol. 3, arranjos de Samuel Lóia), Gaither Vocal Band (A Cappella), GLAD, Take 6, Arautos do Rei e Quarteto Ministry",
+          "Partituras para estudo: acervo 4tons.com.br (Pr. Marcelo Augusto de Carvalho), com a indicação de direitos de cada partitura",
+          "Deke Sharon e Dylan Bell — A Cappella Arranging (Hal Leonard)",
+        ],
+      },
+      {
         id: "s4-mpb",
         code: "EST404",
         title: "Música Popular Brasileira para Vozes",
@@ -266,6 +284,12 @@ const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readon
   "ttbb-unissono-entradas": { unitId: "s4-qtm", prerequisites: ["ttbb-chamada-resposta"] },
   "ttbb-cores-gospel": { unitId: "s4-qtm", prerequisites: ["ttbb-voicing-fechado", "tensoes-e-extensoes"] },
   "ttbb-modulacao-final": { unitId: "s4-qtm", prerequisites: ["ttbb-cores-gospel", "modulacao-reharmonizacao"] },
+  "acappella-solistas-dueto": { unitId: "s4-acp", prerequisites: ["quarteto-masculino"] },
+  "acappella-texturas": { unitId: "s4-acp", prerequisites: ["acappella-solistas-dueto"] },
+  "acappella-vocal-band": { unitId: "s4-acp", prerequisites: ["acappella-texturas", "baixo-e-percussao-vocal"] },
+  "acappella-blocos-cromaticos": { unitId: "s4-acp", prerequisites: ["acappella-texturas", "harmonia-cromatica-moderna"] },
+  "acappella-linhas-de-baixo": { unitId: "s4-acp", prerequisites: ["acappella-blocos-cromaticos"] },
+  "acappella-modulacoes": { unitId: "s4-acp", prerequisites: ["acappella-linhas-de-baixo", "ttbb-modulacao-final"] },
   "mpb-vocal": { unitId: "s4-mpb", prerequisites: ["tensoes-e-extensoes", "modulacao-reharmonizacao"] },
   "analise-de-repertorio": { unitId: "s4-prf", prerequisites: ["variacao-e-desenvolvimento"] },
   "analise-estilistica-revisao": { unitId: "s4-prf", prerequisites: ["analise-de-repertorio", "modulacao-reharmonizacao"] },
@@ -320,6 +344,12 @@ const ALL_LESSONS: readonly Lesson[] = [
   lessonTtbbUnissono,
   lessonTtbbCores,
   lessonTtbbModulacao,
+  lessonAcappellaSolistas,
+  lessonAcappellaTexturas,
+  lessonAcappellaVocalBand,
+  lessonAcappellaBlocos,
+  lessonAcappellaBaixo,
+  lessonAcappellaModulacoes,
   lessonMpbVocal,
   lessonAnaliseRepertorio,
   lessonEstilo,

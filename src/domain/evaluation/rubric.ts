@@ -202,8 +202,10 @@ export function evaluateRubric(input: RubricInput): RubricResult {
   if (input.starting && input.melodyVoice) {
     const a = input.starting.parts.find((p) => p.voice === input.melodyVoice);
     const b = score.parts.find((p) => p.voice === input.melodyVoice);
-    const sig = (p: typeof a) => (p ? voiceTimeline(p, score.timeSignature).filter((t) => t.event.kind === "note").map((t) => `${t.onset}:${t.event.kind === "note" ? `${t.event.pitch.step}${t.event.pitch.alter}${t.event.pitch.octave}` : ""}`).join(",") : "");
-    const preserved = sig(a) === sig(b);
+    const notes = (p: typeof a) => (p ? voiceTimeline(p, score.timeSignature).filter((t) => t.event.kind === "note").map((t) => `${t.onset}:${t.event.kind === "note" ? `${t.event.pitch.step}${t.event.pitch.alter}${t.event.pitch.octave}` : ""}`) : []);
+    // Preservada = toda nota dada continua no mesmo lugar; notas novas nos compassos vazios são permitidas.
+    const now = new Set(notes(b));
+    const preserved = notes(a).every((n) => now.has(n));
     req.push(preserved ? "Melodia dada preservada" : "A melodia dada foi alterada");
     if (!preserved) reqLevel = 2;
   }

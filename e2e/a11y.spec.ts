@@ -10,6 +10,8 @@ const PAGES = [
   { path: "/licoes/escrita-em-bloco", ready: "h1" },
   { path: "/disciplinas/s4-qtm", ready: "h1" },
   { path: "/licoes/quarteto-masculino", ready: "h1" },
+  { path: "/disciplinas/s4-acp", ready: "h1" },
+  { path: "/licoes/acappella-vocal-band", ready: "h1" },
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },
