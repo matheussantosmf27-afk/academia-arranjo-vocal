@@ -133,3 +133,15 @@ test("aula de baixo dado e canto dado e exercícios em branco no laboratório", 
   await expect(page.locator(".score-surface svg")).toBeVisible();
   await expect(page.getByLabel("Título")).toHaveValue("Exercício: baixo dado (escreva soprano, contralto e tenor)");
 });
+
+test("disciplina de contraponto vocal: oito aulas, retardos e projeto de descant", async ({ page }) => {
+  await page.goto("/disciplinas/s3-ctp");
+  await expect(page.getByRole("heading", { name: "Contraponto Vocal", level: 1 })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Descant, quodlibet e melodias combinadas/ })).toBeVisible();
+  await page.getByRole("link", { name: /Retardos: preparação, dissonância e resolução/ }).click();
+  await expect(page.getByText("CTP301 · Aula 3 de 8")).toBeVisible();
+  await expect(page.getByRole("table", { name: "Os retardos mais comuns (voz superior)" })).toBeVisible();
+  await expect(page.locator(".score-surface svg").first()).toBeVisible();
+  await page.goto("/projetos");
+  await expect(page.locator(".card", { hasText: "Descant para um hino (SATB)" })).toBeVisible();
+});

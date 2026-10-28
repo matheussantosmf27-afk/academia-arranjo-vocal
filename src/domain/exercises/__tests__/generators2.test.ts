@@ -192,3 +192,23 @@ describe("rearmonização", () => {
     }
   });
 });
+
+describe("intervalos do contraponto", () => {
+  it("classifica consonâncias perfeitas, imperfeitas e dissonâncias (4ª justa é dissonância)", async () => {
+    const { counterpointClass } = await import("../generators2");
+    expect(counterpointClass(8, "P")).toBe("perfeita");
+    expect(counterpointClass(12, "P")).toBe("perfeita");
+    expect(counterpointClass(10, "m")).toBe("imperfeita");
+    expect(counterpointClass(6, "M")).toBe("imperfeita");
+    expect(counterpointClass(4, "P")).toBe("dissonancia");
+    expect(counterpointClass(5, "d")).toBe("dissonancia");
+    expect(counterpointClass(9, "M")).toBe("dissonancia");
+  });
+  it("gera itens com a nota de cima a partir do intervalo pedido", async () => {
+    const { generateCounterpointIntervalItems } = await import("../generators2");
+    const items = generateCounterpointIntervalItems(createRng(5), 6);
+    expect(items.length).toBe(6);
+    wellFormed(items);
+    for (const i of items) expect(i.audio?.pitches.length).toBe(2);
+  });
+});

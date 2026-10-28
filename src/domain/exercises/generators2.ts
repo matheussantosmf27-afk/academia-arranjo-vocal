@@ -1,5 +1,5 @@
 import { type ChordQuality, chordQualityPt, harmonicFunction, identifyChord, inversionPt, romanNumeral } from "../music/chord";
-import { type IntervalQuality, transposeByInterval } from "../music/interval";
+import { type IntervalQuality, intervalNamePt, transposeByInterval } from "../music/interval";
 import { type Key, keyFifths, keyNamePt, scale, scaleDegree } from "../music/key";
 import { type Alter, type Pitch, type Step, formatPitchAscii, formatPitchClassPt, formatPitchPt, parsePitch, toMidi } from "../music/pitch";
 import type { Score } from "../music/score";
@@ -460,6 +460,56 @@ export function generateReharmItems(rng: Rng, count: number): ChoiceItem[] {
       explanation: `${p.correct.label}: cada nota da melodia pertence ao acorde novo e as vozes resolvem sensíveis e sétimas por grau.`,
       optionFeedback,
       notation: original,
+    });
+  }
+  return items;
+}
+
+/** Intervalos harmônicos do contraponto a duas vozes (simples e compostos). */
+const CP_INTERVALS: readonly (readonly [number, IntervalQuality])[] = [
+  [1, "P"], [8, "P"], [5, "P"], [12, "P"], [15, "P"],
+  [3, "M"], [3, "m"], [6, "M"], [6, "m"], [10, "M"], [10, "m"], [13, "m"],
+  [2, "M"], [2, "m"], [4, "P"], [4, "A"], [5, "d"], [7, "m"], [7, "M"], [9, "M"], [11, "P"],
+];
+const CP_CLASS = {
+  perfeita: "Consonância perfeita",
+  imperfeita: "Consonância imperfeita",
+  dissonancia: "Dissonância",
+} as const;
+
+/** Classe de um intervalo no contraponto a duas vozes (a 4ª justa conta como dissonância). */
+export function counterpointClass(number: number, quality: IntervalQuality): keyof typeof CP_CLASS {
+  const simple = ((number - 1) % 7) + 1;
+  if (quality === "P" && (simple === 1 || simple === 5)) return "perfeita";
+  if ((simple === 3 || simple === 6) && (quality === "M" || quality === "m")) return "imperfeita";
+  return "dissonancia";
+}
+
+/**
+ * Contraponto: classificar o intervalo harmônico entre duas vozes (consonância
+ * perfeita, imperfeita ou dissonância), com escuta das duas notas juntas.
+ */
+export function generateCounterpointIntervalItems(rng: Rng, count: number): ChoiceItem[] {
+  const items: ChoiceItem[] = [];
+  const lows = ["C3", "D3", "E3", "F3", "G3", "A3"].map(parsePitch);
+  for (const [n, q] of shuffle(rng, [...CP_INTERVALS]).slice(0, count)) {
+    const low = pick(rng, lows);
+    const high = transposeByInterval(low, n, q, 1);
+    const cls = counterpointClass(n, q);
+    const options: ChoiceOption[] = (Object.keys(CP_CLASS) as (keyof typeof CP_CLASS)[]).map((k) => ({ id: k, label: CP_CLASS[k] }));
+    items.push({
+      id: `cp-int-${items.length + 1}`,
+      kind: "choice",
+      skill: "contraponto",
+      prompt: `Contraponto a duas vozes: ${formatPitchPt(low)} no baixo e ${formatPitchPt(high)} em cima (${intervalNamePt({ number: n, quality: q })}). Como esse intervalo se classifica?`,
+      options,
+      correctOptionId: cls,
+      explanation: {
+        perfeita: "Uníssono, quinta e oitava justas (e seus compostos) são consonâncias perfeitas: estáveis, mas não podem andar em paralelo.",
+        imperfeita: "Terças e sextas (e seus compostos) são consonâncias imperfeitas: podem andar em paralelo e dão independência às vozes.",
+        dissonancia: "Segundas, sétimas, nonas, trítono e, a duas vozes, também a quarta justa são dissonâncias: entram como nota de passagem, bordadura ou retardo e resolvem por grau.",
+      }[cls],
+      audio: { pitches: [low, high], mode: "harmonico" },
     });
   }
   return items;

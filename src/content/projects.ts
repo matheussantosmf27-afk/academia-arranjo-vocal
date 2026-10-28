@@ -200,6 +200,40 @@ export const PROJECTS: readonly ProjectSpec[] = [
       "Como você resolveu as sensíveis e sétimas das dominantes novas?",
     ],
   },
+  {
+    id: "descant-hino",
+    title: "Descant para um hino (SATB)",
+    level: 3,
+    lessonId: "cp-descant-quodlibet",
+    summary: "A melodia 'Luz da manhã' está no tenor e o baixo já está escrito. Escreva um descant no soprano, em movimento contrário à melodia, e complete o contralto.",
+    steps: [
+      "Cante a melodia do tenor e marque onde ela sobe e onde desce.",
+      "Escreva o descant no soprano preferindo movimento contrário, terças, sextas e décimas com a melodia.",
+      "Complete o contralto com as notas que faltam em cada acorde.",
+      "Revise no motor (paralelas, cruzamentos, espaçamento) e gere a avaliação.",
+    ],
+    starting: scoreFromText({
+      id: "projeto-descant",
+      title: "Descant para um hino",
+      formation: "SATB",
+      key: "C",
+      time: "4/4",
+      tempo: 72,
+      voices: {
+        S: R4,
+        A: R4,
+        T: 'E4:h"Luz D4:h"da | C4:h"ma- E4:h"nhã | D4:h"vem B3:h"che- | C4:w"gar',
+        B: "C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:w",
+      },
+    }),
+    melodyVoice: "T",
+    style: "coral-tradicional",
+    justificationPrompts: [
+      "Em que compassos o descant anda em movimento contrário à melodia?",
+      "Onde está o ponto culminante do descant e por que ali?",
+      "Como você evitou oitavas e quintas paralelas entre descant e melodia?",
+    ],
+  },
 ];
 
 export function getProject(id: string): ProjectSpec | undefined {
