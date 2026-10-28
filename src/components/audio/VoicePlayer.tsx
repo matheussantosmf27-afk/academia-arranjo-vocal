@@ -153,7 +153,15 @@ export function VoicePlayer({
       </div>
       <div className="row" role="group" aria-label="Vozes na reprodução">
         {formation.voices.map((v) => (
-          <button key={v.id} type="button" className="btn btn-sm" aria-pressed={voices.has(v.id)} onClick={() => toggle(v.id)} title={`Incluir/excluir ${v.name}`}>
+          <button
+            key={v.id}
+            type="button"
+            className={`btn btn-sm ${styles.voicePill} voice-${v.id}`}
+            aria-pressed={voices.has(v.id)}
+            onClick={() => toggle(v.id)}
+            title={`Incluir/excluir ${v.name}`}
+          >
+            <span className={styles.dot} aria-hidden="true" />
             {v.shortName}
           </button>
         ))}

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import type { Score } from "@/domain/music/score";
 import type { HarmonicLabel } from "@/domain/validation";
 import { type OnsetPosition, loadVexFlow, renderScore } from "@/lib/notation/render";
+import { VOICE_PAPER_COLOR } from "@/lib/voice-colors";
 
 export interface ScoreViewProps {
   readonly score: Score;
@@ -18,10 +19,12 @@ export interface ScoreViewProps {
   /** Posição de reprodução em ticks (null = sem cursor). */
   readonly playhead?: number | null;
   readonly label?: string;
+  /** Colore as notas pela voz (padrão: sim). */
+  readonly colorByVoice?: boolean;
 }
 
 /** Partitura renderizada a partir do modelo (VexFlow/SVG). Clique numa nota para selecioná-la. */
-export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices, onSelectEvent, playhead, label }: ScoreViewProps) {
+export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices, onSelectEvent, playhead, label, colorByVoice = true }: ScoreViewProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(0);
   const [status, setStatus] = useState<"loading" | "ready" | "error">("loading");
@@ -54,6 +57,8 @@ export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, fla
             ...(flagged ? { flagged } : {}),
             ...(harmony ? { harmony } : {}),
             ...(dimmedVoices ? { dimmedVoices } : {}),
+            // Com diagnósticos na partitura, as cores de gravidade têm prioridade sobre as cores das vozes.
+            ...(colorByVoice && !(flagged && flagged.size > 0) ? { voiceColors: VOICE_PAPER_COLOR } : {}),
             showLyrics: true,
           });
           setOnsets(result.onsets);
@@ -68,7 +73,7 @@ export function ScoreView({ score, zoom = 1, selectedEventId, rangeEventIds, fla
     return () => {
       cancelled = true;
     };
-  }, [score, width, zoom, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices]);
+  }, [score, width, zoom, selectedEventId, rangeEventIds, flagged, harmony, dimmedVoices, colorByVoice]);
 
   const cursor = playhead == null ? null : ([...onsets].reverse().find((o) => o.onset <= playhead) ?? onsets[0]);
   const cursorRef = useRef<HTMLDivElement>(null);

@@ -1,0 +1,10 @@
+.roll { margin: 10px 0 0; background: linear-gradient(180deg, rgba(18, 15, 38, 0.95), rgba(11, 9, 24, 0.95)); border: 1px solid var(--glass-border); border-radius: var(--radius-sm); padding: 10px 10px 8px; }
+.svg { display: block; width: 100%; }
+.blackKey { fill: rgba(255, 255, 255, 0.03); }
+.measure { stroke: rgba(255, 255, 255, 0.14); stroke-width: 1; }
+.note { transition: opacity 120ms ease; }
+.on { filter: drop-shadow(0 0 6px currentColor) brightness(1.25); }
+.head { stroke: #fff; stroke-width: 2; filter: drop-shadow(0 0 4px #fff); }
+.legend { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 8px; font-size: 0.8rem; color: var(--ink-2); }
+.key { display: inline-flex; align-items: center; gap: 6px; }
+.key i { width: 18px; height: 6px; border-radius: 3px; display: inline-block; }

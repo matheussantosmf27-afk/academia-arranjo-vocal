@@ -1,18 +1,18 @@
 .studio { display: flex; flex-direction: column; gap: 12px; }
 .toolbar {
   display: flex; flex-wrap: wrap; align-items: flex-end; gap: 6px;
-  padding: 10px; background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); position: sticky; top: 0; z-index: 5;
+  padding: 10px; background: rgba(27, 23, 54, 0.92); backdrop-filter: blur(14px); border: 1px solid var(--glass-border); border-radius: var(--radius); position: sticky; top: 64px; z-index: 5;
 }
 .field { display: flex; flex-direction: column; gap: 2px; font-size: 0.78rem; }
 .sep { width: 1px; align-self: stretch; background: var(--line); margin: 0 4px; }
 .zoom { min-width: 44px; text-align: center; font-size: 0.85rem; align-self: center; }
 .header { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-start; }
 .title { font-family: var(--font-serif); font-size: 1.5rem; border: 1px solid transparent; background: transparent; padding: 2px 4px; width: min(100%, 640px); }
-.title:hover, .title:focus { border-color: var(--line-2); background: #fff; }
+.title:hover, .title:focus { border-color: var(--line-2); background: rgba(255, 255, 255, 0.06); }
 .inline { display: inline-flex; align-items: center; gap: 6px; }
 .layout { display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 16px; align-items: start; }
 .main { min-width: 0; display: flex; flex-direction: column; gap: 6px; }
-.side { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 70px; max-height: calc(100vh - 90px); overflow-y: auto; }
+.side { display: flex; flex-direction: column; gap: 12px; position: sticky; top: 140px; max-height: calc(100vh - 160px); overflow-y: auto; }
 .panel { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 12px 14px; }
 .panelTitle { font-size: 1.02rem; margin: 0 0 8px; }
 .scoreFocus { border-radius: var(--radius-sm); }

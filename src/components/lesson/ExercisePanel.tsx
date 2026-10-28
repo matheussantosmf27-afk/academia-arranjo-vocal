@@ -171,23 +171,10 @@ export function ExercisePanel({
 
 function ItemView({ item, chosen, onChoose }: { item: ExerciseItem; chosen: string | null; onChoose: (id: string) => void }) {
   const answered = chosen !== null;
-  const showNotation = !item.earOnly || answered;
-  const audio = item.audio;
-  const staff = useMemo(() => item.staff, [item]);
   return (
     <fieldset className={styles.item}>
       <legend className={styles.prompt}>{item.prompt}</legend>
-      <div className={styles.media}>
-        {audio && (
-          <button type="button" className="btn btn-sm" onClick={() => void playPitches(audio.pitches, audio.mode)}>
-            🔊 Ouvir
-          </button>
-        )}
-        {showNotation && staff && <StaffSnippet clef={staff.clef} attacks={staff.attacks} label="Notas do exercício" />}
-        {item.notation && !audio && <VoicePlayer score={item.notation} compact />}
-        {showNotation && item.notation && <ScoreView score={item.notation} label="Trecho do exercício" />}
-        {!showNotation && <span className="muted">Notação oculta até a resposta (exercício auditivo).</span>}
-      </div>
+      <ItemMedia item={item} answered={answered} />
       <div className={styles.options}>
         {item.options.map((o) => {
           const state = !answered ? "" : o.id === item.correctOptionId ? styles.correct : o.id === chosen ? styles.wrong : "";
@@ -199,5 +186,26 @@ function ItemView({ item, chosen, onChoose }: { item: ExerciseItem; chosen: stri
         })}
       </div>
     </fieldset>
+  );
+}
+
+/** Áudio, pauta e partitura de um item; itens auditivos ocultam a notação até a resposta. */
+export function ItemMedia({ item, answered }: { item: ExerciseItem; answered: boolean }) {
+  const showNotation = !item.earOnly || answered;
+  const audio = item.audio;
+  const staff = useMemo(() => item.staff, [item]);
+  if (!audio && !staff && !item.notation) return null;
+  return (
+    <div className={styles.media}>
+      {audio && (
+        <button type="button" className="btn btn-sm" onClick={() => void playPitches(audio.pitches, audio.mode)}>
+          🔊 Ouvir
+        </button>
+      )}
+      {showNotation && staff && <StaffSnippet clef={staff.clef} attacks={staff.attacks} label="Notas do exercício" />}
+      {item.notation && !audio && <VoicePlayer score={item.notation} compact />}
+      {showNotation && item.notation && <ScoreView score={item.notation} label="Trecho do exercício" />}
+      {!showNotation && <span className="muted">Notação oculta até a resposta (exercício auditivo).</span>}
+    </div>
   );
 }

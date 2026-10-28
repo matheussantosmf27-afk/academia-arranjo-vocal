@@ -2,3 +2,8 @@
 .options[open] { padding: 8px 10px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--card); }
 .opt { display: inline-flex; align-items: center; gap: 6px; }
 .num { width: 64px; }
+.voicePill { border-color: color-mix(in srgb, var(--vc) 55%, transparent); color: var(--ink); }
+.voicePill:hover:not(:disabled) { border-color: var(--vc); box-shadow: 0 0 14px color-mix(in srgb, var(--vc) 45%, transparent); }
+.voicePill[aria-pressed="true"] { background: var(--vc); border-color: var(--vc); color: #120f26; box-shadow: 0 0 16px color-mix(in srgb, var(--vc) 50%, transparent); }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: var(--vc); box-shadow: 0 0 6px var(--vc); }
+.voicePill[aria-pressed="true"] .dot { background: #120f26; box-shadow: none; }
