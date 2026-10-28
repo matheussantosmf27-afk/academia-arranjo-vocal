@@ -17,6 +17,20 @@ test("página da disciplina com ementa, aulas e bibliografia", async ({ page }) 
   await expect(page.getByRole("heading", { name: "Bibliografia e escuta recomendadas" })).toBeVisible();
 });
 
+test("disciplina de quarteto masculino: aulas, projeto e aula com escuta por papel", async ({ page }) => {
+  await page.goto("/disciplinas/s4-qtm");
+  await expect(page.getByRole("heading", { name: "Quarteto Masculino (TTBB)", level: 1 })).toBeVisible();
+  for (const title of ["O quarteto masculino: lead, tenor, barítono e baixo", "Modulação de meio tom e finais de quarteto"]) {
+    await expect(page.getByRole("link", { name: new RegExp(title) })).toBeVisible();
+  }
+  await page.getByRole("link", { name: /O quarteto masculino: lead, tenor, barítono e baixo/ }).click();
+  await expect(page.getByText("EST405 · Aula 1 de 6")).toBeVisible();
+  await expect(page.getByRole("table", { name: "Os papéis no quarteto masculino" })).toBeVisible();
+  await expect(page.locator(".score-surface svg").first()).toBeVisible();
+  await page.goto("/projetos");
+  await expect(page.locator(".card", { hasText: "Quarteto gospel (TTBB)" })).toBeVisible();
+});
+
 test("aula com pré-requisito não concluído bloqueia a verificação", async ({ page }) => {
   await page.goto("/licoes/processo-de-arranjo");
   await expect(page.getByText("ARV101 · Aula 2 de 3")).toBeVisible();

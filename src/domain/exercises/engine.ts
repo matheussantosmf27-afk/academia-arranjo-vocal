@@ -9,6 +9,7 @@ import {
   generateRealizationItems,
   generateScaleDegreeItems,
   generateSeventhItems,
+  generateTtbbVoicingItems,
 } from "./generators2";
 import { createRng, shuffle } from "./random";
 import type { AnswerRecord, ExerciseItem, ExerciseSetSpec, GeneratorSpec, MasteryResult } from "./types";
@@ -28,6 +29,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     else if (g.type === "voice-leading-error") generated.push(...generateErrorItems(rng, g.count, g.ruleIds));
     else if (g.type === "cadence-identification") generated.push(...generateCadenceItems(rng, g.count));
     else if (g.type === "realization") generated.push(...generateRealizationItems(rng, g.count, g.mode));
+    else if (g.type === "ttbb-voicing") generated.push(...generateTtbbVoicingItems(rng, g.count));
     else generated.push(...generateNctItems(rng, g.count));
   }
   return generated;

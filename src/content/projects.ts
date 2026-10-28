@@ -18,6 +18,7 @@ export interface ProjectSpec {
 
 const R4 = "r:w | r:w | r:w | r:w";
 const R6 = "r:w | r:w | r:w | r:w | r:w | r:w";
+const R8 = `${R4} | ${R4}`;
 
 export const PROJECTS: readonly ProjectSpec[] = [
   {
@@ -94,6 +95,41 @@ export const PROJECTS: readonly ProjectSpec[] = [
     melodyVoice: "S",
     style: "coral-contemporaneo",
     justificationPrompts: ["Que material da canção você usou na introdução?", "Onde está a dominante secundária e para onde ela resolve?", "Que escolhas estéticas você fez conscientemente (mesmo que o motor as aponte)?"],
+  },
+  {
+    id: "quarteto-gospel-ttbb",
+    title: "Quarteto gospel (TTBB)",
+    level: 4,
+    lessonId: "ttbb-modulacao-final",
+    summary: "A melodia está no lead (Tenor II), em Sol maior. Arranje-a para quarteto masculino com chamada e resposta, uma cor gospel e uma última frase meio tom acima.",
+    steps: [
+      "Compassos 1–4: harmonize o lead com o tenor acima, barítono e baixo (fundamental e quinta embaixo, terça nos tenores).",
+      "Use ao menos uma cor do quarteto gospel (I6, Imaj7, iv6 emprestado ou baixo pedal).",
+      "Compassos 5–6: o baixo chama e o trio responde; termine o compasso 6 no V7 de Lá♭ (E♭7).",
+      "Compassos 7–8: repita o final da melodia meio tom acima (Lá♭) e escreva uma tag com nota longa do lead.",
+      "Revise no estilo popular, confira a resolução da sétima e gere a avaliação.",
+    ],
+    starting: scoreFromText({
+      id: "projeto-quarteto-gospel",
+      title: "Quarteto gospel",
+      formation: "TTBB",
+      key: "G",
+      time: "4/4",
+      tempo: 76,
+      voices: {
+        T1: R8,
+        T2: 'B3:q"Há D4:q"um C4:q"ri- B3:q"o | A3:h"de B3:h"paz | C4:q"que B3:q"cor- A3:q"re_a- A3:q"té | G3:w"mim | r:w | r:w | r:w | r:w',
+        B1: R8,
+        B2: R8,
+      },
+    }),
+    melodyVoice: "T2",
+    style: "popular-a-cappella",
+    justificationPrompts: [
+      "Onde o tenor ficou acima do lead e onde o barítono cruzou a melodia? Por quê?",
+      "Que cor gospel você usou e em que voz está a nota característica?",
+      "Como você preparou a modulação e para onde foi a sétima do E♭7?",
+    ],
   },
 ];
 

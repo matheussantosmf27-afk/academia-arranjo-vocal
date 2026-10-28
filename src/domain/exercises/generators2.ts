@@ -1,10 +1,10 @@
 import { type ChordQuality, chordQualityPt, harmonicFunction, identifyChord, inversionPt, romanNumeral } from "../music/chord";
 import { type IntervalQuality, transposeByInterval } from "../music/interval";
 import { type Key, keyFifths, keyNamePt, scale, scaleDegree } from "../music/key";
-import { type Alter, type Pitch, type Step, formatPitchClassPt, formatPitchPt, toMidi } from "../music/pitch";
+import { type Alter, type Pitch, type Step, formatPitchAscii, formatPitchClassPt, formatPitchPt, parsePitch, toMidi } from "../music/pitch";
 import type { Score } from "../music/score";
 import { changeKey } from "../music/timeline-ops";
-import { parseKey } from "../music/text-notation";
+import { parseKey, scoreFromText } from "../music/text-notation";
 import { RULES, validateScore } from "../validation/engine";
 import { buildContext } from "../validation/context";
 import { classifyMotion, MOTION_PT, type MotionType } from "../validation/motion";
@@ -351,6 +351,82 @@ export function generateRealizationItems(rng: Rng, count: number, mode?: Realiza
       explanation: `A realização correta completa cada acorde (fundamental, terça e quinta, com a dobra adequada), resolve a sensível e evita paralelas: ${label(correct)}.`,
       optionFeedback,
       notation,
+    });
+  }
+  return items;
+}
+
+/** Intervalos acima do baixo (número, qualidade); oitava/décima etc. compostos. */
+type Above = readonly [number, IntervalQuality];
+const TTBB_VOICINGS: { readonly correct: readonly (readonly [Above, Above, Above])[]; readonly wrong: readonly { readonly bassDown?: boolean; readonly upper: readonly [Above, Above, Above] }[] } = {
+  // Barítono, Tenor II, Tenor I (acima do baixo): fundamental e quinta embaixo, terça nos tenores.
+  correct: [
+    [[5, "P"], [8, "P"], [10, "M"]],
+    [[5, "P"], [10, "M"], [12, "P"]],
+    [[8, "P"], [10, "M"], [12, "P"]],
+  ],
+  wrong: [
+    { upper: [[3, "M"], [5, "P"], [8, "P"]] }, // terça colada no baixo, no grave
+    { bassDown: true, upper: [[12, "P"], [15, "P"], [17, "M"]] }, // baixo uma oitava abaixo
+    { upper: [[5, "P"], [10, "M"], [8, "P"]] }, // Tenor I abaixo do Tenor II
+    { upper: [[5, "P"], [8, "P"], [17, "M"]] }, // Tenor I longe demais do Tenor II
+  ],
+};
+/** O problema que melhor explica a reprovação: erros e alertas primeiro; tessitura por último. */
+function mainProblem<D extends { severity: string; ruleId: string }>(ds: readonly D[]): D | undefined {
+  const rank = (d: D) => ({ erro: 0, alerta: 1, sugestao: 2 })[d.severity as "erro"] ?? 3;
+  return ds.filter((d) => d.severity !== "info").sort((a, b) => rank(a) - rank(b) || Number(a.ruleId === "extensao.fora-da-tessitura") - Number(b.ruleId === "extensao.fora-da-tessitura"))[0];
+}
+const TTBB_ROOTS = ["F2", "G2", "A2", "Bb2", "C3", "D3"];
+const TTBB_VOICE_PT = { B2: "Baixo", B1: "Barítono", T2: "Tenor II", T1: "Tenor I" } as const;
+
+/**
+ * Distribuição TTBB: qual voicing de um acorde maior soa claro no coro masculino?
+ * A certa é limpa no motor (coral tradicional); cada errada traz o diagnóstico
+ * que a reprova como comentário específico.
+ */
+export function generateTtbbVoicingItems(rng: Rng, count: number): ChoiceItem[] {
+  const items: ChoiceItem[] = [];
+  let guard = 0;
+  while (items.length < count && guard++ < count * 20) {
+    const root = parsePitch(pick(rng, TTBB_ROOTS));
+    const build = (bass: Pitch, upper: readonly [Above, Above, Above]) => {
+      const [b1, t2, t1] = upper.map(([n, q]) => transposeByInterval(bass, n, q, 1)) as [Pitch, Pitch, Pitch];
+      const pitches = { B2: bass, B1: b1, T2: t2, T1: t1 };
+      const score = scoreFromText({
+        id: `ttbb-voicing-${items.length + 1}`,
+        title: "Acorde em TTBB",
+        formation: "TTBB",
+        key: "C",
+        time: "4/4",
+        voices: { T1: `${formatPitchAscii(t1)}:w`, T2: `${formatPitchAscii(t2)}:w`, B1: `${formatPitchAscii(b1)}:w`, B2: `${formatPitchAscii(bass)}:w` },
+      });
+      const label = (["B2", "B1", "T2", "T1"] as const).map((v) => `${TTBB_VOICE_PT[v]}: ${formatPitchPt(pitches[v])}`).join(" · ");
+      return { score, label, pitches: [bass, b1, t2, t1] };
+    };
+    const correct = build(root, pick(rng, TTBB_VOICINGS.correct));
+    if (validateScore(correct.score).diagnostics.some((d) => d.severity !== "info")) continue;
+    const wrong = shuffle(rng, [...TTBB_VOICINGS.wrong])
+      .slice(0, 3)
+      .map((w) => build(w.bassDown ? transposeByInterval(root, 8, "P", -1) : root, w.upper))
+      .map((w) => ({ ...w, d: mainProblem(validateScore(w.score).diagnostics) }));
+    if (wrong.some((w) => !w.d)) continue;
+    const entries = shuffle(rng, [{ label: correct.label, feedback: "" }, ...wrong.map((w) => ({ label: w.label, feedback: `${w.d!.message} ${w.d!.explanation}` }))]);
+    const options: ChoiceOption[] = entries.map((e, i) => ({ id: `o${i}`, label: e.label }));
+    const optionFeedback: Record<string, string> = {};
+    entries.forEach((e, i) => {
+      if (e.feedback) optionFeedback[`o${i}`] = e.feedback;
+    });
+    items.push({
+      id: `ttbb-voicing-${items.length + 1}`,
+      kind: "choice",
+      skill: "escrita-ttbb",
+      prompt: `Acorde de ${formatPitchClassPt(root)} maior para quarteto masculino (TTBB), com a fundamental no baixo: qual distribuição soa clara e respeita as vozes?`,
+      options,
+      correctOptionId: options[entries.findIndex((e) => e.label === correct.label)]!.id,
+      explanation: `Fundamental e quinta entre baixo e barítono, terça nos tenores, tudo dentro das extensões: o acorde soa claro no grave. (${correct.label})`,
+      optionFeedback,
+      audio: { pitches: correct.pitches, mode: "harmonico" },
     });
   }
   return items;

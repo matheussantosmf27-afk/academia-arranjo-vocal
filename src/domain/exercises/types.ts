@@ -44,7 +44,9 @@ export type GeneratorSpec =
   | { readonly type: "cadence-identification"; readonly count: number }
   | { readonly type: "nct-identification"; readonly count: number }
   /** Baixo dado / canto dado: escolher a realização das outras vozes. */
-  | { readonly type: "realization"; readonly count: number; readonly mode?: "baixo-dado" | "canto-dado" };
+  | { readonly type: "realization"; readonly count: number; readonly mode?: "baixo-dado" | "canto-dado" }
+  /** Distribuição de um acorde em TTBB: escolher o voicing claro no grave. */
+  | { readonly type: "ttbb-voicing"; readonly count: number };
 
 export interface ExerciseSetSpec {
   readonly id: string;

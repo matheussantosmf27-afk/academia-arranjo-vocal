@@ -22,6 +22,7 @@ import {
 import { lessonLeadSheet, lessonOficio, lessonProcesso, lessonVozCantada } from "./lessons/s1-arranjo";
 import { lessonSilabas, lessonTexturas, lessonTresVozes, lessonVoicings } from "./lessons/s2-escrita";
 import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-forma";
+import { lessonQuartetoMasculino, lessonTtbbChamadaResposta, lessonTtbbCores, lessonTtbbModulacao, lessonTtbbUnissono, lessonTtbbVoicing } from "./lessons/s4-quarteto";
 import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
 import { lessonTriades } from "./lessons/triades-inversoes";
 import { lessonVozes } from "./lessons/vozes-claves-extensoes";
@@ -173,6 +174,23 @@ export const LEVELS: readonly Level[] = [
         bibliography: ["Escuta: corais gospel norte-americanos e brasileiros; ministérios de louvor com vocal de apoio"],
       },
       {
+        id: "s4-qtm",
+        code: "EST405",
+        title: "Quarteto Masculino (TTBB)",
+        description:
+          "A tradição dos quartetos gospel, spirituals e barbershop: lead no Tenor II e tenor acima; voicing fechado e grave claro; baixo condutor, chamada e resposta e acompanhamento em sílabas; uníssono que se abre e entradas sucessivas; cores (6, maj7, iv emprestado, pedal, dominante com nona); modulação de meio tom e finais.",
+        lessonIds: ["quarteto-masculino", "ttbb-voicing-fechado", "ttbb-chamada-resposta", "ttbb-unissono-entradas", "ttbb-cores-gospel", "ttbb-modulacao-final"],
+        project: {
+          title: "Quarteto gospel",
+          description: "Arranjar uma melodia para quarteto masculino com chamada e resposta, uma cor gospel, modulação de meio tom e tag final.",
+        },
+        bibliography: [
+          "Escuta e análise: Arautos do Rei, Haven Quartet, Gaither Vocal Band, Golden Gate Quartet, Take 6 e quartetos de barbershop",
+          "Partituras de quartetos masculinos para estudo: acervo 4tons.com.br (Pr. Marcelo Augusto de Carvalho), com a indicação de direitos de cada partitura",
+          "Barbershop Harmony Society — materiais sobre arranjo e afinação para quarteto",
+        ],
+      },
+      {
         id: "s4-mpb",
         code: "EST404",
         title: "Música Popular Brasileira para Vozes",
@@ -242,6 +260,12 @@ const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readon
   "a-cappella-pop": { unitId: "s4-pop", prerequisites: ["variacao-e-desenvolvimento", "silabas-de-apoio"] },
   "baixo-e-percussao-vocal": { unitId: "s4-pop", prerequisites: ["a-cappella-pop"] },
   "gospel-louvor": { unitId: "s4-gos", prerequisites: ["variacao-e-desenvolvimento", "tensoes-e-extensoes"] },
+  "quarteto-masculino": { unitId: "s4-qtm", prerequisites: ["escrita-ttbb", "variacao-e-desenvolvimento"] },
+  "ttbb-voicing-fechado": { unitId: "s4-qtm", prerequisites: ["quarteto-masculino"] },
+  "ttbb-chamada-resposta": { unitId: "s4-qtm", prerequisites: ["ttbb-voicing-fechado"] },
+  "ttbb-unissono-entradas": { unitId: "s4-qtm", prerequisites: ["ttbb-chamada-resposta"] },
+  "ttbb-cores-gospel": { unitId: "s4-qtm", prerequisites: ["ttbb-voicing-fechado", "tensoes-e-extensoes"] },
+  "ttbb-modulacao-final": { unitId: "s4-qtm", prerequisites: ["ttbb-cores-gospel", "modulacao-reharmonizacao"] },
   "mpb-vocal": { unitId: "s4-mpb", prerequisites: ["tensoes-e-extensoes", "modulacao-reharmonizacao"] },
   "analise-de-repertorio": { unitId: "s4-prf", prerequisites: ["variacao-e-desenvolvimento"] },
   "analise-estilistica-revisao": { unitId: "s4-prf", prerequisites: ["analise-de-repertorio", "modulacao-reharmonizacao"] },
@@ -290,6 +314,12 @@ const ALL_LESSONS: readonly Lesson[] = [
   lessonACappellaPop,
   lessonBaixoPercussao,
   lessonGospel,
+  lessonQuartetoMasculino,
+  lessonTtbbVoicing,
+  lessonTtbbChamadaResposta,
+  lessonTtbbUnissono,
+  lessonTtbbCores,
+  lessonTtbbModulacao,
   lessonMpbVocal,
   lessonAnaliseRepertorio,
   lessonEstilo,
