@@ -66,6 +66,39 @@ export const lessonArranjoCoral: Lesson = {
         { type: "example", score: CHORALE_SATB_C, verdict: "correto", caption: "Base coral sem erros", commentary: "Antes de acrescentar síncopes e tensões, a harmonia a quatro vozes precisa estar sólida." },
       ],
     },
+    {
+      title: "4. Demonstração: de um hino simples a uma estrofe expressiva",
+      blocks: [
+        { type: "paragraph", text: "Problema: a última estrofe de um hino em homofonia simples precisa soar mais expressiva sem mudar a melodia nem perder a clareza do texto. Que recursos da tradição coral usar, e em que ordem?" },
+        { type: "list", ordered: true, items: [
+          "Leia o texto e marque a palavra mais importante da estrofe: ela recebe o recurso mais forte.",
+          "Na cadência final, troque o V simples por um V com retardo 4–3 numa voz interna ou no soprano (a nota da tônica sustentada sobre o V e resolvendo na sensível).",
+          "Num verso intermediário, use uma entrada imitativa curta: o contralto antecipa o motivo do soprano um tempo antes, os outros entram em homofonia.",
+          "Na palavra mais importante, abra a posição (soprano mais agudo, tenor mais grave) ou use um divisi breve nos sopranos.",
+          "Revise no estilo tradicional: cada dissonância preparada e resolvida, nenhuma paralela, texto silábico nos pontos importantes.",
+        ] },
+        { type: "callout", tone: "atencao", title: "MPB para coro: o que muda", text: "Ao trazer uma canção popular para coro misto, a régua do estilo tradicional (sétimas resolvidas, paralelas evitadas) pode ser flexibilizada para preservar o balanço e as tensões da canção. Escolha o estilo do arranjo no Estúdio — coral contemporâneo é um meio-termo útil — e decida conscientemente o que manter de cada tradição." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Retardo sem preparação", "dissonância atacada", "a nota deve estar no acorde anterior"], ["Imitação que esconde o texto", "palavras sobrepostas", "imite em fragmentos curtos e volte à homofonia"], ["Síncope da canção popular apagada no arranjo coral", "a canção perde o balanço", "mantenha a síncope em ao menos uma camada"], ["Divisi sem cantores suficientes", "naipe fraco e desafinado", "divisi só onde o grupo comporta"]] },
+        { type: "list", items: ["Tradição coral: texto em primeiro lugar, quatro vozes cantáveis, cadências claras.", "Retardos e imitação são os recursos expressivos clássicos.", "Canção popular para coro: preserve o balanço e a prosódia."] },
+        {
+          type: "challenge",
+          title: "Uma cadência expressiva para o 'Amém'",
+          task: "Pegue a cadência final do coral SATB de exemplo (I⁶ IV I⁶₄ V | I) e descreva — ou escreva no Estúdio — duas versões mais expressivas, no estilo tradicional: uma com retardo e outra com a cadência plagal acrescentada ('Amém').",
+          constraints: ["Estilo coral tradicional.", "A melodia do soprano pode ganhar a nota sustentada do retardo, mas não muda de contorno.", "Cada versão com no máximo dois recursos novos."],
+          criteria: ["O retardo está preparado, dissonante no tempo forte e resolvido por grau.", "O 'Amém' plagal (IV – I) vem depois da cadência autêntica, não no lugar dela.", "Ao realizar no Estúdio, o motor não aponta erros nem alertas."],
+          hints: ["No compasso 3, o soprano canta C5 sobre o I⁶₄ e B4 sobre o V: o C5 sobre o V é um retardo 4–3 em potencial.", "Para o 'Amém', acrescente um compasso IV – I depois da cadência, com o soprano parado em C5.", "No IV do 'Amém', uma voz interna pode fazer A → G (6–5) para suavizar."],
+          solution: {
+            commentary: "Versão 1 (retardo): no compasso 3, o soprano liga o C5 do I⁶₄ sobre o V (o C5 vira 4ª sobre G3) e resolve em B4 no 4º tempo antes da tônica — a cadência fica mais tensa e expressiva sem mudar o desenho. Versão 2 ('Amém'): depois do I final, mais um compasso IV (F3 – A3 – F4 – C5) – I (C3 – G3 – E4 – C5): o soprano parado em C5, o contralto F4 → E4 e o tenor A3 → G3. A primeira versão aumenta a tensão antes do fim; a segunda prolonga o repouso. Escolha pelo texto.",
+            alternatives: ["Combinar as duas (retardo + Amém) é tradicional em hinos, mas faz o final mais longo: use só se a música pedir solenidade."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-arranjo-coral",
@@ -198,6 +231,32 @@ export const lessonACappellaPop: Lesson = {
             "Quando o lead para (fim de frase), o backing pode responder: é o momento de brilhar.",
             "Com microfones, o equilíbrio é feito na mesa de som; sem microfone, é feito na escrita (número de cantores por parte e dinâmica).",
           ],
+        },
+      ],
+    },
+    {
+      title: "4. Demonstração: da gravação às partes vocais",
+      blocks: [
+        { type: "paragraph", text: "Problema: transformar o refrão de uma canção pop (voz, violão, baixo, bateria e um riff de teclado) num arranjo para cinco vozes a cappella (lead, três backings, baixo vocal) e percussão vocal opcional." },
+        { type: "table", caption: "Do instrumento à voz", headers: ["Na gravação", "No arranjo vocal", "Como escrever"], rows: [["Voz principal", "lead", "melodia original; liberdade rítmica indicada como 'ad lib.'"], ["Violão (batida)", "backing 1 e 2", "acordes em 'dum'/'dm' nos contratempos, em terças"], ["Riff do teclado", "backing 3 (soprano)", "linha em 'ba-da' só nos espaços da melodia"], ["Baixo", "baixo vocal", "fundamentais nos tempos 1 e 3 em 'dm'/'bm'"], ["Bateria", "percussão vocal ou nada", "indicação de estilo e viradas em uma linha separada"]] },
+        { type: "list", ordered: true, items: ["Escute e liste o que cada instrumento faz no refrão.", "Escolha o essencial: baixo, harmonia e um elemento característico.", "Escreva primeiro o baixo vocal e o lead; depois os backings em registro diferente do lead.", "Confira o equilíbrio: backings mais fechados e mais suaves sob o lead; respostas quando o lead respira."] },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Copiar todos os instrumentos", "textura densa, impossível de cantar", "escolha o essencial"], ["Backing no registro e ritmo do lead", "o solista some", "registro e sílabas diferentes"], ["Baixo vocal sem pausas", "fadiga", "planeje respiros"], ["Sílabas trocadas a cada compasso", "confusão", "uma sílaba por função e seção"]] },
+        { type: "list", items: ["Papéis: lead, backing, baixo, percussão.", "Da gravação, escolha o essencial e converta em sílabas.", "O lead sempre em primeiro plano."] },
+        {
+          type: "challenge",
+          title: "Mapa de papéis de um refrão",
+          task: "Escolha uma canção pop que você conheça bem. Para o refrão, faça a tabela 'na gravação → no arranjo vocal → como escrever' para um grupo de cinco vozes (lead, três backings, baixo), indicando sílabas, registro e ritmo de cada parte.",
+          constraints: ["Cinco vozes, sem instrumentos.", "O lead canta a melodia original.", "Para estudo: não publique nem apresente o arranjo de uma canção protegida sem autorização."],
+          criteria: ["Cada voz tem função, sílaba e registro definidos.", "Pelo menos um momento de resposta dos backings quando o lead respira.", "O baixo vocal tem pausas planejadas."],
+          hints: ["Comece pelo baixo da gravação: transcreva as fundamentais do refrão.", "O instrumento harmônico (violão ou teclado) vira os backings em terças.", "Procure no refrão o 'gancho' instrumental: ele pode virar uma linha em 'ba-da' de uma voz só."],
+          solution: {
+            commentary: "Uma tabela-modelo (para uma canção em Sol maior, refrão em G – D – Em – C): Lead — melodia, texto, registro original. Backing 1 e 2 (contralto e tenor) — 'dum' nos contratempos, em terças, entre G3 e D4, acordes completos com o baixo. Backing 3 (soprano) — o gancho do teclado em 'ba-da', só nos fins de frase do lead, entre D5 e G5, p. Baixo vocal — G2, D3, E3 (E2 ficaria abaixo da tessitura), C3 em 'dm' nos tempos 1 e 3, pausa de um tempo antes do último refrão. Percussão — 'pop, 92 bpm', viradas no último compasso. O critério de qualidade é o equilíbrio: o lead nunca disputa registro e ritmo com os backings.",
+          },
         },
       ],
     },
@@ -342,6 +401,37 @@ export const lessonBaixoPercussao: Lesson = {
         },
       ],
     },
+    {
+      title: "3. Demonstração: uma linha de baixo vocal para C – G/B – Am – F",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Fundamentais nos tempos fortes: C3 | B2 (o baixo indicado na cifra G/B) | A2 | F. F2 fica abaixo da tessitura do baixo (G2–C4): use F3.",
+          "Ligue os tempos fortes por graus ou pequenos saltos: C3 – B2 – A2 descem por grau; de A2 para F3 há um salto de 6ª, que pode ser suavizado com uma nota de ligação (A2 – C3 – F3).",
+          "Defina o ritmo e a sílaba: 'dm' nos tempos 1 e 3, 'dm-dm' em colcheias antes da mudança de acorde.",
+          "Planeje o fôlego: uma pausa de colcheia antes de cada compasso dá respiração e ataque.",
+          "Confira a extensão no estilo popular: E2 é o limite inferior padrão; abaixo disso, só com baixos profundos confirmados.",
+        ] },
+        { type: "callout", tone: "dica", title: "Percussão na partitura", text: "Escreva a percussão vocal numa linha à parte, com x e legenda (B, S, H), e indique o estilo e o andamento. Marque só o essencial (viradas, paradas, entradas); o resto fica para o percussionista. O motor não analisa percussão." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Baixo abaixo de E2", "inaudível ou desafinado", "suba uma oitava ou use inversão"], ["Saltos de 7ª ou mais na linha", "difícil de cantar no ritmo", "graus e pequenos saltos"], ["Baixo rítmico sem pausas", "fadiga e afinação caindo", "respiros planejados"], ["Percussão escrita nota a nota", "partitura ilegível", "estilo + pontos de referência"]] },
+        { type: "list", items: ["Baixo vocal: fundamentais nos tempos fortes, ligadas por graus.", "Sílabas com ataque e ressonância ('dm', 'bm').", "Percussão vocal: estilo, sons básicos e marcações."] },
+        {
+          type: "challenge",
+          title: "Baixo vocal para uma progressão de quatro acordes",
+          task: "Escreva uma linha de baixo vocal (dois compassos por acorde, em 4/4) para G – Em – C – D, estilo pop, com fundamentais nos tempos 1 e notas de ligação, sílabas e pausas de respiração.",
+          constraints: ["Extensão G2–C4 (tessitura do baixo).", "Fundamental no tempo 1 de cada acorde.", "Pelo menos uma pausa a cada dois compassos."],
+          criteria: ["Nenhum salto maior que uma 5ª.", "As notas de ligação andam por grau ou pertencem ao acorde.", "Ao escrever no Estúdio (estilo popular), o motor não aponta notas fora da extensão."],
+          hints: ["G2 é o limite inferior da tessitura: o acorde de Em pode ter a fundamental em E3, não E2.", "Ligações possíveis: G2 – A2 – B2 – (E3); E3 – D3 – C3; C3 – B2 – A2 – (D3).", "Sílaba 'dm' nas notas longas, 'dm-dm' nas colcheias de ligação, pausa de colcheia antes do tempo 1 seguinte."],
+          solution: {
+            commentary: "Uma linha: G2 (semínima pontuada) – pausa de colcheia – G2 – A2 | B2 – D3 – B2 – pausa | E3 – pausa – E3 – D3 | C3 (semínima) – D3 – E3 – pausa | C3 – pausa – C3 – B2 | A2 – G2 – A2 – pausa | D3 – pausa – D3 – E3 | F♯3 – E3 – D3 – pausa. Fundamentais no tempo 1 (G2, E3, C3, D3), ligações por grau, uma pausa a cada compasso e nenhum salto maior que uma 4ª. Sílabas: 'dm' nas fundamentais, 'dm-dm' nas ligações em colcheia.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-baixo-percussao",
@@ -467,6 +557,37 @@ export const lessonGospel: Lesson = {
         { type: "example", score: CHORALE_SATB_C, verdict: "correto", caption: "Base harmônica a quatro vozes", commentary: "Sem banda, as quatro vozes precisam fazer tudo; com banda, o baixo vocal pode ser dispensado e as três vozes de cima viram o bloco." },
       ],
     },
+    {
+      title: "4. Demonstração: chamada, resposta e vamp num refrão de louvor",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha a frase da chamada: curta, com o texto principal ('Santo é o Senhor'). O solista canta sozinho, livre.",
+          "Escreva a resposta do coro em bloco de três vozes, repetindo ou completando o texto ('Santo, santo'), com acordes fechados sobre o baixo da banda.",
+          "Monte o vamp: duas frases de resposta que se repetem, com um 'repetir ad lib.' e uma indicação clara de saída (o regente faz o sinal; o coro vai para o último refrão).",
+          "Planeje a energia: a cada repetição, acrescente algo — dinâmica, uma voz mais aguda, uma modulação de meio tom.",
+          "Confira a melodia da congregação: ela continua na tonalidade e no registro que o povo canta (até por volta de D5).",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Com banda, deixe o grave para o baixo instrumental e não dobre o teclado nota a nota: combine com o tecladista quem faz a terça e quem faz a sétima. Sem banda, o coro precisa voltar a fazer o baixo — e o bloco de três vozes ganha uma quarta voz." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Bloco no mesmo registro do solista", "o solista some", "bloco acima ou abaixo da melodia, mais suave"], ["Vamp sem indicação de saída", "o coro se perde", "'repetir ad lib.' + sinal de saída combinado"], ["Modulação a cada repetição sem preparo", "desafinação", "dominante da nova tonalidade antes de subir"], ["Tonalidade alta demais para a congregação", "o povo para de cantar", "melodia com o ponto mais agudo por volta de D5"]] },
+        { type: "list", items: ["Bloco de três vozes sobre o baixo da banda.", "Chamada e resposta, vamp e modulação constroem a energia.", "Congregação: tonalidade e melodia sempre acessíveis."] },
+        {
+          type: "challenge",
+          title: "Um vamp com saída",
+          task: "Planeje um vamp de quatro compassos para o final de uma canção de louvor (em Ré maior, com banda): texto da resposta, acordes, distribuição das três vozes no primeiro acorde, plano de energia em três repetições e a saída.",
+          constraints: ["Coro em bloco de três vozes (S, C, T); a banda faz o baixo.", "Melodia da resposta até D5.", "A saída precisa estar escrita (como o coro sabe que acabou?)."],
+          criteria: ["Os acordes do vamp formam um ciclo que volta ao início sem esforço.", "Cada repetição acrescenta um elemento de energia.", "A saída termina na tônica com uma cadência clara."],
+          hints: ["Ciclos comuns: I – IV/I – I – IV/I (pedal) ou I – vi – IV – V.", "Distribua o primeiro acorde fechado: D – F♯ – A entre G4 e D5, por exemplo.", "Para a 3ª repetição, meio tom acima (E♭) exige um B♭7 no fim da 2ª."],
+          solution: {
+            commentary: "Uma proposta: texto 'Santo, santo é o Senhor'; acordes D – G/D | D – G/D (pedal na banda); primeiro acorde fechado: tenor em A3, contralto em D4 e soprano em F♯4 (registro confortável; o bloco sobe para G/D com B3 – D4 – G4). Energia: 1ª vez, mf, só as respostas; 2ª vez, f, sopranos uma oitava acima em 'santo' (até D5); fim da 2ª vez, B♭7 para preparar; 3ª vez, em E♭, ff. Saída: o regente levanta a mão no compasso 4 da 3ª vez; o coro canta 'é o Senhor' em mínimas, com cadência IV – V – I (A♭ – B♭ – E♭) e acorde final em fermata.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-gospel",
@@ -588,6 +709,37 @@ export const lessonMpbVocal: Lesson = {
           tone: "dica",
           title: "Prosódia brasileira",
           text: "O português tem muitas sílabas átonas finais ('can-ta', 'ca-mi-nho'). Em ritmos sincopados, a tônica costuma cair na síncope ou no tempo forte; as átonas, em notas curtas. Fale a letra no ritmo antes de escrever as vozes.",
+        },
+      ],
+    },
+    {
+      title: "4. Demonstração: transcrever o ritmo antes das notas",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Ouça a gravação e bata o padrão do acompanhamento (violão, pandeiro, zabumba). Escreva-o numa linha rítmica, sem alturas.",
+          "Decida quem leva o padrão no arranjo vocal: o baixo (surdo no 2º tempo do samba; colcheia pontuada + semicolcheia no baião) e/ou o backing com sílabas ('tchi-ca', 'pa-ra').",
+          "Escreva as notas-guia da harmonia (terças e sétimas) em notas longas ou no ritmo escolhido, encadeadas por semitom.",
+          "Coloque a melodia por cima e confira a prosódia: as tônicas na síncope ou no tempo forte.",
+          "Ouça no estilo popular e confira se o balanço continua: se tudo cair nos tempos fortes, a síncope sumiu.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Modo não é erro", text: "No baião, a sétima menor (mixolídio) e a quarta aumentada são identidade do gênero. 'Corrigir' a sétima menor para sensível tira o sotaque nordestino da melodia. No motor, escolha o estilo popular e leia os diagnósticos de sensível como informação." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Acompanhamento vocal em semínimas regulares", "o samba deixa de ser samba", "síncope em ao menos uma camada"], ["Tensões da bossa alcançadas por salto", "afinação instável", "notas-guia por semitom ou paradas"], ["Sensível no lugar da sétima menor no baião", "perde-se o modo", "mantenha a sétima menor"], ["Vibrato e vozes 'operísticas' na bossa", "estilo errado", "voz leve, pouco vibrato"]] },
+        { type: "list", items: ["Ritmo primeiro: transcreva o padrão antes das notas.", "Bossa: notas-guia por semitom, tensões paradas.", "Baião: mixolídio e quarta aumentada como identidade."] },
+        {
+          type: "challenge",
+          title: "Notas-guia de um ii–V–I em Fá",
+          task: "Para a progressão Gm7 – C7 – Fmaj7 (bossa, um acorde por compasso), escreva as notas-guia (terça e sétima de cada acorde) em duas vozes, encadeadas pelo menor movimento, e diga onde caberia uma nona.",
+          constraints: ["Duas vozes, uma com terças/sétimas alternadas e outra complementar.", "Nenhum salto maior que uma 2ª entre acordes."],
+          criteria: ["Cada acorde tem sua terça e sua sétima.", "As vozes andam por semitom, tom ou ficam paradas.", "A nona proposta chega por grau ou nota comum."],
+          hints: ["Gm7: terça B♭, sétima F. C7: terça E, sétima B♭. Fmaj7: terça A, sétima E.", "A sétima de um acorde vira a terça do seguinte, ou desce um semitom para ela.", "A nona de Gm7 é A; a de C7 é D; a de Fmaj7 é G."],
+          solution: {
+            commentary: "Voz 1: F4 (7ª de Gm7) → E4 (3ª de C7) → E4 (7ª de Fmaj7). Voz 2: B♭3 (3ª de Gm7) → B♭3 (7ª de C7) → A3 (3ª de Fmaj7). As notas-guia andam um semitom ou ficam paradas: F → E → E e B♭ → B♭ → A. Uma nona afinável: no Fmaj7, um soprano pode sustentar G4 vindo do G4 de um Gm7 em posição aberta (fundamental do Gm7 → nona do Fmaj7 depois de passar pelo C7 como quinta) — a nota não se move e muda de função três vezes.",
+          },
         },
       ],
     },

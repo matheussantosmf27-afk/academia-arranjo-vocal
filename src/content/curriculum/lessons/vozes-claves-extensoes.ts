@@ -2,7 +2,6 @@ import { CHORALE_SATB_C, CHORALE_TTBB_G } from "@/domain/music/examples";
 import { FORMATIONS, clefNamePt } from "@/domain/music/formations";
 import { formatPitch } from "@/domain/music/pitch";
 import { scoreFromText } from "@/domain/music/text-notation";
-import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 const rangeRows = (f: "SATB" | "TTBB") =>
