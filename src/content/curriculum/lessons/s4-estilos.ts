@@ -867,6 +867,31 @@ export const lessonPartituraEnsaio: Lesson = {
         { type: "paragraph", text: "Um bom arranjador entrega a versão que o grupo consegue cantar bem — e às vezes duas versões do mesmo arranjo, uma mais simples e outra mais elaborada." },
       ],
     },
+    {
+      title: "4. Demonstração: duas versões do mesmo arranjo",
+      blocks: [
+        { type: "table", caption: "Versão simples × versão completa (mesmo arranjo)", headers: ["Elemento", "Versão simples (coro iniciante)", "Versão completa (coro experiente)"], rows: [["Estrofe 1", "uníssono", "melodia + pad"], ["Refrão", "homofonia a três vozes (SAB)", "homofonia a quatro vozes com divisi no final"], ["Estrofe 2", "melodia nos sopranos, contraltos em terças", "melodia nos tenores, contracanto dos sopranos"], ["Harmonia", "tríades, uma dominante secundária", "tensões, empréstimo modal, SubV na cadência"], ["Tonalidade", "centrada para o naipe mais frágil", "um tom acima no refrão final"]] },
+        { type: "list", ordered: true, items: ["Escreva primeiro a versão completa.", "Para a simples, troque texturas difíceis por uníssono ou homofonia e reduza para três vozes onde faltar naipe.", "Mantenha a forma e a curva de energia nas duas versões.", "Exporte as duas com títulos claros ('versão A', 'versão B') e o mesmo kit de ensaio."] },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Letra só no soprano", "as outras vozes não sabem o texto", "letra em todas as vozes que cantam texto"], ["Sem dinâmicas e respirações", "cada cantor interpreta de um jeito", "marque tudo antes de imprimir"], ["Kit de ensaio sem destaque da voz", "o naipe não se ouve", "áudio por naipe com a voz em destaque"], ["Arranjo acima do nível do grupo", "ensaios frustrados", "versão simples para o grupo real"]] },
+        { type: "list", items: ["Checklist da partitura antes de imprimir.", "Kit de ensaio: PDF, MusicXML, MIDI/áudio por naipe.", "Adapte ao nível do grupo — às vezes com duas versões."] },
+        {
+          type: "challenge",
+          title: "Checklist de uma partitura",
+          task: "Aplique o checklist da seção 1 ao exemplo 'Trecho pronto para ensaio' (no Estúdio) e ao exemplo 'Figura que atravessa a barra': liste o que cada um cumpre e o que falta, e diga como corrigir o segundo.",
+          constraints: ["Um item do checklist por linha.", "Para cada falha, uma correção concreta."],
+          criteria: ["Os itens de letra, figuras e dinâmicas foram conferidos nos dois.", "A correção do segundo exemplo usa ligadura na barra.", "Você indicou o que exportar para o kit de ensaio."],
+          hints: ["No segundo exemplo, procure a figura que começa num compasso e termina no outro.", "No Estúdio, o botão 'Dividir nas barras com ligaduras' faz a correção automaticamente.", "O kit: PDF para leitura, MusicXML para outros editores, MIDI (ou áudio) por voz."],
+          solution: {
+            commentary: "Trecho pronto para ensaio: letra em todas as vozes, figuras claras, harmonia sem problemas — faltam, em geral, só dinâmicas e marcas de respiração, que você acrescenta antes de imprimir. Figura que atravessa a barra: a mínima pontuada que começa no 2º tempo invade o compasso seguinte — divida-a na barra com ligadura (o motor deixa de apontar o erro de escrita). Kit: exportar PDF, MusicXML e MIDI, e gravar cada voz isolada no player para os naipes estudarem.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-partitura",

@@ -606,6 +606,48 @@ export const lessonEstilo: Lesson = {
         { type: "listening", title: "Escuta final", score: CHORALE_SATB_C, instructions: ["Ouça cada voz isolada como um cantor do naipe ouviria."], focus: [["S"], ["A"], ["T"], ["B"]] },
       ],
     },
+    {
+      title: "3. As quatro categorias do relatório",
+      blocks: [
+        { type: "paragraph", text: "O motor classifica cada diagnóstico numa categoria. Ler a categoria antes da mensagem evita dois erros opostos: ignorar um problema real ('é só estilo') e 'corrigir' uma escolha legítima ('o motor reclamou')." },
+        { type: "table", caption: "Categorias e como agir", headers: ["Categoria", "Exemplo", "O que fazer"], rows: [["Erro objetivo", "nota fora da extensão configurada; figura atravessando a barra", "corrigir sempre (ou ajustar a extensão ao grupo real, se ela estiver errada)"], ["Convenção estilística", "quintas paralelas no coral tradicional", "corrigir no estilo em que vale; em outro estilo, decidir"], ["Recomendação", "terça dobrada num acorde maior; terça grave", "corrigir se não houver motivo; manter se houver, e registrar"], ["Escolha estética", "retrogressão; final fora da tônica", "decidir pelo efeito e pelo texto"]] },
+        { type: "paragraph", text: "Lembre: um relatório limpo não prova que o arranjo é bom — prova só que nenhuma regra verificável foi violada. A revisão termina com o ouvido (nível 5 da autorrevisão)." },
+      ],
+    },
+    {
+      title: "4. Demonstração: revisar em cinco níveis",
+      blocks: [
+        { type: "paragraph", text: "Revise um nível de cada vez, na ordem: corrigir a condução antes de conferir a extensão faz você mexer duas vezes nas mesmas notas." },
+        REVISION_LEVELS,
+        { type: "example", score: EXD.harmDemoBloco, verdict: "incorreto", caption: "Um trecho para revisar", commentary: "Nível 1: nada a corrigir. Nível 2: extensões ok. Nível 3: acordes pretendidos (I – V⁶ – I – IV⁶ – I⁶₄ – V – I). Nível 4: oitavas paralelas contralto–baixo e sensível dobrada no V⁶ — convenção do estilo tradicional: corrigir. Nível 5: as vozes internas copiam o soprano — o efeito é de bloco, não de coral. A versão revisada está na aula de harmonização SATB." },
+      ],
+    },
+    {
+      title: "5. Preparação da partitura e exportação",
+      blocks: [
+        { type: "list", ordered: true, items: ["Título, compositor/arranjador, formação, andamento.", "Letra em todas as vozes que cantam texto; sílabas de apoio consistentes.", "Dinâmicas em cada seção; respirações e cortes marcados.", "Números de compasso e letras de ensaio.", "Exportação: PDF (leitura), MusicXML (outros editores), MIDI (estudo por naipe)."] },
+        { type: "callout", tone: "atencao", title: "Exportação e limites", text: "Antes de enviar, abra o PDF exportado e confira a leitura (quebras de sistema, letra sob as notas certas). O MusicXML preserva notas, letra e dinâmicas; confira no editor de destino se nada se perdeu." },
+      ],
+    },
+    {
+      title: "6. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Tratar toda mensagem como erro", "arranjo descaracterizado", "leia a categoria e o estilo"], ["Tratar toda mensagem como 'estilo'", "erros reais na partitura", "erros objetivos sempre se corrigem"], ["Revisar tudo de uma vez", "correções que criam novos problemas", "um nível por vez"], ["Entregar sem abrir o PDF", "partitura ilegível", "confira a exportação"]] },
+        { type: "list", items: ["Categorias: erro objetivo, convenção estilística, recomendação, escolha estética.", "O estilo decide o peso; os fatos não mudam.", "Revisão em cinco níveis; entrega com PDF, MusicXML e MIDI conferidos."] },
+        {
+          type: "challenge",
+          title: "Classifique o relatório",
+          task: "Abra o trecho abaixo no Estúdio, leia o relatório do motor no estilo coral tradicional e, para cada diagnóstico, diga a categoria e o que você faria (corrigir, decidir, manter). Depois troque o estilo para 'Popular a cappella' e diga o que mudou.",
+          start: EXD.revStart,
+          constraints: ["Uma decisão por diagnóstico.", "Justifique cada decisão pela categoria e pelo estilo."],
+          criteria: ["As categorias estão corretas.", "Você não 'corrigiu' uma escolha estética sem motivo.", "Você explicou por que o mesmo fato muda de gravidade com o estilo."],
+          hints: ["Comece pelos erros objetivos: há alguma nota fora da extensão?", "Paralelas são convenção do estilo tradicional.", "No popular, as paralelas viram sugestão — mas uma nota fora da extensão continua sendo erro."],
+          solution: {
+            commentary: "No coral tradicional, o motor lista: oitavas paralelas soprano–tenor e quintas paralelas contralto–baixo (convenção estilística: corrigir com movimento contrário); C2 no baixo abaixo da extensão (erro objetivo: corrigir subindo para C3, o que também resolve o alerta de espaçamento tenor–baixo e os dois saltos descendentes do baixo); oitava direta soprano–baixo com salto no soprano (convenção: corrigir); F5 no soprano e F4 no tenor fora da tessitura, e terças dobradas no I e no ii (recomendações: corrigir se não houver motivo). No estilo popular a cappella, paralelas e espaçamento passam a sugestões, a oitava direta e as terças dobradas deixam de ser apontadas, e o C2 continua erro: a extensão do grupo não depende do estilo.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-estilo",

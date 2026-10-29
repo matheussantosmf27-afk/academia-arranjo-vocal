@@ -54,6 +54,37 @@ export const lessonRegGesto: Lesson = {
         { type: "list", items: ["Corte: um pequeno círculo ou gesto para cima e para dentro, no tempo em que o som termina.", "Fermata: o gesto para, sustentado; o corte vem quando o regente decide.", "Mantenha o gesto pequeno e o ictus claro: gesto grande não significa forte."] },
       ],
     },
+    {
+      title: "3. Demonstração: preparar uma entrada em anacruse",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Identifique o compasso e o tempo da entrada: hino em 3/4, coro entrando no 3º tempo.",
+          "A preparação é o tempo anterior à entrada: o 2º tempo (gesto para fora, à direita).",
+          "Antes da preparação, fique parado na posição de partida e faça só o gesto do 2º tempo, no andamento — é nele que o coro respira.",
+          "A entrada acontece no gesto do 3º tempo (para cima); o tempo forte seguinte desce, claro.",
+          "Ensaie com o coro respirando junto no gesto de preparação.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do regente", text: "Andamento é decisão musical e prática: rápido o bastante para a frase caber numa respiração, lento o bastante para o texto ser entendido. Cante a frase mais longa da peça no andamento escolhido antes do ensaio." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Preparação num andamento diferente", "o coro entra noutro andamento", "a preparação já é o andamento"], ["Preparar no tempo 1 numa anacruse", "entrada atrasada ou confusa", "prepare no tempo anterior à entrada"], ["Gesto grande para pedir forte", "imprecisão", "ictus claro; dinâmica com a mão esquerda e o corpo"], ["Corte sem tempo definido", "finais desencontrados", "corte num tempo, com consoante junta"]] },
+        { type: "list", items: ["Padrões: 1º tempo desce, último sobe.", "Preparação: um tempo antes da entrada, no andamento.", "Andamento: a frase precisa caber numa respiração."] },
+        {
+          type: "challenge",
+          title: "Planeje a entrada e o corte",
+          task: "Uma peça em 4/4, ♩ = 80, começa com o coro em anacruse no 4º tempo e termina com uma fermata no último acorde, seguida de corte. Descreva o gesto de preparação (posição de partida, tempo, direção), o gesto de entrada e como fazer o corte da fermata com uma palavra que termina em 's'.",
+          constraints: ["Padrão de 4/4 desta aula.", "Uma única preparação.", "O 's' final é cortado junto."],
+          criteria: ["A preparação está no 3º tempo (o anterior à entrada), no andamento.", "A direção do gesto de preparação está correta (para fora/direita).", "O corte define quando o 's' soa."],
+          hints: ["No 4/4: tempo 1 desce, 2 para dentro, 3 para fora, 4 sobe.", "Entrada no 4º tempo → preparação no 3º.", "Na fermata, o gesto para; o corte (pequeno círculo) indica o momento do 's', curto e junto."],
+          solution: {
+            commentary: "Posição de partida na região do 2º tempo; preparação: o gesto do 3º tempo (para fora, à direita), no andamento ♩ = 80, com o coro respirando nele; entrada: o gesto do 4º tempo (para cima); o compasso seguinte começa com o 1º tempo descendo, claro. Final: na fermata, a mão para, sustentando o som; o corte é um pequeno círculo para dentro e para cima, e o 's' acontece exatamente no fechamento do círculo — combinado antes: 's' curto, todos juntos.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-reg-gesto",
@@ -101,6 +132,31 @@ export const lessonRegAquecimento: Lesson = {
       blocks: [
         { type: "example", score: EXG.vocaliseOitavas, verdict: "incorreto", caption: "Vocalise em oitavas", commentary: "Todos cantam a mesma escala de cinco notas, em oitavas e uníssono. Para aquecer é ótimo; como escrita a quatro vozes, o motor reprova cada passo como oitavas e uníssonos paralelos. Use o uníssono no aquecimento e a cadência para a afinação." },
         { type: "callout", tone: "atencao", title: "Cuidado com o agudo", text: "Ao subir vocalises por semitom, pare antes do limite da tessitura de cada naipe. Tenores e sopranos amadores cansam rápido no agudo, e o ensaio ainda nem começou." },
+      ],
+    },
+    {
+      title: "3. Demonstração: um aquecimento ligado ao repertório",
+      blocks: [
+        { type: "paragraph", text: "Situação: o ensaio do dia trabalha um hino com um salto de 6ª no soprano, vogal 'i' em notas longas e uma cadência final em Sol maior. Como montar 12 minutos de aquecimento a partir disso?" },
+        { type: "table", caption: "Plano de 12 minutos", headers: ["Minutos", "Atividade", "Ligação com o repertório"], rows: [["0–2", "corpo e postura", "—"], ["2–4", "respiração em 's' contínuo, 8 a 12 tempos", "as frases do hino duram cerca de 10 s"], ["4–6", "'m' e 'n' em notas médias, sirenes", "ressonância para o 'i' das notas longas"], ["6–9", "vocalise em arpejo com salto de 6ª (1–3–5–8–6–5)", "prepara o salto do soprano"], ["9–11", "vogal 'i' em notas longas, mudando para 'é' e voltando", "afinação e timbre do 'i'"], ["11–12", "cadência I – IV – V – I em Sol, em 'u'", "o acorde final do hino"]] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Aquecimento genérico, sempre igual", "não prepara as dificuldades do dia", "ligue cada exercício ao repertório"], ["Vocalises subindo até o limite", "cansaço antes do ensaio", "pare antes do limite da tessitura"], ["Vocalise em oitavas usado como modelo de escrita", "confusão entre aquecimento e arranjo", "aquecimento é técnica, não condução"], ["Pular a respiração", "frases quebradas", "2 minutos de respiração sempre"]] },
+        { type: "list", items: ["10 a 15 minutos: corpo, respiração, ressonância, vocalises, acorde.", "Cada exercício prepara uma dificuldade do repertório.", "Termine com uma cadência na tonalidade do dia."] },
+        {
+          type: "challenge",
+          title: "Aquecimento para uma peça de bossa",
+          task: "Monte 12 minutos de aquecimento para um ensaio em que o coro canta uma bossa (♩ = 70) com acordes de sétima e nona, frases longas em 'p' e síncopes.",
+          constraints: ["Cinco blocos (corpo, respiração, ressonância, vocalises, acorde).", "Cada bloco ligado a uma dificuldade da peça.", "O acorde final do aquecimento tem uma sétima ou nona."],
+          criteria: ["Os tempos somam 12 minutos.", "Há um exercício de síncope.", "O acorde final é construído por naipes, de baixo para cima."],
+          hints: ["Frases longas em p: respiração com saída de ar lenta e controlada.", "Síncope: falar o texto no ritmo batendo os tempos com a mão, depois cantar numa nota.", "Acorde final: Cmaj7 por entradas — baixos C, tenores G, contraltos E, sopranos B."],
+          solution: {
+            commentary: "0–2: corpo e mandíbula solta. 2–4: respiração em 's' por 12 tempos a ♩ = 70, depois 'f' em p. 4–6: 'm' em notas médias com glissandos suaves (o timbre leve da bossa). 6–9: síncope — a frase mais sincopada falada no ritmo com palmas nos tempos, depois cantada numa nota só, depois com as alturas. 9–11: vocalise em p com terças descendentes, sem vibrato. 11–12: Cmaj7 construído por entradas (C3, G3, E4, B4), ajustando a sétima B4 para não ficar alta; depois resolva em C6 (B4 → A4).",
+          },
+        },
       ],
     },
   ],
@@ -157,6 +213,36 @@ export const lessonRegAfinacao: Lesson = {
         },
       ],
     },
+    {
+      title: "3. Demonstração: corrigir uma terça alta",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Construa o acorde por entradas: fundamental, quinta, oitava e, por último, a terça.",
+          "Peça à terça que cante mais suave que as outras vozes e ouça o acorde 'assentar'.",
+          "Se a terça maior estiver alta, peça que pense a nota 'um pouco mais baixa', como resolução para dentro do acorde, não como nota de piano.",
+          "Troque quem canta a terça (contraltos, depois tenores) para todos ouvirem a diferença.",
+          "Repita com o acorde de sétima de dominante: a sétima tende a ficar baixa ou alta conforme a direção da resolução — peça a escuta da resolução.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Terça dobrada no acorde de afinação", "acorde pesado e difícil de afinar", "dobre a fundamental"], ["Todas as vozes entrando juntas", "ninguém ouve ninguém", "entradas sucessivas"], ["Terça forte", "acorde 'ácido'", "terça mais suave"], ["Afinação só com o piano", "o coro afina com o piano, não entre si", "afine a cappella, use o piano só para a nota inicial"]] },
+        { type: "list", items: ["Afinar de baixo para cima: fundamental, quinta, oitava, terça.", "Terça e sensível pedem escuta; sétima quer descer.", "No acorde de afinação, dobre a fundamental."] },
+        {
+          type: "challenge",
+          title: "Plano de afinação para um TTBB",
+          task: "Planeje um exercício de afinação de 5 minutos para um coro masculino (TTBB) com o acorde de Sol maior e depois o D7 → G.",
+          constraints: ["Entradas sucessivas, de baixo para cima.", "Indicar a nota de cada naipe.", "Respeitar os limites graves de intervalo."],
+          criteria: ["A terça entra por último e não está dobrada.", "No D7, a sétima resolve descendo e a sensível subindo.", "Nenhuma terça abaixo de B♭2."],
+          hints: ["Sol maior: baixo G2, barítono D3, Tenor II G3, Tenor I B3.", "D7: baixo D3, barítono F♯3, Tenor II A3, Tenor I C4.", "Resolução em Sol: C4 → B3, F♯3 → G3 (ou D3, para abrir o grave)."],
+          solution: {
+            commentary: "1) Sol maior por entradas: baixo G2 (fundamental), barítono D3 (quinta), Tenor II G3 (oitava), Tenor I B3 (terça, por último, suave). 2) Repetir com a terça no Tenor II (B3) e a quinta no Tenor I (D4), para outro naipe treinar a terça. 3) D7 por entradas: baixo D3, barítono F♯3, Tenor II A3, Tenor I C4 — a terça D3–F♯3 tem a nota inferior acima de B♭2, aceitável. 4) Resolver em Sol: Tenor I C4 → B3 (sétima desce), Tenor II A3 → G3, barítono F♯3 → D3 (a sensível desce para abrir o grave — recurso de voz interna) ou → G3 (resolvendo, mas em uníssono com o Tenor II), baixo D3 → G2. Ouça as duas resoluções e decida com o coro.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-reg-afinacao",
@@ -205,6 +291,31 @@ export const lessonRegNaipes: Lesson = {
       blocks: [
         { type: "list", ordered: true, items: ["Aquecimento ligado ao repertório (10–15 min).", "Visão geral: ouvir a gravação-guia ou cantar a melodia juntos.", "Trechos difíceis primeiro, por naipe ou em pares (sopranos e contraltos, tenores e baixos).", "Juntar as vozes por seções curtas, do fim para o começo quando o final é o mais difícil.", "Passar a peça inteira, mesmo com erros, para o coro sentir a forma.", "Fechar com algo que o coro já canta bem."] },
         { type: "callout", tone: "dica", title: "Kit de ensaio", text: "O PDF e o MIDI que o Estúdio exporta, e a reprodução de cada voz isolada no player, economizam tempo de ensaio: cada naipe estuda em casa e chega sabendo as notas (aula 'Partitura final, kit de ensaio e adaptação ao grupo')." },
+      ],
+    },
+    {
+      title: "3. Demonstração: mapear as dificuldades antes do ensaio",
+      blocks: [
+        { type: "table", caption: "Mapa de dificuldades de uma peça nova (exemplo)", headers: ["Naipe", "Trecho", "Dificuldade", "Estratégia"], rows: [["Sopranos", "c. 9–10", "salto de 6ª para nota longa", "vocalise com o salto no aquecimento; cantar devagar"], ["Contraltos", "c. 5", "2ª aumentada (F → G♯)", "reescrever a linha (G♯ no tenor) ou ensinar com o piano"], ["Tenores", "c. 13–16", "notas longas em E4", "respiração escalonada indicada"], ["Baixos", "c. 1", "entrada sem referência", "dar a nota do baixo primeiro; entrada depois de um acorde"]] },
+        { type: "list", ordered: true, items: ["Cante cada voz sozinha com a partitura e marque onde você mesmo hesitou.", "Classifique: reescrever (problema de escrita) ou ensinar (dificuldade legítima).", "Planeje a ordem: trechos difíceis no começo do ensaio, com a voz descansada.", "Prepare o kit de ensaio por naipe (arquivo de áudio com a voz em destaque)."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Ensaiar do começo ao fim toda vez", "o fim nunca é ensaiado", "trechos difíceis primeiro"], ["Ensinar um intervalo aumentado em vez de reescrever", "tempo perdido", "reescreva quando a harmonia permitir"], ["Naipes parados enquanto outro ensaia", "dispersão", "ensaie em pares (S+A, T+B)"], ["Não cantar as vozes antes", "surpresas no ensaio", "o regente canta todas as vozes"]] },
+        { type: "list", items: ["Antes do ensaio, cante cada voz.", "Reescreva o que é problema de escrita; ensine o que é dificuldade legítima.", "Trechos difíceis primeiro, por naipe ou em pares."] },
+        {
+          type: "challenge",
+          title: "Reescrever ou ensinar?",
+          task: "Para cada situação, decida se você reescreve a linha ou ensina como está, e por quê: (a) contralto com F4 → G♯4 em lá menor numa cadência; (b) soprano com salto de 6ª maior para o ponto culminante; (c) tenor com quatro compassos em F4 forte; (d) baixo entrando sozinho em D3 depois de uma pausa geral.",
+          constraints: ["Uma decisão por situação.", "Se reescrever, diga como; se ensinar, diga a estratégia."],
+          criteria: ["As decisões distinguem problema de escrita de dificuldade expressiva.", "Cada estratégia é concreta.", "Nenhuma decisão muda a melodia principal."],
+          hints: ["A 2ª aumentada pode sumir trocando a sensível de voz (veja o exemplo da aula).", "O salto de 6ª no ponto culminante é parte da melodia: não se reescreve.", "F4 forte por quatro compassos é cansativo para tenores amadores: é escrita ou interpretação?"],
+          solution: {
+            commentary: "(a) Reescrever: passar o G♯ para o tenor (A → G♯ → A) e o contralto descer F → E, como no exemplo corrigido da aula. (b) Ensinar: o salto é parte da melodia; preparar no aquecimento com arpejo e cantar o trecho devagar, mirando a nota de chegada. (c) Reescrever ou redistribuir: se a nota é harmonia, troque por uma nota do acorde mais grave em dois dos quatro compassos, ou alterne com os barítonos; se é melodia, baixe a tonalidade da seção. (d) Ensinar com referência: o regente dá a nota (ou o coro sustenta um acorde em 'm' antes da pausa); escreva no ensaio a referência — 'D3 = nota final dos contraltos uma oitava abaixo'.",
+          },
+        },
       ],
     },
   ],
@@ -257,6 +368,37 @@ export const lessonRegRespiracao: Lesson = {
         { type: "callout", tone: "atencao", title: "Consoantes", text: "Num coro, um 's' final de cada cantor em tempos diferentes vira um chiado longo. Peça o 's' curto e junto, ou quase omitido." },
       ],
     },
+    {
+      title: "3. Demonstração: marcar respirações numa partitura",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Leia o texto e marque as vírgulas e fins de verso.",
+          "Meça cada trecho no andamento (o motor sugere atenção a partir de cerca de 15 s).",
+          "Marque a respiração (vírgula ou pausa) em todas as vozes ao mesmo tempo, encurtando a nota anterior.",
+          "Onde a música não pode parar (nota longa, ligadura de frase), indique respiração escalonada para o naipe.",
+          "Marque os cortes finais com o tempo exato e a consoante combinada.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do regente", text: "Respirar 'fora do tempo' (roubando um pouco da nota anterior) é diferente de respirar 'no tempo' (com uma pausa escrita). Em coros amadores, a pausa escrita é mais segura: todos sabem quando e quanto." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Respiração só na melodia", "outras vozes respiram aleatoriamente", "todas as vozes"], ["Respiração escalonada sem combinar", "buracos no som", "combine quem respira onde"], ["Entrar forte depois da respiração escalonada", "o retorno se ouve", "volte suave, nunca no tempo forte"], ["Consoante final desencontrada", "chiado", "consoante curta e junta"]] },
+        { type: "list", items: ["O coro respira onde o texto respira.", "Notas longas: respiração escalonada combinada.", "Cortes no tempo, consoantes juntas."] },
+        {
+          type: "challenge",
+          title: "Respirações para um hino",
+          task: "Um hino em 4/4, ♩ = 60, tem frases de oito compassos (32 s cada) com o texto: 'Guarda-me, Senhor, / na luz do teu amor, / e quando a noite vier, / sê meu abrigo e meu chão.' Indique onde todas as vozes respiram e onde usar respiração escalonada.",
+          constraints: ["Respirações só em vírgulas ou barras do texto.", "Nenhum trecho com mais de 16 s sem pausa ou sem respiração escalonada indicada."],
+          criteria: ["As respirações dividem a frase em trechos de até cerca de 16 s.", "Nenhuma respiração separa artigo e substantivo.", "A respiração escalonada aparece onde a pausa quebraria o sentido."],
+          hints: ["Cada verso tem cerca de 8 s (dois compassos) se a frase for distribuída igualmente.", "'Guarda-me, Senhor' e 'na luz do teu amor' podem ser separados por uma respiração rápida.", "'e quando a noite vier, / sê meu abrigo' — a vírgula permite respirar."],
+          solution: {
+            commentary: "Respirações de todas as vozes depois de 'Senhor,' (fim do 2º compasso, colcheia roubada), depois de 'amor,' (fim do 4º compasso, pausa de semínima) e depois de 'vier,' (fim do 6º compasso). Os trechos ficam com cerca de 8 s. Se 'meu chão' terminar numa nota longa de dois compassos, indique respiração escalonada nela, com retorno suave. Nunca respirar entre 'na' e 'luz', 'a' e 'noite', 'meu' e 'abrigo'.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-reg-respiracao",
@@ -304,6 +446,36 @@ export const lessonRegEquilibrio: Lesson = {
       title: "2. Naipe fraco",
       blocks: [
         { type: "list", items: ["Coloque cantores seguros no centro do naipe e os inseguros ao lado deles.", "Peça às vozes fortes que cantem menos, em vez de pedir às fracas que cantem mais.", "Se faltam tenores, contraltos graves podem cantar a linha de tenor nos trechos médios (veja a aula de adaptação).", "Disposição do coro: naipes misturados em quartetos ajudam a afinação; naipes em bloco ajudam a segurança."] },
+      ],
+    },
+    {
+      title: "3. Demonstração: equilibrar sem mudar a escrita",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Ouça de longe (ou grave o ensaio): a melodia aparece em todos os trechos?",
+          "Nos trechos em que ela some, descubra quem a cobre: vozes acima dela, vozes no mesmo registro ou um naipe numeroso.",
+          "Peça dinâmica por naipe: melodia mf, acompanhamento mp; vozes acima da melodia p.",
+          "Se o naipe da melodia é fraco, reorganize os cantores (seguros no centro) antes de dobrar a melodia em outro naipe.",
+          "Só se nada disso bastar, considere reescrever — e prefira mudar a textura (pad em vogal fechada) a dobrar a melodia em oitavas.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Dobrar a melodia para 'reforçar'", "paralelas, perda de uma voz", "dinâmica por naipe"], ["Pedir aos fracos que cantem mais", "som forçado, desafinação", "peça aos fortes que cantem menos"], ["Equilibrar só de perto", "o público ouve outra coisa", "ouça de longe ou grave"], ["Naipe numeroso cobrindo os outros", "desequilíbrio", "menos cantores no trecho ou dinâmica menor"]] },
+        { type: "list", items: ["A melodia aparece quando as outras vozes cantam menos.", "Reforçar um naipe fraco é questão de disposição e dinâmica, não de escrita.", "Dobrar a melodia muda o arranjo: use só como decisão de arranjo."] },
+        {
+          type: "challenge",
+          title: "Um coro com poucos tenores",
+          task: "Um coro tem 14 sopranos, 10 contraltos, 3 tenores e 6 baixos. Num trecho, a melodia está nos tenores. Liste, em ordem, as quatro primeiras medidas que você tomaria no ensaio antes de pensar em reescrever.",
+          constraints: ["Nenhuma medida pode mudar notas.", "Pelo menos uma medida de disposição física do coro."],
+          criteria: ["As medidas atacam a causa (os outros cobrem a melodia), não só o sintoma.", "A ordem vai do mais simples ao mais trabalhoso.", "Você disse como verificar se funcionou."],
+          hints: ["Dinâmica: o que os sopranos e contraltos fazem durante a melodia dos tenores?", "Disposição: onde ficam os três tenores em relação ao público e ao resto do coro?", "Vogal: um pad em 'u' cobre menos que um pad em 'a'."],
+          solution: {
+            commentary: "1) Dinâmica: tenores mf, contraltos e baixos mp, sopranos p. 2) Vogal/sílaba: as vozes de acompanhamento passam para 'u' ou 'm' nesse trecho, se o arranjo permitir texto neutro (decisão a combinar com o arranjador). 3) Disposição: os três tenores no centro, à frente dos baixos, com os cantores mais seguros no meio. 4) Número de cantores: metade dos sopranos canta o trecho, a outra metade descansa. Verificação: gravar o trecho do fundo da sala antes e depois de cada medida. Só se a melodia continuar inaudível, considerar reescrever (por exemplo, contraltos graves ajudando os tenores no trecho).",
+          },
+        },
       ],
     },
   ],
@@ -359,6 +531,31 @@ export const lessonRegRevisao: Lesson = {
           rows: [["1", "Notas de cada naipe, trechos difíceis", "Cada naipe canta sua voz sozinho"], ["2", "Juntar vozes por seção, respirações", "A peça é cantada inteira, com paradas"], ["3", "Afinação, dinâmica, texto", "Sem paradas; respirações juntas"], ["4", "Interpretação e passagem no local", "Duas passagens seguidas sem problemas"]],
         },
         { type: "list", items: ["Numere os compassos e use letras de ensaio (A, B, C) no começo de cada seção.", "Marque respirações, dinâmicas e cortes antes de imprimir.", "Escreva o plano do ensaio com minutos por atividade e um objetivo verificável.", "Depois do ensaio, anote o que ficou pendente para o próximo."] },
+      ],
+    },
+    {
+      title: "3. Demonstração: o plano de um ensaio de 90 minutos",
+      blocks: [
+        { type: "table", caption: "Plano com objetivos verificáveis", headers: ["Minutos", "Atividade", "Objetivo verificável"], rows: [["0–12", "aquecimento ligado ao repertório", "o salto de 6ª do c. 9 cantado afinado em vocalise"], ["12–30", "trechos difíceis por naipe (c. 5 contraltos; c. 13–16 tenores)", "cada naipe canta seu trecho sem parar"], ["30–50", "juntar por seções (A, B)", "seção A inteira sem paradas"], ["50–55", "pausa", "—"], ["55–75", "respirações, dinâmicas, cortes", "todos respiram nos mesmos lugares"], ["75–85", "a peça inteira", "do início ao fim sem parar"], ["85–90", "revisão do que foi aprendido e tarefa de casa", "cada naipe sabe o que estudar com o kit de ensaio"]] },
+        { type: "list", ordered: true, items: ["Antes do ensaio: revise a partitura no motor e corrija o que é erro de escrita.", "Numere os compassos e use letras de ensaio.", "Escreva o plano com minutos e objetivos; ao fim, anote o que funcionou para o próximo plano."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Corrigir erros de escrita no ensaio", "tempo perdido", "revise no motor antes"], ["Plano sem objetivos verificáveis", "não se sabe se avançou", "objetivo que se possa conferir"], ["Cronograma sem margem", "estreia insegura", "um ensaio de margem antes da apresentação"], ["Partitura sem letras de ensaio", "minutos perdidos procurando o compasso", "letras e números de compasso"]] },
+        { type: "list", items: ["Revise antes de ensaiar.", "Plano com minutos e objetivos verificáveis.", "Cronograma com margem."] },
+        {
+          type: "challenge",
+          title: "Cronograma de cinco ensaios",
+          task: "Uma peça SATB de 3 minutos (forma A A B A) estreia daqui a cinco semanas, com um ensaio de 90 minutos por semana. Monte o cronograma (objetivo de cada ensaio) e o plano detalhado do ensaio 2.",
+          constraints: ["Um ensaio de margem antes da estreia.", "Objetivos verificáveis.", "O ensaio 2 com minutos por atividade."],
+          criteria: ["A ordem vai das notas à interpretação.", "A seção B (contraste) recebe atenção específica.", "O último ensaio não introduz material novo."],
+          hints: ["Ensaio 1: notas de cada naipe na seção A (que se repete três vezes).", "Ensaio 2: seção B e juntar A + B.", "Ensaio 5: margem — passar a peça e ajustar detalhes, sem material novo."],
+          solution: {
+            commentary: "Cronograma: 1) Notas da seção A por naipe e juntas (objetivo: A inteira sem parar). 2) Seção B por naipe; juntar A + B (objetivo: A–A–B sem parar). 3) Peça inteira; respirações, dinâmicas, cortes (objetivo: respirações iguais em todo o coro). 4) Interpretação: curva de energia, texto, equilíbrio; gravação para revisão (objetivo: gravação ouvida e três ajustes anotados). 5) Margem: passar a peça duas vezes, ajustes finais, nada novo. Ensaio 2 detalhado: 0–12 aquecimento ligado aos saltos da seção B; 12–35 seção B por pares (S+A, T+B); 35–50 seção B tutti; 50–55 pausa; 55–75 A + B com as transições; 75–85 A–A–B inteiro; 85–90 tarefa de casa com o kit de ensaio.",
+          },
+        },
       ],
     },
   ],
@@ -420,6 +617,36 @@ export const lessonRegAdaptacao: Lesson = {
           ],
         },
         { type: "callout", tone: "dica", title: "No Estúdio", text: "Transponha a partitura no Estúdio e valide de novo: as sugestões de tessitura mostram rapidamente qual naipe sofre em cada tonalidade." },
+      ],
+    },
+    {
+      title: "3. Demonstração: escolher a tonalidade pelo naipe mais frágil",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Liste o naipe mais frágil (em geral os tenores) e sua tessitura real (por exemplo, E3–D4 no seu coro).",
+          "Encontre a nota mais aguda e a nota média da linha desse naipe na tonalidade original.",
+          "Transponha até que a nota média fique no centro e a mais aguda dentro da tessitura real.",
+          "Confira os outros naipes na nova tonalidade (o soprano não pode ficar grave demais nem o baixo fora da extensão).",
+          "Valide no Estúdio: transponha e leia as sugestões de tessitura de cada voz.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Manter a tonalidade do original", "um naipe sempre no limite", "tonalidade pelo naipe mais frágil"], ["Contraltos graves cobrindo a linha de tenor inteira", "perda de volume abaixo de A3", "só nos trechos médios"], ["Reduzir para SAB sem reescrever", "acordes sem terça", "redistribua as notas"], ["Divisi num naipe pequeno", "vozes fracas", "divisi só onde há cantores"]] },
+        { type: "list", items: ["A tonalidade é a do seu coro.", "Falta de naipe: redistribuir, reforçar ou reduzir para três vozes.", "Valide no Estúdio depois de cada mudança."] },
+        {
+          type: "challenge",
+          title: "Um coro sem tenores",
+          task: "Um coral SATB em Dó (o coral de exemplo do curso) será cantado por um grupo sem tenores (sopranos, contraltos e 4 barítonos com extensão A2–D4). Descreva como adaptar: formação, distribuição das notas do tenor e o que conferir no motor.",
+          constraints: ["Formação de três vozes.", "Nenhum acorde sem terça.", "Barítonos dentro de A2–D4."],
+          criteria: ["A formação escolhida é SAB.", "As notas do tenor foram redistribuídas, não apagadas.", "Você indicou o que conferir (terças, espaçamento, extensão)."],
+          hints: ["O baixo original (C3, G2…) cabe nos barítonos? G2 está abaixo de A2.", "Quando o tenor tinha a terça, ela precisa ir para o contralto.", "Confira no motor com o tenor em pausa e leia os diagnósticos de duplicação (veja a aula de três vozes)."],
+          solution: {
+            commentary: "Formação SAB: sopranos com a melodia, contraltos com a voz interna, barítonos com a linha do baixo. O baixo original desce a G2 no compasso 1: suba essas notas uma oitava (G3) ou troque por inversão (por exemplo, I⁶ em vez de V no meio da frase), mantendo o baixo em A2–D4. Para cada acorde em que só o tenor tinha a terça, leve a terça para o contralto; a melodia do soprano não muda. Conferir no motor: tenor em pausa, nenhum acorde sem terça, espaçamento soprano–contralto até uma 8ª, barítono dentro da extensão configurada (ajuste a extensão do baixo no Estúdio para A2–D4).",
+          },
+        },
       ],
     },
   ],

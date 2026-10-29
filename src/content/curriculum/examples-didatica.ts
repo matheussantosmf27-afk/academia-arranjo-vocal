@@ -9,6 +9,8 @@ const satb = (id: string, title: string, voices: Record<"S" | "A" | "T" | "B", s
   scoreFromText({ id, title, formation: "SATB", key: opts.key ?? "C", time: opts.time ?? "4/4", voices, ...(opts.tempo ? { tempo: opts.tempo } : {}), ...(opts.style ? { style: opts.style } : {}) });
 const ttbb = (id: string, title: string, voices: Record<"T1" | "T2" | "B1" | "B2", string>, opts: { key?: string; time?: string; style?: Style } = {}) =>
   scoreFromText({ id, title, formation: "TTBB", key: opts.key ?? "G", time: opts.time ?? "4/4", voices, ...(opts.style ? { style: opts.style } : {}) });
+const ssaa = (id: string, title: string, voices: Record<"S1" | "S2" | "A1" | "A2", string>, opts: { key?: string } = {}) =>
+  scoreFromText({ id, title, formation: "SSAA", key: opts.key ?? "C", time: "4/4", voices });
 /** Vozes em pausa, compasso a compasso (4/4). */
 const rests = (bars: number) => Array.from({ length: bars }, () => "r:w").join(" | ");
 
@@ -112,4 +114,7 @@ export const EXD = {
   marBaixo: satb("exd-desafio-rearm-baixo-sol", "Solução: baixo subindo C – D – E – F – F♯ – G – C contra a melodia", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h E4:h | F#4:h D4:h | E4:w", T: "G3:h G3:h | A3:h A3:h | C4:h G3:h | G3:w", B: "C3:h D3:h | E3:h F3:h | F#3:h G3:h | C3:w" }, { style: "popular-a-cappella" }),
   ttbb7Start: ttbb("exd-desafio-ttbb-setima", "E7 → A: lead e baixo dados", { T1: "r:w | r:w", T2: "B3:w | A3:w", B1: "r:w | r:w", B2: "E3:w | A2:w" }, { key: "A" }),
   ttbb7Sol: ttbb("exd-desafio-ttbb-setima-sol", "Solução: sétima completa no quarteto e resolução com o grave aberto", { T1: "D4:w | C#4:w", T2: "B3:w | A3:w", B1: "G#3:w | E3:w", B2: "E3:w | A2:w" }, { key: "A" }),
+  ssaStart: ssaa("exd-desafio-ssa", "'Mar sereno' para SSA: melodia dada", { S1: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", S2: rests(4), A1: rests(4), A2: rests(4) }),
+  ssaSol: ssaa("exd-desafio-ssa-sol", "Solução: três vozes, contralto em fundamentais e terças", { S1: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", S2: "G4:h G4:h | E4:h E4:h | E4:h F4:h | E4:w", A1: "E4:h E4:h | C4:h C4:h | C4:h D4:h | C4:w", A2: rests(4) }),
+  revStart: satb("exd-desafio-revisao", "Trecho para revisar: I – ii | V – I com vários problemas", { S: "E5:h F5:h | D5:h C5:h", A: "G4:h A4:h | G4:h E4:h", T: "E4:h F4:h | B3:h C4:h", B: "C3:h D3:h | G2:h C2:h" }),
 } as const;

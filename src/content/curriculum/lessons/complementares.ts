@@ -996,6 +996,31 @@ export const lessonAnaliseRepertorio: Lesson = {
         },
       ],
     },
+    {
+      title: "4. Demonstração: a ficha aplicada a um coral",
+      blocks: [
+        { type: "table", caption: "Ficha preenchida — coral de exemplo do curso (SATB, Dó maior)", headers: ["Campo", "O que se observa", "O que levar para o seu arranjo"], rows: [["Formação e tonalidade", "SATB, Dó maior; tenor entre B3 e E4", "tonalidade que deixa o tenor no meio da tessitura"], ["Forma", "três frases de um compasso e cadência final", "cadência a cada fim de frase"], ["Textura", "homofonia do começo ao fim", "homofonia é a base; variações vêm depois"], ["Melodia", "soprano, com ponto culminante C5 no c. 3", "o culminante coincide com o I⁶₄ cadencial"], ["Harmonia", "I – ii – V – I; vi; I⁶ – IV – I⁶₄ – V – I", "ii antes do V; inversões no baixo para fazer linha"], ["Condução", "contralto e tenor quase só por grau", "notas comuns e graus nas vozes internas"]] },
+        { type: "paragraph", text: "A última coluna é o que torna a análise útil: cada observação vira uma decisão que você pode copiar (ou evitar) no próximo arranjo." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Análise só de acordes", "não se aprende arranjo", "forma, textura, distribuição da melodia, clímax"], ["Julgar um arranjo publicado pela régua de outro estilo", "conclusões erradas", "identifique o estilo antes"], ["Copiar soluções sem entender o contexto", "efeito fora do lugar", "anote por que a solução funciona ali"], ["Publicar arranjo de obra protegida", "problema de direitos", "estude livremente; publique só com autorização"]] },
+        { type: "list", items: ["Analise forma, textura, melodia, harmonia, condução e estilo.", "Cada observação vira uma decisão para os seus arranjos.", "Estude repertório em domínio público e gravações; publique com autorização."] },
+        {
+          type: "challenge",
+          title: "Ficha de um arranjo do curso",
+          task: "Preencha a ficha de análise (formação e tonalidade, forma, textura por seção, melodia, harmonia, condução e estilo) para o exemplo 'Melodia com pad' da aula de texturas, e escreva três decisões que você levaria para o seu trabalho de conclusão.",
+          constraints: ["Use a partitura no Estúdio (Abrir exemplo) e ouça cada voz.", "Três decisões concretas, cada uma ligada a uma observação."],
+          criteria: ["Todos os campos da ficha preenchidos com observações verificáveis na partitura.", "As decisões citam a observação que as originou.", "Você identificou o estilo e julgou pela régua desse estilo."],
+          hints: ["Quem canta a letra? E as outras vozes, o que cantam e quando mudam de nota?", "A harmonia do pad é a mesma da versão em homofonia?", "Compare com 'Homofonia': o que muda no efeito, e por quê?"],
+          solution: {
+            commentary: "Ficha-modelo: SATB, Dó maior; uma frase de quatro compassos; textura de melodia + pad (só o soprano canta a letra); melodia no soprano, culminante C5 no c. 2; harmonia igual à da homofonia, com as vozes de apoio mudando de nota só quando o acorde muda; condução por notas comuns (as vozes de apoio quase não se movem); estilo coral tradicional/contemporâneo, sem dissonâncias livres. Três decisões: (1) usar o pad no primeiro verso, porque deixa a melodia e o texto em primeiro plano; (2) escrever o pad em 'uh' com notas comuns, porque cansa menos e afina melhor; (3) guardar a homofonia para o refrão, porque o contraste pad → homofonia marca a mudança de seção.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-analise-repertorio",

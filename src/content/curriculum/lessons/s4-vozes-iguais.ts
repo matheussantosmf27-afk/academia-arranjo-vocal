@@ -1,3 +1,4 @@
+import { EXD } from "../examples-didatica";
 import { EXR } from "../examples-rearm";
 import { EXS } from "../examples-ssaa";
 import type { Lesson } from "../types";
@@ -49,6 +50,32 @@ export const lessonSsaFormacao: Lesson = {
       blocks: [
         { type: "example", score: EXS.graveDemais, verdict: "incorreto", caption: "Contralto II escrito como baixo", commentary: "A mesma harmonia, com o Contralto II descendo a Dó3, como faria um baixo. A nota está fora da extensão de qualquer contralto e abre um buraco de mais de uma oitava entre as contraltos." },
         { type: "list", items: ["O acorde fica uma oitava mais alto que no coro misto: pense em terças e sextas, não em décimas.", "O Contralto II canta fundamentais e terças; quintas no grave deixam o acorde instável.", "Sem baixo real, o acorde soa mais leve: isso é uma cor, não um defeito.", "Escute coros femininos e infantis antes de escrever (ver bibliografia da disciplina)."] },
+      ],
+    },
+    {
+      title: "3. Demonstração: classificar notas por voz",
+      blocks: [
+        { type: "paragraph", text: "Para cada nota que você pretende escrever, pergunte: está na tessitura (pode durar), só na extensão (curta e preparada) ou fora (reescreva)? Exemplo com quatro notas:" },
+        { type: "table", caption: "Classificação com os números do motor (SSAA)", headers: ["Nota", "Soprano I", "Soprano II", "Contralto I", "Contralto II"], rows: [["G5", "extensão (curta)", "fora", "fora", "fora"], ["E5", "tessitura", "extensão", "fora", "fora"], ["B3", "fora", "fora", "tessitura (limite)", "tessitura"], ["F3", "fora", "fora", "fora", "extensão (limite)"]] },
+        { type: "list", ordered: true, items: ["Ache as notas extremas de cada voz no trecho.", "Compare com a tabela de extensões e tessituras da seção 1.", "Notas fora: reescreva (troque de voz ou de oitava). Notas só na extensão: confira se são curtas, preparadas e em vogal favorável.", "Releia as duas pautas: hastes para cima (S1, A1) e para baixo (S2, A2)."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Contralto II escrito como baixo", "notas fora da extensão, buraco no acorde", "pense em terças e sextas, não em décimas"], ["Quintas no grave das contraltos", "acorde instável (⁶₄)", "fundamentais e terças no Contralto II"], ["Hastes trocadas nas pautas", "leitura confusa", "S1/A1 para cima, S2/A2 para baixo"], ["Esperar o 'peso' do coro misto", "frustração", "a leveza é a cor do coro de vozes iguais"]] },
+        { type: "list", items: ["SSAA em pouco mais de duas oitavas (F3–A5).", "Duas pautas em clave de sol.", "Contralto II é a 'voz de baixo', mas em região de contralto."] },
+        {
+          type: "challenge",
+          title: "Do misto para o igual: um acorde",
+          task: "O acorde final de um coral SATB em Dó maior é C3 (B), G3 (T), E4 (A), C5 (S). Reescreva-o para SSAA mantendo o C5 no Soprano I e classifique cada nota nova (tessitura ou só extensão).",
+          constraints: ["Acorde completo (C, E, G) com a fundamental dobrada.", "Nenhuma vizinha a mais de uma oitava.", "Contralto II na fundamental ou na terça."],
+          criteria: ["Todas as notas dentro da extensão de cada voz.", "Contralto II em C4 ou E4 (não em G).", "Você indicou a classificação de cada nota."],
+          hints: ["O baixo C3 sobe uma oitava: C4 no Contralto II.", "O tenor G3 não cabe em nenhuma voz: o G vai para o Soprano II ou o Contralto I.", "Distribuição possível: S1 C5, S2 G4, A1 E4, A2 C4."],
+          solution: {
+            commentary: "S1 C5 (tessitura), S2 G4 (tessitura), A1 E4 (tessitura), A2 C4 (tessitura). O acorde ficou uma oitava mais alto no grave e mais fechado: C4 – E4 – G4 – C5, todas as vizinhas a uma 3ª ou 4ª. É o mesmo acorde do SATB, sem o 'chão' do C3 — a leveza característica das vozes iguais. Armadilha: pôr o G no Contralto II (G3) deixaria a quinta no grave e o acorde em 2ª inversão.",
+          },
+        },
       ],
     },
   ],
@@ -106,6 +133,39 @@ export const lessonSsaTresVozes: Lesson = {
         { type: "callout", tone: "dica", title: "Regra prática", text: "Escreva primeiro a linha da contralto como se fosse um baixo (fundamentais e terças, por grau ou saltos de quarta e quinta) e só depois preencha o Soprano II." },
       ],
     },
+    {
+      title: "3. Demonstração: escrever a contralto primeiro",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva a melodia no Soprano I e decida os acordes.",
+          "Escreva a contralto como se fosse o baixo: fundamental ou terça de cada acorde, por grau ou pequenos saltos.",
+          "O Soprano II recebe a nota que falta (em geral a quinta, ou a sétima nos acordes de dominante).",
+          "Nos acordes de sétima, tire a quinta: fundamental (ou terça) na contralto, terça e sétima nas outras vozes.",
+          "Confira as paralelas entre as três vozes e a resolução da sensível e da sétima.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Em três vozes iguais, a contralto em terça dá acordes em primeira inversão, mais leves; em fundamental, mais firmes. Alterne de propósito: fundamental nas cadências, terça no meio das frases." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Contralto nas quintas", "acordes em ⁶₄ instáveis", "fundamentais e terças"], ["Tirar a terça para caber a sétima", "acorde sem modo", "tire a quinta"], ["Soprano II acima do Soprano I", "a melodia se perde", "S2 sempre abaixo"], ["Mesma nota em duas vozes o tempo todo", "SSA vira duas vozes", "uma nota do acorde por voz"]] },
+        { type: "list", items: ["SSA: uma nota do acorde para cada voz.", "Na sétima, sai a quinta.", "A contralto é a linha grave: fundamentais e terças."] },
+        {
+          type: "challenge",
+          title: "'Mar sereno' para SSA",
+          task: "Harmonize 'Mar sereno' (melodia no Soprano I) para três vozes iguais: escreva Soprano II e Contralto I, com a contralto em fundamentais e terças.",
+          start: EXD.ssaStart,
+          constraints: ["Não altere a melodia; Contralto II em pausa.", "Contralto I só em fundamentais e terças.", "No acorde de dominante, inclua a sétima (F)."],
+          criteria: ["Cada acorde tem terça.", "Nenhuma 5ª ou 8ª paralela entre as três vozes.", "O motor não aponta erros nem alertas."],
+          hints: ["Comece pela contralto: E4 – E4 | C4 – C4 | C4 – D4 | C4 é uma linha possível.", "No compasso 3, o B4 da melodia com F4 (S2) e D4 (A1) forma a dominante sem fundamental — a sétima F desce para E.", "Cuidado no compasso 2 → 3: se a contralto subir C4 → D4 enquanto a melodia sobe G4 → A4, aparecem quintas paralelas."],
+          solution: {
+            score: EXD.ssaSol,
+            commentary: "S2: G4 – G4 | E4 – E4 | E4 – F4 | E4; A1: E4 – E4 | C4 – C4 | C4 – D4 | C4. O motor cifra I⁶ – iii | vi⁶ – I | vi⁶ – vii°⁶ | I: a contralto em E e C dá acordes leves, e o penúltimo é a dominante sem fundamental (B – D – F), em que a sétima F4 desce para E4 e a sensível B4 sobe para C5. Repare no compasso 3: o Am com a contralto parada em C4 evita as quintas paralelas que um Dm (contralto em D4) criaria com a melodia.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-ssa-tres",
@@ -155,6 +215,37 @@ export const lessonSsaQuatroVozes: Lesson = {
         { type: "list", items: ["Vizinhas a no máximo uma oitava (o motor usa esse limite para SSAA).", "Quando a melodia sobe, suba o Soprano II junto e abra embaixo.", "Uníssonos curtos entre Contralto I e Contralto II são aceitáveis; por muito tempo, viram SSA."] },
       ],
     },
+    {
+      title: "3. Demonstração: de SSA para SSAA",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Parta de uma versão SSA correta (cada voz com uma nota do acorde).",
+          "Escreva o Contralto II como a voz mais grave: a fundamental de cada acorde, entre G3 e C4 sempre que possível.",
+          "O Contralto I, que fazia a 'linha de baixo', fica livre: passa a dobrar a fundamental ou a cantar a quinta.",
+          "Confira o espaçamento: nenhuma vizinha a mais de uma oitava; uníssonos curtos entre as contraltos são aceitáveis.",
+          "Confira os dobramentos: fundamental dobrada, nunca a sensível.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Quando a melodia sobe", text: "Com a melodia acima de E5, o Soprano II sobe junto (para não abrir mais de uma oitava) e as contraltos abrem embaixo. Pense sempre no acorde de cima para baixo: S1, depois S2 perto dela, depois as contraltos." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Soprano I isolado no agudo", "buraco no acorde", "S2 a no máximo uma 8ª"], ["Contraltos cruzando", "confusão de linhas", "A1 sempre acima de A2"], ["Sensível dobrada", "oitavas na resolução", "dobre a fundamental"], ["Uníssono longo entre as contraltos", "o SSAA vira SSA", "uníssono só de passagem"]] },
+        { type: "list", items: ["Fechado é o normal em SSAA.", "Dobre a fundamental; vizinhas a até uma 8ª.", "Quando a melodia sobe, o S2 acompanha."] },
+        {
+          type: "challenge",
+          title: "Um acorde em quatro posições",
+          task: "Escreva o acorde de Sol maior (G – B – D) em SSAA de quatro maneiras, com o Soprano I em D5, B4, G4 e D5 (esta última em posição aberta), dobrando sempre a fundamental.",
+          constraints: ["Contralto II em G3 ou B3.", "Nenhuma vizinha a mais de uma oitava.", "Todas as notas dentro da extensão de cada voz."],
+          criteria: ["Cada versão tem G, B e D, com G dobrado.", "As vozes estão em ordem (S1 > S2 > A1 > A2).", "A versão aberta tem uma nota do acorde pulada entre vozes vizinhas."],
+          hints: ["Com S1 D5: S2 B4, A1 G4, A2 G3 é fechada em cima e aberta embaixo.", "Com S1 G4: as quatro vozes ficam muito juntas; A2 em G3 e A1 em B3 ou D4.", "Na versão aberta, confira se a terça (B) continua em alguma voz depois de pular notas."],
+          solution: {
+            commentary: "1) S1 D5, S2 B4, A1 G4, A2 G3 — fechada em cima, 8ª embaixo. 2) S1 B4, S2 G4, A1 D4, A2 G3. 3) S1 G4, S2 D4, A1 B3, A2 G3 — tudo muito junto, som escuro; funciona em p. 4) Aberta: S1 D5, S2 G4, A1 B3, A2 G3 — entre S1 e S2 fica de fora o B; entre S2 e A1, o D: posição aberta, com a terça no Contralto I. Armadilha comum na versão aberta: escrever S2 G4 e A1 D4 — pula-se tanto que a terça desaparece do acorde.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-ssa-quatro",
@@ -202,6 +293,36 @@ export const lessonSsaBaixo: Lesson = {
       blocks: [
         { type: "example", score: EXS.baixoOitavas, verdict: "incorreto", caption: "Contralto II dobrando a melodia", commentary: "O Contralto II canta a melodia uma oitava abaixo: oitavas paralelas o tempo todo, um V⁶₄ fora de contexto e a sensível dobrada. A harmonia perde o chão." },
         { type: "callout", tone: "atencao", title: "Vozes externas", text: "Mesmo sem baixo real, Soprano I e Contralto II são as vozes externas: o ouvido escuta a relação entre elas. Movimento contrário entre as duas é o que mais dá firmeza ao arranjo." },
+      ],
+    },
+    {
+      title: "3. Demonstração: uma linha para o Contralto II",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva as fundamentais da progressão (por exemplo, C – G – Am – F – G – C) uma oitava acima do baixo do coro misto.",
+          "Verifique a região: C4, G3, A3, F3, G3, C4 — o F3 fica no limite inferior da extensão do Contralto II.",
+          "Troque fundamentais por terças para andar por grau e evitar o grave: C4 – B3 (G/B) – A3 – A3 (F/A) – B3 (G/B) – C4.",
+          "Confira a sensível: o B3 do G/B sobe para C4 ou desce para A3 dentro de outro acorde — nunca fica dobrada com a melodia.",
+          "Confira as vozes externas: Soprano I e Contralto II, de preferência em movimento contrário.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Contralto II só em fundamentais com saltos", "linha difícil e grave", "primeiras inversões para andar por grau"], ["Contralto II dobrando a melodia em 8ªs", "oitavas paralelas, sem chão", "linha própria"], ["Sensível no Contralto II dobrada com o Soprano I", "oitavas na resolução", "uma vez só"], ["Notas abaixo de G3 por muito tempo", "som fraco", "suba a linha ou use inversões"]] },
+        { type: "list", items: ["O Contralto II é a linha de baixo do coro de vozes iguais.", "Inversões tornam a linha cantável.", "Vozes externas em movimento contrário dão firmeza."] },
+        {
+          type: "challenge",
+          title: "Linha de Contralto II para C – Am – Dm – G – C",
+          task: "Escreva a linha do Contralto II (uma nota por acorde) para C – Am – Dm – G – C, usando primeiras inversões, com a linha entre G3 e D4 e por grau sempre que possível. Indique a cifra com o baixo.",
+          constraints: ["Entre G3 e D4.", "Pelo menos uma primeira inversão.", "Terminar em C4 (fundamental)."],
+          criteria: ["Cada nota pertence ao acorde.", "Nenhuma quinta no grave (⁶₄).", "A sensível, se estiver na linha, sobe para C."],
+          hints: ["Para Dm, as notas possíveis na região são D4 (fundamental) e A3 (quinta, que daria ⁶₄): fique com D4.", "O Am pode ter C no grave (Am/C): a linha começa C4 – C4.", "No G, a terça B3 (G/B) leva por grau ao C4 final."],
+          solution: {
+            commentary: "C (C4) – Am/C (C4) – Dm (D4) – G/B (B3) – C (C4). A linha C4 – C4 – D4 – B3 – C4 fica toda na região firme do Contralto II, usa duas primeiras inversões (Am/C e G/B) e termina com a sensível B3 subindo para a tônica. Sem as inversões, as fundamentais C4 – A3 – D4 – G3 – C4 obrigariam saltos de 4ª e 5ª e levariam a linha ao G3, no limite.",
+          },
+        },
       ],
     },
   ],
@@ -259,6 +380,37 @@ export const lessonSsaInfantil: Lesson = {
         { type: "list", ordered: true, items: ["Uníssono bem afinado, com respiração e vogais trabalhadas.", "Ecos e ostinatos: um grupo repete, o outro sustenta.", "Cânone (round): a segunda voz é a mesma melodia, atrasada.", "Duas vozes em terças e sextas, com uníssono nas cadências.", "Três vozes (SSA) a partir dos 11 anos, com a terceira voz simples."] },
       ],
     },
+    {
+      title: "3. Demonstração: da canção em uníssono às duas vozes",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha a tonalidade pela faixa etária: para 8 a 10 anos, a melodia entre C4 e D5.",
+          "Ensaie a melodia em uníssono até estar afinada e com respiração nos lugares do texto.",
+          "Introduza um ostinato ou eco curto num grupo enquanto o outro canta a melodia.",
+          "Transforme a canção num cânone (se a harmonia permitir) ou escreva uma segunda voz em terças, com uníssono no início e no fim das frases.",
+          "Só depois de dominadas as duas vozes, considere uma terceira, em notas longas.",
+        ] },
+        { type: "callout", tone: "atencao", title: "O motor e a voz infantil", text: "O motor usa as tessituras de vozes adultas (SSAA). Num arranjo infantil, trate qualquer nota acima de D5 (ou de E5 para crianças maiores) como problema, mesmo que o motor não acuse — use a tabela desta aula como referência." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Tonalidade escolhida pela gravação adulta", "agudo forçado ou grave inaudível", "tonalidade pela tessitura infantil"], ["Segunda voz com intervalos difíceis", "desafinação", "terças e sextas, uníssono nas cadências"], ["Três vozes cedo demais", "insegurança", "uníssono → cânone → duas vozes → três"], ["Texto com muitas sílabas por nota", "dicção confusa", "uma sílaba por nota"]] },
+        { type: "list", items: ["A voz infantil é leve e tem tessitura curta.", "Progressão: uníssono, eco/ostinato, cânone, duas vozes, três.", "Segunda voz em terças, com uníssono nos extremos."] },
+        {
+          type: "challenge",
+          title: "Uma canção para crianças de 8 a 10 anos",
+          task: "Uma melodia vai de G3 a C5 em Dó maior. Escolha a tonalidade para um coro infantil de 8 a 10 anos e descreva como introduzir uma segunda voz em três ensaios.",
+          constraints: ["Use a tabela de tessituras infantis desta aula.", "A segunda voz começa e termina em uníssono com a melodia.", "Três ensaios."],
+          criteria: ["A melodia transposta fica entre C4 e D5.", "A segunda voz usa terças (e sextas, se precisar).", "O plano de ensaios segue a progressão uníssono → duas vozes."],
+          hints: ["G3 está abaixo do confortável para crianças: suba a melodia.", "Uma 4ª acima (Fá maior), a melodia fica de C4 a F5: aguda demais no topo. Uma 2ª maior acima (Ré maior)?", "Em Ré maior, a melodia vai de A3 a D5: o A3 ainda é grave. Considere reescrever a nota mais grave (uma 8ª acima) se for passageira."],
+          solution: {
+            commentary: "O âmbito G3–C5 é uma 11ª: maior que a tessitura de 8 a 10 anos (C4–D5, uma 9ª). Em Ré maior, fica A3–D5: o topo é aceitável e só a nota mais grave (A3) fica abaixo — se for uma nota curta de passagem, mantenha; se for longa, reescreva-a uma oitava acima ou troque por uma nota do acorde. Ensaio 1: melodia em uníssono, com respirações marcadas. Ensaio 2: metade do grupo canta a segunda voz, uma 3ª abaixo, só no refrão, com uníssono no início e no fim de cada frase. Ensaio 3: troca de grupos e as duas vozes na canção inteira.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-ssa-infantil",
@@ -307,6 +459,36 @@ export const lessonSsaTexturas: Lesson = {
       blocks: [
         { type: "list", items: ["Chamada e resposta: sopranos cantam a frase, contraltos respondem (ou o contrário).", "Eco: o mesmo motivo, mais suave, em outro naipe.", "Divisi: um naipe se divide por alguns compassos para engrossar um acorde.", "Pedal: contraltos sustentam uma nota enquanto os sopranos se movem.", "Uníssono das quatro vozes num momento de texto importante."] },
         { type: "callout", tone: "dica", title: "Equilíbrio", text: "Num coro feminino, as contraltos costumam ser menos numerosas. Uma melodia no Contralto I pede menos movimento e dinâmica menor nas outras vozes." },
+      ],
+    },
+    {
+      title: "3. Demonstração: a melodia no Soprano II",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Confira se a melodia cabe na tessitura do Soprano II (D4–D5); se não, mude a tonalidade da estrofe.",
+          "O Soprano I passa a ser o 'teto': notas longas, de preferência notas comuns entre acordes, em vogal neutra e dinâmica menor.",
+          "As contraltos completam o acorde abaixo da melodia, sem cruzá-la.",
+          "Confira o equilíbrio ouvindo de longe: se a melodia sumir, reduza o Soprano I ou tire-o em alguns compassos.",
+          "Volte a melodia para o Soprano I na estrofe seguinte para o contraste ficar claro.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Voz acima da melodia forte e movimentada", "a melodia some", "notas longas e p em cima"], ["Contralto cruzando a melodia interna", "o ouvido segue a voz errada", "contraltos sempre abaixo"], ["Divisi sem cantoras suficientes", "naipe fraco", "divisi só em acordes de reforço"], ["Eco com texto longo", "texto embaralhado", "eco curto, em sílaba ou palavra final"]] },
+        { type: "list", items: ["Em vozes iguais, a melodia pode morar em qualquer voz.", "Quem fica acima da melodia canta menos.", "Chamada e resposta, eco, divisi e pedal dão variedade."] },
+        {
+          type: "challenge",
+          title: "Uma estrofe com a melodia no meio",
+          task: "Uma canção para SSAA tem duas estrofes iguais. Planeje a 2ª com a melodia no Contralto I: tonalidade (a melodia vai de B3 a A4 na tonalidade original), o que cada uma das outras vozes faz e a dinâmica de cada voz.",
+          constraints: ["Mesma tonalidade da 1ª estrofe, se possível.", "Nenhuma voz cruza a melodia.", "Dinâmica indicada por voz."],
+          criteria: ["A melodia cabe na tessitura do Contralto I (B3–B4).", "As vozes acima da melodia têm notas longas e dinâmica menor.", "O Contralto II faz a linha grave sem cruzar."],
+          hints: ["B3–A4 está exatamente na tessitura do Contralto I: não precisa transpor.", "Soprano I e Soprano II podem fazer um pad em 'u' com notas comuns.", "O Contralto II fica com fundamentais e terças abaixo de B3."],
+          solution: {
+            commentary: "Tonalidade original (a melodia B3–A4 está dentro da tessitura do Contralto I). Contralto I: melodia com o texto, mf. Soprano I e Soprano II: pad em 'u', notas longas, p — o Soprano I numa nota comum aos acordes (por exemplo, a quinta da tônica) e o Soprano II mudando só quando a harmonia muda. Contralto II: linha grave com fundamentais e terças entre G3 e B3, mp, sempre abaixo da melodia. No fim da estrofe, a melodia volta para o Soprano I na repetição seguinte.",
+          },
+        },
       ],
     },
   ],
@@ -360,6 +542,37 @@ export const lessonSsaAdaptacao: Lesson = {
         { type: "callout", tone: "atencao", title: "Direitos autorais", text: "Adaptar um arranjo publicado também exige autorização do detentor dos direitos. Pratique com obras em domínio público ou com seus próprios arranjos." },
       ],
     },
+    {
+      title: "3. Demonstração: adaptar um compasso, nota a nota",
+      blocks: [
+        { type: "paragraph", text: "Original SATB (acorde de Sol maior, V em Dó): S B4, A G4, T D4, B G2. Como fica em SSAA?" },
+        { type: "list", ordered: true, items: [
+          "Melodia: Soprano I mantém B4.",
+          "Baixo uma oitava acima: G3 no Contralto II (na tessitura).",
+          "O contralto do original (G4) e o tenor (D4) precisam caber entre o Soprano I e o Contralto II, na ordem S1 > S2 > A1 > A2.",
+          "Notas que faltam: D (a quinta) e um G dobrado. Distribuição: S2 G4, A1 D4.",
+          "Resultado: B4 – G4 – D4 – G3. Sensível B uma vez, fundamental dobrada, vizinhas a no máximo uma 6ª.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Tenor uma oitava acima no Soprano II", "cruza a melodia", "redistribua as notas do acorde"], ["Baixo copiado abaixo de G3", "fora da tessitura", "ajuste com inversões"], ["Manter a tonalidade do misto sem conferir o Soprano I", "agudo excessivo", "tonalidade pela melodia (até F5)"], ["Adaptar arranjo publicado sem autorização", "problema de direitos", "domínio público ou arranjo próprio"]] },
+        { type: "list", items: ["Baixo uma 8ª acima vira Contralto II; o tenor é o problema.", "Redistribua as notas do acorde abaixo da melodia.", "Reduza para SSA quando o Contralto II for fraco."] },
+        {
+          type: "challenge",
+          title: "Adapte a cadência final",
+          task: "Adapte para SSAA a cadência final V7 – I de um coral SATB em Dó: V7 = G2 (B), B3 (T), F4 (A), D5 (S); I = C3 (B), C4 (T), E4 (A), C5 (S).",
+          constraints: ["Soprano I com a melodia (D5 → C5).", "Contralto II com o baixo uma oitava acima.", "Sétima e sensível resolvidas."],
+          criteria: ["Nenhuma voz fora da extensão.", "Nenhum cruzamento.", "F desce para E; B sobe para C."],
+          hints: ["Contralto II: G3 → C4.", "F4 do contralto original pode ficar no Contralto I ou no Soprano II.", "A sensível B3 do tenor original cabe no Contralto I (B3 → C4) — mas então o F4 vai para o Soprano II."],
+          solution: {
+            commentary: "V7: S1 D5, S2 F4, A1 B3, A2 G3. I: S1 C5, S2 E4 (a sétima F4 desce), A1 C4 (a sensível B3 sobe), A2 C4 (fundamental; uníssono com o Contralto I no último acorde — aceitável num final). Levar o Contralto I a G3 para evitar o uníssono não funciona (ficaria abaixo do Contralto II); levá-lo a E4 deixaria a sensível sem resolver e a terça dobrada. Por isso o uníssono no acorde final é a melhor escolha.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-ssa-adaptacao",
@@ -411,6 +624,36 @@ export const lessonSsaCores: Lesson = {
         { type: "example", score: EXS.planing, verdict: "observacao", caption: "Planing no estilo popular a cappella", commentary: "Tríades em posição fechada sobem e descem juntas (C – Dm – Em – Dm – C) em sílaba neutra. No estilo popular, o motor só sugere atenção às quintas e oitavas paralelas: é um efeito de bloco." },
         { type: "example", score: EXS.planingTradicional, verdict: "incorreto", caption: "O mesmo bloco no coral tradicional", commentary: "No estilo tradicional, as mesmas quintas e oitavas paralelas são erros de condução." },
         { type: "callout", tone: "dica", title: "Quando usar", text: "Blocos paralelos funcionam em fundos, introduções e acompanhamento em sílabas neutras. Na harmonização de um hino tradicional, prefira condução independente." },
+      ],
+    },
+    {
+      title: "3. Demonstração: uma nona que soa clara",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha o acorde e a tensão: Cadd9 (C – E – G – D).",
+          "Coloque a nona no agudo, perto da terça: D5 sob E5 (2ª maior) — no agudo, a segunda soa brilhante, não embolada.",
+          "Faça a nona chegar por grau ou nota comum: C5 → D5, ou D5 mantido do acorde anterior.",
+          "Resolva (ou mantenha como cor) no acorde seguinte por grau: D5 → C5 ou D5 → E5.",
+          "Confira o estilo: no popular e no contemporâneo, a nona pode ficar; no tradicional, é dissonância a resolver.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Cluster no grave das contraltos", "embola", "clusters no agudo"], ["Tensão alcançada por salto", "desafina", "grau ou nota comum"], ["Sétima subindo", "sem resolução", "desce por grau"], ["Planing num hino tradicional", "paralelas fora do estilo", "planing em fundos e introduções, estilo popular"]] },
+        { type: "list", items: ["No agudo, segundas e nonas soam claras.", "Tensões por grau ou nota comum.", "Planing é efeito do estilo popular."] },
+        {
+          type: "challenge",
+          title: "Cores para um final",
+          task: "Para o acorde final de uma canção em Dó para SSAA, proponha três versões: C (tríade), Cadd9 e C6, com a nota de cada voz e de onde cada tensão vem (o penúltimo acorde é G7: S1 D5, S2 B4, A1 F4, A2 G3).",
+          constraints: ["Contralto II em C4.", "Cada tensão chega por grau ou nota comum.", "A sétima F4 do G7 desce para E4."],
+          criteria: ["As três versões têm terça.", "As tensões (D, A) chegam por grau ou nota comum.", "Nenhuma vizinha a mais de uma oitava."],
+          hints: ["Tríade: o Soprano II pode descer de B4 para G4 (a quinta), deixando a fundamental dobrada entre Soprano I e Contralto II.", "Cadd9: o D5 do G7 pode ficar no Soprano I — nota comum que vira nona.", "C6: a sexta A pode vir de B4 (S2) descendo por grau."],
+          solution: {
+            commentary: "Tríade: S1 C5 (D5 desce), S2 G4 (B4 desce uma 3ª), A1 E4 (F4 desce), A2 C4 — C, E, G com C dobrado. Cadd9: S1 D5 (fica: nota comum que vira nona), S2 C5 (B4 sobe — a sensível resolve), A1 E4, A2 C4 — a nona D5 sobre a fundamental C5, uma 2ª maior no agudo. C6: S1 C5, S2 A4 (B4 desce por grau: a sexta), A1 E4, A2 C4. Todas as versões resolvem a sétima F4 em E4 no Contralto I.",
+          },
+        },
       ],
     },
   ],
