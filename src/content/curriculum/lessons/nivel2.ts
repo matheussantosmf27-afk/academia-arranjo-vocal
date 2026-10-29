@@ -35,7 +35,7 @@ export const lessonMovimentos: Lesson = {
       ],
     },
     {
-      title: "3. Por que o movimento importa: independência e cantabilidade",
+      title: "3. Independência e cantabilidade, com demonstração no coral",
       blocks: [
         { type: "paragraph", text: "Duas vozes que se movem sempre na mesma direção, mantendo a distância, deixam de ser duas linhas para o ouvido. O movimento contrário é o que mais afirma a independência; o oblíquo dá estabilidade (uma voz serve de âncora enquanto a outra anda); o paralelo em 3ªs e 6ªs dá doçura e fusão sem apagar nenhuma voz; o direto é neutro, mas exige cuidado quando chega a uma 5ª ou 8ª." },
         { type: "paragraph", text: "Para o coro, o movimento também é uma questão prática: notas comuns e graus conjuntos são fáceis de afinar e de aprender. Um contralto que repete ou anda por grau aprende sua voz em minutos; um que salta a cada acorde, em horas. É isso que o 'menor movimento' protege." },

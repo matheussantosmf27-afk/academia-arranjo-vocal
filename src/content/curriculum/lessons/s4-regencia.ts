@@ -217,7 +217,7 @@ export const lessonRegAfinacao: Lesson = {
       title: "3. Demonstração: corrigir uma terça alta",
       blocks: [
         { type: "list", ordered: true, items: [
-          "Construa o acorde por entradas: fundamental, quinta, oitava e, por último, a terça.",
+          "Construa o acorde por entradas, como no exemplo da aula: fundamental, quinta, terça e oitava.",
           "Peça à terça que cante mais suave que as outras vozes e ouça o acorde 'assentar'.",
           "Se a terça maior estiver alta, peça que pense a nota 'um pouco mais baixa', como resolução para dentro do acorde, não como nota de piano.",
           "Troque quem canta a terça (contraltos, depois tenores) para todos ouvirem a diferença.",
@@ -235,10 +235,10 @@ export const lessonRegAfinacao: Lesson = {
           title: "Plano de afinação para um TTBB",
           task: "Planeje um exercício de afinação de 5 minutos para um coro masculino (TTBB) com o acorde de Sol maior e depois o D7 → G.",
           constraints: ["Entradas sucessivas, de baixo para cima.", "Indicar a nota de cada naipe.", "Respeitar os limites graves de intervalo."],
-          criteria: ["A terça entra por último e não está dobrada.", "No D7, a sétima resolve descendo e a sensível subindo.", "Nenhuma terça abaixo de B♭2."],
-          hints: ["Sol maior: baixo G2, barítono D3, Tenor II G3, Tenor I B3.", "D7: baixo D3, barítono F♯3, Tenor II A3, Tenor I C4.", "Resolução em Sol: C4 → B3, F♯3 → G3 (ou D3, para abrir o grave)."],
+          criteria: ["A terça entra depois da fundamental e da quinta e não está dobrada.", "No D7, a sétima resolve descendo e a sensível subindo.", "Nenhuma terça abaixo de B♭2."],
+          hints: ["Sol maior: baixo G2, barítono D3, terça B3 e oitava G3 nos tenores.", "D7: baixo D3, barítono F♯3, Tenor II A3, Tenor I C4.", "Resolução em Sol: C4 → B3, F♯3 → G3 (ou D3, para abrir o grave)."],
           solution: {
-            commentary: "1) Sol maior por entradas: baixo G2 (fundamental), barítono D3 (quinta), Tenor II G3 (oitava), Tenor I B3 (terça, por último, suave). 2) Repetir com a terça no Tenor II (B3) e a quinta no Tenor I (D4), para outro naipe treinar a terça. 3) D7 por entradas: baixo D3, barítono F♯3, Tenor II A3, Tenor I C4 — a terça D3–F♯3 tem a nota inferior acima de B♭2, aceitável. 4) Resolver em Sol: Tenor I C4 → B3 (sétima desce), Tenor II A3 → G3, barítono F♯3 → D3 (a sensível desce para abrir o grave — recurso de voz interna) ou → G3 (resolvendo, mas em uníssono com o Tenor II), baixo D3 → G2. Ouça as duas resoluções e decida com o coro.",
+            commentary: "1) Sol maior por entradas, na ordem da aula: baixo G2 (fundamental), barítono D3 (quinta), Tenor I B3 (terça, suave) e Tenor II G3 (oitava). 2) Repetir com a terça no Tenor II (B3) e a quinta no Tenor I (D4), para outro naipe treinar a terça. 3) D7 por entradas: baixo D3, barítono F♯3, Tenor II A3, Tenor I C4 — a terça D3–F♯3 tem a nota inferior acima de B♭2, aceitável. 4) Resolver em Sol: Tenor I C4 → B3 (sétima desce), Tenor II A3 → G3, barítono F♯3 → D3 (a sensível desce para abrir o grave — recurso de voz interna) ou → G3 (resolvendo, mas em uníssono com o Tenor II), baixo D3 → G2. Ouça as duas resoluções e decida com o coro.",
           },
         },
       ],

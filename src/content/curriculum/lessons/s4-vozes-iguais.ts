@@ -161,7 +161,7 @@ export const lessonSsaTresVozes: Lesson = {
           hints: ["Comece pela contralto: E4 – E4 | C4 – C4 | C4 – D4 | C4 é uma linha possível.", "No compasso 3, o B4 da melodia com F4 (S2) e D4 (A1) forma a dominante sem fundamental — a sétima F desce para E.", "Cuidado no compasso 2 → 3: se a contralto subir C4 → D4 enquanto a melodia sobe G4 → A4, aparecem quintas paralelas."],
           solution: {
             score: EXD.ssaSol,
-            commentary: "S2: G4 – G4 | E4 – E4 | E4 – F4 | E4; A1: E4 – E4 | C4 – C4 | C4 – D4 | C4. O motor cifra I⁶ – iii | vi⁶ – I | vi⁶ – vii°⁶ | I: a contralto em E e C dá acordes leves, e o penúltimo é a dominante sem fundamental (B – D – F), em que a sétima F4 desce para E4 e a sensível B4 sobe para C5. Repare no compasso 3: o Am com a contralto parada em C4 evita as quintas paralelas que um Dm (contralto em D4) criaria com a melodia.",
+            commentary: "S2: G4 – G4 | E4 – E4 | E4 – F4 | E4; A1: E4 – E4 | C4 – C4 | C4 – D4 | C4. O motor cifra I⁶ – iii | vi⁶ – I | vi⁶ – vii°⁶ | I: a contralto em E e C dá acordes leves. O penúltimo acorde é a dominante sem fundamental (B – D – F): pela regra da seção 1, sairia a quinta (D) e ficaria a fundamental G — mas o G teria de ser a nota mais grave, e G3 está abaixo da extensão do Contralto I. Nesse caso, a escrita a três vozes troca a fundamental pela quinta (vii°⁶, que funciona como dominante); a sétima F4 desce para E4 e a sensível B4 sobe para C5. Repare no compasso 3: o Am com a contralto parada em C4 evita as quintas paralelas que um Dm (contralto em D4) criaria com a melodia.",
           },
         },
       ],

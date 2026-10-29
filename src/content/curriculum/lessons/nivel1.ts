@@ -324,7 +324,7 @@ export const lessonFuncoes: Lesson = {
       ],
     },
     {
-      title: "3. Substitutos e a direção funcional",
+      title: "3. Substitutos e demonstração da direção funcional",
       blocks: [
         { type: "paragraph", text: "Acordes da mesma função compartilham notas: ii (D–F–A) tem duas notas em comum com IV (F–A–C); vi (A–C–E) tem duas em comum com I (C–E–G). Por isso um pode ocupar o lugar do outro sem mudar a direção da frase — muda a cor, não o caminho." },
         { type: "table", caption: "Funções em Dó maior e o que cada acorde acrescenta", headers: ["Função", "Acorde principal", "Substitutos", "Diferença de efeito"], rows: [["Tônica (T)", "I (C–E–G)", "vi (A–C–E), iii (E–G–B, raro)", "vi é tônica 'velada', menos conclusiva"], ["Subdominante (S)", "IV (F–A–C)", "ii (D–F–A), ii⁶ (baixo F)", "ii prepara o V com baixo por 5ª; ii⁶ deixa o baixo andar F → G"], ["Dominante (D)", "V (G–B–D)", "V7, vii°⁶ (B–D–F)", "vii°⁶ é dominante sem fundamental, ótimo de passagem"]] },

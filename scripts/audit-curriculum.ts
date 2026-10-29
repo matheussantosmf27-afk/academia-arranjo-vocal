@@ -50,6 +50,12 @@ export interface LessonAudit {
   readonly vagueObjectives: readonly string[];
   readonly estimate: number;
   readonly project: boolean;
+  /** Seção de demonstração passo a passo. */
+  readonly demonstration: boolean;
+  /** Tabela de erros comuns (erro, causa, correção). */
+  readonly commonErrors: boolean;
+  /** Exercícios independentes: na partitura (solução conferida pelo motor) e escritos. */
+  readonly challenges: { readonly scored: number; readonly written: number };
   readonly flags: readonly string[];
 }
 
@@ -83,9 +89,14 @@ export function auditLesson(lesson: Lesson): LessonAudit {
   if (spec) for (let seed = 1; seed <= 10 && !earInReview; seed++) earInReview = buildReviewSet(spec, seed).some((i) => i.earOnly);
   const productionItems = gens.filter((g) => PRODUCTION.includes(g.type)).reduce((n, g) => n + g.count, 0);
   const vagueObjectives = lesson.objectives.filter((o) => VAGUE.test(o.trim()));
+  const demonstration = lesson.sections.some((s) => /demonstra/i.test(s.title));
+  const commonErrors = blocks.some((b) => b.type === "table" && /erro/i.test(b.caption));
+  const challenges = { scored: 0, written: 0 };
+  for (const b of blocks) if (b.type === "challenge") challenges[b.solution.score ? "scored" : "written"]++;
   // Estimativa: leitura a 150 palavras/min, 2 min por exemplo (ouvir + ler), 3 min por escuta guiada,
-  // 1,5 min por item de verificação e 15 min para a aplicação no Estúdio.
-  const estimate = Math.round(w / 150 + (ex.correto + ex.incorreto + ex.observacao) * 2 + listening * 3 + items.length * 1.5 + (lesson.application ? 15 : 0));
+  // 1,5 min por item de verificação, 15 min para a aplicação no Estúdio e, por exercício
+  // independente, 15 min (na partitura) ou 10 min (escrito), além do texto já contado.
+  const estimate = Math.round(w / 150 + (ex.correto + ex.incorreto + ex.observacao) * 2 + listening * 3 + items.length * 1.5 + (lesson.application ? 15 : 0) + challenges.scored * 15 + challenges.written * 10);
   const project = PROJECTS.some((p) => p.lessonId === lesson.id);
   const flags: string[] = [];
   if (statics.length > 0 && shownFirstRate > 0.6) flags.push(`resposta certa na 1ª posição em ${Math.round(shownFirstRate * 100)}% das tentativas`);
@@ -96,7 +107,10 @@ export function auditLesson(lesson: Lesson): LessonAudit {
   if (estimate < lesson.estimatedMinutes * 0.5) flags.push(`duração anunciada (${lesson.estimatedMinutes} min) acima da estimada (${estimate} min)`);
   if (ex.incorreto + ex.observacao === 0) flags.push("sem contraexemplo");
   if (listening === 0) flags.push("sem escuta guiada");
-  return { lesson, unitCode, words: w, examples: ex, listening, staticItems: statics.length, firstOptionCorrect, shownFirstRate, generatedItems, generatorTypes: [...new Set(gens.map((g) => g.type))], earItems, earInReview, productionItems, vagueObjectives, estimate, project, flags };
+  if (!demonstration) flags.push("sem demonstração passo a passo");
+  if (!commonErrors) flags.push("sem tabela de erros comuns");
+  if (challenges.scored + challenges.written === 0) flags.push("sem exercício independente");
+  return { lesson, unitCode, words: w, examples: ex, listening, staticItems: statics.length, firstOptionCorrect, shownFirstRate, generatedItems, generatorTypes: [...new Set(gens.map((g) => g.type))], earItems, earInReview, productionItems, vagueObjectives, estimate, project, demonstration, commonErrors, challenges, flags };
 }
 
 function main() {
@@ -107,7 +121,7 @@ function main() {
   lines.push("");
   lines.push(`Gerada por \`npm run audit:curriculum\` a partir do conteúdo do repositório. ${rows.length} aulas disponíveis.`);
   lines.push("");
-  lines.push("Critérios medidos automaticamente: palavras de conteúdo, exemplos por veredito, escutas guiadas, itens fixos e gerados da verificação, itens auditivos, itens de decisão de escrita (realização, distribuição, rearmonização, localizar o erro), objetivos com verbo não observável, posição da resposta certa nos itens fixos e estimativa de duração (leitura a 150 palavras/min, 2 min por exemplo, 3 min por escuta, 1,5 min por item, 15 min de aplicação no Estúdio).");
+  lines.push("Critérios medidos automaticamente: palavras de conteúdo, exemplos por veredito, escutas guiadas, itens fixos e gerados da verificação, itens auditivos, itens de decisão de escrita (realização, distribuição, rearmonização, localizar o erro), objetivos com verbo não observável, posição da resposta certa nos itens fixos e estimativa de duração (leitura a 150 palavras/min, 2 min por exemplo, 3 min por escuta, 1,5 min por item, 15 min de aplicação no Estúdio, 15 min por exercício independente na partitura e 10 min por exercício escrito); presença de demonstração passo a passo, de tabela de erros comuns e de exercícios independentes.");
   lines.push("");
   lines.push("## Resumo");
   lines.push("");
@@ -126,14 +140,16 @@ function main() {
   lines.push(`- Gravidade (ver "Recomendações por aula"): alta ${count((r) => grav(r) === "alta")}, média ${count((r) => grav(r) === "média")}, baixa ${count((r) => grav(r) === "baixa")}`);
   lines.push(`- Aulas sem contraexemplo: ${count((r) => r.examples.incorreto + r.examples.observacao === 0)}`);
   lines.push(`- Aulas sem escuta guiada: ${count((r) => r.listening === 0)}`);
+  lines.push(`- Aulas com demonstração passo a passo: ${count((r) => r.demonstration)}; com tabela de erros comuns: ${count((r) => r.commonErrors)}`);
+  lines.push(`- Exercícios independentes: ${rows.reduce((n, r) => n + r.challenges.scored, 0)} na partitura (solução conferida pelo motor) e ${rows.reduce((n, r) => n + r.challenges.written, 0)} escritos (solução comentada); aulas sem nenhum: ${count((r) => r.challenges.scored + r.challenges.written === 0)}`);
   lines.push("");
   lines.push("## Matriz");
   lines.push("");
-  lines.push("| Aula | Disciplina | Min. anunciados / estimados | Exemplos (C/I/O) | Escutas | Itens fixos / gerados | Auditivos (verificação / revisão) |  Escrita | Geradores | Pendências |");
-  lines.push("|---|---|---|---|---|---|---|---|---|---|");
+  lines.push("| Aula | Disciplina | Palavras | Min. anunciados / estimados | Exemplos (C/I/O) | Escutas | Demonstração / erros comuns | Exercício independente | Itens fixos / gerados | Auditivos (verificação / revisão) |  Escrita | Geradores | Pendências |");
+  lines.push("|---|---|---|---|---|---|---|---|---|---|---|---|---|");
   for (const r of rows) {
     lines.push(
-      `| \`${r.lesson.id}\` ${r.lesson.title} | ${r.unitCode} | ${r.lesson.estimatedMinutes} / ${r.estimate} | ${r.examples.correto}/${r.examples.incorreto}/${r.examples.observacao} | ${r.listening} | ${r.staticItems} / ${r.generatedItems} | ${r.earItems} / ${r.earInReview ? "sim" : "não"} | ${r.productionItems}${r.project ? " + projeto" : ""} | ${r.generatorTypes.join(", ")} | ${r.flags.join("; ") || "—"} |`,
+      `| \`${r.lesson.id}\` ${r.lesson.title} | ${r.unitCode} | ${r.words} | ${r.lesson.estimatedMinutes} / ${r.estimate} | ${r.examples.correto}/${r.examples.incorreto}/${r.examples.observacao} | ${r.listening} | ${r.demonstration ? "sim" : "não"} / ${r.commonErrors ? "sim" : "não"} | ${r.challenges.scored ? `${r.challenges.scored} na partitura` : ""}${r.challenges.scored && r.challenges.written ? " + " : ""}${r.challenges.written ? `${r.challenges.written} escrito` : ""}${r.challenges.scored + r.challenges.written ? "" : "—"} | ${r.staticItems} / ${r.generatedItems} | ${r.earItems} / ${r.earInReview ? "sim" : "não"} | ${r.productionItems}${r.project ? " + projeto" : ""} | ${r.generatorTypes.join(", ")} | ${r.flags.join("; ") || "—"} |`,
     );
   }
   lines.push("");

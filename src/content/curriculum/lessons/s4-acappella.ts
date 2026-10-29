@@ -65,7 +65,7 @@ export const lessonAcappellaSolistas: Lesson = {
       blocks: [
         { type: "list", ordered: true, items: [
           "Meça a melodia: nota mais grave, mais aguda e nota média (por exemplo, D4–B4, média G4, em Sol maior).",
-          "Compare com a tessitura de cada solista: tenor (lead) E3–E4, barítono B2–C4 (aproximadamente), baixo G2–C4.",
+          "Compare com a tessitura de cada solista (TTBB): Tenor I G3–F4, lead (Tenor II) E3–D4, barítono B2–C4, baixo G2–A3.",
           "Para o barítono, uma oitava abaixo em Sol (D3–B3, média G3) cabe bem; para o tenor, uma oitava abaixo em Lá (E3–C♯4) fica mais brilhante.",
           "Se a seção do barítono precisa de outra tonalidade, mude a tonalidade da seção inteira (com uma modulação preparada), não só a melodia.",
           "Revise a harmonia em volta: com a melodia mais grave, as outras vozes sobem ou descem para não cobri-la.",
@@ -82,7 +82,7 @@ export const lessonAcappellaSolistas: Lesson = {
           type: "challenge",
           title: "Plano de solistas",
           task: "Uma canção em Ré maior tem melodia de A3 a F♯4 (sons reais, pensando em vozes masculinas) e forma Estrofe 1 – Refrão – Estrofe 2 – Refrão – Final. Planeje quem canta a melodia em cada seção num quarteto masculino e em que oitava/tonalidade, com o acompanhamento das outras vozes.",
-          constraints: ["Tessituras: tenor E3–E4, lead (Tenor II) E3–D4, barítono B2–C4, baixo G2–C4.", "Pelo menos três solistas diferentes ao longo da canção.", "Se mudar a tonalidade, indique como modula."],
+          constraints: ["Tessituras (TTBB): Tenor I G3–F4, lead (Tenor II) E3–D4, barítono B2–C4, baixo G2–A3.", "Pelo menos três solistas diferentes ao longo da canção.", "Se mudar a tonalidade, indique como modula."],
           criteria: ["Cada solista canta dentro da sua tessitura.", "O acompanhamento de cada seção não cobre o solista.", "As mudanças de solista seguem a curva de energia."],
           hints: ["Compare o ponto mais agudo da melodia (F♯4) com o topo das tessituras: nenhum solista masculino amador fica confortável ali.", "Em Lá maior (uma 4ª abaixo), a melodia fica entre E3 e C♯4: boa para o lead e para o tenor.", "Uma oitava abaixo, a melodia sairia da tessitura do barítono; ele pode participar em dueto, uma 3ª abaixo do lead."],
           solution: {

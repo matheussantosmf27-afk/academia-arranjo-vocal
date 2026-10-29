@@ -612,8 +612,9 @@ export const lessonSilabas: Lesson = {
       ],
     },
     {
-      title: "5. Síntese e exercício independente",
+      title: "5. Erros comuns, síntese e exercício independente",
       blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Pad em vogal aberta e forte sob o texto", "o solista é encoberto", "'uh' ou 'mm', em p"], ["Sílabas diferentes para a mesma função", "confusão no coro e no ouvinte", "uma sílaba por função e seção"], ["Consoantes demais em andamento rápido", "ruído", "'dm' em vez de 'dum', ou menos notas"], ["Fechamento ('oo → m') não indicado", "cada cantor fecha num momento", "escreva quando fechar"]] },
         { type: "list", items: ["Três famílias: pad (uh, oh, mm), ritmo (dum, ba, doo), baixo vocal (dm, bm).", "Escolha pela função e pela relação com a letra da melodia.", "Consistência na partitura: a mesma função, a mesma sílaba; mudanças marcam seções."] },
         {
           type: "challenge",

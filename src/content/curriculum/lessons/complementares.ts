@@ -470,7 +470,7 @@ export const lessonEscritaBloco: Lesson = {
           solution: {
             score: EXD.blocoSol,
             commentary: "Contralto G4 – E4 – D4 – E4 | G4 e tenor D4 – C4 – B3 – C4 | D4 sobre G2 sustentado. O bloco desenha a mesma curva da melodia; sobre o pedal, o acorde de Lá menor vira Am7/G — o motor o cifra como ii⁴₂, uma cor suave típica do gospel. Mesmo com movimento paralelo, não há 5ªs nem 8ªs paralelas entre as vozes do bloco (só 3ªs, 4ªs e 6ªs), por isso o motor não registra nada.",
-            alternatives: ["Em drop 2 (o contralto desce uma 8ª), o bloco fica mais aberto: contralto G3 – E3… — grave demais para contraltos; nesta tonalidade, o drop 2 funcionaria melhor com o tenor e o barítono num coro masculino."],
+            alternatives: ["Em drop 2 (o contralto desce uma 8ª), o bloco fica mais aberto, mas nesta tonalidade o contralto iria a G3 – E3, abaixo da sua região confortável: o drop 2 funciona melhor num coro masculino, com tenor e barítono."],
           },
         },
       ],

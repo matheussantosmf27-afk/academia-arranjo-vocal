@@ -360,7 +360,7 @@ export const lessonProsodia: Lesson = {
       ],
     },
     {
-      title: "2. Silabação, melisma e o peso das palavras",
+      title: "2. Silabação, melisma e demonstração das respirações",
       blocks: [
         { type: "paragraph", text: "Silabação é uma nota por sílaba: o texto fica claro e o ritmo da fala, preservado. Melisma é uma sílaba sobre várias notas: o texto fica mais lento e a palavra ganha destaque. A escolha é de interpretação do texto: melisma em 'glória', 'amor', 'luz' (palavras que o texto quer sublinhar, com vogal aberta e sílaba tônica); silabação em narrativas e diálogos." },
         { type: "table", caption: "Onde respirar e onde não respirar", headers: ["Lugar", "Respirar?", "Por quê"], rows: [["Vírgula, ponto, fim de verso", "sim", "o texto já pausa"], ["Antes de uma palavra importante", "sim, se houver tempo", "a respiração destaca a palavra"], ["Entre artigo e substantivo ('a / luz')", "não", "separa o que o ouvido junta"], ["No meio de uma palavra", "nunca", "erro de arranjo, não do cantor"], ["Em nota longa sem pausa possível", "respiração escalonada", "o naipe reveza o fôlego"]] },
