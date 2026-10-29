@@ -34,6 +34,36 @@ export const lessonMovimentos: Lesson = {
         { type: "listening", title: "Escute as linhas extremas", score: EX.paralelasCorrigidas, instructions: ["Ouça soprano + baixo: uma linha desce, a outra sobe.", "Compare com a versão paralela."], focus: [["S", "B"]] },
       ],
     },
+    {
+      title: "3. Por que o movimento importa: independência e cantabilidade",
+      blocks: [
+        { type: "paragraph", text: "Duas vozes que se movem sempre na mesma direção, mantendo a distância, deixam de ser duas linhas para o ouvido. O movimento contrário é o que mais afirma a independência; o oblíquo dá estabilidade (uma voz serve de âncora enquanto a outra anda); o paralelo em 3ªs e 6ªs dá doçura e fusão sem apagar nenhuma voz; o direto é neutro, mas exige cuidado quando chega a uma 5ª ou 8ª." },
+        { type: "paragraph", text: "Para o coro, o movimento também é uma questão prática: notas comuns e graus conjuntos são fáceis de afinar e de aprender. Um contralto que repete ou anda por grau aprende sua voz em minutos; um que salta a cada acorde, em horas. É isso que o 'menor movimento' protege." },
+        { type: "table", caption: "Demonstração: os movimentos do coral de exemplo no 1º tempo do compasso 1 (I → ii, C3 C4 E4 G4 → D3 A3 D4 F4)", headers: ["Par", "Antes → depois", "Movimento"], rows: [["Soprano–baixo", "G4/C3 → F4/D3", "contrário (soprano desce, baixo sobe)"], ["Soprano–contralto", "G4/E4 → F4/D4", "paralelo em 3ªs (aceito)"], ["Contralto–tenor", "E4/C4 → D4/A3", "direto (os dois descem, de 3ª para 4ª)"], ["Tenor–baixo", "C4/C3 → A3/D3", "contrário: a 8ª vira 5ª sem paralelismo"]] },
+        { type: "callout", tone: "dica", title: "Como conferir na prática", text: "No Estúdio, use os botões de voz (S, C, T, B) para ouvir dois naipes por vez e siga as duas linhas com o dedo na partitura. Diga em voz alta: 'sobe–desce' (contrário), 'sobe–sobe' (paralelo ou direto), 'parada–sobe' (oblíquo)." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Consequência", "Correção"], rows: [["Todas as vozes na mesma direção", "paralelas e perda de independência", "pelo menos uma voz em movimento contrário ao baixo"], ["Vozes internas saltando para notas 'bonitas'", "linhas difíceis de cantar", "notas comuns primeiro; depois a nota mais próxima"], ["Movimento direto às 5ªs/8ªs nas vozes extremas com salto no soprano", "quintas/oitavas diretas", "soprano por grau ou movimento contrário"], ["Movimento contrário forçado com saltos enormes", "linha quebrada", "contrário por grau; aceite oblíquo quando o soprano tem notas repetidas"]] },
+        { type: "list", items: ["Quatro movimentos: paralelo, direto, contrário e oblíquo.", "Contrário entre as vozes extremas é o principal recurso de independência.", "Menor movimento: notas comuns e graus conjuntos nas vozes internas."] },
+        {
+          type: "challenge",
+          title: "Um baixo com os quatro movimentos",
+          task: "Escreva um baixo para o soprano dado, uma nota por mínima, usando ao menos três tipos de movimento entre as duas vozes e terminando em cadência autêntica.",
+          start: EXD.movStart,
+          constraints: ["Baixo entre G2 e C4.", "Só notas que formem, com o soprano, um acorde diatônico de Dó maior.", "Nenhuma 5ª ou 8ª paralela entre soprano e baixo."],
+          criteria: ["Você marcou o tipo de movimento em cada uma das seis trocas.", "Há pelo menos um movimento contrário e um oblíquo.", "O baixo termina G → C sob B4 → C5."],
+          hints: ["No compasso 2 o soprano repete C5 no compasso 3: um lugar natural para o movimento oblíquo (o baixo anda, o soprano fica).", "Quando o soprano desce E5 → C5, o baixo pode descer junto em 3ªs (paralelo) — terças paralelas são permitidas.", "Baixo possível: C3 – A2 | G2 – C3 | ? – G2 | C3."],
+          solution: {
+            score: EXD.movSol,
+            commentary: "C3 – A2 | G2 – C3 | A2 – G2 | C3. Movimentos: paralelo em 3ªs (E5/C3 → C5/A2), contrário (C5/A2 → D5/G2 e D5/G2 → C5/C3), oblíquo (o soprano repete C5 enquanto o baixo desce C3 → A2), paralelo em 3ªs de novo (C5/A2 → B4/G2) e direto no fim (B4/G2 → C5/C3, as duas vozes sobem; a chegada à 8ª é aceita porque o soprano anda por grau).",
+            alternatives: ["No compasso 3, F3 (IV) em vez de A2: oblíquo do mesmo jeito e, em seguida, contrário (soprano desce para B4, baixo sobe para G3). Ganha-se um contrário a mais; o salto G3 → C3 no fim é uma 5ª descendente, natural numa cadência."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-movimentos",
@@ -198,6 +228,42 @@ export const lessonEspacamento: Lesson = {
         { type: "listening", title: "Clareza no grave", score: EX.ttbbGraveCorrigido, instructions: ["Ouça barítono + baixo.", "Compare com a versão em terça maior grave."], focus: [["B1", "B2"]] },
       ],
     },
+    {
+      title: "4. Demonstração: fechar o buraco de um acorde SATB",
+      blocks: [
+        { type: "paragraph", text: "Problema: o acorde de Dó maior abaixo (C3, G3, C4, E5) tem mais de uma oitava entre contralto e soprano. O soprano é a melodia e não pode mudar. Como redistribuir?" },
+        { type: "list", ordered: true, items: [
+          "Meça os três intervalos entre vozes vizinhas: S–A = 10ª (C4–E5), A–T = 4ª, T–B = 5ª. Só o primeiro passa do limite.",
+          "Suba o contralto para perto do soprano, escolhendo uma nota do acorde: G4 (S–A vira 6ª).",
+          "Agora A–T ficou grande (G3–G4, 8ª): no limite. Suba o tenor para C4 ou E4: com C4, temos C3, C4, G4, E5 — posição aberta, bem espaçada.",
+          "Confira as duplicações: C dobrado (baixo e tenor), E e G uma vez cada. Acorde completo.",
+          "Se o acorde estivesse no meio de uma frase, confira também o caminho de cada voz até ele: a melhor distribuição isolada pode criar saltos ou paralelas no contexto.",
+        ] },
+        { type: "example", score: EX.espacamento, verdict: "incorreto", caption: "Antes: um buraco entre soprano e contralto", commentary: "E5–C4: mais de uma oitava. O acorde soa em duas camadas separadas: um soprano isolado e um bloco grave." },
+        { type: "example", score: EX.tercaDobrada, verdict: "observacao", caption: "Uma tentativa intermediária: o contralto subiu, mas o tenor dobrou a terça", commentary: "C3, E4, G4, E5: espaçamento resolvido, mas a terça E aparece duas vezes. O motor registra como recomendação — por isso o passo 4 (conferir duplicações) vem depois de cada correção de espaçamento." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que acontece", "Correção"], rows: [["Mais de uma 8ª entre vozes superiores vizinhas", "subir o soprano sem levar o contralto", "aproxime o contralto ou mude a posição do acorde"], ["Terça no grave (abaixo de B♭2)", "pensar o TTBB como SATB uma oitava abaixo", "5ª ou 8ª embaixo, terça no tenor"], ["Sobreposição", "uma voz vai além da nota anterior da vizinha", "troque as notas entre as vozes ou mude a direção"], ["Cruzamento sem intenção", "procurar a nota mais próxima sem olhar a vizinha", "cruze só de propósito (barítono acima do Tenor II em barbershop) e por pouco tempo"]] },
+        { type: "list", items: ["Até uma 8ª entre vozes superiores vizinhas; até uma 12ª entre tenor e baixo.", "No grave, intervalos largos: respeite os limites graves de intervalo.", "Cruzamento e sobreposição confundem as linhas; o estilo decide se são aceitáveis."] },
+        {
+          type: "challenge",
+          title: "Desembole o TTBB",
+          task: "O trecho TTBB abaixo (I – IV | V – I em Sol) foi escrito com as vozes graves apertadas: o motor aponta terças graves, sobreposições e uma nota fora da extensão. Reescreva-o mantendo a harmonia e o Tenor I, até o motor não apontar nenhum problema.",
+          start: EXD.espStart,
+          revises: true,
+          constraints: ["Mantenha os acordes e o Tenor I.", "Baixo com as fundamentais.", "Nenhuma terça abaixo de B♭2."],
+          criteria: ["Baixo dentro da extensão (E2–C4) e na tessitura sempre que possível.", "Nenhuma sobreposição ou cruzamento.", "Nenhuma 5ª ou 8ª paralela entre qualquer par."],
+          hints: ["Comece pelo baixo: qual oitava de D deixa o V sonoro e dentro da extensão?", "O barítono pode sustentar G3 por três acordes (é nota do I e do IV) e descer para F♯3 no V.", "Os tenores ficam com terças e quintas: Tenor II B3 – C4 | A3 – B3."],
+          solution: {
+            score: EXD.espSol,
+            commentary: "Baixo G2 – C3 | D3 – G2; barítono G3 – G3 | F♯3 – G3; Tenor II B3 – C4 | A3 – B3; Tenor I mantido. Embaixo ficam 8ªs e 5ªs (G2/G3, C3/G3, D3/F♯3 é uma 3ª maior, mas com a nota inferior em D3, acima do limite); a sensível F♯3 do barítono sobe para G3. Repare na armadilha evitada: com o barítono em D3 no primeiro acorde, a ida para G3/C3 formaria quintas paralelas com o baixo.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-espacamento",
@@ -240,6 +306,39 @@ export const lessonDuplicacoes: Lesson = {
         { type: "example", score: EX.tercaDobrada, verdict: "observacao", caption: "I com a terça dobrada", commentary: "Recomendação: num acorde maior em estado fundamental, a terça dobrada fica proeminente." },
         { type: "example", score: EX.cadEngano, verdict: "correto", caption: "vi com terça dobrada após V", commentary: "Aqui a terça dobrada é a solução recomendada — o motor reconhece a exceção." },
         { type: "listening", title: "Peso da terça", score: EX.tercaDobrada, instructions: ["Ouça o acorde e depois apenas soprano + tenor (as duas terças)."], focus: [["S", "T"], ["S", "A", "T", "B"]] },
+      ],
+    },
+    {
+      title: "2. Demonstração: a duplicação decidida pela condução",
+      blocks: [
+        { type: "paragraph", text: "As regras de duplicação não são uma tabela a decorar: são consequência de para onde cada nota quer ir. Veja o caso clássico do V → vi (cadência de engano) em Dó maior, com o baixo G2 → A2 e o soprano D5 → C5." },
+        { type: "list", ordered: true, items: [
+          "No V (G–B–D), a sensível B precisa subir para C. Coloque-a no tenor: B3 → C4.",
+          "O baixo sobe G2 → A2. Se mais alguém subir um grau junto com ele mantendo 5ª ou 8ª, haverá paralelas — por isso as outras vozes descem ou ficam.",
+          "O contralto, em G4 (fundamental dobrada do V), desce para E4.",
+          "Resultado no vi: A2, C4, E4, C5 — a terça C aparece duas vezes (tenor e soprano). Não é descuido: é o preço de deixar a sensível subir e evitar paralelas. Por isso a regra 'no vi depois do V, dobre a terça'.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Quando a regra muda", text: "Num acorde maior em estado fundamental fora dessa situação, a terça dobrada pesa (é a nota mais 'colorida' do acorde) — o motor registra como recomendação. Em TTBB e no barbershop, por razões de afinação, dobra-se quase sempre a fundamental ou a quinta, e a terça fica sozinha num tenor." },
+      ],
+    },
+    {
+      title: "3. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Consequência", "Correção"], rows: [["Sensível dobrada no V", "oitavas paralelas ou sensível sem resolução", "dobre a fundamental do V"], ["Sétima dobrada", "duas vozes descendo juntas", "a sétima aparece uma vez"], ["Terça omitida para 'completar' as dobras", "acorde sem modo", "omita a quinta"], ["Fundamental dobrada no vi depois do V", "paralelas ou sensível descendo", "dobre a terça do vi"], ["Dobrar o baixo do I⁶", "terça pesada no acorde de tônica", "dobre a fundamental ou a quinta"]] },
+        { type: "list", items: ["Dobre a fundamental em estado fundamental; o baixo no ⁶₄.", "Nunca dobre sensível nem sétima.", "Omita a quinta, nunca a terça.", "No vi depois do V, dobre a terça."] },
+        {
+          type: "challenge",
+          title: "Engano e autêntica com as dobras certas",
+          task: "Soprano e baixo estão dados para V – vi | V – I em Dó maior. Escreva contralto e tenor e anote, em cada acorde, a nota dobrada.",
+          start: EXD.dupStart,
+          constraints: ["Não altere soprano nem baixo.", "Só tríades (sem sétimas)."],
+          criteria: ["Sensível uma vez em cada V e subindo quando o acorde seguinte é vi ou I.", "O vi tem a terça dobrada; o I final, a fundamental.", "O motor não aponta erros nem alertas."],
+          hints: ["Coloque a sensível no tenor nos dois V: B3 no primeiro, e no segundo?", "Do vi para o V, o baixo desce A2 → G2: o contralto pode subir para não acompanhá-lo.", "Contralto possível: G4 – E4 | G4 – G4."],
+          solution: {
+            score: EXD.dupSol,
+            commentary: "V: G2, B3, G4, D5 (fundamental dobrada) → vi: A2, C4, E4, C5 (terça dobrada; a sensível B3 sobe a C4). vi → V: G2, D4, G4, B4 (fundamental dobrada; agora a sensível está no soprano). V → I: C3, E4, G4, C5 — o tenor sobe D4 → E4 para dar a terça e o I sai completo. Repare no segundo V: com a sensível no soprano (B4), contralto e tenor só podem ter G e D — colocar B3 no tenor dobraria a sensível.",
+          },
+        },
       ],
     },
   ],
@@ -293,6 +392,37 @@ export const lessonNotasEstranhas: Lesson = {
         { type: "listening", title: "Ouça o retardo", score: EX.retardo, instructions: ["Ouça soprano + baixo: sinta a tensão da 9ª e o alívio da 8ª."], focus: [["S", "B"], ["S", "A", "T", "B"]] },
       ],
     },
+    {
+      title: "3. Demonstração: classificar uma nota estranha em três perguntas",
+      blocks: [
+        { type: "paragraph", text: "Toda nota estranha se classifica com três perguntas, nesta ordem: (1) Ela pertence ao acorde que soa? Se sim, não é estranha. (2) Como chega e como sai (grau, salto, mesma nota)? (3) Cai em tempo forte ou fraco? Veja o retardo do exemplo da seção 2." },
+        { type: "table", caption: "O retardo 9–8 analisado", headers: ["Pergunta", "Resposta", "Conclusão"], rows: [["D5 pertence ao I (C–E–G)?", "não", "é nota estranha"], ["Como chega?", "é a mesma nota do acorde anterior (V), ligada", "preparação"], ["Como sai?", "desce por grau para C5", "resolução descendente"], ["Tempo?", "forte (1º tempo do compasso)", "dissonância acentuada: retardo"]] },
+        { type: "paragraph", text: "Por que as notas estranhas importam para o arranjador vocal? Porque cada uma muda o esforço do cantor. A nota de passagem e a bordadura são naturais (o cantor anda por grau); o retardo exige segurar uma nota enquanto a harmonia muda por baixo — um efeito expressivo, mas que precisa ser ensaiado; a apojatura e a escapada envolvem saltos para ou a partir de uma dissonância e são as mais difíceis de afinar." },
+        { type: "callout", tone: "dica", title: "Decisão do arranjador: onde colocar o retardo", text: "Um retardo 4–3 no tenor ou no contralto sobre o V de uma cadência dá expressão sem expor ninguém. No soprano, o mesmo retardo fica em primeiro plano: use-o em palavras que merecem ênfase, e prefira vogal aberta na nota dissonante." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que é problema", "Correção"], rows: [["Retardo sem preparação", "vira uma dissonância atacada, difícil de afinar", "a nota precisa estar no acorde anterior, na mesma voz"], ["Retardo resolvendo para cima (fora do 7–8)", "contraria a tendência", "resolva por grau descendente"], ["Nota de resolução dobrada em outra voz no momento do retardo", "o ouvido ouve a resolução antes da hora", "não dobre a nota de resolução (exceto o 9–8 com o baixo)"], ["Notas de passagem em todas as vozes ao mesmo tempo", "harmonia borrada", "uma ou duas vozes por vez"], ["Dissonância chegando e saindo por salto", "sem tratamento", "transforme em passagem, bordadura ou apojatura"]] },
+        { type: "list", items: ["Classifique pelo modo de chegar e sair e pela posição métrica.", "Retardo: preparação, dissonância no tempo forte, resolução descendente por grau.", "Notas estranhas acrescentam movimento e expressão — e esforço para o cantor."] },
+        {
+          type: "challenge",
+          title: "Ornamente um coral simples",
+          task: "O coral abaixo (Si♭ maior, I – IV | V – I) está todo em mínimas. Acrescente um retardo 4–3 no V e uma nota de passagem em alguma voz, sem mudar os acordes.",
+          start: EXD.nctStart,
+          revises: true,
+          constraints: ["Mantenha soprano e baixo.", "Só acrescente notas estranhas; não troque acordes.", "Estilo coral tradicional."],
+          criteria: ["O retardo está preparado no acorde anterior, na mesma voz, e resolve descendo por grau.", "A nota de passagem liga duas notas do acorde por grau, em tempo fraco.", "O motor só registra observações informativas (classificação das notas estranhas)."],
+          hints: ["O 4–3 sobre o V (F) é B♭ resolvendo em A. Que voz já tem B♭ no IV?", "Ligue o B♭3 do tenor do IV para o V e resolva no 2º tempo do V.", "Uma passagem possível está no contralto do compasso 2: F4 – ? – D4."],
+          solution: {
+            score: EXD.nctSol,
+            commentary: "Tenor: B♭3 ligado do IV para o V (preparação), dissonante sobre o F3 do baixo no 1º tempo (4ª) e resolvendo em A3 (3ª) no 2º tempo — retardo 4–3. Contralto: F4 – E♭4 – D4 no compasso 2; o E♭4 é nota de passagem que, sobre o V, soa como a sétima do acorde (o motor lê o tempo como V7) e desce, como toda sétima deve.",
+            alternatives: ["Uma bordadura no soprano do compasso 1 (D5 – E♭5 – D5 em semínimas) também é válida, mas muda o soprano: fora da restrição deste exercício.", "Um retardo 9–8 no soprano (C5 ligado para o I e resolvendo em B♭4) exigiria que o soprano tivesse C5 no V — ele tem: experimente ligar o C5 em vez do tenor e compare o efeito."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-nct",
@@ -333,6 +463,56 @@ export const lessonSetimas: Lesson = {
         { type: "example", score: EX.v43I6, verdict: "correto", caption: "V⁴₃ → I⁶", commentary: "A sétima sobe acompanhando o baixo em décimas — exceção registrada como observação." },
         { type: "callout", tone: "dica", title: "Resolução adiada", text: "Se o acorde de sétima se mantém (mesma harmonia), a sétima pode esperar. O motor só cobra a resolução quando a harmonia muda." },
         { type: "listening", title: "O trítono resolvendo", score: EX.v7I, instructions: ["Ouça contralto + tenor."], focus: [["A", "T"]] },
+      ],
+    },
+    {
+      title: "2. Por que a sétima resolve descendo",
+      blocks: [
+        { type: "paragraph", text: "A sétima de um acorde forma uma dissonância com a fundamental (7ª) — e, no V7, também um trítono com a terça (B–F em Dó). Dissonância, na escrita coral tradicional, é tensão que pede resolução por grau conjunto. A sétima desce porque, na progressão típica (fundamental por 5ª descendente: ii7 → V, V7 → I), a nota um grau abaixo dela pertence ao acorde seguinte: o C do ii7 vai para o B do V; o F do V7, para o E do I." },
+        { type: "table", caption: "Sétimas diatônicas mais usadas e sua resolução (Dó maior)", headers: ["Acorde", "Sétima", "Vai para", "Observação"], rows: [["V7 (G–B–D–F)", "F", "E (terça do I)", "a sensível B sobe para C ao mesmo tempo"], ["ii7 (D–F–A–C)", "C", "B (terça do V)", "a sétima costuma ser preparada (nota comum com o I)"], ["viiø7 (B–D–F–A)", "A", "G (quinta do I)", "funciona como dominante sem fundamental"], ["IV7M (F–A–C–E)", "E", "D (no ii ou no V)", "mais comum no pop e no coral contemporâneo"]] },
+        { type: "paragraph", text: "Preparação: nas sétimas diatônicas (ii7, IV7M, vi7), a escrita tradicional prefere que a nota da sétima já esteja no acorde anterior, na mesma voz, e fique parada enquanto a harmonia muda — exatamente como um retardo. No V7 isso não é obrigatório: a sétima pode entrar por grau ou como nota de passagem." },
+      ],
+    },
+    {
+      title: "3. Demonstração passo a passo: preparar e resolver",
+      blocks: [
+        { type: "paragraph", text: "Problema: em Dó maior, escrever I – ii⁶₅ – V – I com o baixo C3 – F3 – G3 – C3, de modo que a sétima do ii⁶₅ seja preparada e resolvida." },
+        { type: "list", ordered: true, items: [
+          "A sétima do ii (D–F–A–C) é C. Onde ela pode estar preparada? No I anterior, em qualquer voz que tenha C. Escolha o soprano: C5.",
+          "No ii⁶₅, o soprano fica parado em C5 enquanto o baixo vai para F3: agora o C5 é dissonante (sétima do acorde).",
+          "Complete o ii⁶₅: F3 (baixo), A3 (tenor), D4 (contralto), C5 (soprano). Todas as quatro notas presentes.",
+          "No V, a sétima desce por grau: C5 → B4. O B4 é também a sensível, que no último acorde sobe para C5.",
+          "Vozes internas pelo menor movimento: contralto D4 (fica), tenor A3 → G3. Último acorde: C3, G3, E4, C5.",
+        ] },
+        { type: "example", score: EXD.setDemo, verdict: "correto", caption: "Resultado: a sétima preparada, dissonante e resolvida no soprano", commentary: "C5 nos três primeiros tempos é a mesma nota, mas muda de papel: consonância no I, sétima dissonante no ii⁶₅, e desce para B4 no V. É a mesma lógica do retardo — preparação, dissonância, resolução." },
+        { type: "listening", title: "Percepção em contexto: a sétima que fica", score: EXD.setDemo, instructions: ["Ouça soprano + baixo: o soprano não muda, mas a tensão muda quando o baixo vai para F3.", "Cante o soprano e sinta o 'alívio' do C5 → B4."], focus: [["S", "B"], ["S", "A", "T", "B"]] },
+      ],
+    },
+    {
+      title: "4. Exceções reconhecidas e decisões de estilo",
+      blocks: [
+        { type: "list", items: ["V⁴₃ → I⁶: a sétima pode subir, acompanhando o baixo em décimas paralelas (exemplo da seção 1).", "Resolução adiada: se a harmonia não muda (V7 → V⁶₅), a sétima pode passar para outra voz ou esperar.", "Resolução ornamentada: entre a sétima e sua resolução, a voz pode fazer uma bordadura ou uma antecipação.", "Cadeia de sétimas (ii7 → V7 → I): a resolução de uma sétima prepara a próxima."] },
+        { type: "callout", tone: "atencao", title: "No pop e no gospel", text: "Em arranjos populares, sétimas frequentemente não resolvem: o acorde com sétima é cor, não tensão a resolver (Cmaj7 → Dm7 → G7 em bloco paralelo). O motor, no estilo popular, registra isso como sugestão, não como erro. Escolha o estilo do arranjo antes de julgar." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que acontece", "Correção"], rows: [["Sétima subindo", "a voz segue o desenho melódico", "desça por grau; se quiser subir, use V⁴₃ → I⁶"], ["Sétima entrando por salto em acorde diatônico", "falta de preparação", "prepare-a como nota comum do acorde anterior"], ["Sensível e sétima resolvendo para a mesma nota (oitava)", "sensível dobrada ou sétima dobrada", "uma de cada no acorde"], ["Trítono resolvendo em paralelas", "as duas vozes na mesma direção", "no V7 em estado fundamental: sensível sobe, sétima desce — para dentro"]] },
+        { type: "list", items: ["Sétima = dissonância: resolve por grau descendente.", "Sétimas diatônicas: prepare-as como nota comum.", "V7: sensível sobe, sétima desce; exceção V⁴₃ → I⁶.", "No estilo popular, a sétima pode ser cor."] },
+        {
+          type: "challenge",
+          title: "Uma cadeia de sétimas",
+          task: "Soprano e baixo estão dados para I – ii7 | V7 – I em Dó maior (baixo C3 – D3 | G2 – C3). Escreva contralto e tenor de modo que as duas sétimas (C no ii7, F no V7) sejam preparadas e resolvidas.",
+          start: EXD.setStart,
+          constraints: ["Não altere soprano nem baixo.", "ii7 e V7 podem omitir a quinta, nunca a terça nem a sétima.", "Estilo coral tradicional."],
+          criteria: ["A sétima do ii7 (C) está preparada no I e desce para B no V7.", "A sétima do V7 (F) está preparada no ii7 e desce para E no I.", "O motor não aponta erros nem alertas."],
+          hints: ["O soprano já faz C5 – C5 – B4: a sétima do ii7 está nele. E a sétima do V7?", "F é a terça do ii7. Se o tenor cantar F3 no ii7 e mantiver no V7, ela vira a sétima preparada.", "Tenor G3 – F3 | F3 – E3."],
+          solution: {
+            score: EXD.setSol,
+            commentary: "Tenor G3 – F3 | F3 – E3 e contralto E4 – D4 | D4 – C4. O F3 do tenor é terça do ii7 e, sem se mover, vira a sétima do V7; depois desce para E3. O C5 do soprano é fundamental do I, sétima do ii7 e desce para B4, que é a sensível do V7 e sobe para C5. Cada sétima nasce de uma nota comum e morre um grau abaixo: a cadeia típica da escrita coral. Uma tentação a evitar: subir o tenor G3 → A3 no ii7, enquanto o baixo sobe C3 → D3 — quintas paralelas.",
+          },
+        },
       ],
     },
   ],

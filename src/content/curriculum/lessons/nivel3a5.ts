@@ -29,6 +29,35 @@ export const lessonAnaliseMelodica: Lesson = {
         { type: "listening", title: "Cante as duas frases", score: EX.melodiaFrase, instructions: ["Respire na pausa do compasso 2.", "Sinta o ponto culminante no compasso 3."], focus: [["S"]] },
       ],
     },
+    {
+      title: "2. Demonstração: a análise completa de uma melodia curta",
+      blocks: [
+        { type: "paragraph", text: "Vamos aplicar os quatro passos à 'Canção do Caminho' (E4 G4 A4 G4 | C5 G4 | A4 C5 B4 | C5), em Dó maior, 4/4." },
+        { type: "table", caption: "Análise compasso a compasso", headers: ["Compasso", "Notas estruturais (tempos 1 e 3)", "Notas de passagem/ornamento", "Função implícita"], rows: [["1", "E4, A4", "G4 (tempo 2), G4 (tempo 4)", "tônica (E e G pertencem ao I; A4 é bordadura de G4)"], ["2", "C5 (ponto culminante), G4", "—", "C5 sustentado: I ou vi; G4: I"], ["3", "A4, B4", "C5 (tempo 2)", "A4 pede IV ou vi; B4 longo pede V"], ["4", "C5", "—", "tônica: cadência autêntica implícita (B4 → C5)"]] },
+        { type: "list", ordered: true, items: ["Frase: uma só, de quatro compassos, com respiração no fim (pausa de semínima).", "Ponto culminante: C5, no 1º tempo do compasso 2 — cedo, mas repetido como nota final, o que dá unidade.", "Cadência implícita: 7 → 1 no soprano (B4 → C5), com a sensível longa no compasso 3: autêntica.", "Cantabilidade: âmbito de 6ª menor (E4–C5), saltos de 3ª e 4ª compensados por grau; nenhuma nota fora da tessitura do soprano."] },
+        { type: "callout", tone: "dica", title: "Por que isso economiza tempo", text: "Com esta tabela pronta, a harmonização já está meio decidida: os acordes só mudam nos tempos 1 e 3, o compasso 3 prepara a cadência e o compasso 4 é tônica. As notas de passagem não recebem acorde próprio." },
+      ],
+    },
+    {
+      title: "3. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Consequência", "Correção"], rows: [["Dar um acorde a cada nota", "harmonia agitada, vozes internas saltando", "harmonize só as notas estruturais"], ["Ignorar a respiração", "frase musical cortando a frase do texto", "marque as respirações antes de tudo"], ["Confundir ponto culminante com nota mais longa", "clímax harmônico no lugar errado", "o culminante é a nota mais aguda da frase"], ["Não perceber a cadência implícita", "harmonia que contradiz o final da melodia", "pergunte: a frase termina em 1/3 (conclusiva) ou em 2/5/7 (suspensiva)?"]] },
+        { type: "list", items: ["Leia a melodia antes de harmonizar: frases, culminante, notas estruturais, cadências.", "Final em 1 ou 3 sugere conclusão; em 2, 5 ou 7, suspensão.", "Saltos grandes pedem compensação por grau na direção oposta."] },
+        {
+          type: "challenge",
+          title: "Analise antes de harmonizar",
+          task: "Analise a melodia abaixo (Dó maior): marque a frase, o ponto culminante, as notas estruturais de cada compasso, a cadência implícita no final e um ponto de atenção para a cantabilidade.",
+          start: EXD.amStart,
+          constraints: ["Considere estruturais as notas dos tempos 1 e 3.", "Use os graus da escala para justificar a cadência."],
+          criteria: ["A cadência implícita está justificada pelo grau final do soprano.", "O ponto culminante foi localizado (nota e compasso).", "Você identificou pelo menos um salto e disse se ele é compensado."],
+          hints: ["Em que grau a melodia termina? D5, em nota longa.", "O 2º grau sustentado no fim sugere qual acorde e qual cadência?", "Olhe o salto C5 → E5 no compasso 3: o que vem depois dele?"],
+          solution: {
+            commentary: "Uma frase de quatro compassos, sem respiração interna. Notas estruturais: G4 e B4 (c. 1), C5 e B4 (c. 2), A4 e C5 (c. 3), D5 (c. 4). Ponto culminante: E5, no 4º tempo do compasso 3, uma nota de passagem curta que leva ao D5 final. Final em D5 (2º grau) sustentado: semicadência implícita (V). É uma frase 'pergunta', que pede uma segunda frase de resposta. Cantabilidade: o salto C5 → E5 (3ª) é compensado pela descida por grau para D5; âmbito G4–E5 (6ª maior), dentro da tessitura do soprano.",
+            alternatives: ["Também é razoável ler o compasso 3 com A4 e C5 como partes de um IV (F–A–C), preparando o V do final: a análise das funções pode variar; o grau final (2 → V) não."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-analise-melodica",
@@ -174,6 +203,42 @@ export const lessonEscritaTtbb: Lesson = {
       blocks: [
         { type: "paragraph", text: "Não basta transpor soprano e contralto uma oitava abaixo: o baixo ficaria grave demais e os intervalos internos, embolados. Recomece pela melodia na voz escolhida, mantenha a harmonia e redistribua as notas do acorde segundo as particularidades acima. A tonalidade costuma mudar para que a fundamental do baixo fique em G2–C3." },
         { type: "listening", title: "Ouça a fusão masculina", score: CHORALE_TTBB_G, instructions: ["Ouça os tenores juntos e depois os baixos juntos."], focus: [["T1", "T2"], ["B1", "B2"], ["T1", "T2", "B1", "B2"]] },
+      ],
+    },
+    {
+      title: "3. Demonstração: uma cadência de SATB para TTBB",
+      blocks: [
+        { type: "paragraph", text: "Problema: levar a cadência V → I (soprano B4 → C5) para TTBB, com a melodia no Tenor II, uma oitava abaixo (B3 → C4). A tentação é transpor as outras vozes 'no automático' e encaixá-las em volta da melodia." },
+        { type: "example", score: EXD.ttbbDemoErro, verdict: "incorreto", caption: "Primeira tentativa: vozes colocadas por proximidade, sem plano", commentary: "O Tenor I sobe D4 → G4 enquanto o baixo sobe G2 → C3, mantendo uma 12ª: quintas paralelas. E o G4 ainda passa da tessitura do Tenor I amador. O barítono em D3 → E3 deixa o grave apertado." },
+        { type: "list", ordered: true, items: [
+          "Fixe a melodia (Tenor II: B3 → C4) e o baixo (G2 → C3, fundamentais).",
+          "Coloque o barítono a uma 8ª ou 5ª do baixo e, se possível, parado: G3 serve ao V (fundamental) e ao I (quinta).",
+          "O Tenor I fica com o que falta, perto da melodia: D4 no V (quinta), E4 no I (terça).",
+          "Confira: a sensível B3 está só no Tenor II e sobe; o I tem fundamental, terça e quinta; nenhuma 5ª ou 8ª paralela; Tenor I abaixo de F4.",
+        ] },
+        { type: "example", score: EXD.ttbbDemo, verdict: "correto", caption: "Resultado: plano antes das notas", commentary: "G2/G3 embaixo (8ª), terças e quintas nos tenores. O barítono não se move: é a voz que dá estabilidade ao coro masculino. Compare com a tentativa: as mesmas notas para a melodia e o baixo, decisões diferentes no meio." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que acontece", "Correção"], rows: [["Transpor SATB inteiro uma oitava abaixo", "pensar que TTBB é 'SATB grave'", "redistribua: 5ª/8ª embaixo, terças em cima"], ["Terça entre barítono e baixo no grave", "copiar a distribuição de contralto/tenor", "respeite os limites graves de intervalo"], ["Tenor I sempre agudo", "usar o Tenor I como 'soprano'", "agudo (acima de F4) só nos clímax"], ["Melodia no Tenor I por padrão", "herança do SATB", "melodia no Tenor II, com o Tenor I fazendo a harmonia de cima"]] },
+        { type: "list", items: ["TTBB: âmbito estreito, acordes fechados em cima e abertos embaixo.", "Melodia normalmente no Tenor II.", "Adaptar = manter a harmonia e redistribuir, revendo a tonalidade."] },
+        {
+          type: "challenge",
+          title: "Pergunta e resposta para coro masculino",
+          task: "Adapte a 'pergunta e resposta' da aula de cadências (I – V | V7 – I em Dó, SATB) para TTBB, com a melodia no Tenor II uma oitava abaixo.",
+          start: EXD.desafioCadSol,
+          revises: true,
+          constraints: ["Mantenha a harmonia (I – V | V7 – I) e a tonalidade.", "Melodia no Tenor II: C4 B3 | D4 C4.", "Baixo nas fundamentais; Tenor I até F4."],
+          criteria: ["Nenhuma terça entre barítono e baixo abaixo de B♭2.", "Sétima do V7 resolvendo para baixo; sensível presente uma vez.", "O motor não aponta erros nem alertas."],
+          hints: ["Baixo: C3 – G2 | G2 – C3. O barítono pode sustentar G3 em quase tudo.", "Quem canta a sétima F no V7? O Tenor I, acima da melodia D4, resolve F4 → E4.", "No V7, o barítono pode subir para a terça B3 e descer de volta a G3 no I."],
+          solution: {
+            score: EXD.ttbbSol,
+            commentary: "Tenor I: E4 – D4 | F4 – E4; Tenor II (melodia): C4 – B3 | D4 – C4; barítono: G3 – G3 | B3 – G3; baixo: C3 – G2 | G2 – C3. A sétima F4 está no Tenor I e desce para E4. No V7, a sensível B3 está no barítono, que desce para G3 no I — uma sensível de voz interna 'frustrada', aceita e registrada pelo motor só como informação, para que o I tenha a quinta e a fundamental no grave.",
+            alternatives: ["Barítono B3 → C4 no último acorde (sensível resolvendo) forma uníssono com a melodia em C4: correto, mas o I fica sem quinta e o uníssono apaga uma voz por um instante."],
+          },
+        },
       ],
     },
   ],

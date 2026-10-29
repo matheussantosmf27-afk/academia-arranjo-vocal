@@ -1,5 +1,6 @@
 import { EX } from "../examples";
 import { EXA } from "../examples-arranjo";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /* 2º semestre — HMZ201 (três vozes) e TEX201 Texturas e Distribuição Vocal. */
@@ -70,6 +71,41 @@ export const lessonTresVozes: Lesson = {
           text: "Com três vozes, o 'buraco' entre a voz masculina e as femininas pode ficar grande. Mantenha soprano e contralto a no máximo uma oitava de distância e deixe o baixo livre para fazer a linha de baixo. Em SSA, as três vozes ficam próximas: use acordes fechados e cuidado com cruzamentos entre soprano II e contralto.",
         },
         { type: "listening", title: "Ouça a cadência a três", score: EXA.tresVozes, instructions: ["Ouça só soprano e baixo: o esqueleto.", "Acrescente o contralto: ele completa a terça do acorde."], focus: [["S", "B"], ["S", "A", "B"]] },
+      ],
+    },
+    {
+      title: "4. Demonstração: de quatro para três vozes",
+      blocks: [
+        { type: "paragraph", text: "Problema: o coro só tem soprano, contralto e uma voz masculina (SAB). Como reduzir uma cadência V → I escrita para SATB (soprano B4 → C5, contralto G4 → G4, tenor D4 → E4, baixo G2 → C3)?" },
+        { type: "list", ordered: true, items: [
+          "O soprano (melodia) e o baixo (fundamentais) ficam: B4 → C5 e G2 → C3.",
+          "Liste o que sobra em cada acorde: no V, G (já no baixo) e D; no I, C (já no soprano e no baixo), E e G.",
+          "Prioridade: a terça de cada acorde precisa estar em alguma voz. No V, a terça é B (no soprano); no I, é E — que só o contralto pode cantar.",
+          "Contralto: D4 no V (quinta, completa o acorde) → E4 no I (terça). Movimento por grau.",
+          "Confira: V = G2, D4, B4 (completo); I = C3, E4, C5 (sem quinta, com terça). Nenhuma paralela; espaçamento S–A dentro de uma 8ª. É a versão de três vozes da seção 2.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisão do arranjador: SAB, SSA ou TTB", text: "Em SAB, o 'buraco' entre o contralto e a voz masculina é normal: mantenha soprano e contralto próximos. Em SSA, as três vozes ficam numa mesma região: acordes fechados, cuidado com cruzamentos. Em TTB, o baixo faz as fundamentais e os tenores se dividem entre terça e quinta (ou sétima)." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Omitir a terça", "acorde oco e ambíguo", "a terça sempre; a quinta sai"], ["Contralto colado ao soprano em 8ªs", "três vozes viram duas", "3ªs e 6ªs entre soprano e contralto"], ["Baixo que só dobra a melodia", "falta de fundamento harmônico", "baixo nas fundamentais e inversões, em contraponto"], ["Sétima sem terça em acorde de sétima", "função perdida", "fundamental, terça e sétima; sem quinta"]] },
+        { type: "list", items: ["Três vozes: fundamental, terça e mais uma nota (fundamental dobrada, quinta ou sétima).", "Nunca omita a terça.", "Escolha a formação pelo grupo real (SAB, SSA, TTB)."] },
+        {
+          type: "challenge",
+          title: "Uma terça em cada acorde (SAB)",
+          task: "Soprano e baixo estão dados para I – V | I⁶ – V | I em Dó maior. Escreva o contralto de modo que todos os acordes tenham terça.",
+          start: EXD.sabStart,
+          constraints: ["Não altere soprano nem baixo; não use o tenor.", "Contralto entre A3 e B4.", "Só notas dos acordes indicados."],
+          criteria: ["Cada acorde tem terça (no soprano, no contralto ou, no I⁶, no baixo).", "Nenhuma 5ª ou 8ª paralela entre qualquer par.", "O motor não aponta erros nem alertas."],
+          hints: ["No primeiro I, o soprano já tem E5 (terça). O contralto pode cantar G4.", "No primeiro V, o soprano tem D5 (quinta) e o baixo G2 (fundamental): quem canta a terça B?", "No I⁶, a terça já está no baixo (E3); no V seguinte, o soprano B4 é a terça. No I final, o contralto precisa buscar E4."],
+          solution: {
+            score: EXD.sabSol,
+            commentary: "Contralto G4 – B4 | G4 – G4 | E4. No primeiro V, o contralto canta a terça B4 (o soprano está na quinta). Depois, a sensível do contralto desce para G4 no I⁶ — em voz interna, aceitável — porque a terça do I⁶ já está no baixo. No último V, o soprano tem a terça; o contralto mantém G4 (fundamental, nota comum) e desce para E4, a terça do I final.",
+            alternatives: ["Contralto B4 → C5 no I⁶ (sensível resolvendo) forma uníssono com o soprano: correto, mas apaga uma das três vozes; em SAB, cada voz conta."],
+          },
+        },
       ],
     },
   ],
@@ -219,6 +255,34 @@ export const lessonTexturas: Lesson = {
         { type: "example", score: EXA.unissonoOitavasPop, verdict: "observacao", caption: "Melodia em oitavas no estilo popular", commentary: "O motor registra as oitavas apenas como sugestão: no estilo popular, é escolha de textura legítima." },
       ],
     },
+    {
+      title: "5. Demonstração: escolher a textura de cada estrofe",
+      blocks: [
+        { type: "paragraph", text: "Problema: um hino de três estrofes iguais (mesma melodia, textos diferentes), para SATB amador. Se as três forem em homofonia, a terceira soa igual à primeira. Como planejar?" },
+        { type: "table", caption: "Plano de texturas e o motivo de cada escolha", headers: ["Estrofe", "Texto", "Textura", "Por quê"], rows: [["1", "apresenta o tema", "uníssono (todos), depois homofonia na última frase", "o público ouve a melodia sem distração; a harmonia entra como surpresa"], ["2", "mais íntima", "melodia nos tenores, sopranos e contraltos em pad 'uh'", "mudança de cor sem aumentar a intensidade"], ["3", "conclusão, clímax", "homofonia completa com o soprano no topo e final em posição aberta", "a textura mais cheia é guardada para o fim"]] },
+        { type: "paragraph", text: "Repare que a escolha segue a curva de energia (p → mp → f) e o conteúdo do texto, e que cada estrofe muda pelo menos uma coisa em relação à anterior. A dificuldade para o coro também é dosada: só a estrofe 2 traz algo novo para ensaiar." },
+        { type: "callout", tone: "atencao", title: "Melodia sempre audível", text: "Ao passar a melodia para um naipe médio ou grave, as vozes acima dela precisam ficar mais leves (notas longas, dinâmica menor, sílaba neutra). Se a melodia sumir, a textura falhou — confira ouvindo só a voz da melodia e depois o conjunto." },
+      ],
+    },
+    {
+      title: "6. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Mesma textura do início ao fim", "arranjo monótono", "mude a textura a cada seção"], ["Melodia num naipe médio coberta por vozes agudas fortes", "melodia inaudível", "vozes acima em p e notas longas"], ["Contracanto ativo junto com melodia muito movimentada", "duas linhas disputando a atenção", "o contracanto anda quando a melodia para"], ["Uníssono usado o tempo todo", "perde o impacto", "guarde-o para momentos especiais"]] },
+        { type: "list", items: ["Cinco texturas: uníssono/oitavas, homofonia, melodia + pad, melodia + ritmo, contracanto.", "A textura segue a intensidade e o texto de cada seção.", "Ao trocar a melodia de naipe, alivie as vozes acima dela."] },
+        {
+          type: "challenge",
+          title: "Texturas para uma canção com refrão",
+          task: "Uma canção para SATB a cappella tem a forma: Verso 1 – Refrão – Verso 2 – Refrão – Refrão final. Escolha a textura de cada seção, quem canta a melodia e a sílaba das vozes de apoio, justificando cada escolha em uma frase.",
+          constraints: ["Use pelo menos quatro texturas diferentes.", "A melodia deve estar sempre audível.", "O refrão final deve ser a seção mais cheia."],
+          criteria: ["Seções vizinhas mudam pelo menos um parâmetro.", "A sílaba de apoio combina com a função (pad em 'uh'/'mm', ritmo em 'dum'/'ba').", "Se a melodia sai do soprano em alguma seção, você disse como as vozes acima dela ficam mais leves."],
+          hints: ["Comece pelo refrão final e trabalhe para trás: o que sobra para os versos?", "Os dois refrões do meio podem ser diferentes entre si: um em homofonia, outro com melodia + ritmo.", "Para o verso 2, pense em mudar a cor (melodia em outro naipe) em vez de aumentar a intensidade."],
+          solution: {
+            commentary: "Um plano possível: Verso 1 — melodia nos sopranos com pad em 'uh' (contraltos, tenores e baixos), mp: apresenta a canção sem competir com o texto. Refrão 1 — homofonia com a letra, mf: o texto principal fica claro em todas as vozes. Verso 2 — melodia nos tenores; sopranos e contraltos em 'mm' agudo e leve, baixos em notas longas, mp: mesma melodia, cor nova. Refrão 2 — melodia nos sopranos, contraltos e tenores em ritmo com 'dum' nos contratempos, baixo com fundamentais nos tempos fortes, mf/f: energia sem acrescentar harmonia. Refrão final — homofonia completa com a melodia em oitavas (sopranos + tenores), f: a textura mais cheia, com o uníssono de oitava como recurso guardado para o fim.",
+            alternatives: ["Verso 2 com contracanto ativo dos contraltos (letra própria ou eco) em vez de trocar a melodia de naipe: acrescenta uma camada em vez de mudar a cor."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-texturas",
@@ -365,6 +429,40 @@ export const lessonVoicings: Lesson = {
         },
       ],
     },
+    {
+      title: "4. Demonstração: o mesmo acorde em duas posições",
+      blocks: [
+        { type: "paragraph", text: "Problema: Sol maior, soprano em B4, baixo em G2. Escreva contralto e tenor em posição fechada e depois em posição aberta." },
+        { type: "list", ordered: true, items: [
+          "Notas do acorde: G, B, D. O soprano tem B (terça), o baixo tem G. Faltam D e mais um G (dobrando a fundamental).",
+          "Posição fechada: as três vozes de cima dentro de uma 8ª, sem nota do acorde 'pulada'. Abaixo de B4, as notas mais próximas são G4 e D4: contralto G4, tenor D4.",
+          "Posição aberta: entre vozes superiores vizinhas fica uma nota do acorde de fora. Abaixo de B4, pule G4 e use D4 no contralto; abaixo de D4, pule B3 e use G3 no tenor.",
+          "Confira o espaçamento: fechada (D4–G4–B4) e aberta (G3–D4–B4) respeitam o limite de uma 8ª entre vozes vizinhas.",
+          "Decida pelo contexto: a fechada soa compacta e é ágil em passagens rápidas; a aberta soa ampla, ideal para finais e para coros grandes.",
+        ] },
+        { type: "callout", tone: "dica", title: "Atalho para abrir um acorde fechado", text: "Em SATB, a posição aberta costuma nascer da fechada trocando o contralto e o tenor de lugar, com o tenor uma oitava abaixo. No pop, a mesma ideia se chama drop 2: a segunda voz de cima desce uma oitava." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Mudar de posição com todas as vozes saltando", "quebra das linhas", "mude a posição com uma voz só, ou numa nova frase"], ["Posição aberta com terça no grave", "acorde turvo", "abra em cima, mantenha 5ª/8ª embaixo"], ["Blocos paralelos no estilo tradicional", "paralelas e sétimas sem resolução", "use blocos só no estilo popular, conscientemente"], ["Fechada muito grave em TTBB", "embolado", "feche os tenores, abra o grave"]] },
+        { type: "list", items: ["Fechada: vozes de cima dentro de uma 8ª; aberta: uma nota do acorde pulada entre vizinhas.", "Escolha pela sonoridade e pela condução.", "Blocos paralelos são estilo popular, não erro — no estilo certo."] },
+        {
+          type: "challenge",
+          title: "Fechada e aberta no mesmo acorde",
+          task: "Em Sol maior, com o soprano em B4 e o baixo em G2 nos dois compassos, escreva o acorde em posição fechada no 1º compasso e em posição aberta no 2º.",
+          start: EXD.vozStart,
+          constraints: ["Não altere soprano nem baixo.", "Só notas do acorde de Sol maior.", "Fundamental dobrada nos dois acordes."],
+          criteria: ["1º compasso: contralto e tenor dentro da 8ª abaixo do soprano.", "2º compasso: uma nota do acorde pulada entre tenor–contralto e entre contralto–soprano.", "O motor não aponta problemas de espaçamento."],
+          hints: ["Quais notas do acorde estão logo abaixo de B4?", "Para abrir, pule uma nota do acorde entre cada par de vozes vizinhas.", "No 2º compasso, o tenor fica abaixo de D4."],
+          solution: {
+            score: EXD.vozSol,
+            commentary: "Fechada: G2 | D4, G4, B4 (as três vozes de cima dentro de uma 6ª). Aberta: G2 | G3, D4, B4 (entre G3 e D4 fica de fora o B; entre D4 e B4, o G). A troca de posição se faz com contralto e tenor trocando de nota, o tenor uma 8ª abaixo — o atalho da seção 4.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-voicings",
@@ -497,6 +595,38 @@ export const lessonSilabas: Lesson = {
           ],
         },
         { type: "example", score: EX.ttbbGrave, verdict: "observacao", caption: "Pad grave e embolado", commentary: "Terça maior no grave: num pad em 'uh', esse acorde soa abafado. Abra o intervalo entre as vozes graves." },
+      ],
+    },
+    {
+      title: "4. Demonstração: escolher a sílaba pela função",
+      blocks: [
+        { type: "paragraph", text: "Problema: num verso calmo, contralto, tenor e baixo fazem um pad sob a melodia dos sopranos; no refrão, passam a fazer um acompanhamento rítmico. Que sílabas escrever?" },
+        { type: "list", ordered: true, items: [
+          "Defina a função de cada trecho: verso = sustentação (pad); refrão = ritmo.",
+          "Pad sob melodia com letra: vogal fechada, que fica atrás do texto — 'uh' ou 'mm'. 'mm' é o mais discreto; 'uh' projeta um pouco mais.",
+          "Ritmo: consoante de ataque + vogal curta — 'dum' ou 'ba'. Em andamento rápido, prefira 'dm' (menos vogal, menos ruído).",
+          "Baixo vocal no refrão: 'dm' ou 'bm' nas fundamentais, nos tempos fortes.",
+          "Transição: no último compasso do verso, o pad pode fechar em 'mm' e o refrão começar com 'dum' — a mudança de sílaba marca a nova seção.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Se o pad for o único acompanhamento (a cappella) e o grupo for pequeno, 'oh' aberto dá mais corpo do que 'uh'. Se a melodia estiver num naipe grave, o pad acima dela deve ser em 'mm' e piano, para não cobri-la." },
+      ],
+    },
+    {
+      title: "5. Síntese e exercício independente",
+      blocks: [
+        { type: "list", items: ["Três famílias: pad (uh, oh, mm), ritmo (dum, ba, doo), baixo vocal (dm, bm).", "Escolha pela função e pela relação com a letra da melodia.", "Consistência na partitura: a mesma função, a mesma sílaba; mudanças marcam seções."] },
+        {
+          type: "challenge",
+          title: "Sílabas para um arranjo pop a cappella",
+          task: "Escreva as sílabas de apoio para cada naipe numa canção com: Introdução (acordes sustentados, p) – Verso (melodia no soprano, acompanhamento rítmico leve) – Refrão (melodia no soprano, apoio cheio e rítmico, f) – Final (acorde longo que se fecha).",
+          constraints: ["Contralto, tenor e baixo fazem o apoio; o soprano canta a letra.", "Indique onde cada sílaba se fecha (por exemplo, 'oo → m')."],
+          criteria: ["Cada seção tem sílabas coerentes com sua função.", "A sílaba muda quando a função muda, e só então.", "O apoio no verso não encobre a letra."],
+          hints: ["Na introdução não há letra: o apoio pode ser mais aberto ('oh') do que no verso.", "No verso, o ritmo é leve: 'doo' ou 'dm' curtos, em p.", "No final, um 'ah' aberto que fecha em 'mm' dá um decrescendo natural."],
+          solution: {
+            commentary: "Introdução: contralto e tenor em 'oh' (aberto, sem letra para competir), baixo em 'uh' nas fundamentais; fechar em 'm' na última nota antes do verso. Verso: contralto e tenor em 'doo' curto nos contratempos, p; baixo em 'dm' nos tempos 1 e 3. Refrão: contralto e tenor em 'dum' (mais ataque), baixo em 'bm' com notas mais longas; mf/f. Final: todos em 'ah' sustentado, fechando em 'mm' no último tempo para o decrescendo. A lógica: abertura da vogal acompanha a intensidade; a consoante de ataque acompanha o ritmo.",
+            alternatives: ["Se o grupo for pequeno e a sala seca, o verso pode usar 'ba' em vez de 'doo', com mais projeção."],
+          },
+        },
       ],
     },
   ],
