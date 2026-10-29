@@ -57,6 +57,8 @@ export interface ChallengeBlock {
   readonly task: string;
   /** Material de partida (aberto no Estúdio pelo id). */
   readonly start?: Score;
+  /** A tarefa é reescrever o material de partida (a solução pode alterá-lo). */
+  readonly revises?: boolean;
   readonly constraints: readonly string[];
   /** Como o próprio aluno confere o resultado antes de abrir a solução. */
   readonly criteria: readonly string[];

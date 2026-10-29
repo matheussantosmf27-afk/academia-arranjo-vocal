@@ -34,4 +34,17 @@ export const EXD = {
   harmDemo: satb("exd-harm-demo-final", "Resultado: I – V⁶ | I – IV⁶ | I⁶₄ – V | I", { S: "B4:h A4:h | G4:h C5:h | B4:h A4:h | G4:w", A: "G4:h D4:h | D4:h C4:h | D4:h D4:h | B3:w", T: "D4:h A3:h | B3:h G3:h | G3:h F#3:h | G3:w", B: "G3:h F#3:h | G3:h E3:h | D3:h D3:h | G2:w" }, { key: "G" }),
   harmChalStart: satb("exd-desafio-harm", "Melodia dada em Mi maior", { S: "B4:h C#5:h | B4:h A4:h | G#4:h F#4:h | E4:w", A: rests(4), T: rests(4), B: rests(4) }, { key: "E" }),
   harmChalSol: satb("exd-desafio-harm-sol", "Solução: I – IV | I – V⁶₅ | I – V | I", { S: "B4:h C#5:h | B4:h A4:h | G#4:h F#4:h | E4:w", A: "G#4:h E4:h | E4:h B3:h | E4:h D#4:h | B3:w", T: "B3:h A3:h | G#3:h F#3:h | B3:h B3:h | G#3:w", B: "E3:h A2:h | E3:h D#3:h | E3:h B2:h | E3:w" }, { key: "E" }),
+  // ——— 1º semestre ———
+  procStart: satb("exd-desafio-processo", "Canção do Caminho: escreva o baixo do esqueleto", { S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q', A: rests(4), T: rests(4), B: rests(4) }),
+  procSol: satb("exd-desafio-processo-sol", "Esqueleto: soprano e baixo", { S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q', A: rests(4), T: rests(4), B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q" }),
+  ritmoStart: satb("exd-desafio-ritmo", "'Caminhar contigo' com as tônicas fora do lugar", { S: 'E4:q"ca- F4:q"mi- G4:q"nhar | C5:q"con- B4:q"ti- A4:q"go | G4:h.', A: "r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h." }, { time: "3/4" }),
+  ritmoSol: satb("exd-desafio-ritmo-sol", "Com anacruse: NHAR e TI nos tempos fortes", { S: 'r:q E4:q"ca- F4:q"mi- | G4:h"nhar C5:q"con- | B4:h"ti- A4:q"go | G4:h.', A: "r:h. | r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h. | r:h." }, { time: "3/4" }),
+  intStart: satb("exd-desafio-intervalos", "Contralto dado: escreva o soprano em 3ªs e 6ªs", { S: rests(4), A: "C4:h D4:h | E4:h F4:h | E4:h D4:h | C4:w", T: rests(4), B: rests(4) }),
+  intSol: satb("exd-desafio-intervalos-sol", "Dueto em 3ªs e 6ªs", { S: "E4:h B4:h | C5:h A4:h | G4:h F4:h | E4:w", A: "C4:h D4:h | E4:h F4:h | E4:h D4:h | C4:w", T: rests(4), B: rests(4) }),
+  triStart: satb("exd-desafio-triades", "Soprano e baixo dados: I – I⁶ | IV – V | I em Sol", { S: "D5:h D5:h | C5:h A4:h | G4:w", A: "r:w | r:w | r:w", T: "r:w | r:w | r:w", B: "G2:h B2:h | C3:h D3:h | G2:w" }, { key: "G" }),
+  triSol: satb("exd-desafio-triades-sol", "Solução: duplicações escolhidas acorde a acorde", { S: "D5:h D5:h | C5:h A4:h | G4:w", A: "G4:h G4:h | E4:h D4:h | B3:w", T: "B3:h G3:h | G3:h F#3:h | G3:w", B: "G2:h B2:h | C3:h D3:h | G2:w" }, { key: "G" }),
+  tetStart: satb("exd-desafio-tetrades", "Três dominantes com sétima: soprano e baixo dados", { S: "D5:h C5:h | G4:h G4:h | B4:h C5:h", A: "r:w | r:w | r:w", T: "r:w | r:w | r:w", B: "G2:h C3:h | B2:h C3:h | D3:h E3:h" }),
+  tetSol: satb("exd-desafio-tetrades-sol", "Solução: V7 → I | V⁶₅ → I | V⁴₃ → I⁶", { S: "D5:h C5:h | G4:h G4:h | B4:h C5:h", A: "F4:h E4:h | F4:h E4:h | F4:h G4:h", T: "B3:h C4:h | D4:h C4:h | G3:h C4:h", B: "G2:h C3:h | B2:h C3:h | D3:h E3:h" }),
+  funStart: satb("exd-desafio-funcoes", "Soprano dado: T – S – D – T", { S: "G4:h A4:h | B4:h C5:h", A: "r:w | r:w", T: "r:w | r:w", B: "r:w | r:w" }),
+  funSol: satb("exd-desafio-funcoes-sol", "Solução: I – ii⁶ – V – I", { S: "G4:h A4:h | B4:h C5:h", A: "E4:h D4:h | D4:h E4:h", T: "C4:h A3:h | G3:h G3:h", B: "C3:h F3:h | G3:h C3:h" }),
 } as const;

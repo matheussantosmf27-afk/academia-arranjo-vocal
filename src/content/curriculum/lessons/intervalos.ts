@@ -1,4 +1,5 @@
 import { scoreFromText } from "@/domain/music/text-notation";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 const INTERVALOS_MELODICOS = scoreFromText({
@@ -141,6 +142,39 @@ export const lessonIntervalos: Lesson = {
           score: INTERVALOS_MELODICOS,
           instructions: ["Cante a linha do contralto junto com o áudio.", "Repare na dificuldade de afinar o G♯4 depois do F4."],
           focus: [["A"]],
+        },
+      ],
+    },
+    {
+      title: "5. Demonstração: classificar um intervalo em três passos",
+      blocks: [
+        { type: "paragraph", text: "Problema: soprano em E♭5, baixo em A♭2. Que intervalo é, e ele preocupa na condução?" },
+        { type: "list", ordered: true, items: [
+          "Número: conte as letras de A a E (A, B, C, D, E) = 5ª; com as oitavas a mais, 5ª composta (19ª, ou 'duas oitavas e uma quinta').",
+          "Qualidade: pense na escala maior de A♭ (A♭, B♭, C, D♭, E♭…). E♭ pertence a ela; a 5ª é justa.",
+          "Consequência: uma 5ª justa composta entre as vozes extremas. Se o próximo acorde também tiver uma 5ª justa entre elas e as duas vozes andarem na mesma direção, serão quintas paralelas.",
+        ] },
+        { type: "callout", tone: "dica", title: "Atalho para intervalos compostos", text: "Subtraia 7 do número até ficar menor ou igual a 8: 10ª → 3ª, 12ª → 5ª, 13ª → 6ª, 15ª → 8ª, 17ª → 3ª. A qualidade não muda." },
+      ],
+    },
+    {
+      title: "6. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Exemplo", "Correção"], rows: [["Contar semitons para achar o número", "C–D♯ chamada de 3ª menor", "o número vem das letras: C–D♯ é 2ª aumentada"], ["Inverter só o número", "3ª maior invertida = 6ª maior", "a qualidade também inverte: 6ª menor"], ["Ignorar intervalos compostos na condução", "12ª → 12ª tratada como aceitável", "reduza à oitava: são quintas paralelas"], ["Grafar com o acidente errado", "G♭ no lugar de F♯ na sensível de Sol", "a grafia segue a função: sensível de Sol é F♯"]] },
+        { type: "list", items: ["Número pelas letras; qualidade pela escala maior da nota inferior.", "Inversão: número complementar a 9, qualidade invertida (justo continua justo).", "Para a condução, importa a classe do intervalo, não a distância exata."] },
+        {
+          type: "challenge",
+          title: "Um dueto em terças e sextas",
+          task: "O contralto está dado. Escreva um soprano acima dele usando apenas 3ªs e 6ªs (maiores ou menores), uma nota para cada nota do contralto.",
+          start: EXD.intStart,
+          constraints: ["Só notas da escala de Dó maior.", "Use pelo menos duas 6ªs.", "Soprano entre E4 e E5."],
+          criteria: ["Cada intervalo classificado (número e qualidade) antes de escrever a nota.", "Nenhum uníssono, 5ª ou 8ª.", "A linha do soprano é cantável: no máximo um salto maior que uma 4ª."],
+          hints: ["Comece calculando, para cada nota do contralto, a 3ª e a 6ª acima: sobre C4, E4 ou A4; sobre D4, F4 ou B4.", "Use 6ªs onde o contralto sobe e 3ªs onde ele desce — isso cria movimento contrário dentro do dueto.", "Uma possibilidade começa E4 – B4 (3ª, depois 6ª)."],
+          solution: {
+            score: EXD.intSol,
+            commentary: "Intervalos: 3ªM (C–E), 6ªM (D–B), 6ªm (E–C), 3ªM (F–A), 3ªm (E–G), 3ªm (D–F), 3ªM (C–E). As 6ªs no começo abrem espaço para o soprano subir enquanto o contralto também sobe; depois as 3ªs paralelas descem juntas até o fim. O único salto grande do soprano é E4 → B4 (5ª), compensado por grau em seguida.",
+            alternatives: ["Só terças paralelas (E4 F4 | G4 A4 | G4 F4 | E4) também cumpre a regra, mas o soprano fica uma cópia do contralto: misturar 3ªs e 6ªs dá mais independência.", "Começar com 6ª (A4 sobre C4) e terminar com 3ª é igualmente válido."],
+          },
         },
       ],
     },

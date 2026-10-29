@@ -102,7 +102,7 @@ describe("integridade do currículo", () => {
         const r = validateScore(sol);
         expect(r.diagnostics.filter((d) => d.severity !== "info"), `${ctx}: ${r.diagnostics.map((d) => d.message).join(" | ")}`).toEqual([]);
         // A solução respeita o material dado (ex.: o soprano a harmonizar).
-        if (b.start) for (const g of givenVoices(b.start)) {
+        if (b.start && !b.revises) for (const g of givenVoices(b.start)) {
           const part = sol.parts.find((p) => p.voice === g.voice);
           expect(part && JSON.stringify(part.events.map((e) => (e.kind === "note" ? [e.pitch, e.duration] : ["r", e.duration]))), `${ctx}: voz ${g.voice} dada`).toBe(g.notes);
         }

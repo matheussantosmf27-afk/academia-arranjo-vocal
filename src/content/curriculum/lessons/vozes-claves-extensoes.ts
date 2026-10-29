@@ -2,6 +2,7 @@ import { CHORALE_SATB_C, CHORALE_TTBB_G } from "@/domain/music/examples";
 import { FORMATIONS, clefNamePt } from "@/domain/music/formations";
 import { formatPitch } from "@/domain/music/pitch";
 import { scoreFromText } from "@/domain/music/text-notation";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 const rangeRows = (f: "SATB" | "TTBB") =>
@@ -207,6 +208,25 @@ export const lessonVozes: Lesson = {
           score: CHORALE_TTBB_G,
           instructions: ["Ouça o conjunto e perceba como as vozes estão próximas.", "Isole Barítono + Baixo e observe a clareza do grave."],
           focus: [["T1", "T2", "B1", "B2"], ["B1", "B2"]],
+        },
+      ],
+    },
+    {
+      title: "8. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes com vozes e claves", headers: ["Erro", "Por que acontece", "Como corrigir"], rows: [["Escrever o tenor na altura real na clave de sol sem o 8 embaixo", "esquecer que a clave de tenor soa uma oitava abaixo", "use a clave de sol com 8 (o Estúdio faz isso automaticamente) e pense sempre na altura sonora"], ["Conferir só a extensão, não a tessitura", "olhar apenas as notas extremas", "conte quanto tempo cada voz passa acima ou abaixo da região confortável"], ["Copiar a extensão de livros de coro profissional", "usar números de cantores treinados", "ajuste a extensão ao seu grupo no Estúdio; para amadores, prefira a tessitura"], ["Transpor um arranjo SATB inteiro para TTBB uma oitava abaixo", "achar que a mudança é só de registro", "redistribua as vozes: os limites graves e o âmbito masculino mudam a escrita"]] },
+        { type: "list", items: ["Extensão é o limite; tessitura é onde a voz trabalha bem.", "O tenor é escrito uma oitava acima do que soa (clave de sol com 8).", "TTBB tem âmbito menor que SATB: acordes mais fechados, cuidado com intervalos pequenos no grave.", "Antes de escrever, verifique o ponto mais agudo, o mais grave e a nota média de cada voz."] },
+        {
+          type: "challenge",
+          title: "A melodia cabe neste naipe?",
+          task: "A 'Canção do Caminho' (E4 a C5, nota média por volta de G4) será cantada pelos tenores de um coro TTBB amador (Tenor II na melodia). Decida em que oitava e em que tonalidade escrevê-la, e diga como ela aparece na partitura (clave e notas escritas).",
+          constraints: ["Use as tessituras desta aula (Tenor: E3–E4 confortável).", "Mantenha a melodia inteira na mesma oitava."],
+          criteria: ["Nota mais grave e mais aguda calculadas na altura sonora.", "A nota média fica perto do centro da tessitura do tenor.", "A grafia na clave de sol com 8 está coerente com a altura sonora."],
+          hints: ["Em Dó maior, uma oitava abaixo, a melodia iria de E3 a C4: está na tessitura?", "Se quiser a melodia mais brilhante, que tonalidade leva o C4 (ponto mais alto) para D4 sem passar de E4?", "Na clave de sol com 8, uma nota que soa E3 é escrita na 1ª linha (E4 escrito)."],
+          solution: {
+            commentary: "Uma oitava abaixo, em Dó maior, a melodia soa de E3 a C4, com nota média por volta de G3 — no centro da tessitura de tenor (E3–E4). É uma boa escolha. Para mais brilho, Ré maior (F♯3 a D4, média A3) também fica confortável. Mi maior (G♯3 a E4) já leva o ponto culminante ao topo da tessitura: possível num clímax, cansativo como tonalidade de trabalho. Na partitura, o tenor usa a clave de sol com 8: em Dó, as notas escritas são as mesmas da melodia original (E4 a C5), e soam uma oitava abaixo.",
+            alternatives: ["Se o grupo tiver um Tenor I confortável até G4, a melodia pode ir para ele em Fá ou Sol maior, liberando o Tenor II para a harmonia."],
+          },
         },
       ],
     },
