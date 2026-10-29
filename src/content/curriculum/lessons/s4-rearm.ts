@@ -203,7 +203,7 @@ export const lessonRearmSubV: Lesson = {
   objectives: [
     "Encontrar o substituto de trítono de qualquer dominante.",
     "Criar um baixo cromático descendente com SubV.",
-    "Saber em que estilos o SubV cabe e o que o coral tradicional aponta.",
+    "Dizer em que estilos o SubV cabe e explicar o diagnóstico que o coral tradicional dá para a mesma passagem.",
   ],
   sections: [
     {

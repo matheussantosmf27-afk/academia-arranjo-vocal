@@ -1,8 +1,16 @@
 import type { Lesson } from "@/content/curriculum/types";
-import { type ProgressState, isMastered } from "./model";
+import { type ProgressState, isMastered, isReviewAttempt } from "./model";
+import { reviewStatus } from "./review";
 
-/** Pontos de experiência: domínio pesa mais que tentativa; leitura também conta. */
-export const XP = { mastered: 100, attempt: 10, read: 15 } as const;
+/**
+ * Pontos de experiência. Recompensam demonstração de aprendizagem, não consumo:
+ * - aula dominada (verificação aprovada): 100, uma vez por aula;
+ * - revisão aprovada no prazo (retenção): 30 cada;
+ * - dia de prática numa aula: 10, no máximo uma vez por aula e por dia — repetir a
+ *   mesma verificação várias vezes no mesmo dia não rende pontos;
+ * - leitura marcada: 5 (ler não é dominar).
+ */
+export const XP = { mastered: 100, review: 30, practiceDay: 10, read: 5 } as const;
 
 /** XP necessário para cada nível (progressão suave: 0, 250, 600, 1050, …). */
 export function levelThreshold(level: number): number {
@@ -18,31 +26,29 @@ export interface GameStats {
   /** Progresso dentro do nível atual (0–1). */
   readonly levelProgress: number;
   readonly nextLevelXp: number;
-  /** Dias consecutivos com estudo (tentativas), terminando hoje ou ontem. */
-  readonly streak: number;
+  /** Dias com estudo (tentativas) nos últimos 14 dias. */
+  readonly studyDays: number;
   readonly masteredCount: number;
+  /** Revisões aprovadas no prazo. */
+  readonly retainedReviews: number;
 }
 
 const dayKey = (iso: string) => iso.slice(0, 10);
 
-export function studyStreak(state: ProgressState, today: Date = new Date()): number {
-  const days = new Set(state.attempts.map((a) => dayKey(a.finishedAt)));
-  if (days.size === 0) return 0;
-  const cursor = new Date(Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()));
-  const key = () => cursor.toISOString().slice(0, 10);
-  // A sequência continua válida até o fim do dia seguinte ao último estudo.
-  if (!days.has(key())) cursor.setUTCDate(cursor.getUTCDate() - 1);
-  let n = 0;
-  while (days.has(key())) {
-    n++;
-    cursor.setUTCDate(cursor.getUTCDate() - 1);
-  }
-  return n;
+/**
+ * Dias com estudo numa janela recente. Substitui a "sequência de dias seguidos": pausas
+ * legítimas (fim de semana, viagem) não zeram o indicador.
+ */
+export function studyDays(state: ProgressState, windowDays = 14, today: Date = new Date()): number {
+  const start = Date.UTC(today.getUTCFullYear(), today.getUTCMonth(), today.getUTCDate()) - (windowDays - 1) * 86_400_000;
+  return new Set(state.attempts.filter((a) => Date.parse(dayKey(a.finishedAt)) >= start).map((a) => dayKey(a.finishedAt))).size;
 }
 
 export function gameStats(state: ProgressState, lessons: readonly Lesson[], today: Date = new Date()): GameStats {
   const masteredCount = lessons.filter((l) => isMastered(state, l.id)).length;
-  const xp = masteredCount * XP.mastered + state.attempts.length * XP.attempt + state.lessonsRead.length * XP.read;
+  const practiceDays = new Set(state.attempts.filter((a) => !isReviewAttempt(a)).map((a) => `${a.lessonId}@${dayKey(a.finishedAt)}`)).size;
+  const retainedReviews = lessons.reduce((n, l) => n + (reviewStatus(state, l.id, today)?.retained ?? 0), 0);
+  const xp = masteredCount * XP.mastered + retainedReviews * XP.review + practiceDays * XP.practiceDay + state.lessonsRead.length * XP.read;
   let level = 1;
   while (xp >= levelThreshold(level + 1)) level++;
   const base = levelThreshold(level);
@@ -53,7 +59,8 @@ export function gameStats(state: ProgressState, lessons: readonly Lesson[], toda
     levelName: LEVEL_NAMES[Math.min(level, LEVEL_NAMES.length) - 1]!,
     levelProgress: (xp - base) / (next - base),
     nextLevelXp: next,
-    streak: studyStreak(state, today),
+    studyDays: studyDays(state, 14, today),
     masteredCount,
+    retainedReviews,
   };
 }

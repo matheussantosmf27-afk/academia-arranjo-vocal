@@ -116,6 +116,19 @@ describe.skipIf(!ADMIN_URL)("persistência e RLS (Postgres local com shim do Sup
     expect((await as(client, B, (q) => q("select * from exercise_attempts"))).rowCount).toBe(0);
   });
 
+  it("revisões espaçadas usam a mesma tabela e as mesmas políticas das tentativas", async () => {
+    const insert = (q: (sql: string, params?: unknown[]) => Promise<{ rowCount: number | null }>) =>
+      q(
+        `insert into exercise_attempts (lesson_id, exercise_set_id, seed, answers, score, correct, total, passed, started_at)
+         values ('vozes-claves-extensoes', 'ex-vozes:revisao', 7, '[]', 0.8, 4, 5, true, now())`,
+      );
+    expect((await as(client, A, insert)).rowCount).toBe(1);
+    const mine = await as(client, A, (q) => q("select exercise_set_id from exercise_attempts where exercise_set_id like '%:revisao'"));
+    expect(mine.rows).toEqual([{ exercise_set_id: "ex-vozes:revisao" }]);
+    const other = await as(client, B, (q) => q("select * from exercise_attempts where exercise_set_id like '%:revisao'"));
+    expect(other.rowCount).toBe(0);
+  });
+
   it("aceita arranjos e preferência na formação SSAA", async () => {
     const r = await as(client, A, async (q) => {
       await q("update profiles set preferred_formation = 'SSAA' where id = $1", [A]);

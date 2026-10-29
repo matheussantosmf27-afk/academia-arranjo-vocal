@@ -23,19 +23,19 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
   for (const g of generators) {
     if (g.type === "interval-identification") {
       generated.push(...generateIntervalItems(rng, g.count, { ...(g.earOnly ? { earOnly: true } : {}), ...(g.maxNumber ? { maxNumber: g.maxNumber } : {}) }));
-    } else if (g.type === "chord-identification") generated.push(...generateChordItems(rng, g.count));
+    } else if (g.type === "chord-identification") generated.push(...generateChordItems(rng, g.count, g.earOnly ? { earOnly: true } : {}));
     else if (g.type === "range-check") generated.push(...generateRangeItems(rng, g.count, g.formations));
     else if (g.type === "key-signature") generated.push(...generateKeySignatureItems(rng, g.count));
     else if (g.type === "scale-degree") generated.push(...generateScaleDegreeItems(rng, g.count));
-    else if (g.type === "seventh-identification") generated.push(...generateSeventhItems(rng, g.count));
+    else if (g.type === "seventh-identification") generated.push(...generateSeventhItems(rng, g.count, g.earOnly ? { earOnly: true } : {}));
     else if (g.type === "function-identification") generated.push(...generateFunctionItems(rng, g.count));
-    else if (g.type === "motion-type") generated.push(...generateMotionItems(rng, g.count));
+    else if (g.type === "motion-type") generated.push(...generateMotionItems(rng, g.count, g.earOnly ? { earOnly: true } : {}));
     else if (g.type === "voice-leading-error") generated.push(...generateErrorItems(rng, g.count, g.ruleIds));
-    else if (g.type === "cadence-identification") generated.push(...generateCadenceItems(rng, g.count));
+    else if (g.type === "cadence-identification") generated.push(...generateCadenceItems(rng, g.count, g.earOnly ? { earOnly: true } : {}));
     else if (g.type === "realization") generated.push(...generateRealizationItems(rng, g.count, g.mode));
     else if (g.type === "ttbb-voicing") generated.push(...generateTtbbVoicingItems(rng, g.count));
     else if (g.type === "reharm-choice") generated.push(...generateReharmItems(rng, g.count));
-    else if (g.type === "counterpoint-interval") generated.push(...generateCounterpointIntervalItems(rng, g.count));
+    else if (g.type === "counterpoint-interval") generated.push(...generateCounterpointIntervalItems(rng, g.count, g.earOnly ? { earOnly: true } : {}));
     else if (g.type === "ssaa-voicing") generated.push(...generateSsaaVoicingItems(rng, g.count));
     else if (g.type === "conducting") generated.push(...generateConductingItems(rng, g.count));
     else generated.push(...generateNctItems(rng, g.count));
@@ -43,13 +43,49 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
   return generated;
 }
 
+/**
+ * Embaralha as alternativas dos itens escritos à mão. Sem isso, a posição da resposta
+ * certa vira pista (a auditoria encontrou a certa na 1ª posição na maioria deles) e uma
+ * nova tentativa repete o item literalmente. Usa um gerador próprio, derivado da
+ * semente, para não alterar os itens gerados de uma semente já registrada.
+ */
+function shuffleStaticOptions(items: readonly ExerciseItem[], seed: number): ExerciseItem[] {
+  const rng = createRng((seed ^ 0x2545f491) >>> 0);
+  return items.map((item) => ({ ...item, options: shuffle(rng, item.options) }));
+}
+
 /** Monta o conjunto de itens de uma tentativa. Mesma semente ⇒ mesmos itens, na mesma ordem. */
 export function buildExerciseSet(spec: ExerciseSetSpec, seed: number): ExerciseItem[] {
   const rng = createRng(seed);
   const generated = generateItems(spec.generators, rng);
-  // Itens estáticos mantêm a ordem pedagógica; gerados são embaralhados entre si.
-  const items = [...spec.staticItems, ...shuffle(rng, generated)];
-  return items.map((item, i) => (spec.staticItems.includes(item) ? item : { ...item, id: `${item.id}-${i}` }));
+  // Itens estáticos mantêm a ordem pedagógica (com alternativas embaralhadas); gerados são embaralhados entre si.
+  const statics = shuffleStaticOptions(spec.staticItems, seed);
+  const shuffled = shuffle(rng, generated);
+  return [...statics, ...shuffled.map((item, i) => ({ ...item, id: `${item.id}-${statics.length + i}` }))];
+}
+
+/** Exercícios de reconhecimento que têm variante só de ouvido e voltam assim na revisão. */
+const EAR_IN_REVIEW = new Set<GeneratorSpec["type"]>(["interval-identification", "chord-identification", "cadence-identification", "motion-type", "seventh-identification", "counterpoint-interval"]);
+
+/** Quantidade de itens de uma revisão espaçada. */
+export const REVIEW_SIZE = 5;
+
+/**
+ * Revisão espaçada: só itens GERADOS (notas, tonalidades e acordes sorteados de novo),
+ * nunca os itens fixos da verificação, para que a revisão não seja repetição literal.
+ * Alterna entre os geradores da lição. Mesma semente ⇒ mesmos itens.
+ */
+export function buildReviewSet(spec: ExerciseSetSpec, seed: number): ExerciseItem[] {
+  // Intervalos, acordes, tétrades, cadências, consonâncias e movimento entre vozes voltam de ouvido: mesmo conceito, outra forma de apresentação.
+  const generators = spec.generators.map((g) => (EAR_IN_REVIEW.has(g.type) ? { ...g, earOnly: true } : g));
+  return buildPracticeItems({ ...spec, generators }, seed, REVIEW_SIZE).map((item, i) => ({ ...item, id: `revisao-${i}` }));
+}
+
+/** Uma revisão é aprovada com 80% de acertos (4 de 5). */
+export const REVIEW_MIN_SCORE = 0.8;
+
+export function evaluateReview(items: readonly ExerciseItem[], answers: readonly AnswerRecord[]): MasteryResult {
+  return evaluateMastery({ id: "revisao", title: "", instructions: "", staticItems: [], generators: [], minScore: REVIEW_MIN_SCORE }, items, answers);
 }
 
 /**

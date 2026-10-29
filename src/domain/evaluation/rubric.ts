@@ -74,6 +74,16 @@ const NAMES: Record<CriterionId, string> = {
 const byRules = (r: ValidationReport, ids: readonly string[]) => r.diagnostics.filter((d) => ids.includes(d.ruleId) && d.severity !== "info");
 const levelByCount = (n: number, thresholds: [number, number, number]): Level => (n <= thresholds[0] ? 4 : n <= thresholds[1] ? 3 : n <= thresholds[2] ? 2 : 1);
 
+/**
+ * Padrão de competência prática: todos os critérios avaliados automaticamente no nível
+ * Proficiente (3) ou acima. Critérios de autoavaliação ficam de fora, porque o motor não
+ * os mede; a rubrica completa continua sendo mostrada ao aluno.
+ */
+export function meetsPracticalStandard(result: RubricResult): boolean {
+  const auto = result.criteria.filter((c) => c.source === "automatica" && c.level !== null);
+  return auto.length > 0 && auto.every((c) => (c.level ?? 0) >= 3);
+}
+
 export function evaluateRubric(input: RubricInput): RubricResult {
   const { score, style } = input;
   const report = validateScore(score, { style });

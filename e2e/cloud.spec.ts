@@ -28,7 +28,11 @@ test("conta: tentativa recorrigida no servidor, arranjo versionado e isolamento 
   await pa.goto("/licoes/vozes-claves-extensoes");
   await pa.getByRole("button", { name: "Iniciar tentativa" }).click();
   for (let i = 0; i < 30; i++) {
-    await pa.locator("fieldset button[aria-pressed]").first().click();
+    const verificacao = pa.locator("section[aria-labelledby='exercicios']");
+    await verificacao.locator("fieldset button[aria-pressed]").first().click();
+    await expect(verificacao.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
+    const reveal = verificacao.getByRole("button", { name: "Mostrar a resposta" });
+    if (await reveal.isVisible()) await reveal.click();
     const next = pa.getByRole("button", { name: /Próximo|Ver resultado/ });
     const label = await next.textContent();
     await next.click();

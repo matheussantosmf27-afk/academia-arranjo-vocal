@@ -19,9 +19,9 @@ export const lessonSsaFormacao: Lesson = {
   estimatedMinutes: 50,
   competencies: ["escrita-ssaa", "leitura-vocal"],
   objectives: [
-    "Conhecer extensões e tessituras de Soprano I, Soprano II, Contralto I e Contralto II.",
+    "Classificar uma nota como dentro da tessitura, só na extensão ou fora dela para cada voz do SSAA.",
     "Escrever em duas pautas de clave de sol, com hastes para cima e para baixo.",
-    "Entender por que o Contralto II não pode ser escrito como o baixo de um coro misto.",
+    "Corrigir um Contralto II escrito como baixo de coro misto, explicando o problema de extensão e de espaçamento.",
   ],
   sections: [
     {
@@ -394,7 +394,7 @@ export const lessonSsaCores: Lesson = {
   objectives: [
     "Usar add9, sétimas e clusters em posição fechada.",
     "Resolver sétimas por grau mesmo em harmonia contemporânea.",
-    "Saber quando o paralelismo em bloco é efeito e quando é erro.",
+    "Avaliar um bloco paralelo nos estilos popular e tradicional e justificar quando ele é efeito e quando é erro.",
   ],
   sections: [
     {

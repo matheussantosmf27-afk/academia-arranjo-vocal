@@ -22,6 +22,8 @@ export interface PracticeState {
   readonly checklist: string[];
   /** Momento em que o rascunho foi registrado (etapa obrigatória antes da entrega final). */
   readonly draftAt: string | null;
+  /** Última avaliação pela rubrica (evidência de competência prática). */
+  readonly lastRubric?: { readonly at: string; readonly proficient: boolean; readonly levels: Partial<Record<CriterionId, Level>> };
 }
 
 const KEY = (id: string) => `aav:pratica:${id}`;
@@ -31,6 +33,7 @@ const schema = z.object({
   snapshots: z.array(z.object({ at: z.string(), label: z.string().max(120), score: z.unknown() })).max(20),
   checklist: z.array(z.string().max(40)).max(10).optional(),
   draftAt: z.string().nullable().optional(),
+  lastRubric: z.object({ at: z.string(), proficient: z.boolean(), levels: z.record(z.string(), z.number().int().min(1).max(4)) }).optional(),
 });
 
 export function loadPractice(projectId: string, prompts: number): PracticeState {
@@ -52,6 +55,7 @@ export function loadPractice(projectId: string, prompts: number): PracticeState 
       snapshots,
       checklist: (parsed.data.checklist ?? []).filter((c) => known.has(c)),
       draftAt: parsed.data.draftAt ?? null,
+      ...(parsed.data.lastRubric ? { lastRubric: parsed.data.lastRubric as PracticeState["lastRubric"] } : {}),
     };
   } catch {
     return empty;

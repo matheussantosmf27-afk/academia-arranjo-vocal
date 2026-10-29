@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState } from "react";
 import { saveProjectEvaluation } from "@/app/actions/evaluations";
 import type { ProjectSpec } from "@/content/projects";
-import { type CriterionId, LEVEL_PT, type Level, type RubricResult, type VersionComparison, compareVersions, evaluateRubric } from "@/domain/evaluation/rubric";
+import { type CriterionId, LEVEL_PT, type Level, type RubricResult, type VersionComparison, compareVersions, evaluateRubric, meetsPracticalStandard } from "@/domain/evaluation/rubric";
 import { getFormation } from "@/domain/music/formations";
 import type { Score, StyleProfileId } from "@/domain/music/score";
 import { useAuth } from "@/lib/auth/useAuth";
@@ -143,7 +143,17 @@ export function ProjectPanel({ project, score, style, onStatus }: { project: Pro
         </div>
       </details>
       <div className="row" style={{ marginTop: 8 }}>
-        <button type="button" className="btn btn-sm btn-accent" onClick={() => setResult(evaluateRubric(rubricInput(score)))}>
+        <button
+          type="button"
+          className="btn btn-sm btn-accent"
+          onClick={() => {
+            const r = evaluateRubric(rubricInput(score));
+            setResult(r);
+            const levels: Partial<Record<CriterionId, Level>> = {};
+            for (const c of r.criteria) if (c.source === "automatica" && c.level !== null) levels[c.id] = c.level;
+            update({ ...state, lastRubric: { at: new Date().toISOString(), proficient: meetsPracticalStandard(r), levels } });
+          }}
+        >
           Avaliar com a rubrica
         </button>
         <button

@@ -13,7 +13,7 @@ export function DiagnosticList({
   activeId?: string | null;
 }) {
   if (diagnostics.length === 0) {
-    return <p className={styles.empty}>Nenhum diagnóstico para o estilo e as extensões configurados.</p>;
+    return <p className={styles.empty}>Nenhum diagnóstico para o estilo e as extensões configurados. Isso quer dizer que nenhuma regra verificável foi violada, não que o arranjo esteja bom: ouça cada voz, cante as linhas internas e confira o texto.</p>;
   }
   return (
     <ol className={styles.list}>

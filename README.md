@@ -16,9 +16,9 @@ O conteúdo segue o que programas de graduação em música costumam ensinar em 
 
 ## Funcionalidades
 - **Identidade visual "palco escuro"** com uma cor por voz (soprano magenta, contralto âmbar, tenor ciano, baixo lima) usada em toda a interface e nas notas da partitura; navegação superior; animações respeitam `prefers-reduced-motion`.
-- **Interações de aprendizagem:** mesa de vozes no início (liga/desliga naipes durante a música), rolo de piano colorido sincronizado com a reprodução, perguntas rápidas "Pare e pense" no fim das seções, guia lateral com progresso de leitura, roteiros de escuta com checklist, XP, níveis e sequência de dias de estudo.
-- **Início** com o percurso por semestre, progresso e recomendações de estudo derivadas dos seus erros; **Grade curricular** e página de cada **disciplina** (ementa, objetivos, aulas, trabalho, bibliografia); **Competências** (desempenho por habilidade, histórico com semente reprodutível).
-- **Aulas:** objetivos mensuráveis, explicações, exemplos corretos e incorretos validados pelo motor, escuta guiada por voz, exercícios gerados (11 tipos: intervalos, acordes, sétimas, funções, cadências, notas estranhas, tipos de movimento, erros de condução, extensões…) com respostas comentadas e critério de domínio com itens essenciais.
+- **Interações de aprendizagem:** mesa de vozes no início (liga/desliga naipes durante a música), rolo de piano colorido sincronizado com a reprodução, perguntas rápidas "Pare e pense" no fim das seções, guia lateral com progresso de leitura, roteiros de escuta com checklist, XP e níveis (XP só por domínio, retenção e dias de prática, sem pontos por repetir a mesma verificação) e dias de estudo nas últimas duas semanas.
+- **Início** com o percurso por semestre, progresso e recomendações de estudo derivadas dos seus erros; **Grade curricular** e página de cada **disciplina** (ementa, objetivos, aulas, trabalho, bibliografia); **Competências** em quatro dimensões calculadas das tentativas registradas (domínio imediato, retenção, transferência e prática em projetos), desempenho por habilidade e histórico com semente reprodutível.
+- **Aulas:** objetivos mensuráveis, explicações, exemplos corretos e incorretos validados pelo motor, escuta guiada por voz, exercícios gerados (11 tipos: intervalos, acordes, sétimas, funções, cadências, notas estranhas, tipos de movimento, erros de condução, extensões…) com respostas comentadas e critério de domínio com itens essenciais. Depois de um erro, o aluno recebe uma dica e uma segunda chance antes de ver a resposta (só a primeira conta para a nota); as alternativas dos itens fixos são embaralhadas a cada tentativa. Cada aula concluída volta em **revisões espaçadas** (1, 3, 7, 21 e 60 dias) com itens novos, e os de reconhecimento voltam só de ouvido; revisão reprovada volta ao início, sem tirar o domínio.
 - **Laboratório de escrita** (`/estudio`): notação VexFlow gerada do modelo (duas vozes por pauta; clave de sol oitavada para tenores); edição de altura, ritmo, pausas, ligaduras, letra, articulações e dinâmicas; dividir/juntar/mover; seleção com copiar/colar; tonalidade, compasso e tamanho editáveis; desfazer/refazer; cifragem romana; diagnósticos ao vivo por estilo.
 - **Exportação e importação:** **PDF** A4 (mesmo motor de notação, paginado por sistemas), **MusicXML 4.0** (uma parte por voz; importa 4 partes ou 2 pautas com 2 vozes), **MIDI** tipo 1 (uma faixa por voz; importação quantizada à semicolcheia) e JSON nativo. Recursos não suportados (quiálteras, `.mxl` comprimido, acordes dentro de uma voz) geram erro ou aviso explícito — nada é inventado.
 - **Reprodução:** conjunto, voz isolada, pares ou qualquer combinação; cursor sincronizado; metrônomo, contagem, loop; dinâmicas, acentos, staccato e fermatas; timbres neutro e de vogal.
@@ -26,7 +26,7 @@ O conteúdo segue o que programas de graduação em música costumam ensinar em 
 - **Trabalhos práticos** (`/projetos`): hino SATB, adaptação TTBB e arranjo completo, com justificativas, autoavaliação, **rascunho obrigatório após checklist de escuta** (vozes isoladas, vozes internas cantadas, andamento real, letra e respirações), **rubrica de 9 critérios** (não uma nota única) e comparação entre rascunho e versão final.
 - **Baixo dado e canto dado**: exercícios em que a alternativa certa é conferida pelo motor e cada alternativa errada mostra o diagnóstico que a reprova; versões em branco no laboratório de escrita.
 - **Tutor de IA** (no laboratório de escrita): recebe a partitura e **somente** os diagnósticos do motor; responde em formato estruturado (resposta, perguntas socráticas, revisões ligadas a diagnósticos, lições sugeridas). Citações de diagnósticos inexistentes são descartadas no servidor. Exige conta, `ANTHROPIC_API_KEY` no servidor e tem limite de 30 perguntas/hora por usuário; cada interação é registrada (`tutor_interactions`).
-- **Laboratório auditivo:** intervalos e acordes de ouvido.
+- **Laboratório auditivo:** intervalos, acordes e cadências só de ouvido e movimento entre duas vozes.
 - **Conta (Supabase):** e-mail e senha; tentativas **recorrigidas no servidor** a partir da semente; arranjos com histórico de versões e relatório do motor; avaliações de projeto; RLS em todas as tabelas.
 
 ## Segurança e acessibilidade
@@ -54,6 +54,7 @@ npm run test:e2e          # Playwright (requer build; sobe `next start` na porta
 npm run test:integration  # RLS/persistência em Postgres (requer AAV_TEST_DATABASE_URL)
 npm run check             # lint + typecheck + testes + build
 npm run db:catalog        # regenera o seed do catálogo a partir do currículo
+npm run audit:curriculum  # regenera docs/auditoria/matriz-das-aulas.md (auditoria das aulas)
 ```
 Variáveis de ambiente: veja `.env.example` (todas opcionais — sem elas, modo local; sem `ANTHROPIC_API_KEY`, o tutor aparece indisponível).
 
@@ -65,3 +66,7 @@ A CI (`.github/workflows/ci.yml`) roda lint, tipos, testes unitários, build, in
 - `docs/convencoes-musicais.md` — oitavas, MIDI, altura escrita × sonora, pautas, MusicXML
 - `docs/motor-de-validacao.md` — regras, categorias, estilos e limitações
 - `docs/supabase.md` — banco, segurança, desenvolvimento local e projeto remoto
+
+## Auditoria pedagógica
+
+`docs/auditoria/relatorio.md` traz o diagnóstico, o que foi corrigido, os testes, as pendências, os indicadores de aprendizagem e o protocolo de validação com estudantes. `docs/auditoria/matriz-das-aulas.md` é a matriz das 89 aulas, gerada do conteúdo por `npm run audit:curriculum`.

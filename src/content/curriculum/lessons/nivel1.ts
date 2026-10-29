@@ -181,7 +181,7 @@ export const lessonTetrades: Lesson = {
       { id: "tet-omissao", kind: "choice", skill: "acordes", prompt: "Qual nota do V7 pode ser omitida na escrita a quatro vozes?", options: [{ id: "a", label: "A terça (sensível)" }, { id: "b", label: "A quinta" }, { id: "c", label: "A sétima" }], correctOptionId: "b", explanation: "Omite-se a quinta, dobrando a fundamental. Terça e sétima definem a função dominante." },
       { id: "tet-cifra", kind: "choice", skill: "acordes", prompt: "Qual cifra indica a sétima no baixo?", options: [{ id: "a", label: "⁶₅" }, { id: "b", label: "⁴₃" }, { id: "c", label: "⁴₂" }], correctOptionId: "c", explanation: "⁴₂ = 3ª inversão: a sétima no baixo, que desce para a terça do acorde seguinte (V⁴₂ → I⁶)." },
     ],
-    generators: [{ type: "seventh-identification", count: 7 }],
+    generators: [{ type: "seventh-identification", count: 5 }, { type: "seventh-identification", count: 2, earOnly: true }, { type: "voice-leading-error", count: 1, ruleIds: ["harmonia.resolucao-da-setima"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo resolução e omissão.",
   application: { title: "Aplicação no Estúdio", steps: ["No coral SATB, transforme o V do compasso 2 em V7 trocando uma das notas G por F.", "Confira se a sétima resolve descendo; se o motor apontar, corrija a condução.", "Teste a versão V⁴₃ → I⁶ e observe a exceção reconhecida."] },

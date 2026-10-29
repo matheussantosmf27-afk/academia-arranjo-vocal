@@ -140,7 +140,7 @@ export function chordScore(pitches: readonly Pitch[], id: string, formation: For
   };
 }
 
-export function generateChordItems(rng: Rng, count: number): ChoiceItem[] {
+export function generateChordItems(rng: Rng, count: number, opts: { earOnly?: boolean } = {}): ChoiceItem[] {
   const items: ChoiceItem[] = [];
   const qualities: Array<keyof typeof TRIAD_INTERVALS> = ["major", "major", "minor", "minor", "diminished", "augmented"];
   let guard = 0;
@@ -163,13 +163,16 @@ export function generateChordItems(rng: Rng, count: number): ChoiceItem[] {
     items.push({
       id: `acorde-${items.length + 1}`,
       kind: "choice",
-      skill: "acordes",
-      prompt: "Identifique a qualidade e a inversão do acorde (leia do baixo para cima).",
+      skill: opts.earOnly ? "percepcao" : "acordes",
+      prompt: opts.earOnly
+        ? "Ouça o acorde a quatro vozes (a partitura aparece depois da resposta): qual a qualidade e a inversão? Dica: cante a nota mais grave."
+        : "Identifique a qualidade e a inversão do acorde (leia do baixo para cima).",
       options,
       correctOptionId: options.find((o) => o.label === correct)!.id,
       explanation: `Notas (do grave ao agudo): ${sorted}. Empilhando em terças a partir de ${formatPitchClassPt(root)}, obtemos uma ${chordQualityPt(quality)}. O baixo é a ${["fundamental", "terça", "quinta"][inversion]}, portanto: ${inversionPt(inversion)}.`,
       notation: chordScore(pitches, `ac${items.length + 1}`),
       audio: { pitches, mode: "harmonico" },
+      ...(opts.earOnly ? { earOnly: true } : {}),
     });
   }
   return items;
@@ -209,10 +212,10 @@ export function generateRangeItems(rng: Rng, count: number, formations: readonly
       id: `ext-${items.length + 1}`,
       kind: "choice",
       skill: { SATB: "escrita-satb", TTBB: "escrita-ttbb", SSAA: "escrita-ssaa" }[formation],
-      prompt: `${spec.name} (${formation}): a nota ${formatPitch(p)} (altura sonora) está…`,
+      prompt: `Pela referência do curso para ${spec.name} em ${formation} (coro amador ou intermediário), a nota ${formatPitch(p)} (altura sonora) está…`,
       options,
       correctOptionId: answer,
-      explanation: `${spec.name} em ${formation}: extensão ${formatPitch(spec.range.low)}–${formatPitch(spec.range.high)}, tessitura ${formatPitch(spec.tessitura.low)}–${formatPitch(spec.tessitura.high)}. ${formatPitch(p)} → ${labels[answer].toLowerCase()}. Na partitura, essa voz é escrita em ${clefNamePt(staffSpec.clef)}${staffSpec.clef === "treble8vb" ? `, ou seja, aparece uma oitava acima (${formatPitch({ ...p, octave: p.octave + 1 })})` : ""}.`,
+      explanation: `${spec.name} em ${formation}: extensão ${formatPitch(spec.range.low)}–${formatPitch(spec.range.high)}, tessitura ${formatPitch(spec.tessitura.low)}–${formatPitch(spec.tessitura.high)}. ${formatPitch(p)} → ${labels[answer].toLowerCase()}. Na partitura, essa voz é escrita em ${clefNamePt(staffSpec.clef)}${staffSpec.clef === "treble8vb" ? `, ou seja, aparece uma oitava acima (${formatPitch({ ...p, octave: p.octave + 1 })})` : ""}. Essas faixas são uma referência didática, não um limite universal: treino, idade e repertório mudam a extensão de cada cantor, e uma nota isolada não diz tudo (o que pesa é quanto tempo a linha fica na região e em que dinâmica).`,
       staff: { clef: staffSpec.clef, attacks: [[p]] },
       audio: { pitches: [p], mode: "melodico" },
     });

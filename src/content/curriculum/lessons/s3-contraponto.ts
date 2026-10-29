@@ -114,7 +114,7 @@ export const lessonCpSegundaTerceira: Lesson = {
       { id: "cp2-bordadura", kind: "choice", skill: "contraponto", prompt: "O que é uma bordadura?", options: [{ id: "a", label: "Nota vizinha que sai e volta para a mesma nota por grau" }, { id: "b", label: "Nota que salta para longe" }, { id: "c", label: "Nota sustentada de um acorde para o outro" }], correctOptionId: "a", explanation: "Ex.: Dó – Ré – Dó, com o Ré como bordadura superior." },
       { id: "cp2-escondidas", kind: "choice", skill: "conducao-de-vozes", prompt: "Paralelas entre um tempo fraco e o tempo forte seguinte…", options: [{ id: "a", label: "Também contam e devem ser evitadas" }, { id: "b", label: "Não importam" }, { id: "c", label: "São obrigatórias" }], correctOptionId: "a", explanation: "O ouvido percebe qualquer par de notas consecutivas." },
     ],
-    generators: [{ type: "nct-identification", count: 3 }, { type: "counterpoint-interval", count: 2 }],
+    generators: [{ type: "nct-identification", count: 3 }, { type: "counterpoint-interval", count: 2, earOnly: true }, { type: "voice-leading-error", count: 1, ruleIds: ["conducao.paralelas"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo quando a dissonância do tempo fraco é aceita.",
   application: { title: "Aplicação no Estúdio", steps: ["Sobre o mesmo cantus firmus, escreva uma linha em semínimas (2ª espécie).", "Depois, uma em colcheias ou com quatro notas por nota do baixo.", "Marque cada nota fraca como passagem, bordadura ou consonância."] },
@@ -170,7 +170,7 @@ export const lessonCpQuarta: Lesson = {
       { id: "cp4-direcao", kind: "choice", skill: "contraponto", prompt: "Em geral, um retardo na voz superior resolve…", options: [{ id: "a", label: "Descendo por grau" }, { id: "b", label: "Subindo por salto" }, { id: "c", label: "Ficando parado" }], correctOptionId: "a", explanation: "7–6, 4–3 e 9–8 descem por grau." },
       { id: "cp4-cadeia", kind: "choice", skill: "contraponto", prompt: "A cadeia de retardos 7–6 funciona sobre um baixo que…", options: [{ id: "a", label: "Desce por grau" }, { id: "b", label: "Sobe por quintas" }, { id: "c", label: "Fica parado" }], correctOptionId: "a", explanation: "Cada baixo novo transforma a sexta anterior em sétima." },
     ],
-    generators: [{ type: "nct-identification", count: 3 }, { type: "counterpoint-interval", count: 2 }],
+    generators: [{ type: "nct-identification", count: 3 }, { type: "counterpoint-interval", count: 2, earOnly: true }, { type: "voice-leading-error", count: 1, ruleIds: ["harmonia.resolucao-da-setima"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo os três momentos do retardo.",
   application: { title: "Aplicação no Estúdio", steps: ["Escreva um baixo descendente de cinco notas e uma cadeia de retardos 7–6 por cima.", "Numa cadência a quatro vozes, escreva um retardo 4–3.", "Confira no motor que cada retardo resolve por grau."] },
@@ -238,7 +238,7 @@ export const lessonCpImitacao: Lesson = {
   objectives: [
     "Escrever uma entrada imitativa à oitava ou à quinta.",
     "Construir um cânone simples sobre harmonia estática.",
-    "Saber o que muda quando duas vozes trocam de lugar (contraponto invertível à oitava).",
+    "Prever o que acontece com cada intervalo quando duas vozes trocam de lugar (contraponto invertível à oitava) e apontar as quintas que viram quartas.",
   ],
   sections: [
     {

@@ -130,7 +130,7 @@ export function voiceSeventhSATB(root: { step: Step; alter: Alter }, ivs: readon
   return [s, a, t, bass];
 }
 
-export function generateSeventhItems(rng: Rng, count: number): ChoiceItem[] {
+export function generateSeventhItems(rng: Rng, count: number, opts: { earOnly?: boolean } = {}): ChoiceItem[] {
   const items: ChoiceItem[] = [];
   let guard = 0;
   const roots: Array<{ step: Step; alter: Alter }> = (["C", "D", "E", "F", "G", "A", "B"] as Step[]).map((step) => ({ step, alter: 0 as Alter }));
@@ -144,11 +144,20 @@ export function generateSeventhItems(rng: Rng, count: number): ChoiceItem[] {
     const label = (q: ChordQuality, inv: number) => `${chordQualityPt(q)} — ${inversionPt(inv)}`;
     const distract = [...SEVENTHS.map(([q]) => label(q, inversion)), ...[0, 1, 2, 3].map((inv) => label(quality, inv))];
     items.push(
-      choice(`tetr-${items.length + 1}`, "acordes", "Identifique a tétrade (qualidade e inversão).", label(quality, inversion), distract, rng, {
+      choice(
+        `tetr-${items.length + 1}`,
+        opts.earOnly ? "percepcao" : "acordes",
+        opts.earOnly ? "Ouça a tétrade (a partitura aparece depois da resposta): qual a qualidade e a inversão? Dica: cante o baixo e procure a sétima." : "Identifique a tétrade (qualidade e inversão).",
+        label(quality, inversion),
+        distract,
+        rng,
+        {
         explanation: `Empilhando em terças a partir de ${formatPitchClassPt(id.root)}: ${chordQualityPt(quality)}. O baixo é a ${["fundamental", "terça", "quinta", "sétima"][inversion]} → ${inversionPt(inversion)} (cifra ${["7", "⁶₅", "⁴₃", "⁴₂"][inversion]}).`,
         notation: chordScore(pitches, `tt${items.length}`),
         audio: { pitches, mode: "harmonico" },
-      }),
+        ...(opts.earOnly ? { earOnly: true } : {}),
+      },
+      ),
     );
   }
   return items;
@@ -197,7 +206,7 @@ function voiceTriadFromPcs(pcs: readonly { step: Step; alter: Alter }[]): Pitch[
 }
 
 /** Tipo de movimento entre duas vozes (pauta única, dois ataques). */
-export function generateMotionItems(rng: Rng, count: number): ChoiceItem[] {
+export function generateMotionItems(rng: Rng, count: number, opts: { earOnly?: boolean } = {}): ChoiceItem[] {
   const items: ChoiceItem[] = [];
   const white = (["C", "D", "E", "F", "G", "A", "B"] as Step[]).flatMap((step) => [4, 5].map((octave) => ({ step, alter: 0 as Alter, octave })));
   const targets: MotionType[] = ["paralelo", "semelhante", "contrario", "obliquo"];
@@ -208,7 +217,14 @@ export function generateMotionItems(rng: Rng, count: number): ChoiceItem[] {
     if (toMidi(u0) <= toMidi(l0) || toMidi(u1) <= toMidi(l1) || toMidi(u0) - toMidi(l0) > 12 || toMidi(u1) - toMidi(l1) > 12) continue;
     if (classifyMotion(u0, u1, l0, l1) !== want) continue;
     items.push(
-      choice(`mov-${items.length + 1}`, "conducao-de-vozes", "Que tipo de movimento as duas vozes fazem?", MOTION_PT[want], targets.map((t) => MOTION_PT[t]), rng, {
+      choice(
+        `mov-${items.length + 1}`,
+        opts.earOnly ? "percepcao" : "conducao-de-vozes",
+        opts.earOnly ? "Ouça duas vozes passando de um intervalo para outro (a pauta aparece depois): que tipo de movimento elas fazem?" : "Que tipo de movimento as duas vozes fazem?",
+        MOTION_PT[want],
+        targets.map((t) => MOTION_PT[t]),
+        rng,
+        {
         explanation: {
           paralelo: "As duas vozes vão na mesma direção mantendo o mesmo intervalo (em semitons).",
           semelhante: "As duas vozes vão na mesma direção, mas o intervalo entre elas muda (movimento direto).",
@@ -217,8 +233,10 @@ export function generateMotionItems(rng: Rng, count: number): ChoiceItem[] {
           estatico: "",
         }[want],
         staff: { clef: "treble", attacks: [[l0, u0], [l1, u1]] },
-        audio: { pitches: [l0, u0, l1, u1], mode: "melodico" },
-      }),
+        audio: { pitches: [l0, u0, l1, u1], mode: "pares" },
+        ...(opts.earOnly ? { earOnly: true } : {}),
+      },
+      ),
     );
   }
   return items;
@@ -264,14 +282,23 @@ export function generateErrorItems(rng: Rng, count: number, ruleIds?: readonly s
   return items;
 }
 
-export function generateCadenceItems(rng: Rng, count: number): ChoiceItem[] {
+export function generateCadenceItems(rng: Rng, count: number, opts: { earOnly?: boolean } = {}): ChoiceItem[] {
   const items: ChoiceItem[] = [];
   for (let i = 0; i < count; i++) {
     const snip = pick(rng, CADENCE_SNIPPETS);
     const score = transposedVariant(rng, snip.score, (t) => validateScore(t).diagnostics.every((d) => d.severity === "info"));
     if (!score) continue;
     items.push(
-      choice(`cad-${i + 1}`, "harmonia-funcional", `Que cadência termina este trecho em ${keyNamePt(score.key)}? Ouça e leia o baixo.`, CADENCE_PT[snip.cadence], Object.values(CADENCE_PT), rng, {
+      choice(
+        `cad-${i + 1}`,
+        opts.earOnly ? "percepcao" : "harmonia-funcional",
+        opts.earOnly
+          ? `Ouça o trecho em ${keyNamePt(score.key)} sem olhar a partitura (ela aparece depois da resposta): que cadência o termina? Preste atenção no baixo e no último acorde.`
+          : `Que cadência termina este trecho em ${keyNamePt(score.key)}? Ouça e leia o baixo.`,
+        CADENCE_PT[snip.cadence],
+        Object.values(CADENCE_PT),
+        rng,
+        {
         explanation: {
           autentica: "Dominante (V) resolvendo na tônica (I) com as fundamentais no baixo: a cadência mais conclusiva.",
           plagal: "Subdominante (IV) para a tônica: o 'Amém' — conclusivo, porém mais suave.",
@@ -279,7 +306,9 @@ export function generateCadenceItems(rng: Rng, count: number): ChoiceItem[] {
           engano: "A dominante resolve em vi em vez de I: a sensível sobe, mas o baixo frustra a expectativa.",
         }[snip.cadence],
         notation: score,
-      }),
+        ...(opts.earOnly ? { earOnly: true } : {}),
+      },
+      ),
     );
   }
   return items;
@@ -558,7 +587,7 @@ export function counterpointClass(number: number, quality: IntervalQuality): key
  * Contraponto: classificar o intervalo harmônico entre duas vozes (consonância
  * perfeita, imperfeita ou dissonância), com escuta das duas notas juntas.
  */
-export function generateCounterpointIntervalItems(rng: Rng, count: number): ChoiceItem[] {
+export function generateCounterpointIntervalItems(rng: Rng, count: number, opts: { earOnly?: boolean } = {}): ChoiceItem[] {
   const items: ChoiceItem[] = [];
   const lows = ["C3", "D3", "E3", "F3", "G3", "A3"].map(parsePitch);
   for (const [n, q] of shuffle(rng, [...CP_INTERVALS]).slice(0, count)) {
@@ -569,16 +598,19 @@ export function generateCounterpointIntervalItems(rng: Rng, count: number): Choi
     items.push({
       id: `cp-int-${items.length + 1}`,
       kind: "choice",
-      skill: "contraponto",
-      prompt: `Contraponto a duas vozes: ${formatPitchPt(low)} no baixo e ${formatPitchPt(high)} em cima (${intervalNamePt({ number: n, quality: q })}). Como esse intervalo se classifica?`,
+      skill: opts.earOnly ? "percepcao" : "contraponto",
+      prompt: opts.earOnly
+        ? "Contraponto a duas vozes: ouça o intervalo (as notas aparecem depois da resposta). Ele soa como consonância perfeita, imperfeita ou dissonância?"
+        : `Contraponto a duas vozes: ${formatPitchPt(low)} no baixo e ${formatPitchPt(high)} em cima (${intervalNamePt({ number: n, quality: q })}). Como esse intervalo se classifica?`,
       options,
       correctOptionId: cls,
       explanation: {
         perfeita: "Uníssono, quinta e oitava justas (e seus compostos) são consonâncias perfeitas: estáveis, mas não podem andar em paralelo.",
         imperfeita: "Terças e sextas (e seus compostos) são consonâncias imperfeitas: podem andar em paralelo e dão independência às vozes.",
         dissonancia: "Segundas, sétimas, nonas, trítono e, a duas vozes, também a quarta justa são dissonâncias: entram como nota de passagem, bordadura ou retardo e resolvem por grau.",
-      }[cls],
+      }[cls] + (opts.earOnly ? ` Você ouviu ${formatPitchPt(low)} e ${formatPitchPt(high)}: ${intervalNamePt({ number: n, quality: q })}.` : ""),
       audio: { pitches: [low, high], mode: "harmonico" },
+      ...(opts.earOnly ? { earOnly: true } : {}),
     });
   }
   return items;

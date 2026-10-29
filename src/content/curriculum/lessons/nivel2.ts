@@ -160,7 +160,7 @@ export const lessonEspacamento: Lesson = {
 export const lessonDuplicacoes: Lesson = {
   id: "duplicacoes",
   title: "Duplicações e omissões",
-  summary: "Que nota dobrar em cada acorde, quando omitir a quinta e por que nunca dobrar a sensível.",
+  summary: "Que nota dobrar em cada acorde, quando omitir a quinta e por que a escrita coral tradicional evita dobrar a sensível.",
   levelId: "n2",
   unitId: "n2-u1",
   status: "disponivel",
@@ -169,15 +169,16 @@ export const lessonDuplicacoes: Lesson = {
   competencies: ["conducao-de-vozes", "acordes"],
   objectives: [
     "Escolher a duplicação adequada conforme o acorde, a inversão e o contexto.",
-    "Evitar a duplicação da sensível e da sétima.",
+    "Explicar por que a sensível e a sétima não são dobradas na escrita coral tradicional, e corrigir um acorde em que estejam.",
     "Reconhecer quando dobrar a terça é preferível (vi após V).",
   ],
   sections: [
     {
       title: "1. Regras práticas",
       blocks: [
-        { type: "list", ordered: true, items: ["Estado fundamental: dobre a fundamental.", "1ª inversão: dobre a fundamental ou a quinta; o baixo só se não for a sensível.", "2ª inversão: dobre o baixo (a quinta).", "Nunca dobre a sensível nem a sétima de um acorde.", "Omita a quinta quando necessário; nunca a terça.", "Em vi depois de V (cadência de engano), dobre a terça."] },
+        { type: "list", ordered: true, items: ["Estado fundamental: dobre a fundamental.", "1ª inversão: dobre a fundamental ou a quinta; o baixo só se não for a sensível.", "2ª inversão: dobre o baixo (a quinta).", "Não dobre a sensível quando ela age como sensível (V, V7, vii°) nem a sétima de um acorde de sétima: as duas notas tendem a resolver na mesma direção e geram oitavas paralelas.", "Omita a quinta quando necessário; a terça quase nunca (sem ela o acorde perde o modo).", "Em vi depois de V (cadência de engano), dobre a terça."] },
         { type: "example", score: EX.sensivelDobrada, verdict: "incorreto", caption: "V com a sensível dobrada", commentary: "Erro no estilo tradicional: as duas sensíveis gerariam oitavas paralelas ao resolver." },
+        { type: "callout", tone: "atencao", title: "Regra didática, convenção e exceção", text: "Estas são convenções da escrita coral tradicional (prática comum), ensinadas como regra porque evitam os problemas mais frequentes de quem começa. Há exceções conhecidas: numa sequência, a sensível pode aparecer dobrada num acorde que não é dominante; no pop e no gospel, blocos em oitavas são recurso de estilo. Quem foge da regra precisa saber por quê, e a aula do estilo diz quando." },
         { type: "example", score: EX.tercaDobrada, verdict: "observacao", caption: "I com a terça dobrada", commentary: "Recomendação: num acorde maior em estado fundamental, a terça dobrada fica proeminente." },
         { type: "example", score: EX.cadEngano, verdict: "correto", caption: "vi com terça dobrada após V", commentary: "Aqui a terça dobrada é a solução recomendada — o motor reconhece a exceção." },
         { type: "listening", title: "Peso da terça", score: EX.tercaDobrada, instructions: ["Ouça o acorde e depois apenas soprano + tenor (as duas terças)."], focus: [["S", "T"], ["S", "A", "T", "B"]] },
