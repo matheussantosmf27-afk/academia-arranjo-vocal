@@ -1,5 +1,6 @@
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { scoreFromText } from "@/domain/music/text-notation";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 const INVERSOES = scoreFromText({
@@ -185,6 +186,41 @@ export const lessonTriades: Lesson = {
             "Ouça tudo e perceba a diferença de estabilidade entre I⁶₄ e V no compasso 3.",
           ],
           focus: [["B"], ["S", "A", "T", "B"]],
+        },
+      ],
+    },
+    {
+      title: "6. Demonstração: distribuir um acorde a partir do soprano e do baixo",
+      blocks: [
+        { type: "paragraph", text: "Problema: em Sol maior, o soprano tem D5 e o baixo B2, e o acorde pedido é I (G–B–D). Que notas o contralto e o tenor cantam?" },
+        { type: "list", ordered: true, items: [
+          "Inversão: B no baixo é a terça de G — o acorde está em 1ª inversão (I⁶).",
+          "O que já temos: terça (baixo) e quinta (soprano). Falta a fundamental G, obrigatoriamente.",
+          "O que dobrar: na 1ª inversão, prefira dobrar a fundamental ou a quinta. A terça já está no baixo e, num acorde maior, dobrá-la deixa a cor da terça pesada.",
+          "Onde colocar: contralto até uma 8ª abaixo do soprano (D4–D5) e tenor até uma 8ª abaixo do contralto. G4 no contralto e G3 no tenor dão B2, G3, G4, D5: fundamental dobrada, posição aberta.",
+          "Conferir o contexto: a nota escolhida para cada voz deve ser a mais próxima da nota anterior dessa voz. Às vezes isso muda a duplicação (ver o exercício abaixo).",
+        ] },
+        { type: "table", caption: "Resumo das duplicações recomendadas na escrita coral tradicional", headers: ["Acorde", "Dobre", "Evite dobrar"], rows: [["Estado fundamental", "fundamental", "sensível (em V e vii°)"], ["1ª inversão (⁶)", "fundamental ou quinta", "o baixo quando for a sensível"], ["2ª inversão (⁶₄)", "o baixo (quinta)", "—"], ["vii° (diminuto)", "terça (o baixo, em vii°⁶)", "fundamental (é a sensível)"]] },
+      ],
+    },
+    {
+      title: "7. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que acontece", "Correção"], rows: [["Identificar a inversão pela nota do soprano", "olhar a voz mais aguda", "a inversão depende só do baixo"], ["Omitir a terça", "querer dobrar fundamental e quinta", "a terça define o modo; omita a quinta, nunca a terça"], ["Dobrar a sensível no V", "completar o acorde 'por cima' sem pensar na resolução", "dobre a fundamental do V"], ["⁶₄ usado como inversão qualquer", "tratar as três inversões como equivalentes", "⁶₄ só cadencial, de passagem, de bordadura ou arpejado"]] },
+        { type: "list", items: ["Inversão = nota do baixo.", "Quatro vozes, três notas: dobre a fundamental em estado fundamental; nunca a sensível num acorde de dominante.", "A terça nunca é omitida."] },
+        {
+          type: "challenge",
+          title: "Cinco acordes, cinco duplicações",
+          task: "Soprano e baixo estão dados para I – I⁶ | IV – V | I em Sol maior. Escreva contralto e tenor escolhendo, em cada acorde, que nota dobrar.",
+          start: EXD.triStart,
+          constraints: ["Não altere soprano nem baixo.", "Só notas dos acordes indicados.", "Escreva ao lado de cada acorde a nota dobrada e por quê."],
+          criteria: ["Todos os acordes têm terça.", "A sensível (F♯) aparece no máximo uma vez no V e sobe para G.", "O motor não aponta erros nem alertas."],
+          hints: ["No I⁶, o baixo é B (terça) e o soprano D (quinta). O que falta?", "No IV → V, o baixo sobe um grau (C3 → D3). As vozes de cima devem descer para evitar paralelas.", "No I final, o soprano termina em G4 e o baixo em G2: alguém precisa cantar B."],
+          solution: {
+            score: EXD.triSol,
+            commentary: "I: G2, B3, G4, D5 (fundamental dobrada). I⁶: B2, G3, G4, D5 (fundamental dobrada — a terça já está no baixo). IV: C3, G3, E4, C5 (fundamental dobrada, o tenor mantém G3 como nota comum). V: D3, F♯3, D4, A4 (fundamental dobrada; sensível só no tenor). I: G2, G3, B3, G4 — o tenor resolve a sensível e o contralto desce à terça. No IV → V, as três vozes superiores descem enquanto o baixo sobe. Duas armadilhas: começar com tenor D4 (G2, D4, G4, D5 não tem terça) e, no fim, manter o contralto em D4 (G2, G3, D4, G4 também fica sem terça).",
+            alternatives: ["No I⁶, dobrar a quinta (tenor D4 em vez de G3: B2, D4, G4, D5) também é correto. Confira então o caminho do tenor até o IV e o V: com o baixo subindo C3 → D3, o tenor não pode subir junto mantendo a mesma distância."],
+          },
         },
       ],
     },

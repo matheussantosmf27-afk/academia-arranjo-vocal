@@ -1,6 +1,7 @@
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { EX } from "../examples";
 import { EXA } from "../examples-arranjo";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /* 1º semestre — ARV101 Introdução ao Arranjo Vocal e VOZ101 A Voz como Instrumento. */
@@ -132,6 +133,34 @@ export const lessonOficio: Lesson = {
           ],
         },
         { type: "paragraph", text: "Anote as respostas no topo do seu rascunho. Elas são o 'briefing' do arranjo e vão orientar todas as escolhas das próximas aulas." },
+      ],
+    },
+    {
+      title: "5. Demonstração: do briefing às primeiras decisões",
+      blocks: [
+        { type: "paragraph", text: "Situação: um coro de igreja amador com 24 cantores (9 sopranos, 8 contraltos, 3 tenores, 4 baixos) vai cantar a 'Canção do Caminho' num culto daqui a cinco semanas, com um ensaio por semana, sem instrumentos. Veja como cada resposta do briefing vira uma decisão concreta." },
+        { type: "table", caption: "Cada resposta do briefing elimina opções", headers: ["Pergunta", "Resposta", "Decisão que ela provoca"], rows: [["Para quem?", "SATB amador, só 3 tenores", "tenor nunca sozinho com a melodia; tessitura de tenor entre E3 e D4"], ["Para quê?", "culto, congregação ouvindo o texto", "letra inteligível em todas as vozes durante as estrofes"], ["Com instrumentos?", "a cappella", "o baixo precisa dar a fundamental nos tempos fortes; dar a nota inicial com uma introdução curta"], ["Estilo?", "coral tradicional", "condução sem paralelas; homofonia como textura principal"], ["Tempo de ensaio?", "cinco ensaios", "no máximo duas texturas diferentes; nada de divisi"]] },
+        { type: "paragraph", text: "Repare no que NÃO foi decidido ainda: os acordes, a tonalidade exata e a forma. O briefing não escreve o arranjo — ele estreita o caminho, para que as decisões musicais seguintes sejam rápidas e coerentes." },
+        { type: "callout", tone: "dica", title: "Alternativa com outro briefing", text: "Se o mesmo grupo fosse cantar num festival, com três meses de ensaio, a resposta 'Para quê?' mudaria: haveria espaço para um verso com melodia nos contraltos e pad em 'uh', e para um final com divisi nos sopranos. Mesma canção, mesmos cantores, outro arranjo." },
+      ],
+    },
+    {
+      title: "6. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes de quem começa", headers: ["Erro", "Por que acontece", "Como evitar"], rows: [["Arranjar para o próprio gosto, não para o grupo", "o arranjador imagina um coro profissional", "escreva o briefing antes e releia-o a cada seção"], ["Esconder a melodia", "vozes internas mais interessantes que a melodia", "confira, compasso a compasso, quem está cantando a melodia e se ela está audível"], ["Harmonia mais difícil que o tempo de ensaio permite", "querer mostrar repertório harmônico", "use acordes novos só onde o texto pede cor"], ["Misturar estilos sem querer", "copiar recursos de gravações diferentes", "escolha o estilo no briefing e consulte o motor no estilo certo"], ["Tratar 'zero alertas' como 'arranjo pronto'", "confiar só na validação automática", "o motor confere regras; o efeito você confere ouvindo e cantando"]] },
+        { type: "list", items: ["Arranjar é decidir como uma canção pronta vai soar para um grupo concreto.", "Toda canção arranjada tem melodia, harmonia e ritmo/textura; alguém precisa fazer cada trabalho.", "O estilo decide se um recurso é erro, convenção ou escolha.", "O briefing (para quem, para quê, com o quê, em que estilo, com quanto ensaio) vem antes da primeira nota."] },
+        {
+          type: "challenge",
+          title: "Briefing de um coro escolar",
+          task: "Um coro escolar com 30 adolescentes (vozes femininas e masculinas ainda em muda) vai cantar a 'Canção do Caminho' numa formatura, com piano, em seis ensaios. Escreva o briefing (as cinco perguntas) e, a partir dele, três decisões concretas de arranjo com a justificativa de cada uma.",
+          constraints: ["Cada decisão precisa citar a resposta do briefing que a justifica.", "Não escreva notas ainda: só decisões (textura, quem canta a melodia, tonalidade aproximada, uso do piano…)."],
+          criteria: ["As cinco perguntas respondidas com dados do enunciado, sem inventar informações.", "As três decisões são verificáveis (alguém poderia conferir se o arranjo as cumpre).", "Pelo menos uma decisão leva em conta a muda vocal dos meninos."],
+          hints: ["Comece pelo 'Para quem?': o que a muda vocal muda na extensão dos meninos?", "O piano está disponível. Que trabalho das três camadas ele pode assumir para aliviar o coro?", "Uma formação comum para esse caso é 'SAB' (soprano, contralto e uma voz masculina de extensão curta, por volta de A2–D4)."],
+          solution: {
+            commentary: "Um briefing possível: Para quem? 30 adolescentes; meninas em duas vozes, meninos em muda com extensão curta e instável. Para quê? Formatura: público de familiares, peça curta e celebrativa. Com o quê? Piano. Estilo? Coral escolar, próximo do tradicional, com liberdade para dobrar a melodia. Ensaio? Seis encontros. Decisões: (1) formação SAB, com a voz masculina numa extensão de cerca de uma oitava (A2–A3 ou B2–C4), porque a muda torna os extremos imprevisíveis; (2) o piano faz a harmonia completa e o baixo nas estrofes, e o coro canta a melodia em uníssono na 1ª estrofe e em duas vozes na 2ª, porque seis ensaios não comportam três texturas novas; (3) tonalidade escolhida pela voz masculina e pelas sopranos ao mesmo tempo, conferida no Estúdio com Propriedades → Tonalidade, porque é o naipe mais restrito que limita a escolha.",
+            alternatives: ["Com meninos que já mudaram a voz, um SATB simplificado (tenor e baixo próximos, em terças) também é razoável.", "Se o piano não for confiável, a introdução pode ser cantada (bocca chiusa) para dar a nota ao coro."],
+          },
+        },
       ],
     },
   ],
@@ -285,6 +314,44 @@ export const lessonProcesso: Lesson = {
           score: CHORALE_SATB_C,
           instructions: ["Ouça o contralto sozinho e cante junto: é uma linha com sentido?", "Ouça soprano + baixo: o esqueleto se sustenta sozinho?", "Ouça o conjunto em andamento real."],
           focus: [["A"], ["S", "B"], ["S", "A", "T", "B"]],
+        },
+      ],
+    },
+    {
+      title: "4. Demonstração: as sete etapas numa canção curta",
+      blocks: [
+        { type: "paragraph", text: "Vamos aplicar o método à 'Canção do Caminho' (quatro compassos), para um coro SATB amador, estilo tradicional. As etapas 1 a 4 não produzem nenhuma nota nova — e mesmo assim decidem quase tudo." },
+        { type: "list", ordered: true, items: [
+          "Ouvir e transcrever: a melodia está em Dó maior, 4/4, de E4 a C5. A letra 'Vou pelo caminho com a gente' cabe sílaba por nota, com 'mi-' no tempo forte do compasso 2.",
+          "Analisar: uma frase só, com ponto culminante C5 no compasso 2 e cadência na tônica (B4 → C5) no fim.",
+          "Briefing: SATB amador, culto, a cappella, estilo tradicional, quatro ensaios.",
+          "Mapa: uma única textura (homofonia), melodia no soprano, intensidade mf com pequeno crescendo até o C5.",
+          "Esqueleto: o baixo é escrito agora, inteiro — C3 | A2 C3 | C3 G2 | C3 — e conferido contra o soprano.",
+          "Preenchimento: contralto e tenor completam os acordes com notas comuns (veja a versão harmonizada na aula anterior).",
+          "Revisão: motor no estilo tradicional; cantar contralto e tenor sozinhos; tocar no andamento real.",
+        ] },
+        { type: "example", score: EXA.melodiaHarmonizada, verdict: "correto", caption: "Resultado das sete etapas", commentary: "O baixo do esqueleto ficou exatamente como foi planejado na etapa 5. Contralto e tenor mudam pouco de nota: o trabalho difícil foi feito antes deles." },
+        { type: "callout", tone: "dica", title: "Decisão do arranjador: quando inverter a ordem", text: "Em arranjos com baixo vocal rítmico (pop a cappella), muitos arranjadores escrevem o baixo e a percussão antes da harmonia, porque o groove define tudo. O princípio é o mesmo: comece pela camada que segura as outras." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes no processo", headers: ["Erro", "Consequência", "Correção"], rows: [["Começar pelo compasso 1 nas quatro vozes", "arranjo sem curva, vozes internas sem rumo", "mapa e esqueleto do arranjo inteiro antes do preenchimento"], ["Pular a análise", "cadências harmonizadas no lugar errado", "marque frases e cadências na lead sheet"], ["Revisar só no fim", "um erro do compasso 2 obriga a refazer tudo depois", "revise a cada trecho: motor + cantar as vozes"], ["Escolher a tonalidade depois de escrever", "transposição empurra vozes para fora da tessitura", "a tonalidade faz parte do briefing"]] },
+        { type: "list", items: ["Do geral para o particular: briefing → mapa → esqueleto → preenchimento → revisão.", "Soprano e baixo primeiro: são as vozes mais ouvidas e as que mais causam paralelas.", "A revisão é um ciclo, não uma etapa final."] },
+        {
+          type: "challenge",
+          title: "Só o esqueleto",
+          task: "Escreva apenas o baixo para a 'Canção do Caminho', com no máximo dois acordes por compasso, de modo que soprano e baixo formem um esqueleto sem 5ªs ou 8ªs paralelas e com cadência autêntica no final.",
+          start: EXD.procStart,
+          constraints: ["Não escreva contralto nem tenor.", "Baixo entre G2 e C4.", "Termine com G (V) → C (I) no baixo."],
+          criteria: ["O baixo muda de nota nos tempos fortes (1 e 3), não nas colcheias da melodia.", "Nenhuma 5ª ou 8ª paralela entre soprano e baixo.", "A última nota do baixo é C3 sob o C5 do soprano."],
+          hints: ["A melodia tem notas de passagem nas semínimas: harmonize só as notas dos tempos 1 e 3.", "No compasso 2, o C5 do tempo forte aceita C (I) ou A (vi) no baixo; um baixo que desce por grau ou por 3ª dá linha.", "Um esqueleto possível começa com C3 sustentado no compasso 1 e passa por A2 no compasso 2."],
+          solution: {
+            score: EXD.procSol,
+            commentary: "C3 | A2 – C3 | C3 – G2 | C3. O baixo sustenta a tônica no compasso 1 (as semínimas da melodia passam por cima), desce para A2 no ponto culminante — o C5 sobre A forma uma 10ª e dá cor de vi — e prepara a cadência com G2 sob o B4. Nas duas trocas de acorde do compasso 2, soprano e baixo se movem em direções opostas; no compasso 3, o baixo fica parado enquanto a melodia anda (movimento oblíquo). Com este esqueleto, as vozes internas da versão harmonizada praticamente não precisam saltar.",
+            alternatives: ["C3 | C3 – E3 | F3 – G3 | C3: baixo subindo por grau até a dominante, mais 'caminhante'; confira se o G3 → C3 final soa conclusivo o bastante (salto de 5ª descendente, sim).", "Com o compasso 3 em ii⁶ (F3) → V (G2) a cadência fica mais preparada, mas o salto de 7ª no baixo pede cuidado: prefira F3 → G3."],
+          },
         },
       ],
     },
@@ -449,6 +516,39 @@ export const lessonLeadSheet: Lesson = {
         { type: "listening", title: "Ouça a forma em miniatura", score: EX.melodiaFrase, instructions: ["Identifique a respiração entre as frases.", "Onde está o ponto culminante?"], focus: [["S"]] },
       ],
     },
+    {
+      title: "4. Demonstração: da lead sheet ao mapa, passo a passo",
+      blocks: [
+        { type: "paragraph", text: "Problema: uma canção tem a forma Introdução – Verso 1 – Refrão – Verso 2 – Refrão – Final, para SATB, 3min30s. O refrão sobe até E5; os versos ficam entre C4 e A4. Como montar o mapa?" },
+        { type: "list", ordered: true, items: [
+          "Marque na lead sheet onde está o ponto mais alto de cada seção e a intensidade que a letra pede. Aqui: versos narrativos (contidos), refrão com E5 (o clímax natural).",
+          "Defina a curva: o 2º refrão precisa soar maior que o 1º, senão a canção 'para de crescer' no meio.",
+          "Para cada seção, decida quem canta a melodia. Versos entre C4 e A4 cabem também nos tenores (uma oitava abaixo, C3–A3) — uma mudança de cor sem mudar a melodia.",
+          "Decida a textura das outras vozes a partir da intensidade: pad em 'uh' (mais leve) → homofonia com letra → homofonia com baixo rítmico (mais denso).",
+          "Revise o mapa inteiro de cima a baixo: há contraste entre seções vizinhas? O final resolve a curva?",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador e alternativas", text: "Em vez de passar a melodia para os tenores no verso 2, outra opção é manter os sopranos e acrescentar um contracanto dos contraltos. A primeira muda a cor; a segunda acrescenta uma camada. Escolha pelo que a letra do verso 2 pede: se ela é mais íntima, a troca de cor funciona melhor; se é mais intensa, a camada a mais." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que acontece", "Como corrigir"], rows: [["Cifra que contradiz a melodia no tempo forte", "cifra copiada de uma versão em outra tonalidade ou de outro trecho", "confira cada tempo forte: a nota da melodia pertence ao acorde ou é uma tensão intencional?"], ["Letra desalinhada (sílaba sob a nota errada)", "escrever a letra depois, sem cantar", "cante a lead sheet antes de passar para o mapa"], ["Mapa com a mesma textura em todas as seções", "falta de plano de intensidade", "defina p/mf/f por seção primeiro; a textura segue a intensidade"], ["Clímax no 1º refrão", "gastar todos os recursos cedo", "reserve modulação, divisi ou a textura mais densa para o último refrão"]] },
+        { type: "list", items: ["A lead sheet registra melodia, letra e cifra; confira-a cantando.", "Análise: frases, ponto culminante, cadências e forma.", "O mapa decide, por seção, melodia, textura e intensidade — antes de qualquer nota."] },
+        {
+          type: "challenge",
+          title: "Mapa de uma canção com ponte",
+          task: "Uma canção para coro SATB a cappella tem a forma: Introdução (4 comp.) – Verso 1 – Refrão – Verso 2 – Refrão – Ponte (8 comp., texto reflexivo) – Refrão final. Monte o mapa (melodia, textura, intensidade e observação especial por seção).",
+          constraints: ["Uma linha por seção.", "Pelo menos três texturas diferentes no arranjo.", "O refrão final deve ser o ponto mais intenso."],
+          criteria: ["A intensidade não diminui de um refrão para o seguinte.", "Seções vizinhas contrastam em pelo menos um parâmetro (melodia, textura ou intensidade).", "A ponte tem papel próprio (respiro antes do final), não é mais um refrão."],
+          hints: ["Comece pelo fim: o que o refrão final terá que nenhum outro tem?", "A ponte com texto reflexivo pede menos densidade. Ela pode ser o ponto mais calmo do arranjo, para que o refrão final soe maior por contraste.", "Recursos para o refrão final: modulação de meio tom, melodia em oitavas (sopranos + tenores), baixo rítmico."],
+          solution: {
+            commentary: "Um mapa possível: Introdução — sem melodia; contraltos e tenores em 'uh' com os acordes do refrão; p. Verso 1 — sopranos; pad em 'uh'; mp. Refrão — sopranos; homofonia com letra; mf. Verso 2 — tenores; sopranos e contraltos em contracanto suave; mf. Refrão — sopranos; homofonia com baixo mais rítmico; f. Ponte — contraltos com a melodia; pad muito leve, só três vozes; p (o respiro). Refrão final — sopranos + tenores em oitavas, meio tom acima; homofonia densa; ff, terminando num acorde longo em p. A lógica: cada refrão tem um recurso a mais que o anterior, e a ponte é deliberadamente o momento mais vazio, para que o último refrão pareça ainda maior.",
+            alternatives: ["Ponte a cappella em uníssono, todos os naipes: outra forma de 'esvaziar' a textura, com a vantagem de ser fácil de ensaiar.", "Se o grupo não sustenta a modulação, o refrão final pode crescer só pela textura (oitavas + baixo rítmico) e pela dinâmica."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-lead-sheet",
@@ -606,6 +706,35 @@ export const lessonVozCantada: Lesson = {
         },
         { type: "example", score: EX.semRespiracao, verdict: "observacao", caption: "20 segundos sem respirar", commentary: "A ♩ = 60, cinco semibreves seguidas dão 20 segundos. O motor sugere inserir uma respiração ou indicar respiração escalonada." },
         { type: "listening", title: "Cante junto e sinta o fôlego", score: EX.semRespiracao, instructions: ["Tente cantar a linha inteira sem respirar.", "Onde você respiraria naturalmente?"], focus: [["S"]] },
+      ],
+    },
+    {
+      title: "5. Demonstração: reescrever uma linha cansativa",
+      blocks: [
+        { type: "paragraph", text: "Diagnóstico de uma linha de soprano é sempre feito nesta ordem: (1) onde estão as notas longas? (2) em que região? (3) em que vogal? (4) quanto tempo sem respirar? Uma linha pode ter todas as notas dentro da extensão e ainda assim ser ruim de cantar." },
+        { type: "example", score: EXA.tessituraAlta, verdict: "incorreto", caption: "O problema: nota longa no extremo agudo", commentary: "As quatro perguntas mostram o problema: nota longa, fora da tessitura, sustentada por vários tempos. Reescrever não é só transpor: é mover a nota longa para a região confortável e deixar o agudo, se necessário, como nota curta e preparada." },
+        { type: "list", ordered: true, items: ["Transpor a frase inteira até que a nota longa caia na tessitura (para sopranos amadores, até E5).", "Se o agudo for essencial para o texto, mantenha-o curto, no tempo forte, em vogal aberta e precedido de uma respiração.", "Divida frases longas com pausas nos finais de verso, ou indique respiração escalonada.", "Releia a letra: troque sílabas em 'i' ou 'u' sobre notas agudas por vocalizes ou mova a sílaba para outra nota."] },
+      ],
+    },
+    {
+      title: "6. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito no coro", "Correção"], rows: [["Nota longa na passagem (tenor em E4–F4, soprano em C5–E5) em dinâmica forte", "timbre instável, desafinação", "mude a nota para fora da passagem ou escreva-a em movimento"], ["Vogal 'i' em nota aguda longa", "som estridente, apertado", "mova a sílaba ou use vogal aberta"], ["Frase de mais de 15 s sem pausa", "respiração no meio da palavra", "pausas nos finais de verso ou respiração escalonada"], ["Tenor agudo e forte por vários compassos", "fadiga e falsete involuntário", "agudo forte só no clímax; antes e depois, tessitura média"]] },
+        { type: "list", items: ["Escreva na tessitura; use a extensão só em momentos curtos e preparados.", "Notas longas fora da passagem; vogais abertas no agudo, escuras no grave.", "Planeje respirações em todas as vozes, não só na melodia."] },
+        {
+          type: "challenge",
+          title: "Diagnóstico e reescrita",
+          task: "A linha abaixo vai ser cantada por sopranos amadores a ♩ = 60, com o texto 'Vi-ver é bom' cantado na primeira nota e o resto em 'i'. Liste os problemas que você encontra e reescreva a linha (na partitura do Estúdio ou em palavras).",
+          start: EX.semRespiracao,
+          revises: true,
+          constraints: ["Mantenha o caráter: uma frase longa e calma.", "Não ultrapasse E5 em nota longa."],
+          criteria: ["Os quatro aspectos (notas longas, região, vogal, fôlego) foram examinados.", "A reescrita tem pelo menos uma respiração planejada.", "A vogal das notas mais agudas é aberta."],
+          hints: ["Quanto dura a linha inteira a ♩ = 60? Compare com os 15 s desta aula.", "As notas C5–E5 estão na região da segunda passagem das sopranos: são longas?", "A vogal 'i' em C5–E5 longas fica estridente: que vogal ou sílaba de apoio funcionaria melhor?"],
+          solution: {
+            commentary: "Problemas: (1) 20 s sem respirar (cinco semibreves a ♩ = 60); (2) todas as notas longas ficam entre C5 e E5, na região da segunda passagem de sopranos amadores; (3) a vogal 'i' sustentada nessa região soa apertada. Uma reescrita: dividir em duas frases de dois compassos com pausa de semínima no fim do 2º compasso, trocar o 'i' por 'a' (ou por um 'uh' aberto, se for vocalize), e começar a linha uma 3ª abaixo (A4 – B4 | C5 …) para que só a nota culminante passe por D5. Alternativa sem mudar as notas: indicar respiração escalonada e trocar a vogal.",
+            alternatives: ["Se a frase longa sem pausa for essencial para o efeito, indique respiração escalonada ('respirem em momentos diferentes') e mantenha a dinâmica em p, que cansa menos."],
+          },
+        },
       ],
     },
   ],

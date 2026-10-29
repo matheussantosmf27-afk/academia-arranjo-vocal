@@ -60,6 +60,37 @@ export const lessonAcappellaSolistas: Lesson = {
         ESTUDO,
       ],
     },
+    {
+      title: "3. Demonstração: transpor a melodia para cada solista",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Meça a melodia: nota mais grave, mais aguda e nota média (por exemplo, D4–B4, média G4, em Sol maior).",
+          "Compare com a tessitura de cada solista (TTBB): Tenor I G3–F4, lead (Tenor II) E3–D4, barítono B2–C4, baixo G2–A3.",
+          "Para o barítono, uma oitava abaixo em Sol (D3–B3, média G3) cabe bem; para o tenor, uma oitava abaixo em Lá (E3–C♯4) fica mais brilhante.",
+          "Se a seção do barítono precisa de outra tonalidade, mude a tonalidade da seção inteira (com uma modulação preparada), não só a melodia.",
+          "Revise a harmonia em volta: com a melodia mais grave, as outras vozes sobem ou descem para não cobri-la.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Um dueto em terças funciona melhor quando a voz de baixo do dueto é a mais estável do grupo: o ouvido segue a de cima (a melodia) e a de baixo dá o chão. Para trocar a melodia de solista sem mudar a tonalidade, escolha um solista cuja tessitura contenha a melodia na mesma oitava ou uma oitava abaixo." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Trocar o solista sem transpor", "nota fora da extensão", "confira a tessitura de cada solista"], ["Dueto em 5ªs ou 8ªs", "som oco, perda de independência", "3ªs e 6ªs"], ["Melodia em oitavas por trechos longos", "perde-se uma voz da harmonia", "oitavas em trechos curtos e intencionais"], ["Backing cobrindo o solista grave", "melodia inaudível", "backing acima e mais suave"]] },
+        { type: "list", items: ["Revezar solistas muda o timbre sem mudar a harmonia.", "Dueto em 3ªs e 6ªs; oitavas como reforço curto.", "Cada solista na sua tessitura."] },
+        {
+          type: "challenge",
+          title: "Plano de solistas",
+          task: "Uma canção em Ré maior tem melodia de A3 a F♯4 (sons reais, pensando em vozes masculinas) e forma Estrofe 1 – Refrão – Estrofe 2 – Refrão – Final. Planeje quem canta a melodia em cada seção num quarteto masculino e em que oitava/tonalidade, com o acompanhamento das outras vozes.",
+          constraints: ["Tessituras (TTBB): Tenor I G3–F4, lead (Tenor II) E3–D4, barítono B2–C4, baixo G2–A3.", "Pelo menos três solistas diferentes ao longo da canção.", "Se mudar a tonalidade, indique como modula."],
+          criteria: ["Cada solista canta dentro da sua tessitura.", "O acompanhamento de cada seção não cobre o solista.", "As mudanças de solista seguem a curva de energia."],
+          hints: ["Compare o ponto mais agudo da melodia (F♯4) com o topo das tessituras: nenhum solista masculino amador fica confortável ali.", "Em Lá maior (uma 4ª abaixo), a melodia fica entre E3 e C♯4: boa para o lead e para o tenor.", "Uma oitava abaixo, a melodia sairia da tessitura do barítono; ele pode participar em dueto, uma 3ª abaixo do lead."],
+          solution: {
+            commentary: "A melodia em Ré (A3–F♯4) passa da tessitura de todos os solistas masculinos amadores no agudo (F♯4 > E4). Solução: arranjo em Lá maior (melodia E3–C♯4). Estrofe 1 — lead, com pad em 'uh' de tenor, barítono e baixo. Refrão — quarteto em bloco, lead na melodia, tenor acima. Estrofe 2 — tenor com a melodia (E3–C♯4 cabe; mais brilhante que o lead), lead e barítono em 'doo' rítmico. Refrão — bloco, com a melodia dobrada pelo tenor uma terça acima nos finais de frase. Final — tag com modulação de meio tom (Lá → Si♭, preparada por F7) e o lead sustentando a nota longa. O barítono não recebe a melodia inteira porque, uma oitava abaixo (E2–C♯3), ela sairia da tessitura dele; ele pode cantar uma frase em dueto com o lead (uma 3ª abaixo).",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-acappella-solistas",
@@ -115,6 +146,37 @@ export const lessonAcappellaTexturas: Lesson = {
         { type: "example", score: EXA2.antecipacao, verdict: "correto", caption: "Antecipação ('push')", commentary: "O acorde de Dó chega na última colcheia do compasso 1, ligado ao tempo forte do compasso 2: é a síncope que dá balanço ao gospel e ao pop." },
         { type: "listening", title: "Ouça o eco", score: EXA2.eco, instructions: ["Ouça só o lead.", "Ouça lead e barítono juntos."], focus: [["T2"], ["T2", "B1"]] },
         ESTUDO,
+      ],
+    },
+    {
+      title: "3. Demonstração: planejar texturas para uma canção de igreja",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Estrofe 1: todos na melodia (uníssono e oitavas). O texto se entende, o grupo afina junto, a canção é apresentada.",
+          "Refrão 1: bloco homorrítmico a quatro vozes — soprano e contralto em 3ªs, tenor e baixo com a harmonia.",
+          "Estrofe 2: texto contra 'uh' — duas vozes de cima com o texto em 3ªs, duas de baixo em pad.",
+          "Refrão 2: bloco com eco — o barítono (ou o contralto) repete o fim de cada frase um tempo depois.",
+          "Antes do refrão final: uma antecipação (push) no acorde de chegada dá o impulso rítmico.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "O eco funciona com frases curtas e harmonia parada; com texto longo ou harmonia mudando a cada tempo, as duas camadas de palavras se atrapalham. A antecipação precisa estar escrita com ligadura (colcheia ligada ao tempo seguinte): o grupo inteiro antecipa junto." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Eco sobre frases longas", "texto embaralhado", "eco só no fim da frase"], ["Pad em 'uh' forte sob o texto", "o texto some", "pad p, vogal fechada"], ["Antecipação em uma voz só", "parece erro de ritmo", "antecipação do bloco inteiro"], ["Mesma textura nos dois refrões", "monotonia", "acrescente eco, dinâmica ou registro"]] },
+        { type: "list", items: ["Uníssono para apresentar, bloco para afirmar.", "Eco e texto contra 'uh' dividem o grupo em camadas.", "A antecipação dá balanço ao gospel e ao pop."] },
+        {
+          type: "challenge",
+          title: "Texturas para quatro seções",
+          task: "Para uma canção com Estrofe 1 – Refrão – Estrofe 2 – Refrão, escolha a textura de cada seção entre as desta aula (uníssono, bloco, eco, texto contra 'uh', antecipação) e escreva, para um refrão, um exemplo de eco: frase do lead, palavra ecoada e voz que ecoa.",
+          constraints: ["Quatro texturas diferentes no total.", "O eco usa no máximo três sílabas.", "A melodia sempre audível."],
+          criteria: ["Cada seção muda pelo menos uma camada em relação à anterior.", "O eco cai no espaço em que o lead sustenta ou pausa.", "A voz que ecoa está em registro diferente do lead."],
+          hints: ["Estrofe 1 em uníssono é a escolha mais segura para começar.", "No refrão 2, o eco pode repetir a última palavra da frase ('Senhor… Senhor').", "O barítono ecoa uma 3ª ou 6ª abaixo do lead."],
+          solution: {
+            commentary: "Estrofe 1: uníssono e oitavas (todos). Refrão 1: bloco homorrítmico a quatro vozes. Estrofe 2: tenores com o texto em 3ªs, barítono e baixo em 'uh'. Refrão 2: bloco com eco do barítono e antecipação no acorde de chegada da última frase. Exemplo de eco: o lead canta 'Vem, Senhor, me guiar' e sustenta 'guiar'; um tempo depois, o barítono responde 'me guiar' uma 6ª abaixo, enquanto o baixo segura a fundamental.",
+          },
+        },
       ],
     },
   ],
@@ -173,6 +235,36 @@ export const lessonAcappellaVocalBand: Lesson = {
         ESTUDO,
       ],
     },
+    {
+      title: "3. Demonstração: montar a banda vocal camada por camada",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Defina o groove e o andamento (por exemplo, pop a 96 bpm) e o padrão do baixo: fundamental e oitava, ou um ostinato de quatro notas por compasso.",
+          "Escreva o riff em duas vozes, em 3ªs, começando no contratempo e deixando pausas para a melodia respirar.",
+          "Coloque a melodia numa voz de registro diferente do riff (abaixo ou acima dele).",
+          "Se houver beatbox, escreva-o numa linha à parte (estilo, bumbo/caixa/chimbal, viradas) e deixe o baixo livre para a linha melódica.",
+          "Equilibre: o riff mais suave quando a melodia canta; mais presente quando ela para.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Riff sem pausas", "ruído e cansaço", "pausas e consoantes de ataque"], ["Riff em 3ªs no grave", "embola (limite grave)", "riff no registro médio"], ["Ostinato que não muda com a harmonia", "choques", "mesmo desenho, nova altura"], ["Beatbox misturado na partitura harmônica", "leitura confusa", "linha à parte"]] },
+        { type: "list", items: ["Riff (guitarra/teclado), baixo (ostinato), melodia e percussão: quatro papéis.", "Cada camada em seu registro.", "Alterne quem faz o padrão para dar respiro."] },
+        {
+          type: "challenge",
+          title: "Uma banda vocal de dois compassos",
+          task: "Planeje dois compassos (G – C, 4/4, pop) para quatro vozes: baixo em ostinato, riff em 3ªs em duas vozes e melodia. Escreva as notas e sílabas do baixo e do riff e diga onde a melodia fica.",
+          constraints: ["Baixo entre G2 e D3.", "Riff começando no contratempo, com pelo menos uma pausa por compasso.", "Riff no registro médio (acima de C3 na voz de baixo do riff)."],
+          criteria: ["O ostinato mantém o desenho e muda de altura com o acorde.", "As 3ªs do riff pertencem ao acorde de cada compasso.", "A melodia fica em registro diferente do riff."],
+          hints: ["Para ficar entre G2 e D3, o ostinato em Sol pode ser G2 – B2 – D3 – B2 (fundamental, terça, quinta, terça).", "No acorde de Dó, mantenha a região: C3 – G2 – A2 – G2 (fundamental, quinta abaixo, sexta, quinta).", "Riff sobre G: B3/D4 com uma passagem A3/C4; sobre C: C4/E4 com uma passagem B3/D4."],
+          solution: {
+            commentary: "Baixo ('dm'): compasso 1 G2 – B2 – D3 – B2; compasso 2 C3 – G2 – A2 – G2 (mesmo ritmo, desenho adaptado ao acorde e à região pedida). Riff ('bop ba-da'), em 3ªs, nos tenores: compasso 1 pausa de colcheia, B3/D4 – B3/D4 – A3/C4 (passagem) – B3/D4 e pausa no 4º tempo; compasso 2 pausa, C4/E4 – C4/E4 – B3/D4 – C4/E4 e pausa. Melodia: no barítono, em notas longas abaixo do riff (G3, depois E3), ou num solista agudo acima dele.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-acappella-vocal-band",
@@ -229,6 +321,31 @@ export const lessonAcappellaBlocos: Lesson = {
         ESTUDO,
       ],
     },
+    {
+      title: "3. Demonstração: três cromatismos, três lugares",
+      blocks: [
+        { type: "table", caption: "Onde cada recurso funciona", headers: ["Recurso", "Onde colocar", "Voz que carrega o cromatismo", "Cuidado"], rows: [["Diminuto de passagem (G – G♯°7 – Am)", "entre dois acordes a um tom", "baixo (G – G♯ – A)", "a sétima diminuta (F) desce"], ["Planing (Fá – Mi – Mi♭ – Ré)", "introdução, interlúdio, chegada ao V", "o trio inteiro", "paralelas intencionais: só no estilo popular"], ["Clichê de linha (Am – Am(maj7) – Am7 – Am6)", "acorde menor longo", "uma voz interna", "não dobrar a linha no baixo"]] },
+        { type: "list", ordered: true, items: ["Escolha um recurso por trecho.", "Coloque o cromatismo numa voz só e faça-o andar por semitons.", "Termine sempre num acorde funcional (V ou I) para o ouvido 'pousar'.", "Confira no motor e leia as paralelas do planing como intenção registrada."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Clichê dobrado no baixo", "oitavas paralelas, some a fundamental", "baixo parado"], ["Planing longo demais", "perde-se a tonalidade", "dois a quatro acordes, chegando no V"], ["Diminuto sob nota da melodia fora dele", "choque", "confira a melodia"], ["Cromatismo saltando entre vozes", "falsa relação", "uma voz só"]] },
+        { type: "list", items: ["Diminuto de passagem: baixo cromático.", "Planing: cor, não função.", "Clichê: uma voz interna desce por semitons sobre o acorde parado."] },
+        {
+          type: "challenge",
+          title: "Um clichê sobre Mi menor",
+          task: "Escreva um clichê de linha de quatro tempos sobre Mi menor (Em – Em(maj7) – Em7 – Em6) para quarteto masculino: indique a nota de cada voz em cada tempo.",
+          constraints: ["Baixo parado em E3 (E2 fica no limite da extensão).", "Só uma voz se move.", "Estilo popular."],
+          criteria: ["A linha desce por semitons: E – D♯ – D – C♯.", "As outras três vozes ficam paradas.", "Nenhuma terça abaixo do limite grave."],
+          hints: ["Em = E – G – B. A voz que canta a fundamental E (acima do baixo) é a que desce.", "Se a linha ficasse no barítono em E3, estaria em uníssono com o baixo: coloque-a no lead, em E4.", "Distribuição possível: baixo E3, barítono B3, lead E4 (linha), tenor G4."],
+          solution: {
+            commentary: "Baixo E3 (parado), barítono B3 (parado), lead E4 → D♯4 → D4 → C♯4 (a linha), tenor G4 (parado). Em, Em(maj7), Em7, Em6: o acorde é o mesmo; a linha do lead dá o movimento. Com o baixo em E3 e o barítono em B3 (5ª), o grave fica aberto.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-acappella-blocos",
@@ -281,6 +398,37 @@ export const lessonAcappellaBaixo: Lesson = {
         { type: "paragraph", text: "Em hinos para quarteto, barítono e baixo às vezes cantam a mesma nota em oitavas num acorde de reforço, como o final de uma frase. Numa linha inteira, porém, o dobramento vira oitavas paralelas e tira uma voz da harmonia." },
         { type: "example", score: EXA2.baixoOitavasTradicional, verdict: "incorreto", caption: "A linha toda dobrada em oitavas", commentary: "No coral tradicional, o motor aponta oitavas paralelas entre barítono e baixo, a sensível dobrada no V⁶ e mais paralelas com o tenor. Dobre só um acorde de chegada, não a linha." },
         ESTUDO,
+      ],
+    },
+    {
+      title: "3. Demonstração: transformar fundamentais em linha",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva as fundamentais da progressão (por exemplo, D – A – Bm – G – A – D).",
+          "Procure inversões que aproximem as notas do baixo: A/C♯ entre D e Bm; Bm/A entre Bm e G.",
+          "A nova linha (D – C♯ – B – A – G – A – D) desce por grau e só salta na cadência.",
+          "Confira as vozes de cima: com o baixo andando por grau, elas podem quase não se mover (notas comuns).",
+          "Confira as paralelas entre baixo e soprano: se a melodia também desce por grau, troque uma inversão.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Dobrar o baixo", text: "Barítono e baixo em oitavas num acorde de chegada dão peso; numa linha inteira, viram oitavas paralelas e tiram uma voz da harmonia. Dobre só a nota final de uma frase." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Baixo só em fundamentais com saltos grandes", "linha pouco cantável", "inversões para andar por grau"], ["Sensível no baixo dobrada", "oitavas na resolução", "uma vez só"], ["Pedal sem resolução da sétima por cima", "atrito sem destino", "a sétima desce mesmo sobre o pedal"], ["Linha inteira dobrada em oitavas", "paralelas", "dobre só o acorde de chegada"]] },
+        { type: "list", items: ["Inversões transformam fundamentais em linha.", "Pedal: harmonia em cima, chão parado embaixo.", "Oitavas no baixo: só como reforço pontual."] },
+        {
+          type: "challenge",
+          title: "Uma linha descendente em Sol",
+          task: "Para G – D – Em – Bm – C – D – G (um acorde por mínima), escreva uma linha de baixo que desça por grau usando inversões, e dê a cifra de cada acorde com o baixo.",
+          constraints: ["Baixo entre G2 e G3.", "Pelo menos cinco notas seguidas por grau descendente.", "Cadência D – G com fundamentais."],
+          criteria: ["Cada nota do baixo pertence ao acorde.", "A linha desce por grau em pelo menos cinco notas.", "A cadência final tem as fundamentais D e G."],
+          hints: ["Comece em G3 para ter espaço para descer.", "D com F♯ no baixo (D/F♯) liga G3 a E3.", "O Bm tem D (sua terça): Bm/D continua a descida até C."],
+          solution: {
+            commentary: "G (G3) – D/F♯ (F♯3) – Em (E3) – Bm/D (D3) – C (C3) – D (D3) – G (G2). A linha desce G3 – F♯3 – E3 – D3 – C3 por grau, sobe um grau para a dominante e cai na tônica grave. As vozes de cima podem quase não se mover: B e D, por exemplo, são comuns a G, Em e Bm.",
+          },
+        },
       ],
     },
   ],
@@ -336,6 +484,37 @@ export const lessonAcappellaModulacoes: Lesson = {
         { type: "example", score: EXA2.modTerca, verdict: "correto", caption: "Sol → Si maior", commentary: "O tenor segura o Si; o lead desce a Fá♯, o barítono sobe a Ré♯ e o baixo vai a Si. O motor registra o final fora da tônica como informação." },
         { type: "listening", title: "A porta que se abre", score: EXA2.modTerca, instructions: ["Ouça o Tenor I: a nota não muda.", "Ouça os quatro e sinta a cor nova."], focus: [["T1"], ["T1", "T2", "B1", "B2"]] },
         ESTUDO,
+      ],
+    },
+    {
+      title: "3. Demonstração: modular um tom acima com baixo cromático",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Tonalidade de partida e de chegada: Sol → Lá.",
+          "Dominante da chegada: E7 (E – G♯ – B – D).",
+          "Baixo cromático: G (último acorde em Sol) – G♯ (E7/G♯) – A (Lá). A sensível nova está no baixo e sobe.",
+          "Vozes de cima: o G de Sol não pertence ao E7 (ele vira G♯, no baixo); B fica (quinta do E7); D fica (sétima do E7) e depois desce para C♯.",
+          "Confira o grave: evite G – D (5ª) indo para E – B (5ª) entre barítono e baixo — quintas paralelas.",
+        ] },
+        { type: "table", caption: "Três modulações, três efeitos", headers: ["Caminho", "Exemplo", "Efeito"], rows: [["Tom acima pela dominante", "Sol → (E7) → Lá", "eleva a energia"], ["Tom abaixo pela dominante", "Lá → (D7) → Sol", "acalma, intimidade"], ["Por terça, com nota comum", "Sol → Si maior (B comum)", "cor nova, 'porta que se abre'"]] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Quintas paralelas na passagem para a dominante", "som oco", "terça no barítono ou baixo na sensível"], ["Modulação por terça sem nota comum", "salto de tonalidade brusco", "mantenha a nota comum numa voz"], ["Sétima da dominante subindo", "sem resolução", "sétima desce"], ["Modular sem respiração", "afinação insegura", "respiro antes da nova tonalidade"]] },
+        { type: "list", items: ["Pela dominante: o caminho mais claro.", "Tom acima eleva; tom abaixo acalma.", "Por terça: uma nota comum muda de função."] },
+        {
+          type: "challenge",
+          title: "Modular de Ré para Fá♯ maior",
+          task: "Planeje uma modulação por terça de Ré maior para Fá♯ maior num quarteto masculino: o acorde de partida (Ré), o de chegada (Fá♯) e o movimento de cada voz, mantendo uma nota comum.",
+          constraints: ["Nenhuma dominante intermediária.", "Uma voz mantém a nota comum.", "As outras se movem no máximo uma 3ª."],
+          criteria: ["A nota comum foi identificada corretamente.", "O acorde de chegada está completo.", "Nenhuma 5ª ou 8ª paralela."],
+          hints: ["Ré = D – F♯ – A; Fá♯ = F♯ – A♯ – C♯. Que nota é comum?", "A voz com F♯ fica; quem tinha A sobe meio tom para A♯; quem tinha D desce para C♯.", "O baixo pode subir uma 3ª (D3 → F♯3) ou descer uma 6ª (D3 → F♯2, no limite da extensão)."],
+          solution: {
+            commentary: "Partida (Ré): baixo D3, barítono A3, lead D4, tenor F♯4. Chegada (Fá♯): baixo F♯2 (desce uma 3ª — F♯2 está na extensão, abaixo da tessitura; prefira F♯3 se o grupo não tiver baixo grave), barítono A♯3 (sobe um semitom), lead C♯4 (desce um semitom), tenor F♯4 (fica: a nota comum). O F♯ do tenor era terça de Ré e vira fundamental de Fá♯: a 'porta' que muda a cor. Com o baixo em F♯3 (subindo uma 3ª), confira o espaço com o barítono (F♯3–A♯3, 3ª maior com a nota inferior em F♯3: aceitável).",
+          },
+        },
       ],
     },
   ],

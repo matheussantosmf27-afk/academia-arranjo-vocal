@@ -1,4 +1,5 @@
 import { EXR } from "../examples-rearm";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /**
@@ -50,6 +51,33 @@ export const lessonRearmFundamentos: Lesson = {
         { type: "list", items: ["Cadências finais: mude a cor (V7(♭9), iv menor), mas mantenha a função de fechamento.", "Ponto culminante da melodia: é o lugar mais forte para a mudança mais ousada.", "Ritmo harmônico: rearmonizar não é pôr mais acordes; é escolher melhor os que já estão.", "Notas longas da melodia precisam ser nota do acorde (ou tensão que resolve)."] },
         { type: "example", score: EXR.conflito, verdict: "incorreto", caption: "Nota da melodia sem apoio", commentary: "No compasso 2, o Dó da melodia cai sobre Sol maior (Sol–Si–Ré) e depois salta para Mi: dissonância sem preparação nem resolução. O motor aponta. Antes de trocar um acorde, confira se a nota longa pertence a ele." },
         { type: "callout", tone: "dica", title: "Método em quatro passos", text: "1) Marque as notas estruturais. 2) Para cada uma, liste os acordes possíveis (tabela acima). 3) Escolha pela função e pelo baixo que você quer. 4) Escreva as vozes pelo menor movimento e ouça." },
+      ],
+    },
+    {
+      title: "3. Demonstração: o inventário de acordes de uma melodia",
+      blocks: [
+        { type: "paragraph", text: "Antes de propor qualquer rearmonização, faça o inventário. Veja com a 'Luz da manhã' (E5 D5 | C5 E5 | D5 B4 | C5):" },
+        { type: "table", caption: "Notas estruturais e acordes possíveis (Dó maior)", headers: ["Nota (tempo)", "Função na harmonia original", "Outras opções", "Observação"], rows: [["E5 (c. 1, t. 1)", "terça de C", "Am (quinta), Em (fundamental), Fmaj7 (sétima)", "início: prefira algo que afirme a tonalidade"], ["D5 (c. 1, t. 3)", "quinta de G", "Dm (fundamental), Bm7♭5 (terça), E7 (sétima)", "nota de passagem forte: aceita quase tudo"], ["C5 (c. 2, t. 1)", "fundamental de C", "Am (terça), F (quinta), D7 (sétima), A♭ (terça, emprestado)", "ponto de repouso no meio da frase"], ["D5 – B4 (c. 3)", "quinta e terça de G", "Dm7 – G7, D♭7 (subV) no B4", "preparação da cadência: mantenha a função D"], ["C5 (c. 4)", "fundamental de C", "C com cor (C6, Cmaj7)", "cadência final: a função T não muda"]] },
+        { type: "paragraph", text: "Com a tabela pronta, a decisão vira escolha consciente: o que manter (cadência final, função dominante no compasso 3) e onde ousar (compassos 1–2)." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Mudar uma nota da melodia para caber no acorde novo", "a canção deixa de ser a mesma", "a melodia é intocável; troque o acorde"], ["Nota longa da melodia fora do acorde", "dissonância sem tratamento", "confira as notas longas primeiro"], ["Rearmonizar a cadência final até perder a função", "o fim não fecha", "mude a cor, não a função (V7(♭9), iv – I)"], ["Pôr mais acordes em vez de acordes melhores", "harmonia agitada, difícil de cantar", "mantenha o ritmo harmônico"]] },
+        { type: "list", items: ["A melodia manda: notas estruturais precisam de apoio.", "Cada nota pertence a vários acordes (fundamental, terça, quinta, sétima, nona).", "Cadências e ponto culminante seguram a forma."] },
+        {
+          type: "challenge",
+          title: "Inventário de 'Mar sereno'",
+          task: "Para a melodia 'Mar sereno' (C5 B4 | A4 G4 | A4 B4 | C5, em mínimas, Dó maior), marque as notas estruturais e liste, para cada uma, a harmonia mais simples e duas alternativas. Diga onde você ousaria e o que manteria.",
+          start: EXD.marStart,
+          constraints: ["Não altere a melodia.", "Pelo menos uma alternativa por nota deve ser diatônica e uma pode ser cromática."],
+          criteria: ["Cada acorde proposto contém a nota da melodia (diga como: fundamental, terça…).", "A cadência final continua T (Dó).", "Você justificou onde ousar."],
+          hints: ["Todas as notas são mínimas em tempos 1 e 3: todas são estruturais.", "O B4 do compasso 3 antecede a tônica: a função D deve ficar.", "O G4 do compasso 2 pode ser fundamental de G, quinta de C, terça de E♭ (emprestado) ou nona de F."],
+          solution: {
+            commentary: "Inventário possível: C5 — C (fundamental); alt. Am (terça), F (quinta). B4 — G (terça); alt. Em (quinta), G/B. A4 — Am (fundamental); alt. F (terça), D7 (quinta), Dm (quinta). G4 — C/G ou C (quinta); alt. Em (terça), C♯°7 (quinta, preparando Dm), Fmaj9 (nona). A4 — F ou Dm (terça/quinta); alt. D7/F♯ (quinta). B4 — G7 (terça); alt. D♭7 (sétima, como C♭, no estilo popular). C5 — C; alt. Cmaj7 ou C6 como cor. Onde ousar: compasso 2 (Am → C♯°7 leva bem ao Dm) e o B4 do compasso 3 (G7 ou D♭7). O que manter: a tônica final e a função D antes dela.",
+          },
+        },
       ],
     },
   ],
@@ -109,6 +137,40 @@ export const lessonRearmDiatonica: Lesson = {
       blocks: [
         { type: "example", score: EXR.diatonicaTradicional, verdict: "incorreto", caption: "A mesma linha no coral tradicional", commentary: "No estilo tradicional, o Si no baixo é sensível e deveria subir para Dó; o motor também comenta o C/G sem contexto cadencial. É a mesma partitura: a régua do estilo é que muda." },
         { type: "example", score: EXR.paralelasRearm, verdict: "incorreto", caption: "C – Dm – C, todos juntos", commentary: "Trocar o Sol por Ré menor com todas as vozes subindo e descendo juntas gera quintas e oitavas paralelas. Mantenha notas comuns e mova o baixo em sentido contrário." },
+      ],
+    },
+    {
+      title: "3. Demonstração: uma linha de baixo descendente, passo a passo",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva a linha de baixo desejada antes dos acordes: na 'Luz da manhã', C – B – A – G descendo por grau nos dois primeiros compassos.",
+          "Para cada par baixo + melodia, procure o acorde que contém as duas notas: C/E5 → C; B/D5 → G/B; A/C5 → Am; G/E5 → C/G.",
+          "Confira o estilo: no popular, o B no baixo descendo é natural; no coral tradicional, é uma sensível que deveria subir.",
+          "Complete as vozes internas com notas comuns: G4 no contralto atravessa C, G/B e (como sétima) Am7, se quiser cor.",
+          "Revise as paralelas: com o baixo descendo por grau e a melodia descendo também, procure movimento contrário nas vozes internas.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "A mesma linha descendente funciona com Am e com C/A? Não: escolha o acorde pela nota da melodia e pela função. Se a melodia tiver C5 sobre o A do baixo, Am (C é terça) é natural; Fmaj7/A seria outra cor, com a melodia como quinta." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Substituto de outra função (V no lugar de IV)", "a frase muda de direção", "troque dentro da família funcional"], ["Todas as vozes seguindo o baixo descendente", "paralelas", "vozes internas paradas ou em contrário"], ["Inversão ⁶₄ sem contexto no estilo tradicional", "instabilidade sem motivo", "⁶₄ de passagem ou cadencial"], ["Substituição que contradiz a nota da melodia", "choque", "o substituto precisa conter a nota"]] },
+        { type: "list", items: ["Substitutos da mesma função compartilham duas notas.", "Inversões transformam o baixo numa linha.", "O estilo decide se a sensível pode descer no baixo."] },
+        {
+          type: "challenge",
+          title: "Rearmonização diatônica de 'Mar sereno'",
+          task: "Rearmonize 'Mar sereno' (C5 B4 | A4 G4 | A4 B4 | C5) só com acordes diatônicos e inversões, com um baixo que ande apenas por grau conjunto. Escreva as quatro vozes no estilo popular.",
+          start: EXD.marDiaStart,
+          constraints: ["Sem acordes cromáticos; tétrades diatônicas permitidas.", "Baixo só por grau conjunto, entre C3 e F3.", "Começar e terminar em C no estado fundamental."],
+          criteria: ["Cada acorde contém a nota da melodia.", "Onde a melodia desce, o baixo sobe (e vice-versa) pelo menos em quatro trocas.", "O motor (estilo popular) só registra observações informativas."],
+          hints: ["Se a melodia desce C – B – A – G, faça o baixo subir C – D – E – F.", "Sobre D no baixo com B4 na melodia: G/D. Sobre E com A4: Am/E. Sobre F com G4: G7/F.", "Na volta, o baixo desce E – D – C enquanto a melodia sobe A – B – C."],
+          solution: {
+            score: EXD.marDia,
+            commentary: "C – G/D | Am/E – G7/F | Am/E – G/D | C. O baixo sobe C – D – E – F e desce F – E – D – C: um arco em espelho com a melodia, em movimento contrário em quase todas as trocas. A sétima F do G7/F, no baixo, desce para E — a resolução que o estilo tradicional também pediria. A sensível B4 da melodia vai para A4 no compasso 1 (informação do motor: na melodia dada, não há escolha). Cuidado que esta versão evita: com o baixo descendo C – B – A – G junto com a melodia, soprano e baixo andariam em 15ªs paralelas.",
+            alternatives: ["Trocar o Am/E do compasso 3 por F/A (A4 = terça, baixo A2) também é diatônico, mas o baixo deixaria de andar por grau (F3 → A2)."],
+          },
+        },
       ],
     },
   ],
@@ -172,6 +234,37 @@ export const lessonRearmDominantes: Lesson = {
         { type: "example", score: EXR.setimaSobe, verdict: "incorreto", caption: "A sétima do A7 subindo", commentary: "Se o contralto sobe Sol → Lá em vez de descer para Fá, o motor aponta quintas desiguais com o baixo e dissonâncias sem resolução. Toda sétima de dominante desce por grau." },
       ],
     },
+    {
+      title: "3. Demonstração: inserir uma dominante secundária",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha o acorde-alvo: um acorde maior ou menor da tonalidade que mereça destaque (aqui, Am, sob o C5 da 'Luz da manhã').",
+          "Construa a dominante dele: uma 5ª acima de A é E; E7 = E – G♯ – B – D.",
+          "Confira a melodia no tempo em que o E7 vai entrar: o D5 é a sétima do E7 — cabe, e resolve descendo para C5 junto com a troca de acorde.",
+          "Ponha a sensível secundária (G♯) numa voz que possa subir para A: no baixo (E7/G♯ → Am) ou numa voz interna.",
+          "Resolva as duas tendências ao mesmo tempo (G♯ → A, D → C) e confira as paralelas.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Falsa relação", text: "Se uma voz canta G natural logo antes ou logo depois de outra cantar G♯, o choque cromático entre vozes (falsa relação) soa como erro. Deixe o cromatismo na mesma voz: G → G♯ → A." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Sensível secundária descendo", "a tonicização não se percebe", "G♯ sobe para A"], ["Sétima da dominante secundária subindo", "dissonância sem resolução", "desce por grau"], ["Dominante secundária sobre nota da melodia que não pertence a ela", "choque", "confira a melodia antes"], ["Cadeia de dominantes longa demais", "perde-se a tonalidade", "duas ou três dominantes seguidas, no máximo"]] },
+        { type: "list", items: ["Toda tríade maior ou menor da tonalidade pode receber sua dominante.", "ii–V secundário: prepara a dominante secundária com seu próprio ii.", "Sensível sobe, sétima desce — também nas dominantes secundárias."] },
+        {
+          type: "challenge",
+          title: "Duas dominantes em 'Mar sereno'",
+          task: "Em 'Mar sereno' (C5 B4 | A4 G4 | A4 B4 | C5), insira duas dominantes secundárias. Escreva as cifras, a nota da melodia em cada uma (que função ela tem no acorde) e o caminho da sensível secundária.",
+          constraints: ["A melodia não muda.", "Cada dominante secundária resolve no acorde-alvo seguinte.", "Termine com G7 – C."],
+          criteria: ["A nota da melodia pertence a cada dominante secundária.", "Você indicou em que voz está a sensível secundária e para onde ela vai.", "Ao realizar no Estúdio, o motor não aponta erros de resolução."],
+          hints: ["Sob o B4 do compasso 1, que dominante prepara o Am do compasso 2? B é a quinta de E.", "Sob o G4 do compasso 2, que dominante prepara o F (ou o Dm) do compasso 3? G é a quinta de C7 e a sétima de A7.", "Com a sensível no baixo: E7/G♯ → Am e C7/E → F."],
+          solution: {
+            commentary: "C – E7/G♯ | Am – C7/E | F – G7 | C. B4 é a quinta do E7; a sensível G♯ está no baixo e sobe para A (Am). G4 é a quinta do C7; a sensível secundária E está no baixo e sobe para F (F); a sétima B♭ do C7, numa voz interna, desce para A. No compasso 3, A4 é a terça de F e B4 a terça de G7. O baixo fica C – G♯ – A – E – F – G – C: duas subidas por semitom. Alternativa com A7: C – E7/G♯ | Am – A7/C♯ | Dm – G7 | C, seria mais natural no papel, mas o G4 da melodia (sétima do A7) sobe para A4 no compasso seguinte: a sétima subiria. Por isso, sob este G4, C7 funciona melhor que A7.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-rearm-dominantes",
@@ -226,6 +319,37 @@ export const lessonRearmSubV: Lesson = {
         { type: "paragraph", text: "O SubV é linguagem de jazz, bossa nova e gospel contemporâneo. No coral tradicional, as sétimas dos acordes menores com sétima (Am7, Dm7) são tratadas como dissonâncias que precisam descer por grau, e o motor cobra isso." },
         { type: "example", score: EXR.subVTradicional, verdict: "incorreto", caption: "A mesma harmonia no coral tradicional", commentary: "O motor aponta a sétima do Am7 (Sol) parada e a sétima do Dm7 (Dó) indo para Lá♭ por salto. Em repertório tradicional, prefira dominantes secundárias comuns." },
         { type: "callout", tone: "dica", title: "Tensões da dominante", text: "Sobre G7 cabem 9 (Lá), ♭9 (Lá♭), 13 (Mi) e ♭13 (Mi♭). Em vozes, ponha a tensão no soprano ou no contralto e resolva por grau no acorde seguinte." },
+      ],
+    },
+    {
+      title: "3. Demonstração: trocar G7 por D♭7",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Encontre a dominante a substituir: G7 antes de C.",
+          "Calcule o substituto: uma 5ª diminuta (trítono) acima de G é D♭; D♭7 = D♭ – F – A♭ – C♭.",
+          "Confira o trítono comum: G7 tem B e F; D♭7 tem C♭ (= B) e F. As duas notas que resolvem na tônica continuam lá.",
+          "Confira a melodia: se ela tem B (= C♭) ou F, está na sétima ou na terça do D♭7; se tem D ou G, choca (D é ♭9, G é #11 — tensões fortes, só no jazz).",
+          "Escreva o baixo D♭ → C (semitom) e resolva C♭ → C e F → E nas vozes.",
+        ] },
+        { type: "callout", tone: "dica", title: "Grafia", text: "Num arranjo vocal, escreva a sétima do D♭7 como B (Si) quando ela vier da sensível ou for para C: o cantor lê e afina melhor um semitom 'Si → Dó' do que 'Dó♭ → Dó'. O motor entende as duas grafias." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["SubV sobre nota da melodia que não pertence a ele", "choque forte", "confira a melodia: só 3ª, 7ª ou tensões intencionais"], ["SubV no coral tradicional", "o motor cobra sétimas e quintas", "use dominantes comuns no estilo tradicional"], ["Baixo D♭ saltando em vez de descer a C", "perde o efeito", "a graça do SubV é o semitom no baixo"], ["Tensões da dominante sem resolução", "acorde 'sujo'", "nona e décima terceira descem por grau"]] },
+        { type: "list", items: ["SubV = dominante a um trítono; mesmo trítono, baixo cromático.", "Linguagem de jazz, bossa e gospel moderno.", "A melodia precisa caber no acorde novo."] },
+        {
+          type: "challenge",
+          title: "Onde cabe um SubV?",
+          task: "Em 'Mar sereno' (C5 B4 | A4 G4 | A4 B4 | C5) com a harmonia C – G | Am – C | Dm – G7 | C, diga em quais acordes um substituto de trítono é possível sem mudar a melodia e escreva a nova progressão.",
+          constraints: ["Só substitua dominantes (ou acordes que você transforme em dominante).", "Confira a nota da melodia em cada substituição."],
+          criteria: ["Cada SubV proposto contém a nota da melodia como 3ª ou 7ª.", "O baixo desce por semitom para o acorde-alvo.", "Você descartou explicitamente as posições em que a melodia choca."],
+          hints: ["O G7 do compasso 3 tem B4 na melodia. B = C♭: que função ele tem no D♭7?", "Antes do Dm, a dominante seria A7; o SubV de A7 é E♭7. A melodia ali (G4) pertence ao E♭7?", "Antes do Am, a dominante seria E7; o SubV é B♭7. O B4 da melodia pertence ao B♭7?"],
+          solution: {
+            commentary: "Funciona: D♭7 no lugar do G7 (o B4 da melodia é a sétima C♭ do D♭7; baixo D♭ → C). Também funciona E♭7 antes do Dm: o G4 da melodia é a terça de E♭7 (E♭ – G – B♭ – D♭), e o baixo desce E♭ → D. Não funciona B♭7 antes do Am: o B4 natural da melodia choca com o B♭ fundamental. Progressão: C – G | Am – E♭7 | Dm – D♭7 | C. No estilo popular, o baixo fica C – G – A – E♭ – D – D♭ – C, com dois semitons descendentes.",
+          },
+        },
       ],
     },
   ],
@@ -288,6 +412,37 @@ export const lessonRearmModal: Lesson = {
         { type: "callout", tone: "dica", title: "Terça de picardia", text: "O caminho inverso também vale: uma canção em menor que termina no acorde maior da tônica. É o empréstimo do modo maior no último acorde." },
       ],
     },
+    {
+      title: "3. Demonstração: conferir se o empréstimo cabe na melodia",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Liste os acordes emprestados de Dó menor: Fm (F – A♭ – C), A♭ (A♭ – C – E♭), B♭ (B♭ – D – F), Dm7♭5 (D – F – A♭ – C), E♭ (E♭ – G – B♭).",
+          "Para cada nota da melodia, veja se ela pertence a algum deles. Atenção às notas que o empréstimo altera: A, E e B naturais na melodia chocam com A♭, E♭ e B♭.",
+          "Escolha o ponto: empréstimos funcionam melhor perto das cadências (iv – I) ou como surpresa no meio da frase (♭VI).",
+          "Coloque a nota alterada numa voz interna, chegando por semitom.",
+          "Volte ao maior com uma cadência clara.",
+        ] },
+        { type: "table", caption: "Exemplo: a 'Luz da manhã' (E5 D5 | C5 E5 | D5 B4 | C5)", headers: ["Nota", "Empréstimo possível?", "Por quê"], rows: [["E5", "não", "todos os acordes de Dó menor têm E♭"], ["D5", "sim: B♭ (terça), Fm6 (sexta), Dm7♭5", "D pertence a eles"], ["C5", "sim: Fm, A♭, Dm7♭5", "C pertence a eles"], ["B4", "não", "B natural choca com B♭; só G7 serve"]] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Empréstimo sob nota da melodia que ele altera", "choque (A na melodia, A♭ no acorde)", "confira a melodia antes"], ["Nota alterada por salto", "difícil de afinar", "semitom na mesma voz"], ["Empréstimos demais", "a tonalidade vira menor", "um por seção"], ["Planing no meio de um hino tradicional", "paralelas fora de contexto", "planing em introduções e finais, no estilo popular"]] },
+        { type: "list", items: ["iv, ♭VI, ♭VII e iiø vêm do menor homônimo.", "A melodia decide onde cabem.", "A picardia é o empréstimo ao contrário: menor terminando em maior."] },
+        {
+          type: "challenge",
+          title: "Empréstimos em 'Mar sereno'",
+          task: "Em 'Mar sereno' (C5 B4 | A4 G4 | A4 B4 | C5), indique em que notas um acorde emprestado de Dó menor é possível e proponha uma versão com um empréstimo. Justifique pela nota da melodia.",
+          constraints: ["A melodia não muda.", "Termine com G7 – C (ou com iv – I, se a melodia permitir)."],
+          criteria: ["Você testou cada nota contra os acordes emprestados.", "O empréstimo escolhido contém a nota da melodia.", "A nota alterada chega por semitom numa voz interna."],
+          hints: ["A4 e B4 chocam com A♭ e B♭: elimine-as.", "Restam C5 e G4. C5 está em Fm, A♭ e Dm7♭5; G4 está em E♭ e Cm.", "Sob o G4 do compasso 2, E♭ (♭III) é uma surpresa possível; depois, o A4 do compasso 3 pede F ou Dm de volta."],
+          solution: {
+            commentary: "Só C5 (compassos 1 e 4) e G4 (compasso 2) aceitam empréstimos; A4 e B4 chocam com A♭ e B♭. Uma versão: C – G | Am – E♭ | F – G7 | C. O E♭ maior (♭III) sob o G4 é a surpresa; uma voz interna faz E → E♭ (semitom) e volta para F no compasso 3 (E♭ → F, tom). Como a melodia final é C5 sobre C, um A♭ maior (♭VI) antes do último acorde exigiria trocar o B4 do compasso 3 — não é possível sem alterar a melodia. Por isso, nesta melodia, o empréstimo fica no meio da frase, não na cadência.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-rearm-modal",
@@ -343,6 +498,38 @@ export const lessonRearmDiminutos: Lesson = {
         { type: "callout", tone: "dica", title: "Os quatro nomes do diminuto", text: "C♯°7, E°7, G°7 e B♭°7 têm as mesmas notas. Escolha o nome pela nota que está no baixo e pelo acorde para onde ele resolve." },
       ],
     },
+    {
+      title: "3. Demonstração: onde cabe um diminuto de passagem",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Procure dois acordes cujas fundamentais estão a um tom de distância e em que o baixo pode subir por semitom (C – Dm, G – Am, F – G).",
+          "Construa o diminuto sobre a nota um semitom abaixo da fundamental do acorde-alvo: para chegar a Dm, C♯°7 (C♯ – E – G – B♭).",
+          "Confira a melodia no tempo do diminuto: ela precisa ser uma das quatro notas (C♯, E, G, B♭) ou uma nota de passagem curta.",
+          "Resolva: a fundamental (C♯) sobe para D; a sétima diminuta (B♭) desce para A; as outras andam por grau ou ficam.",
+          "Cuidado com quintas desiguais entre a melodia e o baixo (G/C♯ → A/D é 5ª diminuta → 5ª justa, que o estilo tradicional evita): no estilo popular, é aceita.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Sétima diminuta subindo", "dissonância sem resolução", "desce por grau"], ["Diminuto sob nota da melodia que não pertence a ele", "choque", "confira a melodia"], ["Baixo do diminuto saltando", "perde a função de passagem", "baixo cromático (C → C♯ → D)"], ["Diminutos em sequência demais", "perde-se a tonalidade", "um por frase"]] },
+        { type: "list", items: ["Diminuto de passagem: baixo sobe por semitom entre dois acordes a um tom.", "É uma dominante sem fundamental (C♯°7 ≈ A7♭9).", "A sétima diminuta desce."] },
+        {
+          type: "challenge",
+          title: "Um diminuto em 'Mar sereno'",
+          task: "Na harmonia C – G | Am – ? | Dm – G7 | C de 'Mar sereno', escreva no lugar do '?' um diminuto de passagem que leve ao Dm, com o baixo cromático, e realize as quatro vozes no estilo popular.",
+          start: EXD.marDimStart,
+          constraints: ["A melodia não muda (o G4 do compasso 2 fica sobre o diminuto).", "Baixo A2 – ? – D3 com semitom antes do D.", "Estilo popular a cappella."],
+          criteria: ["O G4 da melodia pertence ao diminuto.", "A sétima diminuta desce por grau.", "O motor só registra observações informativas."],
+          hints: ["Que diminuto tem a fundamental um semitom abaixo de D? C♯°7 = C♯ – E – G – B♭.", "O G4 da melodia é a quinta diminuta do C♯°7: cabe.", "O B♭ pode ficar no tenor: E3 → B♭3 (salto) e depois B♭3 → A3 (resolução)."],
+          solution: {
+            score: EXD.marDim,
+            commentary: "C – G | Am – C♯°7 | Dm – G7 | C, com baixo C3 – G2 | A2 – C♯3 | D3 – G2 | C3. O G4 da melodia é nota do C♯°7; o tenor salta E3 → B♭3 (a sétima diminuta) e desce para A3 no Dm; o contralto mantém E4 (nota comum entre Am e C♯°7) e sobe para F4. No estilo tradicional, o motor apontaria as quintas desiguais G4/C♯3 → A4/D3 entre soprano e baixo; no popular, a passagem é idiomática. Se o salto E3 → B♭3 (4ª aumentada) for difícil para o tenor do grupo, ensaie-o isolado ou leve o B♭ para outra voz que chegue a ele por grau.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-rearm-diminutos",
@@ -391,6 +578,39 @@ export const lessonRearmBaixo: Lesson = {
         { type: "example", score: EXR.pedal, verdict: "correto", caption: "Pedal de tônica", commentary: "O baixo fica em Dó do começo ao fim; por cima, Dm7/C, F/C e G7/C. O pedal deixa a harmonia andar sem perder o chão." },
         { type: "paragraph", text: "Linhas descendentes que passam pela sensível (Dó – Si – Lá) são naturais no estilo popular, mas no coral tradicional a sensível no baixo precisa subir. Escolha o estilo de referência antes de julgar o resultado." },
         { type: "example", score: EXR.diatonicaTradicional, verdict: "incorreto", caption: "Linha descendente no coral tradicional", commentary: "O motor aponta o Si do baixo descendo para Lá. No estilo popular, a mesma linha passa (veja a aula de substituições diatônicas)." },
+      ],
+    },
+    {
+      title: "3. Demonstração: do baixo aos acordes",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva a melodia e, abaixo dela, um baixo em contraponto: onde ela desce, ele sobe; nos fins de frase, os dois convergem.",
+          "Para cada par (nota do baixo, nota da melodia), liste os acordes que contêm as duas: C3 + C5 → C; D3 + B4 → G/D ou Bm7♭5/D; E3 + A4 → Am/E; F3 + G4 → G7/F ou Fmaj9…",
+          "Escolha pelo caminho funcional e pela cor: um acorde com o baixo cromático (F♯ antes de G) pede uma dominante (D7/F♯).",
+          "Escreva as vozes internas com notas comuns.",
+          "Revise no estilo certo: no popular, inversões e baixos cromáticos são naturais.",
+        ] },
+        { type: "callout", tone: "dica", title: "Pedal", text: "O caminho oposto também é rearmonização: manter o baixo parado (pedal de tônica ou de dominante) e mover os acordes por cima. Funciona em introduções, finais e pontes, e dá ao coro um chão fácil de afinar." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Baixo paralelo à melodia em 8ªs", "oitavas paralelas, perde-se uma linha", "movimento contrário"], ["Baixo bonito sem acorde possível", "choque com a melodia", "confira cada par antes de seguir"], ["Sensível no baixo descendo no estilo tradicional", "o motor aponta", "suba-a ou mude de estilo conscientemente"], ["Pedal longo demais sem mudança em cima", "estático", "mova as vozes superiores sobre o pedal"]] },
+        { type: "list", items: ["Primeiro o baixo: contraponto com a melodia.", "O acorde nasce do par baixo + melodia.", "Pedal: baixo parado, harmonia andando."] },
+        {
+          type: "challenge",
+          title: "Baixo primeiro em 'Mar sereno'",
+          task: "Escreva primeiro um baixo que suba por grau (com um cromatismo) enquanto a melodia de 'Mar sereno' desce, e depois os acordes e as vozes internas, no estilo popular.",
+          start: EXD.marBaixoStart,
+          constraints: ["Baixo: C – D – E – F – F♯ – G – C (uma nota por mínima).", "Escolha acordes que contenham a nota do baixo e a da melodia.", "Estilo popular a cappella."],
+          criteria: ["Cada acorde contém a nota do baixo e a da melodia.", "O F♯ do baixo funciona como sensível secundária do G.", "O motor só registra observações informativas."],
+          hints: ["D3 + B4 → G/D; E3 + A4 → Am/E.", "F3 + G4: G7/F (sétima no baixo) ou Fmaj9. F♯3 + A4: D7/F♯ (A4 é a quinta).", "Com G7/F → D7/F♯, o F do baixo sobe cromaticamente em vez de descer — aceitável no estilo popular; se preferir, use Fmaj9 no lugar do G7/F."],
+          solution: {
+            score: EXD.marBaixo,
+            commentary: "C – G/D | Am/E – Fmaj9 | D7/F♯ – G | C. O baixo sobe C – D – E – F – F♯ – G enquanto a melodia desce e depois sobe para a cadência; o F♯ (terça do D7) sobe para G como sensível secundária. Contralto E4 – D4 | C4 – E4 | F♯4 – D4 | E4 e tenor G3 – G3 | A3 – A3 | C4 – G3 | G3: notas comuns e graus. O motor cifra o F3 + G4 + A3 + E4 como IVM7 (Fmaj7 com a nona G na melodia) e só informa a sensível B4 descendo na melodia dada.",
+          },
+        },
       ],
     },
   ],
@@ -453,6 +673,32 @@ export const lessonRearmNoArranjo: Lesson = {
         { type: "list", items: ["Mantenha as notas comuns entre os acordes na mesma voz.", "Mova as outras vozes por grau; deixe os saltos para o baixo.", "Resolva sensíveis e sétimas, também nos acordes emprestados.", "Um acorde novo por tempo forte já é muito em andamento rápido: o coro precisa ouvir para afinar.", "Rearmonize uma seção por vez e cante as vozes internas antes de seguir."] },
         { type: "example", score: EXR.excesso, verdict: "incorreto", caption: "Acordes demais", commentary: "Um acorde por tempo, com saltos nas vozes internas: o motor aponta paralelas, um trítono melódico no contralto e notas fora da tessitura. Mais acordes não é mais música; é mais difícil de cantar." },
         { type: "callout", tone: "atencao", title: "Antes de entregar", text: "Cante (ou toque) cada voz interna sozinha. Se uma voz não faz sentido melódico, a rearmonização ainda não está pronta para o coro." },
+      ],
+    },
+    {
+      title: "3. Demonstração: um plano de rearmonização para uma canção inteira",
+      blocks: [
+        { type: "paragraph", text: "Problema: uma canção A A B A (estrofe, estrofe, ponte, estrofe final) para coro SATB amador, estilo popular, seis ensaios. Onde e quanto rearmonizar?" },
+        { type: "table", caption: "Plano e justificativa", headers: ["Seção", "Rearmonização", "Por quê"], rows: [["A (1ª)", "nenhuma", "o público precisa reconhecer a canção"], ["A (2ª)", "duas substituições diatônicas e um baixo descendente", "renova sem confundir; fácil de ensaiar"], ["B (ponte)", "uma dominante secundária e um empréstimo (iv)", "a ponte já é contraste: a harmonia acompanha"], ["A (final)", "dominantes secundárias com baixo cromático e um SubV na cadência", "o clímax harmônico do arranjo"], ["Tag", "iv6 – I com fermata", "cor de despedida"]] },
+        { type: "list", ordered: true, items: ["Para cada seção rearmonizada, escreva primeiro as cifras sobre a melodia e confira as notas longas.", "Escreva o baixo e só então as vozes internas.", "Cante as vozes internas: se uma não fizer sentido sozinha, simplifique o acorde, não a voz.", "Teste com o grupo a seção mais difícil cedo, para ter tempo de recuar."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Rearmonizar a primeira apresentação da melodia", "o público não reconhece a canção", "comece simples"], ["Um acorde novo por tempo", "difícil de afinar e de ouvir", "mantenha o ritmo harmônico"], ["Técnicas demais na mesma seção", "efeito confuso", "uma ou duas por seção"], ["Vozes internas com saltos para caber nos acordes", "o coro não aprende", "notas comuns e graus; simplifique o acorde"]] },
+        { type: "list", items: ["Onde: repetições, ponte, final.", "Quanto: crescente ao longo do arranjo.", "Como: baixo primeiro, vozes por notas comuns, cante tudo antes de entregar."] },
+        {
+          type: "challenge",
+          title: "Plano para 'Mar sereno' em três vezes",
+          task: "'Mar sereno' será cantada três vezes seguidas (forma A A A) por um coro SATB no estilo popular. Faça o plano de rearmonização das três vezes, usando técnicas desta disciplina, e indique as cifras de cada versão.",
+          constraints: ["A melodia não muda.", "A 1ª vez com harmonia simples.", "Cada versão acrescenta no máximo duas técnicas novas."],
+          criteria: ["Cada cifra contém a nota da melodia.", "A complexidade cresce da 1ª para a 3ª vez.", "Você indicou em que voz fica cada nota cromática nova."],
+          hints: ["1ª vez: C – G | Am – C | Dm – G7 | C.", "2ª vez: técnicas diatônicas (baixo por grau, inversões) — veja a aula de substituições.", "3ª vez: diminuto de passagem antes do Dm e SubV na cadência."],
+          solution: {
+            commentary: "1ª vez: C – G | Am – C | Dm – G7 | C (tônica e dominante, mais Am e Dm). 2ª vez: C – G/D | Am/E – G7/F | Am/E – G/D | C (inversões, baixo em arco por grau). 3ª vez: C – G | Am – C♯°7 | Dm – D♭7 | C (diminuto de passagem, com o B♭ no tenor; SubV com o B4 da melodia como sétima e o baixo D♭ → C). Cada versão traz no máximo duas técnicas novas, e a mais ousada fica no fim.",
+          },
+        },
       ],
     },
   ],

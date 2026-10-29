@@ -1,4 +1,5 @@
 import { EXC } from "../examples-cp";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /**
@@ -52,6 +53,40 @@ export const lessonCpPrimeira: Lesson = {
         { type: "example", score: EXC.especie1Paralelas, verdict: "incorreto", caption: "Quinta direta e quintas paralelas", commentary: "No compasso 3, soprano e baixo sobem juntos até uma 12ª (quinta direta com salto) e depois descem juntos para outra 12ª: quintas paralelas. As duas linhas viram uma só." },
       ],
     },
+    {
+      title: "3. Demonstração: escrever a 1ª espécie nota a nota",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Primeiro e último intervalos: consonância perfeita. Sobre C3, o soprano pode começar em G4 (12ª) ou C5 (15ª) e terminar em C5.",
+          "Penúltima nota: sobre D3 (o 2º grau do cantus firmus), a 6ª maior B4 leva por grau à tônica — a cadência clássica 6–8.",
+          "Para cada nota do meio, liste as consonâncias possíveis (3ª, 6ª, 10ª, 13ª, e as perfeitas só se chegarem por movimento contrário).",
+          "Escolha preferindo o movimento contrário ao cantus firmus: quando o baixo sobe, o soprano desce.",
+          "Cante a linha: ela deve ter um ponto culminante e saltos compensados.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Regra de estilo", text: "As regras de espécie são um treino deliberadamente rígido (dissonância proibida, perfeitas só por movimento contrário). Em arranjos reais elas se afrouxam — mas a sensibilidade que desenvolvem (preferir imperfeitas, evitar perfeitas em paralelo, buscar o contrário) é a base de toda boa condução." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Por que é erro", "Correção"], rows: [["4ª justa entre as duas vozes", "na escrita a duas vozes, a 4ª conta como dissonância", "troque por 3ª ou 6ª"], ["Muitas 3ªs paralelas seguidas (mais de três)", "as vozes perdem a independência", "intercale um movimento contrário"], ["Chegar a 5ª ou 8ª por movimento direto", "quinta/oitava direta", "chegue por movimento contrário"], ["Repetir a mesma nota várias vezes", "linha estática", "procure direção e um ponto culminante"]] },
+        { type: "list", items: ["Início e fim em consonância perfeita; meio em imperfeitas.", "Movimento contrário sempre que possível.", "Nenhuma dissonância na 1ª espécie."] },
+        {
+          type: "challenge",
+          title: "1ª espécie sobre um cantus firmus novo",
+          task: "Escreva um soprano nota contra nota sobre o cantus firmus 2 (C3 – E3 | F3 – G3 | E3 – F3 | D3 – C3).",
+          start: EXD.cp1Start,
+          constraints: ["Só consonâncias (contando a 4ª como dissonância).", "Começar e terminar em consonância perfeita.", "Soprano entre E4 e E5."],
+          criteria: ["Nenhuma 5ª ou 8ª paralela ou direta.", "Pelo menos quatro movimentos contrários.", "O motor não aponta erros nem alertas."],
+          hints: ["Comece em G4 (12ª) ou C5 (15ª) e termine com B4 → C5.", "O cantus sobe nos compassos 1 e 2: faça o soprano descer ali.", "Uma possibilidade: G4 – C5 | A4 – G4 | …"],
+          solution: {
+            score: EXD.cp1Sol,
+            commentary: "G4 – C5 | A4 – G4 | C5 – A4 | B4 – C5. Intervalos: 12ª, 13ª menor, 10ª maior, 8ª, 13ª menor, 10ª maior, 13ª maior, 15ª. A única consonância perfeita do meio (G4/G3, 8ª) é alcançada por movimento contrário. Seis das sete trocas são em movimento contrário.",
+            alternatives: ["Começar em C5 (15ª) e fazer B4 – A4 sobre E3 – F3 também funciona; confira então que nenhuma 10ª se repete mais de três vezes seguidas."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-cp-primeira",
@@ -100,6 +135,40 @@ export const lessonCpSegundaTerceira: Lesson = {
         { type: "paragraph", text: "Na 3ª espécie, quatro notas por nota do cantus firmus: a primeira consonante; as outras podem ser passagem, bordadura (sai e volta por grau) ou a cambiata, figura de cinco notas em que a dissonância salta uma terça para baixo e a linha volta por grau." },
         { type: "example", score: EXC.especie3, verdict: "correto", caption: "3ª espécie", commentary: "Mi – Ré – Dó – Ré sobre Dó: passagem e bordadura; Dó – Si – Lá – Dó sobre Fá: o Si (trítono) é passagem entre Dó e Lá." },
         { type: "listening", title: "A linha ágil", score: EXC.especie3, instructions: ["Ouça o soprano e marque as notas do tempo forte.", "Ouça com o baixo."], focus: [["S"], ["S", "B"]] },
+      ],
+    },
+    {
+      title: "3. Demonstração: do esqueleto à 2ª espécie",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva primeiro uma 1ª espécie (uma nota por nota do cantus firmus): ela será o esqueleto dos tempos fortes.",
+          "Entre duas notas fortes a uma 3ª de distância, a nota fraca é uma passagem natural (G4 – A4 – B4).",
+          "Entre notas fortes iguais ou a um grau, use uma consonância vizinha ou uma bordadura.",
+          "Entre notas fortes distantes (4ª ou mais), use uma consonância intermediária que divida o salto.",
+          "Confira as paralelas também entre a nota fraca e a forte seguinte — o ouvido as escuta.",
+        ] },
+        { type: "callout", tone: "dica", title: "Para o arranjador", text: "A 2ª e a 3ª espécies treinam as vozes internas cantáveis: um contralto que anda em semínimas por passagens e bordaduras enquanto a melodia sustenta é exatamente isto. A cambiata aparece em linhas de baixo e de contralto de muitos corais." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Dissonância no tempo forte", "não é passagem", "tempo forte sempre consonante"], ["Dissonância saltando", "sem tratamento", "dissonância só por grau (passagem/bordadura)"], ["Paralelas de nota fraca para nota forte", "o ouvido percebe", "confira todas as notas consecutivas"], ["Linha que sobe e desce sem rumo", "sem ponto culminante", "planeje o desenho antes"]] },
+        { type: "list", items: ["Tempo forte consonante; fraco pode ser passagem.", "3ª espécie: passagem, bordadura e cambiata.", "Paralelas valem entre quaisquer notas seguidas."] },
+        {
+          type: "challenge",
+          title: "2ª espécie sobre o cantus firmus 2",
+          task: "Escreva um soprano com duas semínimas para cada mínima do cantus firmus 2, terminando com B4 – C5 em mínimas.",
+          start: EXD.cp2Start,
+          constraints: ["Tempos fortes consonantes; tempos fracos consonantes ou de passagem.", "Último compasso: B4 (mínima) e C5 (mínima).", "Soprano entre E4 e E5."],
+          criteria: ["Nenhuma 5ª ou 8ª entre notas consecutivas.", "Cada dissonância chega e sai por grau na mesma direção.", "O motor não aponta erros nem alertas."],
+          hints: ["Use a 1ª espécie que você escreveu como esqueleto dos tempos fortes.", "Cuidado com o compasso 2: A4 – F4 sobre F3 seguido de G4 sobre G3 dá oitavas entre notas vizinhas (F4/F3 → G4/G3).", "Uma saída para o compasso 2: A4 – C5 | G4 – B4."],
+          solution: {
+            score: EXD.cp2Sol,
+            commentary: "G4 A4 C5 B4 | A4 C5 G4 B4 | C5 B4 A4 C5 | B4 C5. Os tempos fracos são consonâncias (A4 sobre C3, B4 sobre E3, C5 sobre F3) ou passagens (B4 entre C5 e A4 no compasso 3). A armadilha evitada está no compasso 2: com F4 no tempo fraco, F4/F3 → G4/G3 seriam oitavas paralelas entre notas vizinhas. Outra, no compasso 3: C5/F3 → A4/D3 seriam quintas — por isso o último compasso começa em B4.",
+            alternatives: ["No compasso 1, G4 – E4 (consonância) em vez de G4 – A4 também é correto, mas obriga um salto de 6ª para C5: prefira a passagem."],
+          },
+        },
       ],
     },
   ],
@@ -158,6 +227,38 @@ export const lessonCpQuarta: Lesson = {
         { type: "example", score: EXC.retardoSalto, verdict: "incorreto", caption: "Retardo abandonado por salto", commentary: "O mesmo Ré salta para Sol em vez de descer por grau: a dissonância fica sem resolução e o motor aponta." },
       ],
     },
+    {
+      title: "3. Demonstração: construir uma cadeia de retardos",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva o baixo descendente por grau e, acima dele, uma linha em 6ªs paralelas (consonâncias imperfeitas): é o esqueleto sem retardos.",
+          "Atrase a voz superior meia nota: cada nota passa a começar no tempo fraco e é ligada ao tempo forte seguinte.",
+          "Confira os três tempos de cada nota: no tempo fraco ela é 6ª (consonante, preparação); ligada, sobre o baixo novo, vira 7ª (dissonância); desce por grau para a 6ª seguinte (resolução).",
+          "Na cadência, a última dissonância resolve na sensível, que sobe para a tônica.",
+        ] },
+        { type: "callout", tone: "dica", title: "Para o arranjador", text: "A cadeia 7–6 é um recurso expressivo de coral: as vozes 'chegam atrasadas' e criam uma série de pequenas tensões resolvidas. Escreva-a numa voz interna (contralto ou tenor) para dar movimento a um trecho homofônico sem cobrir a melodia." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Retardo sem ligadura (rearticulado)", "vira apojatura, perde a suspensão", "ligue a nota de preparação"], ["Resolução para cima (fora do 7–8 com a sensível)", "a tensão não se resolve", "resolva por grau descendente"], ["Nota de resolução soando em outra voz", "o ouvido ouve a resolução antes", "evite dobrar a nota de resolução"], ["Cadeia de 5–6 confundida com retardo", "5ª e 6ª são consonantes", "retardo exige dissonância no tempo forte"]] },
+        { type: "list", items: ["Preparação (consonante) – dissonância (ligada, tempo forte) – resolução (grau descendente).", "Retardos comuns: 7–6, 4–3, 9–8; 2–3 no baixo.", "Cadeia 7–6 sobre baixo descendente."] },
+        {
+          type: "challenge",
+          title: "Retardos sobre F – E – D – C",
+          task: "Sobre o baixo F3 – E3 – D3 – C3 (semibreves), escreva um soprano em síncope com dois retardos 7–6 e chegada à tônica.",
+          start: EXD.cp4Start,
+          constraints: ["Soprano começa depois de uma pausa de mínima.", "Cada dissonância é preparada (nota ligada) e resolve descendo por grau.", "Última nota: C5 sobre C3."],
+          criteria: ["Duas 7ªs no tempo forte, cada uma resolvida numa 6ª.", "A sensível B4 sobe para C5 no final.", "O motor não aponta erros nem alertas."],
+          hints: ["Que nota forma uma 6ª sobre F3 e uma 7ª sobre E3? É a preparação do primeiro retardo.", "D5 sobre F3 = 6ª; ligado sobre E3 = 7ª; desce para C5 (6ª sobre E3).", "Repita a ideia: C5 ligado sobre D3 = 7ª, desce para B4."],
+          solution: {
+            score: EXD.cp4Sol,
+            commentary: "Pausa – D5 | (D5) C5 | (C5) B4 | C5. D5 entra como 6ª sobre F3, fica ligado sobre E3 (7ª) e resolve em C5 (6ª). C5 fica ligado sobre D3 (7ª) e resolve em B4 (6ª); B4, a sensível, sobe para C5 sobre C3. É a cadeia 7–6 terminando na cadência 6–8 da 1ª espécie.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-cp-quarta",
@@ -205,6 +306,39 @@ export const lessonCpFlorida: Lesson = {
       blocks: [
         { type: "list", items: ["Depois de um salto maior que uma terça, volte por grau na direção contrária.", "Evite dois saltos grandes seguidos na mesma direção.", "Saltos de sétima e de trítono são difíceis de cantar: reserve para efeitos.", "Um único ponto culminante por frase."] },
         { type: "example", score: EXC.especie5Saltos, verdict: "observacao", caption: "Saltos sem compensação", commentary: "Sol – Fá (sétima) e Fá – Lá (sexta descendente) seguidos: o motor aponta o salto grande e o Fá5 fora da tessitura. A linha perde o desenho e fica difícil de cantar." },
+      ],
+    },
+    {
+      title: "3. Demonstração: planejar uma linha florida",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Desenhe o contorno antes das notas: onde a linha começa, onde chega ao ponto mais alto (uma vez só) e como desce para a cadência.",
+          "Coloque as notas de apoio nos tempos fortes, todas consonantes com o cantus firmus (a 1ª espécie de novo como esqueleto).",
+          "Preencha com valores variados: mínimas onde o cantus muda, semínimas para passagens e bordaduras, uma síncope ou retardo para expressão.",
+          "Depois de cada salto maior que uma 3ª, volte por grau na direção contrária.",
+          "Cante a linha sozinha e depois com o cantus firmus.",
+        ] },
+        { type: "callout", tone: "dica", title: "Para o arranjador", text: "A 5ª espécie é o modelo de qualquer voz interna bonita num arranjo: ritmo próprio, direção clara, um ponto alto e dissonâncias tratadas. Quando uma linha interna 'não canta', compare-a com estes critérios." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Dois pontos culminantes", "a linha perde o clímax", "uma nota mais alta, uma vez"], ["Ritmo uniforme", "volta a ser 2ª ou 3ª espécie", "misture mínimas, semínimas e síncopes"], ["Saltos seguidos na mesma direção", "difícil de cantar", "compense por grau"], ["Retrogressão harmônica implícita (V → IV)", "a linha contradiz a direção funcional", "escolha notas que impliquem T–S–D–T"]] },
+        { type: "list", items: ["Ritmo próprio, variado.", "Um único ponto culminante.", "Saltos compensados, dissonâncias tratadas."] },
+        {
+          type: "challenge",
+          title: "Uma linha florida sobre o cantus firmus 2",
+          task: "Escreva uma linha florida (mínimas e semínimas misturadas) sobre o cantus firmus 2, com um único ponto culminante.",
+          start: EXD.cp5Start,
+          constraints: ["Tempos 1 e 3 consonantes.", "Pelo menos uma mínima e seis semínimas.", "Ponto culminante no compasso 3; soprano até E5."],
+          criteria: ["O E5 (ou outro ponto culminante) aparece uma vez só.", "Cada salto maior que uma 3ª é compensado.", "O motor não aponta erros nem alertas (nem sugestões de retrogressão)."],
+          hints: ["Comece com uma mínima (G4 ou C5) e acelere no compasso 2.", "Sobre E3 no compasso 3, E5 forma uma 15ª: um bom lugar para o ponto culminante, alcançado por grau ou por 3ª.", "Cuidado: se o compasso 2 terminar sugerindo V (B4 – D5 sobre G3) e o 3 começar sugerindo ii, o motor aponta retrogressão."],
+          solution: {
+            score: EXD.cp5Sol,
+            commentary: "G4 – C5 B4 | A4 C5 – B4 | C5 E5 D5 C5 | B4 – C5. Mínimas e semínimas se alternam; o E5 aparece uma vez, no 2º tempo do compasso 3, alcançado por 3ª a partir de C5 e abandonado por grau. As implicações harmônicas seguem a direção T – S – D – T. Uma primeira versão com B4 – D5 sobre G3 seguida de E5 – D5 sobre E3/F3 fazia o motor apontar uma retrogressão (V → ii⁶): mudar o compasso 2 resolveu.",
+          },
+        },
       ],
     },
   ],
@@ -263,6 +397,32 @@ export const lessonCpImitacao: Lesson = {
         { type: "callout", tone: "dica", title: "Para que serve", text: "Num arranjo, um dueto em contraponto invertível pode ser cantado por sopranos e tenores numa estrofe e trocado na outra (tenores em cima): material novo sem escrever nada novo." },
       ],
     },
+    {
+      title: "3. Demonstração: o que acontece quando as vozes trocam de lugar",
+      blocks: [
+        { type: "paragraph", text: "Problema: um dueto soprano–tenor vai ser repetido na estrofe seguinte com as vozes trocadas: a linha do tenor passa para o soprano (uma oitava acima) e a do soprano passa para o tenor (uma oitava abaixo). Quais intervalos sobrevivem à troca?" },
+        { type: "table", caption: "Inversão à oitava, intervalo por intervalo", headers: ["Intervalo original", "Depois da troca", "Consequência"], rows: [["3ª (C/E)", "6ª (E/C)", "continua consonância imperfeita"], ["6ª (E/C)", "3ª (C/E)", "continua consonância imperfeita"], ["8ª (C/C)", "uníssono", "continua perfeita"], ["5ª (C/G)", "4ª (G/C)", "vira dissonância em duas vozes: precisa ser evitada no original ou tratada como passagem"], ["7ª (C/B, de passagem)", "2ª (B/C)", "continua dissonância: tratamento igual"]] },
+        { type: "list", ordered: true, items: ["Antes de escrever o dueto, decida se ele será invertido.", "Se sim, use só 3ªs, 6ªs, 8ªs e dissonâncias de passagem; evite 5ªs nos tempos fortes.", "Confira a versão invertida inteira: os cruzamentos de registro podem criar novos problemas de extensão."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Cânone sobre harmonia que muda a cada tempo", "choques nos tempos fortes", "harmonia estática ou progressão que se repete"], ["Imitação à quinta sem ajustar a harmonia", "a resposta cai fora do acorde", "imitação tonal: ajuste um intervalo do motivo"], ["Dueto invertível com 5ªs nos tempos fortes", "viram 4ªs dissonantes", "3ªs e 6ªs"], ["Entradas sucessivas sem respiração", "naipes sem fôlego", "planeje a respiração de cada entrada"]] },
+        { type: "list", items: ["Cânone: a mesma melodia defasada; funciona sobre harmonia estática.", "Imitação à 8ª é a mais segura; à 5ª, a mais 'fugada'.", "Invertível à 8ª: 3ª ↔ 6ª, 5ª ↔ 4ª (cuidado)."] },
+        {
+          type: "challenge",
+          title: "Prever a inversão",
+          task: "Um dueto soprano–tenor tem, nos tempos fortes, os intervalos: 8ª, 6ª, 5ª, 3ª, 6ª, 8ª. Se as vozes trocarem de lugar (inversão à oitava), que intervalos resultam? Quais pontos precisam ser reescritos antes da troca e como?",
+          constraints: ["Considere a escrita a duas vozes (a 4ª conta como dissonância).", "Proponha uma correção que mantenha o dueto invertível."],
+          criteria: ["Cada intervalo invertido corretamente (complemento a 9).", "O ponto problemático foi identificado.", "A correção proposta funciona nas duas versões."],
+          hints: ["Some o intervalo original e o invertido: o resultado é sempre 9.", "A 5ª vira 4ª. Em duas vozes, a 4ª no tempo forte é dissonância sem tratamento.", "Troque a 5ª por uma 3ª ou 6ª (mudando uma nota de uma das vozes) e confira de novo."],
+          solution: {
+            commentary: "Inversão: 8ª → uníssono, 6ª → 3ª, 5ª → 4ª, 3ª → 6ª, 6ª → 3ª, 8ª → uníssono. O único problema é a 5ª do terceiro tempo forte, que vira 4ª — dissonante a duas vozes. Correção: mudar uma das notas para que o intervalo seja 3ª ou 6ª (por exemplo, se era C/G, trocar o G por A: C/A = 6ª, que vira 3ª na inversão). Os uníssonos do início e do fim da versão invertida são aceitáveis como consonâncias perfeitas nas extremidades; se o registro deixar as vozes cruzadas, confira a extensão de cada naipe.",
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-cp-imitacao",
@@ -310,6 +470,40 @@ export const lessonCpQuatroVozes: Lesson = {
       blocks: [
         { type: "example", score: EXC.quatroVozesOitavas, verdict: "incorreto", caption: "Tenor copiando o soprano", commentary: "O tenor canta Mi – Ré – Dó junto com o soprano, uma oitava abaixo: oitavas paralelas. São quatro cantores, mas só três linhas." },
         { type: "list", items: ["Contraponto a três vozes (SAB, TTB) é o melhor treino: não sobra voz para dobrar.", "Divida o grupo em pares: duas vozes em contraponto, duas em apoio.", "Num tutti, deixe o contraponto para as vozes internas e mantenha os extremos claros."] },
+      ],
+    },
+    {
+      title: "3. Demonstração: dar desenho próprio a cada voz",
+      blocks: [
+        { type: "paragraph", text: "Problema: I – IV | V7 – I em Sol, com soprano e baixo em mínimas. Como fazer contralto e tenor serem linhas reconhecíveis, e não 'enchimento'?" },
+        { type: "list", ordered: true, items: [
+          "Distribua o movimento: se o soprano e o baixo andam em mínimas, uma voz interna pode andar em semínimas (passagens) e a outra segurar notas (ligaduras, retardos).",
+          "Procure pontos de tensão expressiva: uma nota mantida de um acorde para o outro vira retardo; uma sétima pode ser preparada como nota comum.",
+          "Confira que, a cada momento, pelo menos uma voz se move contra outra (contrário ou oblíquo).",
+          "Cante cada voz sozinha: ela tem começo, meio e fim?",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Independência demais num coro amador vira insegurança: cada naipe precisa ouvir algo familiar. Uma regra de bolso: no máximo duas vozes com movimento próprio ao mesmo tempo; as outras sustentam ou acompanham o ritmo da melodia." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Todas as vozes no mesmo ritmo e direção", "um bloco, não quatro linhas", "alterne quem se move"], ["Voz interna copiando a melodia em 8ª", "falsa independência", "3ªs/6ªs ou movimento próprio"], ["Movimento demais ao mesmo tempo", "textura confusa, difícil de ensaiar", "no máximo duas vozes ativas por vez"], ["Retardo sem preparação na voz interna", "dissonância atacada", "prepare com nota comum"]] },
+        { type: "list", items: ["Independência = desenho e ritmo próprios.", "Quando uma voz anda, outra segura.", "Falsa independência: dobras em 8ª."] },
+        {
+          type: "challenge",
+          title: "Quatro ritmos sobre I – IV | V7 – I",
+          task: "Soprano e baixo estão dados (mínimas). Escreva contralto e tenor com ritmos diferentes entre si e das vozes externas: uma voz com passagem em semínimas e a outra com um retardo ligado.",
+          start: EXD.q4Start,
+          constraints: ["Não altere soprano nem baixo.", "O V7 precisa ter a sétima (C) preparada.", "Estilo coral tradicional."],
+          criteria: ["Contralto e tenor têm ritmos diferentes.", "A sétima do V7 é preparada e resolve descendo.", "O motor só registra observações informativas."],
+          hints: ["O D4 do primeiro acorde pode ficar ligado sobre o IV (vira 9ª) e resolver em C4 — um retardo 9–8.", "Esse mesmo C4 pode continuar no V7: agora ele é a sétima, preparada!", "O contralto pode fazer G4 – F♯4 – E4 (passagem) no compasso 1."],
+          solution: {
+            score: EXD.q4Sol,
+            commentary: "Tenor: D4 ligado (retardo 9–8 sobre o IV) → C4, que permanece no V7 como sétima preparada e desce para B3 no I. Contralto: G4 – F♯4 (passagem) – E4 | F♯4 – D4. A sensível F♯4 do contralto desce para D4 no I, recurso de voz interna aceito e registrado como informação, para que o acorde final tenha a quinta. Cada voz tem um ritmo: soprano e baixo em mínimas, contralto com semínimas, tenor com ligadura.",
+            alternatives: ["Contralto F♯4 → G4 no último acorde (sensível resolvendo) forma uníssono com o soprano G4 e deixa o I sem quinta: correto, mas com uma voz a menos no final."],
+          },
+        },
       ],
     },
   ],
@@ -361,6 +555,34 @@ export const lessonCpContracanto: Lesson = {
         { type: "callout", tone: "dica", title: "Ligação com o 2º semestre", text: "A aula 'Contracanto ativo e passivo' mostrou os tipos de contracanto. Aqui o foco é a técnica de contraponto por trás deles: complementaridade de ritmo, movimento contrário e consonâncias imperfeitas." },
       ],
     },
+    {
+      title: "3. Demonstração: complementaridade compasso a compasso",
+      blocks: [
+        { type: "table", caption: "Como ler a melodia antes de escrever o contracanto", headers: ["Compasso", "A melodia…", "O contracanto…"], rows: [["com semínimas", "anda", "segura uma nota do acorde (oblíquo)"], ["com nota longa", "para", "anda por notas do acorde e passagens"], ["com pausa", "respira", "pode 'responder' com um fragmento do motivo"], ["na cadência", "chega", "chega junto, por movimento contrário"]] },
+        { type: "list", ordered: true, items: ["Marque na melodia as notas longas e as pausas.", "Escreva primeiro as notas sustentadas do contracanto (onde a melodia anda).", "Preencha os espaços da melodia com movimento por grau, em direção contrária à frase seguinte da melodia.", "Confira com o baixo: nenhuma 5ª ou 8ª paralela; nenhuma sensível dobrada."] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Contracanto em 8ª com a melodia", "dobramento, não diálogo", "3ªs, 6ªs e movimento contrário"], ["Contracanto ativo junto com melodia ativa", "competição", "alterne"], ["Contracanto acima da melodia num naipe forte", "a melodia some", "contracanto abaixo, ou acima em p"], ["Sensível do contracanto dobrando a da melodia", "oitavas na resolução", "confira as dobras nos V"]] },
+        { type: "list", items: ["Complementaridade: quando um anda, o outro segura.", "Contracanto em registro próprio, mais discreto que a melodia.", "Não é dobrar."] },
+        {
+          type: "challenge",
+          title: "Um contralto que responde",
+          task: "A melodia (soprano) e o baixo estão dados; a melodia tem notas longas nos compassos 2 e 4. Escreva um contracanto no contralto que se mova nessas notas longas e segure nas outras.",
+          start: EXD.ccpStart,
+          constraints: ["Não altere soprano nem baixo; tenor em pausa.", "Contralto entre A3 e B4.", "Só notas do acorde e passagens por grau."],
+          criteria: ["No compasso 1 o contralto sustenta; nos compassos 2 e 4 ele anda.", "Nenhuma 5ª ou 8ª paralela com a melodia ou com o baixo.", "O motor só registra observações informativas."],
+          hints: ["Compasso 1: uma nota comum aos acordes de Dó e Sol.", "Compasso 2 (Lá menor sob C5 longo): suba por grau do E4 até o A4.", "Compasso 3: B4 no V e, no I com E5 no soprano, G4 (não C5: acima da tessitura)."],
+          solution: {
+            score: EXD.ccpSol,
+            commentary: "Contralto: G4 (semibreve, nota comum de I e V) | E4 F4 G4 A4 (sob o C5 longo, subindo por grau) | B4 – G4 | G4 F4 E4 (sob o C5 final, descendo). A melodia e o contracanto alternam o primeiro plano: o ouvido segue um de cada vez. No compasso 3, a sensível B4 do contralto desce para G4 (voz interna) em vez de subir para C5, acima da tessitura do contralto.",
+            alternatives: ["No compasso 4, um contracanto que sobe (E4 F4 G4 → …) também funciona se terminar numa consonância com o C5; a descida dá sensação de fim."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-cp-contracanto",
@@ -410,6 +632,40 @@ export const lessonCpDescant: Lesson = {
         { type: "paragraph", text: "No quodlibet, duas melodias diferentes (às vezes de canções diferentes) são cantadas juntas porque cabem na mesma harmonia. O arranjador apresenta cada uma sozinha e depois as combina, de preferência com ritmos contrastantes." },
         { type: "example", score: EXC.quodlibet, verdict: "correto", caption: "Luz da manhã + Sol vai nascer", commentary: "O soprano canta 'Luz da manhã' em mínimas; o tenor canta outra melodia, com semínimas onde o soprano sustenta. As duas cabem na harmonia C – G – C – G7 – C." },
         { type: "list", items: ["Confira acorde por acorde: as notas das duas melodias pertencem ao acorde ou são passagem.", "Dê ritmos diferentes às melodias para o ouvido separá-las.", "Apresente cada melodia sozinha antes de combinar.", "Use como clímax: é o momento em que o arranjo 'amarra' o que veio antes."] },
+      ],
+    },
+    {
+      title: "3. Demonstração: escrever um descant",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escreva a melodia do hino (no tenor ou na congregação) e o baixo. O descant vai acima de tudo, no registro dos sopranos.",
+          "Para cada acorde, liste as notas do acorde disponíveis entre C5 e F5 (o registro brilhante do soprano).",
+          "Escolha a sequência em movimento contrário à melodia: quando ela sobe, o descant desce.",
+          "Prefira notas longas: o descant é uma linha de 'teto', não uma segunda melodia agitada.",
+          "Termine numa consonância perfeita com a melodia (8ª ou 15ª) por movimento contrário.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Quodlibet: conferir acorde por acorde", text: "Para combinar duas melodias existentes, faça uma tabela: compasso, acorde, nota da melodia 1, nota da melodia 2. Cada par precisa pertencer ao acorde ou ser passagem por grau. Se dois ou três pontos falharem, ajuste o ritmo de uma das melodias (adiantar ou atrasar uma nota) antes de mudar notas." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Descant em 8ªs com a melodia", "dobramento", "movimento contrário"], ["Descant agudo o tempo todo", "cansa e cobre o coro", "agudo só no clímax"], ["Quodlibet com as duas melodias no mesmo ritmo", "o ouvido não separa", "ritmos contrastantes"], ["Combinar melodias sem apresentar cada uma", "o público não reconhece", "cada melodia sozinha antes"]] },
+        { type: "list", items: ["Descant: linha nova acima da melodia, em movimento contrário, notas longas.", "Quodlibet: duas melodias na mesma harmonia, ritmos contrastantes.", "Os dois funcionam como clímax."] },
+        {
+          type: "challenge",
+          title: "Descant para um hino",
+          task: "A melodia do hino está no tenor (C4 – D4 | E4 – D4 | C4), com contralto e baixo dados. Escreva um descant no soprano em movimento contrário à melodia.",
+          start: EXD.descantStart,
+          constraints: ["Não altere contralto, tenor e baixo.", "Soprano entre B4 e E5.", "Termine em 8ª com a melodia."],
+          criteria: ["Em pelo menos três das quatro trocas, soprano e tenor vão em direções opostas.", "Cada acorde continua completo (ou com a quinta omitida).", "O motor não aponta erros nem alertas."],
+          hints: ["A melodia sobe C4 – D4 – E4: o descant desce.", "Sobre o V⁶ (baixo B2), o acorde precisa de G (no contralto) e D: o soprano pode cantar D5.", "Descant possível: E5 – D5 | C5 – B4 | C5."],
+          solution: {
+            score: EXD.descantSol,
+            commentary: "E5 – D5 | C5 – B4 | C5. Quando a melodia sobe (C4 → D4 → E4), o descant desce (E5 → D5 → C5); quando ela desce para D4, o descant desce junto para B4 em 6ªs — o único movimento paralelo, em consonância imperfeita — e depois os dois se encontram em 8ª (C5/C4) por movimento contrário.",
+            alternatives: ["Começar em G5 seria brilhante, mas acima do registro confortável dos sopranos amadores: reserve para um coro experiente."],
+          },
+        },
       ],
     },
   ],

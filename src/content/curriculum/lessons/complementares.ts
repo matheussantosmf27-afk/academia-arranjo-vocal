@@ -1,6 +1,7 @@
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { EX } from "../examples";
 import { EXA } from "../examples-arranjo";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /*
@@ -73,6 +74,41 @@ export const lessonDuasVozes: Lesson = {
         },
         { type: "example", score: EX.duasVozes, verdict: "correto", caption: "Movimento contrário entre as vozes extremas", commentary: "Quando o soprano sobe, o baixo desce: cada voz tem desenho próprio e as duas juntas definem a harmonia." },
         { type: "example", score: EX.duasVozesParalelas, verdict: "incorreto", caption: "Quintas paralelas", commentary: "Duas vozes em quintas justas consecutivas soam como uma só linha 'oca' — o motor acusa o erro." },
+      ],
+    },
+    {
+      title: "4. Demonstração: uma segunda voz passo a passo",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Cante a melodia e marque onde ela sobe muito e onde termina: é aí que a segunda voz vai precisar mudar de intervalo.",
+          "Escreva uma 3ª abaixo de cada nota (dentro da tonalidade). Confira se essas notas pertencem ao acorde implícito; se não, troque pela 6ª abaixo.",
+          "Onde a 3ª abaixo deixa a segunda voz aguda demais para o naipe (contraltos acima de B4), use a 6ª abaixo.",
+          "Procure um ou dois lugares para movimento contrário ou oblíquo (fins de frase, notas longas da melodia).",
+          "Termine numa consonância estável: 3ª, 6ª ou 8ª. Uníssono só se quiser 'fechar' as vozes numa palavra importante.",
+          "Cante a segunda voz sozinha: ela precisa ter sentido como linha, não só como sombra da melodia.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Terças paralelas o tempo todo funcionam no sertanejo e no louvor, onde a fusão é o objetivo. Em coro, uma segunda voz que alterna 3ªs e 6ªs e tem alguns movimentos próprios soa mais rica e é mais fácil de equilibrar. Decida pelo estilo e pelo que o texto pede." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Consequência", "Correção"], rows: [["3ª abaixo que não pertence ao acorde", "atrito não desejado num tempo forte", "troque pela 6ª ou por outra nota do acorde"], ["Segunda voz cruzando a melodia", "o ouvido perde a melodia", "mantenha a segunda voz abaixo (ou acima) o tempo todo"], ["5ªs ou 8ªs seguidas", "as duas vozes viram uma", "no máximo isoladas, no início ou no fim"], ["Segunda voz sem respiração própria", "naipe sem fôlego", "respire junto com a melodia"]] },
+        { type: "list", items: ["3ªs e 6ªs são a base do dueto; alterne-as para manter a voz confortável.", "Movimento contrário e oblíquo dão identidade à segunda voz.", "Consonâncias perfeitas só isoladas; nunca em sequência."] },
+        {
+          type: "challenge",
+          title: "Segunda voz para uma melodia nova",
+          task: "Escreva uma segunda voz (contralto) abaixo da melodia dada, em 3ªs e 6ªs, terminando numa 8ª.",
+          start: EXD.duasStart,
+          constraints: ["Contralto entre A3 e B4.", "Só 3ªs, 6ªs e a 8ª final.", "Mesmo ritmo da melodia."],
+          criteria: ["Nenhuma 5ª ou 8ª antes do último acorde.", "Pelo menos um trecho em 6ªs e outro em 3ªs.", "O contralto nunca passa acima da melodia."],
+          hints: ["Com 3ªs abaixo, o compasso 1 levaria o contralto a C5 (sob E5): acima da tessitura. Que intervalo usar ali?", "As 6ªs abaixo do compasso 1 são E4 F4 G4 E4.", "No compasso 3 a melodia desce até G4: 6ªs abaixo levam o contralto até B3, ainda na tessitura."],
+          solution: {
+            score: EXD.duasSol,
+            commentary: "Compasso 1 em 6ªs (E4 F4 G4 E4), compasso 2 em 3ªs (B4 G4), compasso 3 de novo em 6ªs (E4 C4 D4 B3) e a 8ª final (C4 sob C5). A troca entre 6ªs e 3ªs mantém o contralto entre B3 e B4 — exatamente a tessitura — e a 8ª final fecha a frase com estabilidade.",
+            alternatives: ["Terminar em 6ª (E4 sob C5), como no dueto da seção 2, também é válido e soa mais doce que a 8ª; evite a 3ª abaixo (A4), que sugere lá menor no acorde final.", "No compasso 2, 6ªs (F4 D4) em vez de 3ªs também funcionam, deixando o contralto mais grave e escuro."],
+          },
+        },
       ],
     },
   ],
@@ -223,6 +259,41 @@ export const lessonBaixoCantoDado: Lesson = {
         },
       ],
     },
+    {
+      title: "4. Demonstração: realizar um baixo dado",
+      blocks: [
+        { type: "paragraph", text: "Problema: baixo dado em Sol maior, G2 – C3 | A2 – D3 | G2, sem cifras (todos os acordes em estado fundamental). Escreva soprano, contralto e tenor." },
+        { type: "list", ordered: true, items: [
+          "Acordes: G2 = I, C3 = IV, A2 = ii, D3 = V, G2 = I. Funções: T – S – S – D – T; a última troca (V → I) é a cadência autêntica.",
+          "Pontos críticos: a sensível F♯ no V (uma só, subindo para G) e as duas trocas em que o baixo anda por 3ª ou 4ª — com salto no baixo, as vozes de cima devem andar pouco.",
+          "Soprano com direção: B4 – C5 | C5 – A4 | G4. Ele sobe ao C5 (nota comum entre IV e ii), desce e chega à tônica por 2–1 — autêntica perfeita.",
+          "Vozes internas: notas comuns primeiro. C e E são comuns a IV e ii; D é comum a I e V; G é comum a I e IV.",
+          "Confira os seis pares em cada troca e, no fim, se o I tem terça.",
+        ] },
+        { type: "callout", tone: "dica", title: "Baixo dado com cifras numéricas", text: "Quando o baixo vem com números (6, ⁶₄, 7), eles indicam os intervalos acima do baixo: 6 = 1ª inversão; ⁶₄ = 2ª inversão; 7 = acorde de sétima. Leia-os antes de decidir o acorde: um B2 com '6' não é vi, é o V⁶ de… depende da tonalidade (em Sol maior, por exemplo, B2⁶ é I⁶)." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Consequência", "Correção"], rows: [["Soprano que só repete notas comuns", "linha sem direção", "dê ao soprano um ponto culminante e uma chegada"], ["Ler a nota do baixo como fundamental sem olhar a cifra", "acorde errado", "a cifra numérica decide a inversão"], ["Vozes de cima na mesma direção do baixo no IV → V", "paralelas", "movimento contrário ao baixo"], ["Sensível no V em duas vozes", "oitavas paralelas na resolução", "uma só, e subindo"]] },
+        { type: "list", items: ["Baixo dado: deduza os acordes, escreva o soprano, complete as vozes internas.", "Canto dado: escolha os acordes pela melodia e pela função, escreva o baixo em contraponto.", "Nos dois casos, a conferência final é a mesma: acordes completos, dobras, sensível, paralelas."] },
+        {
+          type: "challenge",
+          title: "Baixo dado em Ré maior",
+          task: "Realize o baixo dado abaixo (D3 – B2 | G2 – A2 | D3, todos em estado fundamental): escreva soprano, contralto e tenor.",
+          start: EXD.bdStart,
+          constraints: ["Não altere o baixo.", "Só tríades em estado fundamental, como indicado.", "Soprano com pelo menos um movimento contrário ao baixo e terminando na tônica."],
+          criteria: ["Acordes: I – vi | IV – V | I, todos completos ou com a quinta omitida.", "Sensível uma vez no V e subindo.", "O motor não aponta erros nem alertas."],
+          hints: ["Comece pelo fim: V → I com o soprano C♯5 → D5.", "No IV → V, o baixo sobe G2 → A2: contralto e tenor devem descer.", "Notas comuns: F♯ (entre I e vi) e D (entre I, vi e IV)."],
+          solution: {
+            score: EXD.bdSol,
+            commentary: "Soprano A4 – B4 | D5 – C♯5 | D5; contralto F♯4 – F♯4 | G4 – E4 | F♯4; tenor D4 – D4 | B3 – A3 | A3. O contralto mantém F♯4 do I para o vi (nota comum) e o tenor mantém D4; no IV → V, contralto e tenor descem enquanto o baixo sobe. O soprano sobe ao D5 no IV (ponto culminante) e chega à tônica pela sensível.",
+            alternatives: ["Soprano D5 – D5 | D5 – C♯5 | D5: correto, mas sem direção (três notas iguais); prefira um soprano com contorno.", "Soprano F♯4 – F♯4 | G4 – E4 | F♯4 (o contralto da solução no lugar do soprano): termina na terça, cadência autêntica imperfeita — válida se o trecho não for o final."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-baixo-canto-dado",
@@ -369,6 +440,41 @@ export const lessonEscritaBloco: Lesson = {
         { type: "listening", title: "Ouça a estrutura quartal", score: EXA.quartas, instructions: ["Ouça só as três vozes de cima: quartas empilhadas.", "Acrescente o baixo."], focus: [["S", "A", "T"], ["S", "A", "T", "B"]] },
       ],
     },
+    {
+      title: "4. Demonstração: harmonizar em bloco sobre um pedal",
+      blocks: [
+        { type: "paragraph", text: "Problema: no estilo gospel, a melodia E5 – D5 – C5 (Dó maior) deve ganhar um bloco de três vozes (soprano, contralto, tenor) sobre o baixo parado em C3." },
+        { type: "list", ordered: true, items: [
+          "Decida o acorde de cada nota da melodia: E5 (C), D5 (G/C ou Dm7/C), C5 (C).",
+          "Bloco fechado: para cada nota, as duas notas do acorde imediatamente abaixo dela. E5 → C5 e G4; D5 → B4 e G4 (G/C) ou A4 e F4 (Dm/C); C5 → G4 e E4.",
+          "Escolha pela linha de cada voz: com Dm/C, o contralto faz C5 – A4 – G4 e o tenor G4 – F4 – E4 — todos descem por grau, como um único corpo.",
+          "Confira o baixo: o pedal C3 sustenta tudo; as dissonâncias com ele (D, F, A sobre C) são cor, típicas do estilo.",
+          "Ouça no estilo popular: o motor registra os paralelos como sugestão, não erro.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Bloco e estilo", text: "Um bloco paralelo no estilo coral tradicional seria corrigido; no gospel e no jazz vocal, é o objetivo. Antes de escrever um bloco, confirme que o estilo do arranjo pede essa sonoridade e que o grupo afina tríades paralelas com segurança." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Bloco grave demais (abaixo de C4 nas vozes femininas)", "som embolado e sem brilho", "suba a tonalidade ou use drop 2"], ["Nota da melodia fora do acorde harmonizada 'no automático'", "atrito sem intenção", "acorde de aproximação (diminuto ou dominante) ou nota de passagem"], ["Bloco e baixo nas mesmas notas", "o baixo perde a função", "o baixo faz fundamentais ou pedal, separado do bloco"], ["Clusters em vozes inseguras", "desafinação", "chegue às segundas por grau e só com vozes seguras"]] },
+        { type: "list", items: ["Bloco: as vozes de apoio logo abaixo da melodia, no mesmo ritmo e na mesma letra.", "Drop 2 abre o bloco e alivia o grave.", "O bloco é estilo popular; o baixo fica livre para fundamentais ou pedal."] },
+        {
+          type: "challenge",
+          title: "Bloco de três vozes sobre o pedal de Sol",
+          task: "Harmonize a melodia B4 – A4 – G4 – A4 | B4 em bloco fechado de três vozes (soprano, contralto, tenor) sobre o baixo parado em G2, estilo popular.",
+          start: EXD.blocoStart,
+          constraints: ["Bloco fechado: contralto e tenor nas notas do acorde imediatamente abaixo da melodia.", "Acordes: G e Am7/G (Lá menor sobre o pedal de Sol).", "Tenor até E4."],
+          criteria: ["As três vozes de cima se movem juntas, no mesmo ritmo.", "Nas notas B4 e G4 o acorde é G; em A4, Am/G.", "O motor, no estilo popular, não aponta erros nem alertas."],
+          hints: ["Sob B4 no acorde de G: as duas notas de G logo abaixo são G4 e D4.", "Sob A4 no acorde de Lá menor: E4 e C4.", "Sob G4 no acorde de G: D4 e B3."],
+          solution: {
+            score: EXD.blocoSol,
+            commentary: "Contralto G4 – E4 – D4 – E4 | G4 e tenor D4 – C4 – B3 – C4 | D4 sobre G2 sustentado. O bloco desenha a mesma curva da melodia; sobre o pedal, o acorde de Lá menor vira Am7/G — o motor o cifra como ii⁴₂, uma cor suave típica do gospel. Mesmo com movimento paralelo, não há 5ªs nem 8ªs paralelas entre as vozes do bloco (só 3ªs, 4ªs e 6ªs), por isso o motor não registra nada.",
+            alternatives: ["Em drop 2 (o contralto desce uma 8ª), o bloco fica mais aberto, mas nesta tonalidade o contralto iria a G3 – E3, abaixo da sua região confortável: o drop 2 funciona melhor num coro masculino, com tenor e barítono."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-escrita-bloco",
@@ -511,6 +617,40 @@ export const lessonContracantoAtivoPassivo: Lesson = {
         },
         { type: "example", score: EXA.popLeadBacking, verdict: "correto", caption: "Base rítmica e baixo vocal", commentary: "Contralto e tenor fazem a 'batida' em 'dum' nos contratempos; o baixo, as fundamentais nos tempos fortes." },
         { type: "example", score: EX.duasVozesParalelas, verdict: "incorreto", caption: "Contracanto que não é contracanto", commentary: "Uma segunda linha em quintas paralelas com a primeira não dialoga: soa como a mesma linha engrossada." },
+      ],
+    },
+    {
+      title: "3. Demonstração: escrever um contracanto ativo",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Marque na melodia onde ela anda (notas curtas) e onde para (notas longas, pausas). O contracanto ativo vai se mover nos lugares em que a melodia para.",
+          "Escolha o registro do contracanto: abaixo da melodia (tenor ou contralto) ou acima dela (descant). Ele não deve cruzar a melodia.",
+          "Onde a melodia anda, o contracanto sustenta uma nota do acorde (movimento oblíquo).",
+          "Onde a melodia para, o contracanto caminha por notas do acorde e notas de passagem, de preferência em movimento contrário à frase seguinte da melodia.",
+          "Confira os intervalos com a melodia e com o baixo: nenhuma 5ª ou 8ª paralela, e nada de dobrar a sensível.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Um contracanto com letra própria (eco de palavras-chave) chama mais atenção do que um em 'uh'. Use letra quando quiser um diálogo; use sílaba neutra quando o contracanto for só movimento. Em ambos os casos, ele vem depois da melodia na ordem de importância: dinâmica um nível abaixo." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Contracanto se movendo junto com a melodia", "disputa pela atenção", "mova-se quando a melodia para"], ["Contracanto em 8ªs ou 5ªs com a melodia", "não é contracanto, é dobra", "3ªs, 6ªs e movimento contrário"], ["Ostinato que ignora a mudança de acorde", "choques sem intenção", "ajuste a figura a cada acorde"], ["Vocal band sem baixo definido", "harmonia sem chão", "o baixo vocal é a primeira voz a escrever"]] },
+        { type: "list", items: ["Passivo: sustenta e dá cor; ativo: dialoga.", "O ativo se move quando a melodia para.", "Ostinatos, arpejos e base rítmica são acompanhamentos vocais; o baixo vem primeiro."] },
+        {
+          type: "challenge",
+          title: "Um tenor que dialoga",
+          task: "Melodia e baixo da 'Canção do Caminho' estão dados. Escreva um contracanto ativo no tenor: parado quando a melodia anda, em movimento quando ela sustenta.",
+          start: EXD.ccStart,
+          constraints: ["Não altere soprano nem baixo; deixe o contralto em pausa.", "Tenor entre E3 e E4.", "Só notas dos acordes (I, vi, I, vi⁶, V, I) e notas de passagem por grau."],
+          criteria: ["No compasso 1 (melodia em semínimas), o tenor sustenta.", "Nos compassos 2 a 4, o tenor se move durante as notas longas da melodia.", "O motor não aponta erros nem alertas."],
+          hints: ["Compasso 1: uma nota do acorde de Dó, sustentada (semibreve).", "Compasso 2: sob o C5 longo (acorde de Lá menor), o tenor pode andar A3 – C4; depois sustenta.", "Cuidado com o compasso 3: se o tenor fizer C4 → G3 enquanto o baixo faz C3 → G2, aparecem oitavas paralelas."],
+          solution: {
+            score: EXD.ccSol,
+            commentary: "Tenor: G3 (semibreve) | A3 – C4 – E4 | E4 – G3 – D4 | E4 – C4 – E4. No compasso 1, a melodia anda e o tenor sustenta G3. No compasso 2, sob o C5 longo, o tenor sobe A3 – C4 e chega a E4, que segura enquanto a melodia vai para G4. No compasso 3, ele segura E4 enquanto a melodia faz A4 – C5 e anda G3 – D4 sob o B4 longo. No final, o arpejo E4 – C4 – E4 enfeita o C5 sustentado. Os dois planos se alternam, como pede o contracanto ativo.",
+            alternatives: ["Um contracanto acima da melodia (descant) nas sopranos II, entrando só nos compassos 2–4, é outra forma de diálogo — reservada, em geral, para a última estrofe."],
+          },
+        },
       ],
     },
   ],
@@ -667,6 +807,40 @@ export const lessonHarmoniaCromatica: Lesson = {
         { type: "example", score: EXA.gospelBlocoParalelo, verdict: "observacao", caption: "Paralelismo tonal", commentary: "Tríades deslizando pela escala: no estilo popular, só sugestões. No tradicional, seriam erros." },
       ],
     },
+    {
+      title: "4. Demonstração: inserir um empréstimo modal",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha o ponto: o empréstimo funciona melhor numa cadência plagal (IV – iv – I) ou como cor num acorde que se repete.",
+          "Identifique a nota alterada: o iv de Dó (Fá menor) difere do IV (Fá maior) só no Lá → Lá♭.",
+          "Coloque essa nota numa voz que já tenha Lá no IV: a mudança será de um semitom, na mesma voz.",
+          "Faça a nota alterada continuar por grau: Lá♭ desce para Sol (quinta do I).",
+          "Confira: nenhuma outra voz canta Lá natural ao mesmo tempo ou logo em seguida (falsa relação).",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "O iv no fim de uma canção alegre dá um toque melancólico de 'despedida'; o ♭VI e o ♭VII antes do I dão grandeza (muito usados no pop e em trilhas). Use um empréstimo por seção: mais que isso, a tonalidade maior começa a soar menor." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Nota alterada alcançada por salto", "difícil de afinar", "semitom na mesma voz"], ["Falsa relação (A♮ numa voz, A♭ em outra)", "choque", "o cromatismo fica numa voz só"], ["2ª aumentada na mesma voz", "intervalo difícil", "grafia e caminho por semitons"], ["Planing no estilo tradicional", "paralelas", "planing só no estilo popular ou moderno"]] },
+        { type: "list", items: ["Empréstimo: iv, ♭VI, ♭VII do modo menor.", "Napolitana e sextas aumentadas resolvem por semitom.", "Cromatismo afinável = semitom ou nota comum em cada voz."] },
+        {
+          type: "challenge",
+          title: "Um 'Amém' com empréstimo",
+          task: "Soprano (C5 sustentado) e baixo estão dados para I – IV | iv – I em Dó maior. Escreva contralto e tenor de modo que o Lá♭ do iv chegue por semitom.",
+          start: EXD.cromStart,
+          constraints: ["Não altere soprano nem baixo.", "O iv tem Lá♭.", "Estilo coral tradicional."],
+          criteria: ["A mesma voz canta Lá (no IV), Lá♭ (no iv) e Sol (no I).", "Nenhuma falsa relação.", "O motor não aponta erros nem alertas."],
+          hints: ["Quem canta o Lá no IV? Escolha uma voz interna.", "O tenor pode fazer G3 – A3 – A♭3 – G3.", "O contralto fica com E e F (terça do I, fundamental do IV/iv)."],
+          solution: {
+            score: EXD.cromSol,
+            commentary: "Tenor G3 – A3 | A♭3 – G3: a linha cromática A → A♭ → G fica numa voz só, em semitons — fácil de afinar e sem falsa relação. Contralto E4 – F4 | F4 – E4. O soprano parado em C5 e o baixo F3 parado nos dois acordes do meio fazem do Lá♭ o único acontecimento: toda a cor nova vem de uma nota.",
+            alternatives: ["A linha cromática também pode ficar no contralto (G4 – A4 | A♭4 – G4, sob o C5 do soprano), deixando a cor mais audível; o tenor passa então para E4 – F4 | F4 – E4, no alto da tessitura — confira com o motor antes de adotar."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-harmonia-cromatica",
@@ -819,6 +993,31 @@ export const lessonAnaliseRepertorio: Lesson = {
           tone: "atencao",
           title: "Direitos autorais",
           text: "Estudar e analisar gravações e partituras é livre; publicar ou apresentar um arranjo de canção protegida exige autorização. Para trabalhos e apresentações, prefira repertório em domínio público ou obras próprias.",
+        },
+      ],
+    },
+    {
+      title: "4. Demonstração: a ficha aplicada a um coral",
+      blocks: [
+        { type: "table", caption: "Ficha preenchida — coral de exemplo do curso (SATB, Dó maior)", headers: ["Campo", "O que se observa", "O que levar para o seu arranjo"], rows: [["Formação e tonalidade", "SATB, Dó maior; tenor entre B3 e E4", "tonalidade que deixa o tenor no meio da tessitura"], ["Forma", "três frases de um compasso e cadência final", "cadência a cada fim de frase"], ["Textura", "homofonia do começo ao fim", "homofonia é a base; variações vêm depois"], ["Melodia", "soprano, com ponto culminante C5 no c. 3", "o culminante coincide com o I⁶₄ cadencial"], ["Harmonia", "I – ii – V – I; vi; I⁶ – IV – I⁶₄ – V – I", "ii antes do V; inversões no baixo para fazer linha"], ["Condução", "contralto e tenor quase só por grau", "notas comuns e graus nas vozes internas"]] },
+        { type: "paragraph", text: "A última coluna é o que torna a análise útil: cada observação vira uma decisão que você pode copiar (ou evitar) no próximo arranjo." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Análise só de acordes", "não se aprende arranjo", "forma, textura, distribuição da melodia, clímax"], ["Julgar um arranjo publicado pela régua de outro estilo", "conclusões erradas", "identifique o estilo antes"], ["Copiar soluções sem entender o contexto", "efeito fora do lugar", "anote por que a solução funciona ali"], ["Publicar arranjo de obra protegida", "problema de direitos", "estude livremente; publique só com autorização"]] },
+        { type: "list", items: ["Analise forma, textura, melodia, harmonia, condução e estilo.", "Cada observação vira uma decisão para os seus arranjos.", "Estude repertório em domínio público e gravações; publique com autorização."] },
+        {
+          type: "challenge",
+          title: "Ficha de um arranjo do curso",
+          task: "Preencha a ficha de análise (formação e tonalidade, forma, textura por seção, melodia, harmonia, condução e estilo) para o exemplo 'Melodia com pad' da aula de texturas, e escreva três decisões que você levaria para o seu trabalho de conclusão.",
+          constraints: ["Use a partitura no Estúdio (Abrir exemplo) e ouça cada voz.", "Três decisões concretas, cada uma ligada a uma observação."],
+          criteria: ["Todos os campos da ficha preenchidos com observações verificáveis na partitura.", "As decisões citam a observação que as originou.", "Você identificou o estilo e julgou pela régua desse estilo."],
+          hints: ["Quem canta a letra? E as outras vozes, o que cantam e quando mudam de nota?", "A harmonia do pad é a mesma da versão em homofonia?", "Compare com 'Homofonia': o que muda no efeito, e por quê?"],
+          solution: {
+            commentary: "Ficha-modelo: SATB, Dó maior; uma frase de quatro compassos; textura de melodia + pad (só o soprano canta a letra); melodia no soprano, culminante C5 no c. 2; harmonia igual à da homofonia, com as vozes de apoio mudando de nota só quando o acorde muda; condução por notas comuns (as vozes de apoio quase não se movem); estilo coral tradicional/contemporâneo, sem dissonâncias livres. Três decisões: (1) usar o pad no primeiro verso, porque deixa a melodia e o texto em primeiro plano; (2) escrever o pad em 'uh' com notas comuns, porque cansa menos e afina melhor; (3) guardar a homofonia para o refrão, porque o contraste pad → homofonia marca a mudança de seção.",
+          },
         },
       ],
     },

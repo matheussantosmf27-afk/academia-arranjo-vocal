@@ -1,3 +1,4 @@
+import { EXD } from "../examples-didatica";
 import { EXT } from "../examples-ttbb";
 import type { ContentBlock, Lesson } from "../types";
 
@@ -61,6 +62,38 @@ export const lessonQuartetoMasculino: Lesson = {
         ESTUDO,
       ],
     },
+    {
+      title: "3. Demonstração: harmonizar uma frase com o lead no meio",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha a tonalidade pela melodia no Tenor II (lead): ela deve ficar entre E3 e D4 na maior parte do tempo.",
+          "Escreva o baixo: fundamentais nos tempos fortes, em geral entre G2 e C3 nas tônicas.",
+          "Escreva o tenor acima do lead, quase sempre uma 3ª ou 6ª acima (ou a nota do acorde mais próxima acima dele).",
+          "O barítono completa o acorde com a nota que falta — às vezes acima do lead (no estilo popular), às vezes entre lead e baixo.",
+          "Confira os papéis: a melodia continua no lead do começo ao fim; o tenor nunca cai abaixo dele.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Se o tenor do quarteto é fraco no agudo, baixe a tonalidade pela melodia e deixe o tenor em 6ªs acima do lead nos trechos agudos (em vez de 3ªs): a 'moldura' continua, com menos esforço." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Tonalidade escolhida pelo tenor", "o lead fica fora da tessitura", "escolha pela melodia no Tenor II"], ["Tenor abaixo do lead", "a moldura se perde", "tenor sempre acima"], ["Barítono dobrando o lead", "acorde incompleto", "barítono com a nota que falta"], ["Pautas sem o 8 na clave de sol", "confusão de oitava", "clave de sol com 8 para os tenores"]] },
+        { type: "list", items: ["Papéis: tenor (moldura), lead (melodia), barítono (completa), baixo (fundamento).", "Melodia no Tenor II; tonalidade escolhida por ela.", "Barítono acima do lead é estilo, não erro, no quarteto popular."] },
+        {
+          type: "challenge",
+          title: "Distribua o primeiro acorde",
+          task: "A melodia de um hino começa em B3 (lead, Tenor II) sobre o acorde de Sol maior. Distribua as quatro vozes do quarteto nesse primeiro acorde de duas maneiras: com o barítono abaixo do lead e com o barítono acima dele. Diga em que estilo cada uma é preferível.",
+          constraints: ["Baixo na fundamental, entre G2 e D3.", "Tenor acima do lead.", "Acorde completo (G, B, D) com a fundamental dobrada."],
+          criteria: ["As duas versões têm G, B e D.", "Nenhuma terça abaixo do limite grave (B♭2 para a nota inferior de uma 3ª maior).", "Você justificou o estilo de cada versão."],
+          hints: ["O lead já tem B3 (a terça). Faltam G (dobrado) e D.", "Versão 1: baixo G2, barítono D3, lead B3, tenor D4 ou G4.", "Versão 2: barítono acima do lead: baixo G2, lead B3, barítono D4, tenor G4."],
+          solution: {
+            commentary: "Versão 1 (tradicional): baixo G2, barítono D3, lead B3, tenor G4 — quinta entre baixo e barítono, terça no lead, fundamental no tenor; nenhuma voz cruza. Versão 2 (barbershop/gospel): baixo G2, lead B3, barítono D4, tenor G4 — o barítono acima do lead completa o acorde perto do tenor e deixa um espaço grande embaixo (G2–B3, uma 10ª), o que é aceitável porque o intervalo grave é largo. Na versão 2, o motor registra o cruzamento barítono–lead como informação no estilo popular e como alerta no tradicional.",
+            alternatives: ["Tenor D4 em vez de G4 na versão 1 deixa o acorde mais fechado e escuro; use em trechos suaves."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-quarteto-masculino",
@@ -119,6 +152,39 @@ export const lessonTtbbVoicing: Lesson = {
         ESTUDO,
       ],
     },
+    {
+      title: "3. Demonstração: o acorde de sétima que 'toca'",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha a dominante: em Sol maior, D7 (D – F♯ – A – C) — o acorde do exemplo da seção 2.",
+          "Baixo na fundamental (D3) e barítono na terça (F♯3). Confira o limite grave: a 3ª maior D3–F♯3 tem a nota inferior em D3, acima de B♭2 — aceitável.",
+          "Lead e tenor com a quinta e a sétima: A3 e C4. Quatro notas diferentes: o acorde completo que, afinado em entonação justa, 'toca' (o ring do barbershop).",
+          "Resolução: a sétima C4 desce para B3; o lead A3 vai para G3; o baixo salta D3 → G2; o barítono, com a sensível, desce para D3 — o I fica com a quinta e o grave aberto (G2–D3).",
+          "Confira: nenhuma 5ª ou 8ª paralela entre os seis pares.",
+        ] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Terça colada no baixo no grave", "acorde embolado", "5ª ou 8ª embaixo, terça em cima"], ["Sétima subindo na resolução", "a dominante não resolve", "sétima desce"], ["Omitir a terça do V7 para 'abrir'", "função perdida", "omita a quinta, se precisar"], ["Baixo abaixo de E2", "fora da extensão", "suba a tonalidade ou o acorde"]] },
+        { type: "list", items: ["Aberto embaixo, fechado em cima.", "A sétima completa em quatro vozes é a cor do quarteto.", "Respeite os limites graves de intervalo."] },
+        {
+          type: "challenge",
+          title: "E7 → A no quarteto",
+          task: "O lead (B3 → A3) e o baixo (E3 → A2) estão dados. Escreva tenor e barítono para que o E7 seja completo e a resolução em Lá maior tenha o grave aberto.",
+          start: EXD.ttbb7Start,
+          constraints: ["E7 com fundamental, terça, quinta e sétima.", "Tenor acima do lead.", "Lá maior final com fundamental, terça e quinta."],
+          criteria: ["A sétima desce por grau.", "Nenhuma terça abaixo do limite grave.", "O motor só registra observações informativas."],
+          hints: ["O lead tem B (quinta) e o baixo E (fundamental): faltam G♯ e D.", "A sétima D4 no tenor resolve em C♯4 — a terça de Lá.", "O barítono, com G♯3, pode descer para E3 e dar a quinta ao acorde final."],
+          solution: {
+            score: EXD.ttbb7Sol,
+            commentary: "Tenor D4 → C♯4 (sétima descendo para a terça), barítono G♯3 → E3. No E7, as quatro notas são diferentes (E3, G♯3, B3, D4); no Lá maior, A2 – E3 – A3 – C♯4: fundamental e quinta embaixo, terça no topo. A sensível do barítono desce em vez de subir — recurso de voz interna que o motor registra como informação e que mantém o grave aberto.",
+            alternatives: ["Barítono G♯3 → A3 (sensível subindo) deixa o acorde final sem quinta e com o barítono em uníssono com o lead: correto, mas menos sonoro."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-ttbb-voicing",
@@ -172,6 +238,37 @@ export const lessonTtbbChamadaResposta: Lesson = {
         { type: "paragraph", text: "O oposto do 'doo' é o pad: vozes sustentadas em 'uh' sob um solo. Ele funciona, mas precisa respirar, e quem respira é o arranjador." },
         { type: "example", score: EXT.padSemRespirar, verdict: "observacao", caption: "Pad de 21 segundos", commentary: "Cinco compassos lentos sem pausa: o motor sugere planejar respirações. Escreva uma pausa curta no fim da frase ou indique respiração escalonada." },
         ESTUDO,
+      ],
+    },
+    {
+      title: "3. Demonstração: uma chamada do baixo e a resposta do trio",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha o texto da chamada: uma frase curta e afirmativa ('Vem cantar').",
+          "Escreva a chamada do baixo arpejando o acorde de tônica, na região sonora dele (G2–D3), com a última nota longa.",
+          "Escreva a resposta do trio em bloco, mais curta que a chamada, repetindo ou completando o texto ('vem cantar, sim').",
+          "Durante a resposta, o baixo sustenta a fundamental ou faz pausa — nunca canta junto o mesmo texto.",
+          "Planeje a respiração: entre chamada e resposta há sempre um respiro para quem vai cantar a seguir.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Alternar quem chama (o baixo numa estrofe, o lead na outra) é uma forma barata de variação. Uma resposta que ecoa só a última palavra cria leveza; uma que completa a frase cria diálogo." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Resposta mais longa que a chamada", "a frase arrasta", "resposta curta"], ["Chamada e resposta sobrepostas com textos diferentes", "texto incompreensível", "alterne: um fala, o outro espera"], ["'Doo' com vogais longas", "o ritmo some", "consoantes curtas, vogais abertas só no fim"], ["Pad sem respiração", "o naipe respira onde pode", "pausas planejadas ou respiração escalonada"]] },
+        { type: "list", items: ["Chamada e resposta: uma voz lança, as outras respondem.", "'Doo' rítmico: o acompanhamento de guitarra virado vozes.", "Pads respiram — e quem planeja é o arranjador."] },
+        {
+          type: "challenge",
+          title: "Quatro compassos de chamada e resposta",
+          task: "Planeje quatro compassos em Sol maior (4/4) para quarteto: compassos 1 e 3, chamada do baixo; compassos 2 e 4, resposta do trio em bloco. Escreva o texto, as notas do baixo e o acorde (com as notas de cada voz) de cada resposta.",
+          constraints: ["Baixo entre G2 e D3 na chamada.", "Respostas em bloco fechado (tenor, lead, barítono), com o baixo sustentando a fundamental.", "Progressão: I (c. 1–2) e V7 – I (c. 3–4)."],
+          criteria: ["A resposta é mais curta que a chamada.", "Cada acorde de resposta está completo (ou só sem a quinta).", "A sétima do V7 resolve descendo no último compasso."],
+          hints: ["Chamada 1: G2 – B2 – D3, 'Vem can-tar', terminando numa nota longa.", "Resposta 1: bloco fechado acima do baixo — barítono B3, lead D4, tenor G4 — com o baixo sustentando G2.", "Compassos 3–4: deixe a sétima do D7 (C) para o lead, que desce para B3 no acorde de Sol."],
+          solution: {
+            commentary: "Compasso 1 — baixo sozinho: G2 – B2 (semínimas) – D3 (mínima), 'Vem can-tar'. Compasso 2 — trio em bloco, 'can-tar!' (semínima + mínima e pausa): barítono B3, lead D4, tenor G4 sobre o G2 sustentado do baixo — acorde completo com a fundamental dobrada. Compasso 3 — baixo: D3 – A2 – D3, 'vem lou-var', arpejando o V. Compasso 4 — trio, 'lou-var!': no 1º tempo o D7 (barítono A3, lead C4 = sétima, tenor F♯4 = sensível) e, a partir do 2º tempo, Sol maior (barítono G3, lead B3, tenor G4) com o baixo em G2. A sétima C4 desce para B3, a sensível F♯4 sobe para G4. As respostas duram menos que as chamadas e o baixo nunca canta o mesmo texto ao mesmo tempo que o trio.",
+          },
+        },
       ],
     },
   ],
@@ -229,6 +326,38 @@ export const lessonTtbbUnissono: Lesson = {
         ESTUDO,
       ],
     },
+    {
+      title: "3. Demonstração: onde abrir o uníssono",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Leia o texto e encontre a palavra que merece o acorde (o título, a palavra mais forte da frase).",
+          "Escreva a frase em uníssono e oitavas: tenores na melodia, barítono e baixo uma oitava abaixo.",
+          "Na palavra escolhida, separe as vozes por movimento contrário a partir do uníssono: o tenor sobe para a terça, o baixo desce para a fundamental grave, o barítono busca a quinta.",
+          "Confira o acorde de chegada: completo, com o grave aberto e a melodia ainda audível.",
+          "Registre no campo de notas do arranjo que as oitavas do início são intencionais (o motor as aponta como sugestão).",
+        ] },
+        { type: "callout", tone: "dica", title: "Entradas em escada", text: "Na abertura em escada, a ordem de baixo para cima (baixo, barítono, lead, tenor) monta o acorde pela série harmônica: fundamental, quinta, oitava e terça. A ordem inversa (de cima para baixo) também funciona, mas o acorde só 'assenta' quando o baixo entra." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Uníssono do começo ao fim", "só melodia dobrada", "abra na palavra importante"], ["Abrir num lugar sem importância no texto", "efeito gratuito", "abra onde o texto pede emoção"], ["Abertura com saltos grandes em todas as vozes", "desafinação", "abra por graus a partir da nota comum"], ["Entradas em escada sem respiração", "vozes que sustentam demais", "planeje a duração de cada entrada"]] },
+        { type: "list", items: ["Uníssono = unidade e clareza de texto.", "Abrir em harmonia na palavra certa é o contraste.", "Entradas em escada montam o acorde pela série harmônica."] },
+        {
+          type: "challenge",
+          title: "Abrir em 'paz'",
+          task: "A frase 'Dá-nos a tua paz' (em Sol maior) termina em 'paz' sobre o acorde de Sol, com a melodia em G3 (lead). As quatro vozes cantam em uníssono/oitavas até 'tua'. Escreva como cada voz sai da nota anterior para o acorde aberto em 'paz' e justifique a distribuição.",
+          constraints: ["A nota anterior a 'paz' é A3 no lead (e A2 no baixo e no barítono, A3 no tenor).", "Acorde final com fundamental, terça e quinta e o grave aberto.", "Nenhuma voz salta mais que uma 4ª."],
+          criteria: ["Movimento contrário entre tenor e baixo na abertura.", "A melodia (lead G3) continua audível.", "Nenhuma terça abaixo do limite grave."],
+          hints: ["O lead desce A3 → G3 (melodia).", "O tenor pode subir A3 → B3 (terça); o baixo desce A2 → G2 (fundamental).", "O barítono sobe A2 → D3 (quinta), um salto de 4ª."],
+          solution: {
+            commentary: "Lead A3 → G3 (melodia), tenor A3 → B3 (terça acima do lead, por grau), barítono A2 → D3 (quinta, 4ª acima), baixo A2 → G2 (fundamental, por grau). O acorde G2 – D3 – G3 – B3 tem quinta embaixo, oitava no meio e a terça no topo. Tenor e baixo saem do uníssono de oitava em direções opostas — o gesto que o ouvinte percebe como 'a música se abrindo'.",
+            alternatives: ["Tenor A3 → D4 (quinta no topo) com o barítono em B3 (terça acima do lead) também funciona no estilo popular: o barítono cruza o lead, como no barbershop. Evite colocar a terça em B2 sobre G2: fica abaixo do limite grave."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-ttbb-unissono",
@@ -283,6 +412,37 @@ export const lessonTtbbCores: Lesson = {
         { type: "paragraph", text: "Na dominante, a nona menor (Mi♭ em D7) dá a tensão típica do gospel antes da resolução. Ela desce por grau, como a sétima." },
         { type: "example", score: EXT.dominanteNona, verdict: "correto", caption: "D7(♭9) → G", commentary: "Mi♭4 → Ré4 e Dó4 → Si3 descem; Fá♯3 → Sol3 sobe. O motor trata a nona como apojatura (informação)." },
         ESTUDO,
+      ],
+    },
+    {
+      title: "3. Demonstração: colorir uma cadência plagal",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Parta de I – IV – I em Sol (G – C – G), em quatro vozes masculinas.",
+          "Troque a tônica inicial por Gmaj7: uma voz que tinha G desce para F♯ (a sétima maior).",
+          "Troque o IV por C6: a voz que tinha G fica, a quinta vira sexta (G → A).",
+          "Acrescente o iv emprestado (Cm6): numa voz interna, E → E♭ (semitom) — o barítono é o melhor lugar.",
+          "Volte ao G: E♭ → D. A linha cromática D – E – E♭ – D fica numa voz só, e as outras quase não se movem.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Estilo", text: "Essas cores pertencem ao estilo popular (gospel, barbershop, MPB). No estilo tradicional, a sétima maior e a sexta acrescentada são dissonâncias que pedem preparação e resolução: o motor as cobra. Defina o estilo antes de revisar." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Cor que tira a terça", "acorde ambíguo", "tire a quinta, nunca a terça"], ["Cromatismo saltando entre vozes", "falsa relação", "linha cromática numa voz só"], ["Nona menor da dominante sem resolver", "atrito sem destino", "a nona desce por grau"], ["Pedal sem movimento em cima", "trecho parado", "as vozes de cima caminham por grau"]] },
+        { type: "list", items: ["Cada cor custa uma nota: em quatro vozes, sai a quinta.", "iv emprestado com linha cromática interna.", "Pedal: harmonia que anda sobre um chão parado."] },
+        {
+          type: "challenge",
+          title: "Colorindo I – V7 – I",
+          task: "Em Sol maior, transforme I – V7 – I (quarteto) em Gmaj7 – D7(♭9) – G6, indicando as notas de cada voz e qual delas carrega cada cor.",
+          constraints: ["Baixo nas fundamentais (G2 – D3 – G2).", "Cada cor chega por grau ou nota comum.", "Estilo popular."],
+          criteria: ["A sétima maior, a nona menor e a sexta estão em vozes diferentes ou chegam por grau.", "A sétima (C) e a nona (E♭) do D7(♭9) descem.", "O lead (melodia) fica audível."],
+          hints: ["Gmaj7: G2 – D3 – F♯3 – B3 (barítono na sétima maior).", "D7(♭9): a quinta (A) sai; ficam D, F♯, C e E♭.", "G6: a nona E♭ desce para D; a sexta E pode vir do F♯ descendo por grau."],
+          solution: {
+            commentary: "Gmaj7: baixo G2, barítono F♯3 (sétima maior), lead B3, tenor D4. D7(♭9): baixo D3, barítono F♯3 (terça, nota comum), lead C4 (sétima), tenor E♭4 (nona menor, vindo de D4 por semitom). G6: baixo G2, barítono E3 (sexta, de F♯3 por grau), lead B3 (a sétima C4 desce), tenor D4 (a nona E♭4 desce). Cada cor chega e sai por grau; a sensível F♯ do barítono desce para E (a sexta) em vez de subir — aceitável no estilo popular, onde o acorde final é G6.",
+          },
+        },
       ],
     },
   ],
@@ -345,6 +505,37 @@ export const lessonTtbbModulacao: Lesson = {
         },
         { type: "callout", tone: "ttbb", title: "Cuidado com o fôlego", text: "Finais longos depois de uma modulação cansam: planeje respirações antes da tag e deixe a nota longa para quem tem mais fôlego no grupo." },
         ESTUDO,
+      ],
+    },
+    {
+      title: "3. Demonstração: preparar o meio tom acima",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Identifique a nova tonalidade: de Sol para Lá♭.",
+          "Encontre a dominante dela: E♭7 (E♭ – G – B♭ – D♭).",
+          "No último acorde da estrofe (G), veja que nota cada voz pode manter ou mover por grau até o E♭7: G fica (é a terça de E♭7); B desce a B♭; D desce a D♭ (a sétima); o baixo desce G → E♭ ou sobe a B♭.",
+          "Resolva o E♭7 em Lá♭: D♭ desce para C, G sobe para A♭.",
+          "Confira o fôlego: a última estrofe, mais aguda, precisa de uma respiração antes da modulação.",
+        ] },
+        { type: "table", caption: "Finais de quarteto e quando usar", headers: ["Final", "Como", "Quando"], rows: [["Tag", "última frase repetida com harmonia mais rica e ritardando", "arranjo que cresceu até o fim"], ["Nota longa do lead (swipe)", "lead sustenta; as outras vozes mudam de acorde por baixo", "quarteto com lead de fôlego"], ["Falsete do tenor", "tenor na terça ou nona aguda, em p", "final suave"], ["Baixo na oitava grave", "fundamental uma 8ª abaixo no último acorde", "final forte, se o baixo tem a nota"]] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Modulação sem dominante", "degrau brusco, desafinação", "dominante da nova tonalidade"], ["Sétima da dominante subindo", "sem resolução", "sétima desce"], ["Final longo depois da modulação sem respirar", "fadiga", "respiração planejada antes da tag"], ["Tag igual à frase original", "sem efeito", "harmonia mais rica e ritardando"]] },
+        { type: "list", items: ["Meio tom acima: prepare com a dominante da nova tonalidade.", "A dominante cobra sua resolução também na modulação.", "Finais: tag, swipe, falsete, baixo grave — escolha pela curva."] },
+        {
+          type: "challenge",
+          title: "De Fá para Sol♭",
+          task: "Um quarteto termina a estrofe em Fá maior (baixo F3, lead A3, barítono C4, tenor F4). Planeje a passagem para Sol♭ maior: o acorde de dominante, a nota de cada voz e a resolução.",
+          constraints: ["Uma dominante com sétima entre os dois acordes.", "Cada voz se move no máximo uma 4ª (o baixo pode saltar uma 5ª na resolução).", "Resolução com a sétima descendo."],
+          criteria: ["A dominante correta da nova tonalidade.", "Cada movimento indicado (nota de partida, nota de chegada).", "Grave aberto no acorde de chegada."],
+          hints: ["A dominante de Sol♭ é D♭7 (D♭ – F – A♭ – C♭).", "F (no baixo ou no tenor) é a terça do D♭7: pode ficar.", "A sétima C♭ (escrita B) nasce do C, descendo um semitom, e desce para B♭ no Sol♭."],
+          solution: {
+            commentary: "Partida (Fá): baixo F3, lead A3, barítono C4, tenor F4. Dominante (D♭7): baixo D♭3 (desce uma 3ª maior), lead A♭3 (semitom abaixo; a quinta), barítono C♭4 (semitom abaixo; a sétima), tenor F4 (fica; a terça). Chegada (Sol♭): baixo G♭2 (5ª abaixo), barítono B♭3 (a sétima desce por semitom), lead D♭4 (sobe uma 4ª — ou fica em A♭3 como nona, no estilo popular), tenor G♭4 (a terça F4 sobe por semitom, como sensível). Acorde final G♭2 – B♭3 – D♭4 – G♭4: fundamental embaixo, terça e quinta em cima, grave aberto. Escrita: a sétima C♭ costuma aparecer como B natural na partitura de ensaio, para facilitar a leitura.",
+          },
+        },
       ],
     },
   ],

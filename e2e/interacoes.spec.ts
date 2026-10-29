@@ -27,4 +27,20 @@ test.describe("interações de aprendizagem", () => {
     await escuta.getByRole("button", { name: "T", exact: true }).click();
     await expect(escuta.getByRole("button", { name: "T", exact: true })).toHaveAttribute("aria-pressed", "false");
   });
+
+  test("exercício independente: dicas uma a uma e solução só depois de tentar", async ({ page }) => {
+    await page.goto("/licoes/cadencias");
+    const ex = page.locator("section", { has: page.getByText("Exercício independente") }).last();
+    await expect(ex.getByRole("link", { name: "Abrir no laboratório de escrita" })).toHaveAttribute("href", /exemplo=exd-desafio-cad$/);
+    await expect(ex.getByText("Dicas (0 de 3 abertas)")).toBeVisible();
+    await ex.getByRole("button", { name: "Preciso de uma dica" }).click();
+    await expect(ex.getByText("Dicas (1 de 3 abertas)")).toBeVisible();
+    const show = ex.getByRole("button", { name: "Mostrar a solução comentada" });
+    await expect(show).toBeDisabled();
+    await expect(ex.getByRole("heading", { name: "Solução comentada" })).toHaveCount(0);
+    await ex.getByRole("checkbox").check();
+    await show.click();
+    await expect(ex.getByRole("heading", { name: "Solução comentada" })).toBeVisible();
+    await expect(ex.getByText("Exemplo correto")).toBeVisible();
+  });
 });

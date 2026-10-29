@@ -41,7 +41,36 @@ export type ContentBlock =
       readonly instructions: readonly string[];
       /** Combinações de vozes sugeridas para escuta (vazio = todas). */
       readonly focus?: readonly (readonly VoiceId[])[];
-    };
+    }
+  | ChallengeBlock;
+
+/**
+ * Exercício independente: o aluno resolve sozinho, com dicas progressivas (uma de cada
+ * vez) e uma solução comentada que só aparece depois que ele declara ter tentado.
+ * A partitura de partida, quando há, abre no laboratório de escrita; a da solução é
+ * conferida pelo motor no teste de integridade do currículo.
+ */
+export interface ChallengeBlock {
+  readonly type: "challenge";
+  readonly title: string;
+  /** Enunciado: o que produzir, em uma ou duas frases. */
+  readonly task: string;
+  /** Material de partida (aberto no Estúdio pelo id). */
+  readonly start?: Score;
+  /** A tarefa é reescrever o material de partida (a solução pode alterá-lo). */
+  readonly revises?: boolean;
+  readonly constraints: readonly string[];
+  /** Como o próprio aluno confere o resultado antes de abrir a solução. */
+  readonly criteria: readonly string[];
+  /** Da mais geral à mais específica; nenhuma entrega a resposta inteira. */
+  readonly hints: readonly string[];
+  readonly solution: {
+    readonly score?: Score;
+    readonly commentary: string;
+    /** Outras respostas válidas e o que muda no efeito. */
+    readonly alternatives?: readonly string[];
+  };
+}
 
 export interface LessonSection {
   readonly title: string;
