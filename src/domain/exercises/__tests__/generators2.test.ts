@@ -219,6 +219,31 @@ describe("distribuição SSAA", () => {
   });
 });
 
+describe("regência e ensaio", () => {
+  it("gera gesto por tempo, preparação da anacruse e duração da frase com respostas calculadas", async () => {
+    const { generateConductingItems, CONDUCTING_PATTERNS } = await import("../generators2");
+    for (const seed of [1, 2, 3, 4, 5, 6]) {
+      const items = generateConductingItems(createRng(seed), 6);
+      expect(items.length).toBe(6);
+      wellFormed(items);
+      for (const i of items) {
+        expect(i.skill).toBe("regencia");
+        const padrao = /em (\d\/\d).*tempo (\d)\?/.exec(i.prompt);
+        if (i.prompt.startsWith("Regendo")) expect(i.correctOptionId).toBe(CONDUCTING_PATTERNS[padrao![1]!]![Number(padrao![2]) - 1]);
+        const ana = /anacruse no tempo (\d)/.exec(i.prompt);
+        if (ana) expect(i.correctOptionId).toBe(`t${Number(ana[1]) - 1}`);
+        const dur = /frase de (\d) compassos em (\d)\/4, a ♩ = (\d+)/.exec(i.prompt);
+        if (dur) {
+          const s = (Number(dur[1]) * Number(dur[2]) * 60) / Number(dur[3]);
+          const label = i.options.find((o) => o.id === i.correctOptionId)!.label;
+          expect(Number(label.replace(" s", "").replace(",", "."))).toBeCloseTo(s, 1);
+        }
+      }
+      expect(new Set(items.map((i) => i.prompt.split(" ")[0])).size).toBeGreaterThan(1);
+    }
+  });
+});
+
 describe("rearmonização", () => {
   it("a harmonia certa é limpa e cada errada tem erro ou alerta no motor", async () => {
     const { REHARM_PROBLEMS, reharmScore } = await import("../library");

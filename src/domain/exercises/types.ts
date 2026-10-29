@@ -52,7 +52,9 @@ export type GeneratorSpec =
   /** Contraponto: classificar o intervalo harmônico entre duas vozes. */
   | { readonly type: "counterpoint-interval"; readonly count: number }
   /** Distribuição de um acorde em SSAA (vozes iguais agudas, sem baixo real). */
-  | { readonly type: "ssaa-voicing"; readonly count: number };
+  | { readonly type: "ssaa-voicing"; readonly count: number }
+  /** Regência e ensaio: gesto de cada tempo, preparação da anacruse, duração da frase. */
+  | { readonly type: "conducting"; readonly count: number };
 
 export interface ExerciseSetSpec {
   readonly id: string;

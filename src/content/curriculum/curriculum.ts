@@ -25,6 +25,7 @@ import { lessonFormaEnergia, lessonTensoes, lessonVariacao } from "./lessons/s3-
 import { lessonAcappellaBaixo, lessonAcappellaBlocos, lessonAcappellaModulacoes, lessonAcappellaSolistas, lessonAcappellaTexturas, lessonAcappellaVocalBand } from "./lessons/s4-acappella";
 import { lessonCpContracanto, lessonCpDescant, lessonCpFlorida, lessonCpImitacao, lessonCpPrimeira, lessonCpQuarta, lessonCpQuatroVozes, lessonCpSegundaTerceira } from "./lessons/s3-contraponto";
 import { lessonSsaAdaptacao, lessonSsaBaixo, lessonSsaCores, lessonSsaFormacao, lessonSsaInfantil, lessonSsaQuatroVozes, lessonSsaTexturas, lessonSsaTresVozes } from "./lessons/s4-vozes-iguais";
+import { lessonRegAdaptacao, lessonRegAfinacao, lessonRegAquecimento, lessonRegEquilibrio, lessonRegGesto, lessonRegNaipes, lessonRegRespiracao, lessonRegRevisao } from "./lessons/s4-regencia";
 import { lessonRearmBaixo, lessonRearmDiatonica, lessonRearmDiminutos, lessonRearmDominantes, lessonRearmFundamentos, lessonRearmModal, lessonRearmNoArranjo, lessonRearmSubV } from "./lessons/s4-rearm";
 import { lessonQuartetoMasculino, lessonTtbbChamadaResposta, lessonTtbbCores, lessonTtbbModulacao, lessonTtbbUnissono, lessonTtbbVoicing } from "./lessons/s4-quarteto";
 import { lessonACappellaPop, lessonArranjoCoral, lessonBaixoPercussao, lessonGospel, lessonMpbVocal, lessonPartituraEnsaio } from "./lessons/s4-estilos";
@@ -274,6 +275,25 @@ export const LEVELS: readonly Level[] = [
         bibliography: ["Escuta: Quarteto em Cy, MPB4, Boca Livre"],
       },
       {
+        id: "s4-reg",
+        code: "REG401",
+        title: "Regência Coral e Preparação de Ensaio",
+        description:
+          "O que o arranjador precisa para levar a partitura ao coro: padrões de regência, preparação, anacruse e corte; aquecimento vocal; afinação e construção de acordes; ensino por naipe e trechos difíceis; respiração, frase e cortes; equilíbrio entre naipes; planejamento do ensaio e revisão da partitura; adaptação à tonalidade e aos naipes do grupo real.",
+        lessonIds: ["reg-gesto", "reg-aquecimento", "reg-afinacao", "reg-ensaio-naipes", "reg-respiracao", "reg-equilibrio", "reg-revisao-planejamento", "reg-adaptacao-grupo"],
+        project: {
+          title: "Plano de ensaio de um hino",
+          description: "Para um arranjo seu, entregar a partitura revisada no motor, a tonalidade escolhida para o grupo, as respirações marcadas, o aquecimento e o plano de quatro ensaios com objetivos verificáveis.",
+        },
+        bibliography: [
+          "Oscar Zander — Regência coral",
+          "Elizabeth A. H. Green — The Modern Conductor",
+          "Max Rudolf — The Grammar of Conducting",
+          "Brock McElheran — Conducting Technique for Beginners and Professionals",
+          "Escuta: ensaios e apresentações de coros amadores e profissionais, observando gesto, entradas e cortes do regente",
+        ],
+      },
+      {
         id: "s4-prf",
         code: "PRF401",
         title: "Prática Profissional",
@@ -371,6 +391,14 @@ const PLACEMENT: Readonly<Record<string, { unitId: string; prerequisites: readon
   "ssa-texturas": { unitId: "s4-ssa", prerequisites: ["ssa-baixo", "texturas-vocais"] },
   "ssa-adaptacao": { unitId: "s4-ssa", prerequisites: ["ssa-baixo"] },
   "ssa-cores": { unitId: "s4-ssa", prerequisites: ["ssa-texturas", "ssa-adaptacao", "tensoes-e-extensoes"] },
+  "reg-gesto": { unitId: "s4-reg", prerequisites: ["ritmo-metrica-texto", "harmonizacao-satb"] },
+  "reg-aquecimento": { unitId: "s4-reg", prerequisites: ["reg-gesto", "voz-cantada"] },
+  "reg-afinacao": { unitId: "s4-reg", prerequisites: ["reg-aquecimento"] },
+  "reg-ensaio-naipes": { unitId: "s4-reg", prerequisites: ["reg-afinacao", "analise-melodica"] },
+  "reg-respiracao": { unitId: "s4-reg", prerequisites: ["reg-gesto", "prosodia-respiracao"] },
+  "reg-equilibrio": { unitId: "s4-reg", prerequisites: ["reg-ensaio-naipes", "texturas-vocais"] },
+  "reg-revisao-planejamento": { unitId: "s4-reg", prerequisites: ["reg-ensaio-naipes", "reg-respiracao"] },
+  "reg-adaptacao-grupo": { unitId: "s4-reg", prerequisites: ["reg-revisao-planejamento", "reg-equilibrio"] },
   "mpb-vocal": { unitId: "s4-mpb", prerequisites: ["tensoes-e-extensoes", "modulacao-reharmonizacao"] },
   "analise-de-repertorio": { unitId: "s4-prf", prerequisites: ["variacao-e-desenvolvimento"] },
   "analise-estilistica-revisao": { unitId: "s4-prf", prerequisites: ["analise-de-repertorio", "modulacao-reharmonizacao"] },
@@ -455,6 +483,14 @@ const ALL_LESSONS: readonly Lesson[] = [
   lessonSsaTexturas,
   lessonSsaAdaptacao,
   lessonSsaCores,
+  lessonRegGesto,
+  lessonRegAquecimento,
+  lessonRegAfinacao,
+  lessonRegNaipes,
+  lessonRegRespiracao,
+  lessonRegEquilibrio,
+  lessonRegRevisao,
+  lessonRegAdaptacao,
   lessonMpbVocal,
   lessonAnaliseRepertorio,
   lessonEstilo,
@@ -511,6 +547,7 @@ export const COMPETENCIES: Readonly<Record<CompetencyId, string>> = {
   "escrita-satb": "Escrita SATB",
   "escrita-ttbb": "Escrita TTBB",
   "escrita-ssaa": "Escrita SSA/SSAA",
+  "regencia-e-ensaio": "Regência e ensaio",
   percepcao: "Percepção auditiva",
   contraponto: "Contraponto",
   "texto-e-prosodia": "Texto e prosódia",

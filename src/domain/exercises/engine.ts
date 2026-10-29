@@ -11,6 +11,7 @@ import {
   generateSeventhItems,
   generateCounterpointIntervalItems,
   generateSsaaVoicingItems,
+  generateConductingItems,
   generateReharmItems,
   generateTtbbVoicingItems,
 } from "./generators2";
@@ -36,6 +37,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     else if (g.type === "reharm-choice") generated.push(...generateReharmItems(rng, g.count));
     else if (g.type === "counterpoint-interval") generated.push(...generateCounterpointIntervalItems(rng, g.count));
     else if (g.type === "ssaa-voicing") generated.push(...generateSsaaVoicingItems(rng, g.count));
+    else if (g.type === "conducting") generated.push(...generateConductingItems(rng, g.count));
     else generated.push(...generateNctItems(rng, g.count));
   }
   return generated;
