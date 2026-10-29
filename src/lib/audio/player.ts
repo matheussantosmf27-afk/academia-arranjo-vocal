@@ -182,12 +182,13 @@ export class ScorePlayer {
 }
 
 /** Toca alturas soltas (exercícios): em sequência ou simultâneas. */
-export async function playPitches(pitches: readonly Pitch[], mode: "melodico" | "harmonico", seconds = 1): Promise<void> {
+/** melodico: uma nota de cada vez; harmonico: todas juntas; pares: duas notas juntas de cada vez (ex.: duas vozes passando de um intervalo a outro). */
+export async function playPitches(pitches: readonly Pitch[], mode: "melodico" | "harmonico" | "pares", seconds = 1): Promise<void> {
   const ctx = audioContext();
   if (ctx.state === "suspended") await ctx.resume();
   const t0 = ctx.currentTime + 0.05;
   pitches.forEach((p, i) => {
-    const start = mode === "melodico" ? t0 + i * seconds : t0;
-    scheduleTone(ctx, ctx.destination, toMidi(p), start, seconds * 0.95, { gain: mode === "harmonico" ? 0.6 : 0.9 });
+    const start = mode === "melodico" ? t0 + i * seconds : mode === "pares" ? t0 + Math.floor(i / 2) * seconds : t0;
+    scheduleTone(ctx, ctx.destination, toMidi(p), start, seconds * 0.95, { gain: mode === "melodico" ? 0.9 : mode === "pares" ? 0.75 : 0.6 });
   });
 }

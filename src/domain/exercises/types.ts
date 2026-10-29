@@ -24,7 +24,7 @@ export interface ChoiceItem {
   /** Pauta única simples (intervalos, notas isoladas), com alturas SONORAS; cada elemento é um ataque (nota ou acorde). */
   readonly staff?: { readonly clef: Clef; readonly attacks: readonly (readonly Pitch[])[] };
   /** Alturas para escuta: tocadas em sequência (melódico) ou juntas (harmônico). */
-  readonly audio?: { readonly pitches: readonly Pitch[]; readonly mode: "melodico" | "harmonico" };
+  readonly audio?: { readonly pitches: readonly Pitch[]; readonly mode: "melodico" | "harmonico" | "pares" };
   /** Itens auditivos ocultam a notação até a resposta. */
   readonly earOnly?: boolean;
 }
@@ -33,15 +33,15 @@ export type ExerciseItem = ChoiceItem;
 
 export type GeneratorSpec =
   | { readonly type: "interval-identification"; readonly count: number; readonly earOnly?: boolean; readonly maxNumber?: number }
-  | { readonly type: "chord-identification"; readonly count: number }
+  | { readonly type: "chord-identification"; readonly count: number; readonly earOnly?: boolean }
   | { readonly type: "range-check"; readonly count: number; readonly formations?: readonly FormationId[] }
   | { readonly type: "key-signature"; readonly count: number }
   | { readonly type: "scale-degree"; readonly count: number }
-  | { readonly type: "seventh-identification"; readonly count: number }
+  | { readonly type: "seventh-identification"; readonly count: number; readonly earOnly?: boolean }
   | { readonly type: "function-identification"; readonly count: number }
-  | { readonly type: "motion-type"; readonly count: number }
+  | { readonly type: "motion-type"; readonly count: number; readonly earOnly?: boolean }
   | { readonly type: "voice-leading-error"; readonly count: number; readonly ruleIds?: readonly string[] }
-  | { readonly type: "cadence-identification"; readonly count: number }
+  | { readonly type: "cadence-identification"; readonly count: number; readonly earOnly?: boolean }
   | { readonly type: "nct-identification"; readonly count: number }
   /** Baixo dado / canto dado: escolher a realização das outras vozes. */
   | { readonly type: "realization"; readonly count: number; readonly mode?: "baixo-dado" | "canto-dado" }
@@ -50,7 +50,7 @@ export type GeneratorSpec =
   /** Rearmonização: escolher a harmonia nova que mantém a melodia e passa no motor. */
   | { readonly type: "reharm-choice"; readonly count: number }
   /** Contraponto: classificar o intervalo harmônico entre duas vozes. */
-  | { readonly type: "counterpoint-interval"; readonly count: number }
+  | { readonly type: "counterpoint-interval"; readonly count: number; readonly earOnly?: boolean }
   /** Distribuição de um acorde em SSAA (vozes iguais agudas, sem baixo real). */
   | { readonly type: "ssaa-voicing"; readonly count: number }
   /** Regência e ensaio: gesto de cada tempo, preparação da anacruse, duração da frase. */

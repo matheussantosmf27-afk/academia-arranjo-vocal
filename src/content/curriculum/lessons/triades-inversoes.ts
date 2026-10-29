@@ -129,7 +129,7 @@ export const lessonTriades: Lesson = {
           ordered: true,
           items: [
             "Em estado fundamental, dobre preferencialmente a fundamental.",
-            "Nunca dobre a sensível (7º grau) num acorde de dominante: ela tende a subir para a tônica, e duas vozes subindo juntas formam oitavas paralelas.",
+            "Não dobre a sensível (7º grau) num acorde de dominante: ela tende a subir para a tônica, e duas vozes subindo juntas formam oitavas paralelas.",
             "Na 1ª inversão, dobre a fundamental ou a quinta; dobrar o baixo (a terça) é aceitável quando ele não for a sensível.",
             "Na 2ª inversão, dobre o baixo (a quinta).",
             "A quinta pode ser omitida; a terça, não — sem ela, o acorde não tem modo.",

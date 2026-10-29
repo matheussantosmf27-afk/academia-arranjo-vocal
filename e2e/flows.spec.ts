@@ -67,9 +67,17 @@ test("tentativa completa de exercícios com feedback e registro no perfil", asyn
   await expect(page.locator(".score-surface svg").first()).toBeVisible();
   await page.getByRole("button", { name: "Iniciar tentativa" }).click();
   for (let i = 0; i < 30; i++) {
-    const option = page.locator("fieldset button[aria-pressed]").first();
+    const verificacao = page.locator("section[aria-labelledby='exercicios']");
+    const option = verificacao.locator("fieldset button[aria-pressed]").first();
     await option.click();
-    await expect(page.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
+    await expect(verificacao.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
+    const reveal = verificacao.getByRole("button", { name: "Mostrar a resposta" });
+    if (await reveal.isVisible()) {
+      // depois de um erro: dica sem a resposta, e a segunda chance antes de revelar
+      await expect(page.getByText(/esta segunda escolha não muda a nota/)).toBeVisible();
+      await reveal.click();
+    }
+    await expect(verificacao.getByRole("status").filter({ hasText: /Correto\.|Resposta destacada/ })).toBeVisible();
     const next = page.getByRole("button", { name: /Próximo|Ver resultado/ });
     const label = await next.textContent();
     await next.click();
@@ -171,4 +179,44 @@ test("disciplina de regência: oito aulas, padrões de regência e exemplo com a
   await expect(page.getByText("REG401 · Aula 1 de 8")).toBeVisible();
   await expect(page.getByRole("table", { name: "Padrões de regência (mão direita)" })).toBeVisible();
   await expect(page.locator(".score-surface svg").first()).toBeVisible();
+});
+
+test("revisão espaçada: aula concluída há três dias volta com itens novos e conta no perfil", async ({ page }) => {
+  const done = new Date(Date.now() - 3 * 86_400_000).toISOString();
+  await page.addInitScript((finishedAt) => {
+    if (window.localStorage.getItem("aav:progress:v1")) return;
+    const attempt = {
+      id: "e2e-dominio",
+      lessonId: "vozes-claves-extensoes",
+      exerciseSetId: "ex-vozes",
+      seed: 1,
+      startedAt: finishedAt,
+      finishedAt,
+      answers: [],
+      result: { score: 1, correct: 8, total: 8, passed: true, missingRequired: [], bySkill: {} },
+    };
+    window.localStorage.setItem("aav:progress:v1", JSON.stringify({ version: 1, attempts: [attempt], lessonsRead: [] }));
+  }, done);
+  await page.goto("/");
+  const card = page.getByRole("region", { name: "Revisões espaçadas para hoje" });
+  await expect(card.getByRole("link", { name: "Vozes, claves e extensões: SATB e TTBB" })).toBeVisible();
+  await expect(card).toContainText("revisão atrasada há 2 dia(s)");
+  await card.getByRole("link", { name: "Vozes, claves e extensões: SATB e TTBB" }).click();
+  const revisao = page.locator("#revisao");
+  await expect(revisao.getByRole("heading", { name: "Revisão espaçada", level: 3 })).toBeVisible();
+  await revisao.getByRole("button", { name: "Iniciar revisão" }).click();
+  for (let i = 0; i < 10; i++) {
+    await revisao.locator("fieldset button[aria-pressed]").first().click();
+    await expect(revisao.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
+    const reveal = revisao.getByRole("button", { name: "Mostrar a resposta" });
+    if (await reveal.isVisible()) await reveal.click();
+    const next = revisao.getByRole("button", { name: /Próximo|Ver resultado/ });
+    const label = await next.textContent();
+    await next.click();
+    if (label?.includes("Ver resultado")) break;
+  }
+  await expect(revisao.getByText(/Retenção demonstrada|Revisão não aprovada/)).toBeVisible();
+  await page.goto("/perfil");
+  await expect(page.getByRole("heading", { name: "Competências em quatro dimensões" })).toBeVisible();
+  await expect(page.getByText(/revisão aprovada|^revisão$/).first()).toBeVisible();
 });

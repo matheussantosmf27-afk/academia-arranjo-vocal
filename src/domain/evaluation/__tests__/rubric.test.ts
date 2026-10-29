@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { PROJECTS } from "@/content/projects";
 import { CHORALE_SATB_C, CHORALE_TTBB_G, PARALLELS_FIXED_SATB, PARALLELS_SATB } from "../../music/examples";
 import { parseScore } from "../../music/schema";
-import { compareVersions, evaluateRubric } from "../rubric";
+import { compareVersions, evaluateRubric, meetsPracticalStandard } from "../rubric";
 
 const crit = (r: ReturnType<typeof evaluateRubric>, id: string) => r.criteria.find((c) => c.id === id)!;
 
@@ -74,5 +74,12 @@ describe("rubrica de avaliação", () => {
       expect(parseScore(p.starting).ok, p.id).toBe(true);
       expect(p.starting.parts.find((x) => x.voice === p.melodyVoice)!.events.some((e) => e.kind === "note")).toBe(true);
     }
+  });
+});
+
+describe("padrão de competência prática", () => {
+  it("o coral de referência atende; o trecho com paralelas não", () => {
+    expect(meetsPracticalStandard(evaluateRubric({ score: CHORALE_SATB_C, style: "coral-tradicional" }))).toBe(true);
+    expect(meetsPracticalStandard(evaluateRubric({ score: PARALLELS_SATB, style: "coral-tradicional" }))).toBe(false);
   });
 });

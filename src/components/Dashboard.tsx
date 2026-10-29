@@ -4,7 +4,8 @@ import Link from "next/link";
 import { EXA } from "@/content/curriculum/examples-arranjo";
 import { LESSONS, LEVELS, getLesson } from "@/content/curriculum/curriculum";
 import { recommendLessons } from "@/domain/tutor/recommend";
-import { gameStats } from "@/lib/progress/gamification";
+import { XP, gameStats } from "@/lib/progress/gamification";
+import { dueLabel, dueReviews } from "@/lib/progress/review";
 import { itemsToReview, lessonStatus, skillSummary } from "@/lib/progress/model";
 import { useProgress } from "@/lib/progress/useProgress";
 import { SoundWaves } from "./visual/SoundWaves";
@@ -31,6 +32,7 @@ export function Dashboard() {
   const nextUnit = nextLesson ? LEVELS.flatMap((lv) => lv.units).find((u) => u.id === nextLesson.unitId) : undefined;
   const review = hydrated ? itemsToReview(state) : [];
   const recommendations = hydrated ? recommendLessons(skillSummary(state)) : [];
+  const reviews = hydrated ? dueReviews(state, LESSONS) : [];
   const stats = gameStats(hydrated ? state : { version: 1, attempts: [], lessonsRead: [] }, LESSONS);
   const hours = Math.round(LESSONS.reduce((m, l) => m + l.estimatedMinutes, 0) / 60);
 
@@ -81,14 +83,14 @@ export function Dashboard() {
         </div>
         <div className={`card ${styles.stat}`}>
           <span className={styles.statIcon} aria-hidden="true">
-            🔥
+            📅
           </span>
           <div>
-            <p className={styles.statLabel}>Sequência</p>
+            <p className={styles.statLabel}>Dias de estudo (últimos 14)</p>
             <p className={styles.statValue}>
-              {stats.streak} {stats.streak === 1 ? "dia" : "dias"}
+              {stats.studyDays} {stats.studyDays === 1 ? "dia" : "dias"}
             </p>
-            <p className={styles.statHint}>Estude todo dia para manter a chama acesa.</p>
+            <p className={styles.statHint}>Estudo regular ajuda a reter. Pausas não zeram o contador.</p>
           </div>
         </div>
         <div className={`card ${styles.stat}`}>
@@ -98,7 +100,9 @@ export function Dashboard() {
             <p className={styles.statValue}>
               {mastered.length}/{available.length}
             </p>
-            <p className={styles.statHint}>Cada aula concluída vale 100 XP.</p>
+            <p className={styles.statHint}>
+              Aula concluída: {XP.mastered} XP · revisão no prazo: {XP.review} XP · {stats.retainedReviews} revisão(ões) no prazo
+            </p>
           </div>
         </div>
         {nextLesson && (
@@ -162,6 +166,28 @@ export function Dashboard() {
             );
           })}
         </ol>
+      </section>
+
+      <section className="card" aria-labelledby="dash-espacada" style={{ marginTop: 20 }}>
+        <h2 id="dash-espacada" className={styles.cardTitle}>
+          Revisões espaçadas para hoje
+        </h2>
+        {!hydrated ? null : reviews.length === 0 ? (
+          <p className="muted">
+            Nenhuma revisão vencida. Cada aula concluída volta para revisão em 1, 3, 7, 21 e 60 dias, com itens novos; os prazos crescem só quando a revisão é
+            aprovada no prazo.
+          </p>
+        ) : (
+          <ul className={styles.list}>
+            {reviews.slice(0, 8).map((r) => (
+              <li key={r.lessonId}>
+                <Link href={`/licoes/${r.lessonId}#revisao`}>{getLesson(r.lessonId)?.title}</Link> — {dueLabel(r)}
+                {r.lapses > 0 ? ` · esquecida ${r.lapses}× antes` : ""}
+              </li>
+            ))}
+            {reviews.length > 8 && <li className="muted">e mais {reviews.length - 8}.</li>}
+          </ul>
+        )}
       </section>
 
       <div className="grid" style={{ marginTop: 20 }}>

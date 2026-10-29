@@ -65,6 +65,12 @@ export const lessonOficio: Lesson = {
             "Ritmo e textura — o 'motor' do arranjo: o baixo, as sílabas rítmicas, a percussão vocal, as entradas e pausas.",
           ],
         },
+        {
+          type: "callout",
+          tone: "dica",
+          title: "Um modelo para começar, não a lista completa",
+          text: "Melodia, harmonia e ritmo/textura são categorias didáticas: ajudam a ler um arranjo pela primeira vez, mas não descrevem tudo. Ao longo do curso entram também a forma e o contraste entre seções (FOR301), a prosódia e a respiração (TXT301), o timbre, a dinâmica e a densidade de cada naipe (TEX201, EST401), a articulação e as sílabas (TEX201) e a interação entre vozes no contraponto (CTP301).",
+        },
         { type: "example", score: EXA.melodiaSo, verdict: "correto", caption: "Ponto de partida: só a melodia", commentary: "É o material que o arranjador recebe. Uma frase de quatro compassos que sobe ao Dó5 no compasso 2 e termina na tônica. Tudo o que vem depois é decisão do arranjo." },
         {
           type: "example",
@@ -107,7 +113,7 @@ export const lessonOficio: Lesson = {
           type: "callout",
           tone: "atencao",
           title: "Erro objetivo × convenção × escolha",
-          text: "Uma nota fora da extensão do cantor é erro objetivo em qualquer estilo. Quintas paralelas são convenção estilística (proibidas no coral tradicional, comuns no pop). Usar ou não uma introdução é escolha estética. O motor de validação marca a categoria de cada diagnóstico — aprenda a lê-la.",
+          text: "Uma nota fora da extensão definida para o grupo é erro objetivo para aquele grupo, em qualquer estilo (a extensão depende dos cantores reais, e o Estúdio permite ajustá-la). Quintas paralelas são convenção estilística (evitadas no coral tradicional, comuns no pop). Usar ou não uma introdução é escolha estética. O motor de validação marca a categoria de cada diagnóstico — aprenda a lê-la. E lembre: nenhum alerta não significa arranjo bom; significa só que nenhuma regra verificável foi violada.",
         },
       ],
     },

@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { buildExerciseSet, checkAnswer, evaluateMastery } from "@/domain/exercises/engine";
+import { REVIEW_MIN_SCORE, REVIEW_SIZE, buildExerciseSet, buildReviewSet, checkAnswer, evaluateMastery, evaluateReview } from "@/domain/exercises/engine";
 import { newSeed } from "@/domain/exercises/random";
 import type { AnswerRecord, ExerciseItem, ExerciseSetSpec, MasteryResult } from "@/domain/exercises/types";
 import { playPitches } from "@/lib/audio/player";
-import type { Attempt } from "@/lib/progress/model";
+import { type Attempt, REVIEW_SUFFIX } from "@/lib/progress/model";
 import { ScoreView } from "../notation/ScoreView";
 import { StaffSnippet } from "../notation/StaffSnippet";
 import { VoicePlayer } from "../audio/VoicePlayer";
@@ -19,32 +19,37 @@ export function ExercisePanel({
   onAttempt,
   locked = false,
   practice = false,
+  review = false,
 }: {
   spec: ExerciseSetSpec;
   lessonId: string;
   onAttempt?: (a: Attempt) => void | Promise<void>;
   locked?: boolean;
   practice?: boolean;
+  /** Revisão espaçada: itens novos, gerados de novo, sem os itens fixos da verificação. */
+  review?: boolean;
 }) {
   const [phase, setPhase] = useState<Phase>({ kind: "idle" });
   const [chosen, setChosen] = useState<string | null>(null);
+  const [retry, setRetry] = useState<RetryState>(NO_RETRY);
 
   const start = () => {
     const seed = newSeed();
     setChosen(null);
-    setPhase({ kind: "running", seed, items: buildExerciseSet(spec, seed), index: 0, answers: [], startedAt: new Date().toISOString() });
+    setRetry(NO_RETRY);
+    setPhase({ kind: "running", seed, items: review ? buildReviewSet(spec, seed) : buildExerciseSet(spec, seed), index: 0, answers: [], startedAt: new Date().toISOString() });
   };
 
   if (phase.kind === "idle") {
     return (
       <div className={styles.panel}>
-        <h3>{spec.title}</h3>
-        <p>{spec.instructions}</p>
+        <h3>{review ? "Revisão com itens novos" : spec.title}</h3>
+        <p>{review ? `${REVIEW_SIZE} itens novos, sorteados agora (nenhum é repetição da verificação). Aprovação: ${Math.round(REVIEW_MIN_SCORE * 100)}%.` : spec.instructions}</p>
         {locked ? (
           <p className="notice">Os exercícios desta aula ficam disponíveis quando as aulas pré-requisito forem concluídas.</p>
         ) : (
           <button type="button" className="btn btn-accent" onClick={start}>
-            Iniciar {practice ? "prática" : "tentativa"}
+            Iniciar {practice ? "prática" : review ? "revisão" : "tentativa"}
           </button>
         )}
       </div>
@@ -61,13 +66,26 @@ export function ExercisePanel({
           {r.correct} de {r.total} ({Math.round(r.score * 100)}%) —{" "}
           {practice ? (
             <span>prática concluída</span>
+          ) : review ? (
+            r.passed ? (
+              <span className="chip chip-ok">Retenção demonstrada</span>
+            ) : (
+              <span className="chip chip-alerta">Revisão não aprovada</span>
+            )
           ) : r.passed ? (
             <span className="chip chip-ok">Domínio demonstrado</span>
           ) : (
             <span className="chip chip-alerta">Domínio ainda não demonstrado</span>
           )}
         </p>
-        {!practice && !r.passed && (
+        {review && (
+          <p>
+            {r.passed
+              ? "Se a revisão estava no prazo, a próxima fica mais espaçada. Revisões feitas antes do prazo valem como prática."
+              : "A aula continua concluída, mas volta para revisão amanhã. Releia os comentários dos erros abaixo."}
+          </p>
+        )}
+        {!practice && !review && !r.passed && (
           <p>
             Critério: {Math.round(spec.minScore * 100)}% de acerto{spec.requiredItemIds?.length ? " e todos os itens essenciais" : ""}.{" "}
             {r.missingRequired.length > 0 && "Itens essenciais ainda não acertados aparecem na revisão abaixo. "}
@@ -106,30 +124,31 @@ export function ExercisePanel({
           </>
         )}
         <button type="button" className="btn btn-accent" onClick={start}>
-          Nova tentativa
+          {review ? "Revisar de novo" : "Nova tentativa"}
         </button>
       </div>
     );
   }
 
   const item = phase.items[phase.index]!;
-  const answered = chosen !== null;
-  const record = answered ? checkAnswer(item, chosen) : null;
+  const record = chosen !== null ? checkAnswer(item, chosen) : null;
+  const done = record !== null && (record.correct || retry.revealed);
 
   const next = () => {
     if (!record) return;
     const answers = [...phase.answers, record];
     setChosen(null);
+    setRetry(NO_RETRY);
     if (phase.index + 1 < phase.items.length) {
       setPhase({ ...phase, index: phase.index + 1, answers });
       return;
     }
-    const result = evaluateMastery(spec, phase.items, answers);
+    const result = review ? evaluateReview(phase.items, answers) : evaluateMastery(spec, phase.items, answers);
     if (!practice && onAttempt) {
       void onAttempt({
         id: `${lessonId}-${Date.now()}`,
         lessonId,
-        exerciseSetId: spec.id,
+        exerciseSetId: review ? `${spec.id}${REVIEW_SUFFIX}` : spec.id,
         seed: phase.seed,
         startedAt: phase.startedAt,
         finishedAt: new Date().toISOString(),
@@ -143,7 +162,7 @@ export function ExercisePanel({
   return (
     <div className={styles.panel}>
       <div className="row">
-        <h3 style={{ margin: 0 }}>{spec.title}</h3>
+        <h3 style={{ margin: 0 }}>{review ? "Revisão com itens novos" : spec.title}</h3>
         <span className="spacer" />
         <span className="muted">
           Item {phase.index + 1} de {phase.items.length}
@@ -152,16 +171,17 @@ export function ExercisePanel({
       <div className="progress-bar" aria-hidden="true" style={{ margin: "10px 0 16px" }}>
         <span style={{ width: `${(phase.index / phase.items.length) * 100}%` }} />
       </div>
-      <ItemView item={item} chosen={chosen} onChoose={(id) => !answered && setChosen(id)} />
-      {record && (
-        <div className={`${styles.feedback} ${record.correct ? styles.ok : styles.bad}`} role="status" aria-live="polite">
-          <strong>{record.correct ? "Correto." : "Ainda não."}</strong> {!record.correct && item.optionFeedback?.[chosen!] ? `${item.optionFeedback[chosen!]} ` : ""}
-          {item.explanation}
-        </div>
-      )}
+      <AnswerFlow
+        item={item}
+        first={chosen}
+        retry={retry}
+        onFirst={(id) => chosen === null && setChosen(id)}
+        onRetry={(id) => setRetry({ second: id, revealed: true })}
+        onReveal={() => setRetry({ ...retry, revealed: true })}
+      />
       <div className="row" style={{ marginTop: 12 }}>
         <span className="spacer" />
-        <button type="button" className="btn btn-primary" onClick={next} disabled={!answered}>
+        <button type="button" className="btn btn-primary" onClick={next} disabled={!done}>
           {phase.index + 1 < phase.items.length ? "Próximo" : "Ver resultado"}
         </button>
       </div>
@@ -169,23 +189,91 @@ export function ExercisePanel({
   );
 }
 
-function ItemView({ item, chosen, onChoose }: { item: ExerciseItem; chosen: string | null; onChoose: (id: string) => void }) {
-  const answered = chosen !== null;
+/** Segunda chance de um item: a nova escolha e se a resposta já foi revelada. */
+export interface RetryState {
+  readonly second: string | null;
+  readonly revealed: boolean;
+}
+export const NO_RETRY: RetryState = { second: null, revealed: false };
+
+/** Dica exibida depois de um erro, sem revelar a resposta. */
+export function hintFor(item: ExerciseItem, chosen: string): string {
+  return item.optionFeedback?.[chosen] ?? "Releia o enunciado e o que a aula diz sobre isso, e tente de novo.";
+}
+
+/**
+ * Responder um item em duas etapas: depois de um erro, o aluno recebe uma dica (sem a
+ * resposta) e pode tentar de novo ou pedir a resposta. Só a primeira escolha conta para a
+ * nota; a segunda serve para corrigir o raciocínio antes de ver a explicação.
+ */
+export function AnswerFlow({
+  item,
+  first,
+  retry,
+  onFirst,
+  onRetry,
+  onReveal,
+  scored = true,
+}: {
+  item: ExerciseItem;
+  first: string | null;
+  retry: RetryState;
+  onFirst: (id: string) => void;
+  onRetry: (id: string) => void;
+  onReveal: () => void;
+  scored?: boolean;
+}) {
+  const firstCorrect = first !== null && first === item.correctOptionId;
+  const revealed = firstCorrect || retry.revealed;
+  const waitingRetry = first !== null && !firstCorrect && !retry.revealed;
+  const secondCorrect = retry.second !== null && retry.second === item.correctOptionId;
   return (
-    <fieldset className={styles.item}>
-      <legend className={styles.prompt}>{item.prompt}</legend>
-      <ItemMedia item={item} answered={answered} />
-      <div className={styles.options}>
-        {item.options.map((o) => {
-          const state = !answered ? "" : o.id === item.correctOptionId ? styles.correct : o.id === chosen ? styles.wrong : "";
-          return (
-            <button key={o.id} type="button" className={`${styles.option} ${state}`} aria-pressed={chosen === o.id} disabled={answered && chosen !== o.id && o.id !== item.correctOptionId} onClick={() => onChoose(o.id)}>
-              {o.label}
+    <>
+      <fieldset className={styles.item}>
+        <legend className={styles.prompt}>{item.prompt}</legend>
+        <ItemMedia item={item} answered={revealed} />
+        <div className={styles.options}>
+          {item.options.map((o) => {
+            const isCorrect = o.id === item.correctOptionId;
+            const pickedWrong = (o.id === first && !firstCorrect) || (o.id === retry.second && !secondCorrect);
+            const state = revealed && isCorrect ? styles.correct : pickedWrong ? styles.wrong : "";
+            const disabled = revealed ? !isCorrect && !pickedWrong : waitingRetry ? o.id === first : false;
+            return (
+              <button
+                key={o.id}
+                type="button"
+                className={`${styles.option} ${state}`}
+                aria-pressed={first === o.id || retry.second === o.id}
+                disabled={disabled}
+                onClick={() => (first === null ? onFirst(o.id) : waitingRetry ? onRetry(o.id) : undefined)}
+              >
+                {o.label}
+                {revealed && isCorrect && <span className="sr-only"> (resposta correta)</span>}
+                {pickedWrong && <span className="sr-only"> (sua escolha, incorreta)</span>}
+              </button>
+            );
+          })}
+        </div>
+      </fieldset>
+      {waitingRetry && (
+        <div className={`${styles.feedback} ${styles.bad}`} role="status" aria-live="polite">
+          <strong>Ainda não.</strong> {hintFor(item, first!)}{" "}
+          {scored && <span className="muted">Pode tentar de novo: esta segunda escolha não muda a nota, mas ajuda a corrigir o raciocínio.</span>}
+          <div className="row" style={{ marginTop: 8 }}>
+            <button type="button" className="btn btn-sm" onClick={onReveal}>
+              Mostrar a resposta
             </button>
-          );
-        })}
-      </div>
-    </fieldset>
+          </div>
+        </div>
+      )}
+      {revealed && first !== null && (
+        <div className={`${styles.feedback} ${firstCorrect || secondCorrect ? styles.ok : styles.bad}`} role="status" aria-live="polite">
+          <strong>{firstCorrect ? "Correto." : secondCorrect ? "Correto na segunda tentativa." : retry.second ? "Ainda não: veja a resposta destacada." : "Resposta destacada acima."}</strong>{" "}
+          {!firstCorrect && retry.second && !secondCorrect ? `${hintFor(item, retry.second)} ` : ""}
+          {item.explanation}
+        </div>
+      )}
+    </>
   );
 }
 

@@ -213,7 +213,7 @@ describe("distribuição SSAA", () => {
     const items = generateRangeItems(createRng(7), 6, ["SSAA"]);
     expect(items.length).toBe(6);
     for (const i of items) {
-      expect(i.prompt).toContain("(SSAA)");
+      expect(i.prompt).toContain("em SSAA");
       expect(i.skill).toBe("escrita-ssaa");
     }
   });

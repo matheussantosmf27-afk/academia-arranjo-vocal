@@ -30,6 +30,30 @@ const DRILLS: Record<string, ExerciseSetSpec> = {
     generators: [{ type: "chord-identification", count: 8 }],
     minScore: 0,
   },
+  acordesOuvido: {
+    id: "lab-acordes-ouvido",
+    title: "Acordes só de ouvido",
+    instructions: "Sem partitura até responder: cante a nota mais grave e decida a qualidade (maior, menor, diminuto, aumentado) e a inversão.",
+    staticItems: [],
+    generators: [{ type: "chord-identification", count: 8, earOnly: true }],
+    minScore: 0,
+  },
+  cadencias: {
+    id: "lab-cadencias",
+    title: "Cadências de ouvido",
+    instructions: "Ouça o trecho a quatro vozes e diga como a frase termina: autêntica, plagal, semicadência ou de engano. A partitura aparece depois.",
+    staticItems: [],
+    generators: [{ type: "cadence-identification", count: 6, earOnly: true }],
+    minScore: 0,
+  },
+  movimento: {
+    id: "lab-movimento",
+    title: "Movimento entre duas vozes",
+    instructions: "Ouça duas vozes que passam de um intervalo a outro e classifique o movimento (paralelo, direto, contrário, oblíquo).",
+    staticItems: [],
+    generators: [{ type: "motion-type", count: 8, earOnly: true }],
+    minScore: 0,
+  },
 };
 
 export function EarLab() {
@@ -45,7 +69,8 @@ export function EarLab() {
       </div>
       <ExercisePanel key={drill} spec={DRILLS[drill]!} lessonId="laboratorio" practice />
       <p className="muted" style={{ fontSize: "0.85rem" }}>
-        {SYNTH_NOTICE} Ditado melódico, funções harmônicas e reconhecimento de problemas de condução entram nas próximas etapas.
+        {SYNTH_NOTICE} Os resultados daqui não contam para o domínio; a revisão espaçada de cada aula traz os mesmos tipos de pergunta, de ouvido. Ditado melódico e
+        rítmico ainda não existem: dependem de um editor de resposta (ver o relatório de auditoria).
       </p>
     </div>
   );

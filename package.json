@@ -12,7 +12,8 @@
     "test:e2e": "playwright test",
     "check": "npm run lint && npm run typecheck && npm test && npm run build",
     "test:integration": "vitest run --config vitest.integration.config.mts",
-    "db:catalog": "tsx --tsconfig tsconfig.json scripts/generate-catalog-seed.ts"
+    "db:catalog": "tsx --tsconfig tsconfig.json scripts/generate-catalog-seed.ts",
+    "audit:curriculum": "tsx --tsconfig tsconfig.json scripts/audit-curriculum.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.1.0",

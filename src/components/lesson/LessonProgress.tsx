@@ -6,7 +6,8 @@ import { recordAttemptRemote } from "@/app/actions/progress";
 import { useAuth } from "@/lib/auth/useAuth";
 import { getLesson } from "@/content/curriculum/curriculum";
 import type { Lesson } from "@/content/curriculum/types";
-import { bestAttempt, lessonStatus, missingPrerequisites } from "@/lib/progress/model";
+import { type Attempt, bestAttempt, isReviewAttempt, isMastered, lessonStatus, missingPrerequisites } from "@/lib/progress/model";
+import { dueLabel, reviewStatus } from "@/lib/progress/review";
 import { useProgress } from "@/lib/progress/useProgress";
 import { ExercisePanel } from "./ExercisePanel";
 
@@ -45,14 +46,46 @@ export function PrerequisiteNotice({ lesson }: { lesson: Lesson }) {
   );
 }
 
-export function LessonExercises({ lesson }: { lesson: Lesson }) {
-  const { state, hydrated, recordAttempt, markRead } = useProgress();
+/**
+ * Registra uma tentativa: sem conta, só neste navegador; com conta, o servidor recorrige
+ * pela semente e devolve o resultado oficial (verificação ou revisão).
+ */
+function useSubmitAttempt(lessonId: string, mode: "verificacao" | "revisao") {
+  const { recordAttempt, markRead } = useProgress();
   const { user } = useAuth();
   const [syncMsg, setSyncMsg] = useState<string | null>(null);
+  const submit = async (a: Attempt) => {
+    if (mode === "verificacao") markRead(lessonId);
+    if (!user) {
+      recordAttempt(a);
+      setSyncMsg("Registrada neste navegador. Entre na conta para guardá-la com segurança.");
+      return;
+    }
+    const r = await recordAttemptRemote({
+      lessonId: a.lessonId,
+      seed: a.seed,
+      startedAt: a.startedAt,
+      answers: a.answers.map((x) => ({ itemId: x.itemId, chosenOptionId: x.chosenOptionId })),
+      mode,
+    });
+    if (r.ok) {
+      recordAttempt(r.attempt);
+      setSyncMsg(mode === "revisao" ? "Revisão registrada na sua conta." : "Tentativa registrada na sua conta.");
+    } else {
+      recordAttempt(a);
+      setSyncMsg(`Registrada só neste navegador: ${r.error}`);
+    }
+  };
+  return { submit, syncMsg };
+}
+
+export function LessonExercises({ lesson }: { lesson: Lesson }) {
+  const { state, hydrated } = useProgress();
+  const { submit, syncMsg } = useSubmitAttempt(lesson.id, "verificacao");
   if (!lesson.exercises) return null;
   const locked = !hydrated || missingPrerequisites(state, lesson).length > 0;
   const best = bestAttempt(state, lesson.id);
-  const attempts = state.attempts.filter((a) => a.lessonId === lesson.id).length;
+  const attempts = state.attempts.filter((a) => a.lessonId === lesson.id && !isReviewAttempt(a)).length;
   return (
     <section aria-labelledby="exercicios">
       <h2 id="exercicios">Verificação da aula</h2>
@@ -64,33 +97,37 @@ export function LessonExercises({ lesson }: { lesson: Lesson }) {
           {attempts} tentativa(s) registrada(s). Melhor resultado: {Math.round((best?.result.score ?? 0) * 100)}%{best?.result.passed ? " (aula concluída)" : ""}.
         </p>
       )}
-      <ExercisePanel
-        spec={lesson.exercises}
-        lessonId={lesson.id}
-        locked={locked}
-        onAttempt={async (a) => {
-          markRead(lesson.id);
-          if (!user) {
-            recordAttempt(a);
-            setSyncMsg("Tentativa registrada neste navegador. Entre na conta para guardá-la com segurança.");
-            return;
-          }
-          // Na conta, o servidor recorrige pela semente e devolve o resultado oficial.
-          const r = await recordAttemptRemote({
-            lessonId: a.lessonId,
-            seed: a.seed,
-            startedAt: a.startedAt,
-            answers: a.answers.map((x) => ({ itemId: x.itemId, chosenOptionId: x.chosenOptionId })),
-          });
-          if (r.ok) {
-            recordAttempt(r.attempt);
-            setSyncMsg("Tentativa registrada na sua conta.");
-          } else {
-            recordAttempt(a);
-            setSyncMsg(`Registrada só neste navegador: ${r.error}`);
-          }
-        }}
-      />
+      <ExercisePanel spec={lesson.exercises} lessonId={lesson.id} locked={locked} onAttempt={submit} />
+      {syncMsg && (
+        <p className="muted" role="status" style={{ fontSize: "0.85rem" }}>
+          {syncMsg}
+        </p>
+      )}
+      <LessonReview lesson={lesson} />
+    </section>
+  );
+}
+
+/**
+ * Revisão espaçada da aula: aparece depois do domínio, com itens novos e prazos que
+ * crescem a cada revisão aprovada no prazo (1, 3, 7, 21 e 60 dias).
+ */
+export function LessonReview({ lesson }: { lesson: Lesson }) {
+  const { state, hydrated } = useProgress();
+  const { submit, syncMsg } = useSubmitAttempt(lesson.id, "revisao");
+  if (!hydrated || !lesson.exercises || !isMastered(state, lesson.id)) return null;
+  const r = reviewStatus(state, lesson.id)!;
+  return (
+    <section aria-labelledby="revisao-t" id="revisao" style={{ marginTop: 24 }}>
+      <h3 id="revisao-t">Revisão espaçada</h3>
+      <p>
+        <span className={`chip ${r.isDue ? "chip-alerta" : "chip-ok"}`}>{dueLabel(r)}</span>{" "}
+        <span className="muted">
+          {r.retained} revisão(ões) no prazo aprovada(s){r.lapses > 0 ? `, ${r.lapses} esquecida(s) e retomada(s)` : ""}. Concluir a aula mostra o domínio de hoje;
+          a revisão, dias depois e com itens novos, mostra se ele ficou.
+        </span>
+      </p>
+      <ExercisePanel spec={lesson.exercises} lessonId={lesson.id} onAttempt={submit} review />
       {syncMsg && (
         <p className="muted" role="status" style={{ fontSize: "0.85rem" }}>
           {syncMsg}

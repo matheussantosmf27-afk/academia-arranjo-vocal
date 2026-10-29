@@ -321,3 +321,16 @@ kbd {
   .btn { white-space: normal; text-align: center; max-width: 100%; }
   .page { padding: 20px 14px 64px; }
 }
+
+/* Texto só para tecnologias assistivas (ex.: "resposta correta" num botão marcado por cor). */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
