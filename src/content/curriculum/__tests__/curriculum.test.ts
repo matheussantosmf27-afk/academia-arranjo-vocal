@@ -3,7 +3,16 @@ import { validateScore } from "@/domain/validation";
 import { buildExerciseSet } from "@/domain/exercises/engine";
 import { quickChecksFor } from "@/components/lesson/LessonContent";
 import { parseScore } from "@/domain/music/schema";
+import { LAB_EXAMPLES } from "@/content/lab-examples";
+import type { Score } from "@/domain/music/score";
 import { LESSONS, LEVELS } from "../curriculum";
+import type { ChallengeBlock } from "../types";
+
+/** Notas (altura e duração) das vozes que o material de partida já preenche. */
+const givenVoices = (s: Score) =>
+  s.parts
+    .filter((p) => p.events.some((e) => e.kind === "note"))
+    .map((p) => ({ voice: p.voice, notes: JSON.stringify(p.events.map((e) => (e.kind === "note" ? [e.pitch, e.duration] : ["r", e.duration]))) }));
 
 describe("integridade do currículo", () => {
   it("IDs únicos e pré-requisitos existentes, sem ciclos", () => {
@@ -72,6 +81,31 @@ describe("integridade do currículo", () => {
       expect(checks.length, l.id).toBeGreaterThan(0);
       for (const c of checks) {
         expect(l.exercises.staticItems.some((s) => s.id === c.id || s.prompt === c.prompt), `${l.id}: ${c.prompt}`).toBe(false);
+      }
+    }
+  });
+  it("exercícios independentes: dicas progressivas, critérios e solução conferida pelo motor", () => {
+    const challenges = LESSONS.flatMap((l) => l.sections.flatMap((s) => s.blocks).filter((b): b is ChallengeBlock => b.type === "challenge").map((b) => ({ l, b })));
+    for (const { l, b } of challenges) {
+      const ctx = `${l.id} / ${b.title}`;
+      expect(b.hints.length, ctx).toBeGreaterThanOrEqual(2);
+      expect(b.criteria.length, ctx).toBeGreaterThanOrEqual(2);
+      expect(b.constraints.length, ctx).toBeGreaterThanOrEqual(1);
+      expect(b.solution.commentary.length, ctx).toBeGreaterThan(80);
+      if (b.start) {
+        expect(parseScore(b.start).ok, ctx).toBe(true);
+        expect(LAB_EXAMPLES.filter((e) => e.id === b.start!.id).length, `${ctx}: partida abre no Estúdio com id único`).toBe(1);
+      }
+      if (b.solution.score) {
+        const sol = b.solution.score;
+        expect(parseScore(sol).ok, ctx).toBe(true);
+        const r = validateScore(sol);
+        expect(r.diagnostics.filter((d) => d.severity !== "info"), `${ctx}: ${r.diagnostics.map((d) => d.message).join(" | ")}`).toEqual([]);
+        // A solução respeita o material dado (ex.: o soprano a harmonizar).
+        if (b.start) for (const g of givenVoices(b.start)) {
+          const part = sol.parts.find((p) => p.voice === g.voice);
+          expect(part && JSON.stringify(part.events.map((e) => (e.kind === "note" ? [e.pitch, e.duration] : ["r", e.duration]))), `${ctx}: voz ${g.voice} dada`).toBe(g.notes);
+        }
       }
     }
   });

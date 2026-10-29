@@ -1,5 +1,7 @@
 import { CHORALE_SATB_C, CHORALE_TTBB_G } from "@/domain/music/examples";
+import { REVISION_LEVELS } from "../didactics";
 import { EX } from "../examples";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 export const lessonAnaliseMelodica: Lesson = {
@@ -61,12 +63,69 @@ export const lessonHarmonizacao: Lesson = {
   ],
   sections: [
     {
-      title: "1. Método em cinco passos",
+      title: "1. Antes de escrever: ler a melodia",
       blocks: [
-        { type: "list", ordered: true, items: ["Cadências primeiro: harmonize os finais de frase.", "Para cada nota estrutural, liste os acordes que a contêm (ex.: C está em I, IV, vi).", "Escolha pela direção funcional (T → S → D → T) e pelo ritmo harmônico (mudanças nos tempos fortes).", "Escreva o baixo: movimento contrário ao soprano, inversões para linhas por grau.", "Preencha contralto e tenor com notas comuns e graus conjuntos; revise com o motor."] },
-        { type: "example", score: CHORALE_SATB_C, verdict: "correto", caption: "Harmonização completa", commentary: "Cadência autêntica no fim, I⁶₄ cadencial no compasso 3, baixo com inversões que criam linha." },
-        { type: "example", score: EX.paralelas, verdict: "incorreto", caption: "Erro típico de harmonização em bloco", commentary: "Mover todas as vozes juntas gera paralelas: o motor localiza os pares de vozes exatos." },
-        { type: "listening", title: "Ouça a condução", score: CHORALE_SATB_C, instructions: ["Ouça contralto e tenor isolados: são linhas cantáveis?"], focus: [["A"], ["T"], ["S", "A", "T", "B"]] },
+        { type: "paragraph", text: "Harmonizar não é procurar 'um acorde que caiba' em cada nota. É decidir onde a música repousa, por onde passa e com que velocidade os acordes mudam. Por isso o trabalho começa pela melodia — com as ferramentas da aula de análise melódica — e não pela pauta do baixo." },
+        { type: "list", ordered: true, items: ["Marque as frases e as respirações.", "Decida a cadência de cada fim de frase (o grau final do soprano sugere: 1 ou 3 → autêntica; 2, 5 ou 7 sustentados → semicadência).", "Separe notas estruturais (tempos fortes, notas longas) de notas de passagem: só as estruturais recebem acorde próprio.", "Defina o ritmo harmônico: aqui, um acorde por mínima; em hinos rápidos, um por compasso."] },
+        { type: "table", caption: "Que acordes contêm cada grau do soprano (modo maior)", headers: ["Grau no soprano", "Acordes que o contêm", "Observação"], rows: [["1", "I, IV, vi", "I no início e no fim; IV e vi no meio da frase"], ["2", "V, ii, vii°", "V na semicadência; ii prepara o V"], ["3", "I, vi, iii", "iii é raro como acorde próprio em escrita coral"], ["4", "IV, ii, V7 (como sétima)", "como sétima do V7, desce para 3"], ["5", "I, V, iii", "I⁶₄ cadencial quando o baixo é a dominante"], ["6", "IV, ii, vi", "ii⁶ e IV dão baixo ativo antes do V"], ["7", "V, vii°, iii", "a sensível sobe para 1 no soprano"]] },
+      ],
+    },
+    {
+      title: "2. Demonstração passo a passo",
+      blocks: [
+        { type: "paragraph", text: "Problema: harmonizar a melodia abaixo (Sol maior, quatro compassos, uma frase que termina na tônica) para SATB no estilo coral tradicional." },
+        { type: "example", score: EXD.harmDemoStart, verdict: "correto", caption: "Passo 1: a melodia dada", commentary: "Graus 3–2 | 1–4 | 3–2 | 1. A frase termina em 1, em nota longa e tempo forte: cadência autêntica perfeita. O C5 do 2º compasso é o ponto culminante." },
+        { type: "table", caption: "Passo 2: plano de acordes, com a razão de cada escolha e a alternativa descartada", headers: ["Soprano", "Acorde escolhido", "Por quê", "Alternativa e por que não"], rows: [["B4 (3)", "I", "começo afirma a tonalidade", "vi (Mi menor): começaria fora da tônica"], ["A4 (2)", "V⁶ (baixo F♯)", "baixo sobe-desce G–F♯–G, linha por grau", "V em estado fundamental: baixo saltaria G3 → D3 → G3"], ["G4 (1)", "I", "a sensível do baixo resolve", "vi: possível, mas o baixo F♯ → E não resolveria a sensível"], ["C5 (4)", "IV⁶ (baixo E)", "baixo desce por grau em direção à cadência", "IV com baixo C3: 8ª G4/G3 → 15ª C5/C3 por movimento contrário no meio da frase"], ["B4 (3)", "I⁶₄ cadencial (baixo D)", "prepara a cadência e prolonga o V", "I com baixo G: interromperia o baixo E → D"], ["A4 (2)", "V", "6–5 e 4–3 sobre o baixo parado", "V7 também é correto (contralto D4 → C4 → B3, sétima preparada e resolvida); o V simples deixa o 4–3 do tenor em primeiro plano"], ["G4 (1)", "I", "autêntica perfeita", "—"]] },
+        { type: "example", score: EXD.harmDemoSB, verdict: "observacao", caption: "Passo 3: o esqueleto soprano–baixo", commentary: "Antes das vozes internas, confira só soprano e baixo: movimento contrário no início e no fim, nenhuma 5ª ou 8ª paralela entre eles. O motor, ouvindo só duas notas por vez, ainda não sabe que acordes você quis (cifra vii, iii⁶…) — é normal: a harmonia só fica definida quando as vozes internas entrarem." },
+        { type: "list", ordered: true, items: [
+          "Passo 4: vozes internas, acorde por acorde, pelo menor movimento. Comece pelo que é obrigatório (a sensível F♯ só no baixo do V⁶; a terça de cada acorde presente), depois mantenha notas comuns (o D4 do contralto atravessa quatro acordes) e, por último, escolha entre as notas que sobram a que está mais perto.",
+          "Passo 5: no I⁶₄ cadencial, dobre o baixo (D) e faça as resoluções clássicas: 6–5 no soprano (B4 → A4) e 4–3 no tenor (G3 → F♯3).",
+          "Passo 6: revise nos cinco níveis (seção 4) e cante cada voz interna sozinha.",
+        ] },
+        { type: "example", score: EXD.harmDemoBloco, verdict: "incorreto", caption: "Um atalho que não funciona: vozes internas 'coladas' ao soprano", commentary: "Contralto e tenor copiam o desenho do soprano uma 3ª e uma 6ª abaixo. Parece seguro, mas o contralto fica a uma 8ª do baixo e anda junto com ele (G → F♯): oitavas paralelas e sensível dobrada no V⁶. O motor aponta os dois fatos." },
+        { type: "example", score: EXD.harmDemo, verdict: "correto", caption: "Passo 6: resultado revisado", commentary: "I – V⁶ | I – IV⁶ | I⁶₄ – V | I. O contralto repete D4 por quatro acordes (nota comum), o tenor faz G3 → F♯3 → G3 na cadência, o baixo desce por grau G–F♯–G–E–D antes do salto final para G2. Nenhum diagnóstico no estilo tradicional." },
+        { type: "listening", title: "Percepção em contexto: as linhas internas", score: EXD.harmDemo, instructions: ["Ouça o contralto sozinho: quantas notas diferentes ele canta?", "Ouça o tenor no compasso 3: identifique o 4–3 (G3 → F♯3) sobre o baixo parado.", "Ouça soprano + baixo e depois o conjunto: o que as vozes internas acrescentam?"], focus: [["A"], ["T", "B"], ["S", "B"], ["S", "A", "T", "B"]] },
+      ],
+    },
+    {
+      title: "3. Decisões do arranjador e erros comuns",
+      blocks: [
+        { type: "paragraph", text: "Quase toda melodia admite várias harmonizações corretas. O que distingue a boa é a coerência: o baixo é uma linha cantável, o ritmo harmônico acelera perto da cadência, e as escolhas acompanham o texto (uma palavra importante pode receber um acorde menos esperado, como vi ou ii)." },
+        { type: "table", caption: "Erros frequentes de harmonização", headers: ["Erro", "Por que acontece", "Como corrigir"], rows: [["Escolher acordes nota a nota, sem plano", "começar pelo primeiro compasso", "harmonize as cadências primeiro e caminhe de trás para a frente"], ["Baixo só com fundamentais, saltando", "evitar inversões por insegurança", "use I⁶, V⁶, IV⁶ e ii⁶ para criar linha por grau"], ["Mover as quatro vozes juntas", "escrever 'em bloco'", "soprano e baixo em contrário; vozes internas por notas comuns"], ["Vozes internas que pulam sem motivo", "procurar a nota do acorde mais 'bonita'", "a mais próxima quase sempre é a melhor"], ["Mesmo acorde atravessando a barra para um tempo forte", "não olhar o ritmo harmônico", "mude de acorde no tempo forte; repita só do forte para o fraco"], ["I⁶₄ fora da cadência", "tratar o ⁶₄ como inversão comum", "use ⁶₄ cadencial, de passagem ou de bordadura — nunca solto"]] },
+        { type: "callout", tone: "dica", title: "Quando o estilo muda a decisão", text: "Em coral contemporâneo e popular, a mesma melodia aceita acordes com sétima e nona em quase todos os tempos, baixo com pedais longos e blocos paralelos. A ordem de trabalho (cadências → baixo → vozes internas → revisão) continua a mesma; mudam os acordes disponíveis e a gravidade do que o motor aponta." },
+        { type: "example", score: EX.paralelas, verdict: "incorreto", caption: "O erro típico de quem escreve em bloco", commentary: "Mover todas as vozes juntas gera paralelas: o motor localiza os pares de vozes exatos." },
+      ],
+    },
+    {
+      title: "4. Autorrevisão",
+      blocks: [
+        { type: "paragraph", text: "Revise um nível de cada vez. Misturar os níveis faz você corrigir uma paralela e criar um problema de extensão sem perceber. Os três primeiros são quase mecânicos; os dois últimos pedem ouvido." },
+        REVISION_LEVELS,
+        { type: "example", score: CHORALE_SATB_C, verdict: "correto", caption: "Outra harmonização completa para estudar", commentary: "Cadência autêntica no fim, I⁶₄ cadencial no compasso 3, baixo com inversões que criam linha." },
+      ],
+    },
+    {
+      title: "5. Síntese e exercício independente",
+      blocks: [
+        { type: "list", items: ["Ordem de trabalho: análise → cadências → plano de acordes → baixo → vozes internas → revisão em cinco níveis.", "Para cada nota estrutural há pelo menos três acordes possíveis; escolha pela direção funcional e pela linha do baixo.", "Inversões não são enfeite: são a ferramenta para o baixo andar por grau.", "Antes de dar como pronto, cante contralto e tenor sozinhos."] },
+        {
+          type: "challenge",
+          title: "Harmonize uma frase em Mi maior",
+          task: "Escreva contralto, tenor e baixo para a melodia dada, um acorde por mínima, terminando numa cadência autêntica perfeita.",
+          start: EXD.harmChalStart,
+          constraints: ["Não altere o soprano.", "Tríades e no máximo um acorde de sétima (V7 ou uma inversão dele).", "Estilo coral tradicional; extensões padrão."],
+          criteria: ["Plano de acordes escrito antes das notas, com a cadência final definida.", "Baixo com pelo menos um trecho por grau conjunto.", "Sensível presente e resolvida em cada dominante; sétima, se houver, descendo.", "O motor não aponta erros nem alertas; você cantou contralto e tenor sozinhos."],
+          hints: [
+            "Graus do soprano: 5–6 | 5–4 | 3–2 | 1. Comece pelo fim: que dois acordes fazem a cadência autêntica com 2–1 no soprano?",
+            "O A4 (4º grau) no 2º compasso pode ser a sétima de um V7. Se o baixo estiver em E3 antes, que inversão do V7 deixa o baixo andar por grau e voltar a E3?",
+            "Plano possível: I – IV | I – V⁶₅ | I – V | I, com o baixo E3 – A2 | E3 – D♯3 | E3 – B2 | E3.",
+          ],
+          solution: {
+            score: EXD.harmChalSol,
+            commentary: "I – IV | I – V⁶₅ | I – V | I. A sétima A4 está no soprano e desce para G♯4; a sensível D♯3, no baixo do V⁶₅, sobe para E3 — as duas tendências resolvem ao mesmo tempo. Na cadência final, o contralto leva a sensível D♯4 à quinta do I (B3), recurso de voz interna que o motor registra só como informação, e o acorde final fica completo.",
+            alternatives: ["I – IV | I – IV | I – V | I: o A4 do 2º compasso como fundamental do IV. Funciona e soa mais calmo (plagal interna), mas o baixo fica com três saltos E–A–E–A; escolha esta se o texto pedir serenidade.", "I – ii⁶ | I⁶₄ – V7 | I – V | I (baixo E3 – A2 | B2 – B2 | E3 – B2 | E3): I⁶₄ – V7 → I no meio da frase forma uma pequena cadência interna — imperfeita, porque o soprano chega ao 3º grau (A4 → G♯4). Ganha-se movimento harmônico; perde-se um pouco da força da cadência final, que deixa de ser a primeira chegada à tônica."],
+          },
+        },
       ],
     },
   ],

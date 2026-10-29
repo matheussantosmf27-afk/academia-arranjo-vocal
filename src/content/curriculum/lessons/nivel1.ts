@@ -1,5 +1,6 @@
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { EX } from "../examples";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 export const lessonEscalas: Lesson = {
@@ -253,20 +254,79 @@ export const lessonCadencias: Lesson = {
   ],
   sections: [
     {
-      title: "1. Quatro cadências",
+      title: "1. O que define uma cadência",
       blocks: [
-        { type: "example", score: EX.cadAutentica, verdict: "correto", caption: "Autêntica perfeita (V → I, fundamentais no baixo, tônica no soprano)", commentary: "A mais conclusiva: ponto final." },
-        { type: "example", score: EX.cadPlagal, verdict: "correto", caption: "Plagal (IV → I)", commentary: "O 'Amém': conclusiva, mais suave; nota comum (C) no soprano." },
-        { type: "example", score: EX.cadSemi, verdict: "correto", caption: "Semicadência (termina em V)", commentary: "Vírgula ou ponto de interrogação: a frase pede continuação. O motor só observa que a peça não termina na tônica." },
-        { type: "example", score: EX.cadEngano, verdict: "correto", caption: "De engano (V → vi)", commentary: "A sensível sobe, mas o baixo vai para A: surpresa. Note a terça dobrada no vi — a duplicação recomendada aqui." },
-        { type: "example", score: EX.sensivelNaoResolve, verdict: "incorreto", caption: "Autêntica com a sensível do soprano descendo", commentary: "B4 → G4 no soprano enfraquece a cadência; o motor aponta e sugere subir para C5." },
+        { type: "paragraph", text: "Cadência é o modo como uma frase termina. Três coisas a definem: os dois últimos acordes (a progressão), o grau da escala no soprano e a posição métrica — o acorde de chegada cai num tempo forte e costuma durar mais. Mudou qualquer uma das três, muda a força da pontuação." },
+        { type: "paragraph", text: "Por isso o arranjador harmoniza as cadências antes do resto: elas são os pontos fixos da forma. Sabendo onde cada frase repousa (ponto final) ou fica suspensa (vírgula, pergunta), o caminho até lá pode ser escolhido de trás para a frente." },
+        { type: "table", caption: "As quatro cadências e o que observar em cada uma", headers: ["Cadência", "Acordes", "Soprano típico", "Efeito", "Pontuação do texto"], rows: [["Autêntica perfeita", "V(7) → I, ambos no estado fundamental", "2–1 ou 7–1", "conclusão plena", "ponto final, fim de estrofe"], ["Autêntica imperfeita", "V → I com 3 ou 5 no soprano, ou um dos acordes invertido", "2–3, 5–5, 7–1 sobre I⁶", "conclusiva, mas pede mais", "ponto e vírgula, fim de frase interna"], ["Plagal", "IV → I", "1–1 (nota comum) ou 6–5", "repouso suave, 'Amém'", "coda, confirmação depois de uma autêntica"], ["Semicadência", "qualquer acorde → V", "2, 7 ou 5 sustentados", "suspensão", "vírgula, pergunta, dois-pontos"], ["De engano", "V → vi", "7–1 ou 2–1 (como na autêntica)", "surpresa, adiamento", "'mas…', virada do texto, repetição antes do fim"]] },
       ],
     },
     {
-      title: "2. Cadência e texto",
+      title: "2. Ouvindo e lendo as quatro cadências",
       blocks: [
-        { type: "paragraph", text: "O arranjador lê o texto como uma partitura de pontuação: fim de estrofe pede cadência autêntica; vírgula e pergunta, semicadência; um 'desvio' do texto (uma surpresa, um 'mas') combina com cadência de engano." },
-        { type: "listening", title: "Compare as cadências", score: EX.cadEngano, instructions: ["Ouça a cadência de engano e depois a autêntica.", "Em qual o baixo 'frustra' a expectativa?"], focus: [["B"], ["S", "A", "T", "B"]] },
+        { type: "example", score: EX.cadAutentica, verdict: "correto", caption: "Autêntica perfeita (V → I, fundamentais no baixo, tônica no soprano)", commentary: "A mais conclusiva: o baixo salta G2 → C3 (fundamental a fundamental) e o soprano chega à tônica pela sensível, B4 → C5." },
+        { type: "example", score: EXD.cadImperfeita, verdict: "correto", caption: "Autêntica imperfeita (terça no soprano)", commentary: "Mesma progressão, mas o soprano termina em E5 (3º grau). O ouvido reconhece a chegada à tônica e, ainda assim, espera continuação — útil no meio de uma estrofe." },
+        { type: "example", score: EX.cadPlagal, verdict: "correto", caption: "Plagal (IV → I)", commentary: "O 'Amém': conclusiva e mais suave, porque não há sensível. O C5 do soprano é nota comum aos dois acordes e fica parado." },
+        { type: "example", score: EX.cadSemi, verdict: "correto", caption: "Semicadência (termina em V)", commentary: "A frase para na dominante, como uma vírgula ou um ponto de interrogação. O motor só observa que a peça não termina na tônica — num trecho isolado isso é esperado." },
+        { type: "example", score: EX.cadEngano, verdict: "correto", caption: "De engano (V → vi)", commentary: "Soprano e sensível fazem exatamente o que fariam na autêntica (B4 → C5), mas o baixo sobe para A2: o acorde de chegada é Lá menor. A terça (C) fica dobrada no vi — é a duplicação recomendada aqui, porque evita quintas paralelas e deixa a sensível subir." },
+        { type: "listening", title: "Percepção em contexto: o que o baixo faz", score: EX.cadEngano, instructions: ["Antes de ouvir, cante G2 → C3 (a autêntica) e depois G2 → A2.", "Ouça só o baixo e diga se ele 'confirmou' ou 'frustrou' a tônica.", "Ouça as quatro vozes: o soprano sozinho não distingue as duas cadências — é o baixo que decide."], focus: [["B"], ["S", "B"], ["S", "A", "T", "B"]] },
+      ],
+    },
+    {
+      title: "3. Demonstração passo a passo: escrever uma autêntica perfeita",
+      blocks: [
+        { type: "paragraph", text: "Problema: em Sol maior, o soprano termina a frase com A4 → G4 (2–1), em mínimas, no 2º compasso. Queremos a cadência mais conclusiva possível, a quatro vozes, no estilo coral tradicional." },
+        { type: "list", ordered: true, items: [
+          "Ler o soprano. 2–1 em tempo forte pede V → I. A4 é a quinta de D (V); G4, a fundamental de G (I).",
+          "Escrever o baixo. Para ser perfeita, os dois acordes ficam no estado fundamental: D3 → G2. O soprano desce por grau e o baixo salta uma 5ª para baixo — movimento direto até a oitava, permitido porque o soprano anda por grau.",
+          "Achar a sensível. Em Sol, a sensível é F♯. Ela precisa estar no V (é a terça do acorde) e subir para G. Vamos colocá-la no tenor: F♯3 → G3.",
+          "Completar o V. Faltam notas para o contralto: D (fundamental) é a escolha natural — dobra a fundamental e fica perto do soprano. V = D3, F♯3, D4, A4.",
+          "Completar o I sem perder a terça. O soprano e o tenor já dão G; falta B. O contralto desce D4 → B3 (3ª) e o acorde fica completo: G2, G3, B3, G4.",
+          "Revisar: sensível subiu (tenor), nenhuma nota dobrada indevidamente, nenhuma 5ª ou 8ª paralela, contralto e tenor com movimentos pequenos.",
+        ] },
+        { type: "example", score: EXD.cadSolDobrada, verdict: "incorreto", caption: "Uma primeira tentativa comum: sensível dobrada", commentary: "Quem pensa 'o F♯ tem que subir' e o coloca em duas vozes ganha um problema duplo: as duas sensíveis sobem juntas para G e formam oitavas paralelas (contralto–tenor), e o I fica sem terça. O motor acusa os três fatos." },
+        { type: "example", score: EXD.cadSolPasso, verdict: "correto", caption: "Resultado do passo a passo", commentary: "F♯ aparece uma vez (tenor) e resolve; o contralto busca a terça do I. Compare com a tentativa anterior: mesmas notas no soprano e no baixo, decisão diferente só nas vozes internas." },
+        { type: "callout", tone: "dica", title: "Decisão do arranjador: a sensível numa voz interna", text: "Quando a sensível está no contralto ou no tenor, a escrita coral tradicional admite que ela desça à quinta do I (F♯4 → D4) para o acorde final sair completo. No soprano, não: ali o ouvido segue a linha e espera a tônica. O motor registra esse caso como informação, não como erro." },
+        { type: "example", score: EXD.cadSolFrustrada, verdict: "correto", caption: "Alternativa válida: sensível interna descendo", commentary: "Contralto F♯4 → D4, tenor A3 → B3. O I fica com fundamental, terça e quinta. Escolha esta versão quando quiser o acorde final mais cheio; a anterior, quando quiser a linha da sensível bem audível." },
+      ],
+    },
+    {
+      title: "4. Erros comuns e como corrigi-los",
+      blocks: [
+        { type: "table", caption: "Erros frequentes na escrita de cadências", headers: ["Erro", "Por que acontece", "Como corrigir"], rows: [["Sensível do soprano descendo (7–5)", "a mão segue o acorde, não a linha", "faça o soprano subir à tônica; se quiser 5 no fim, reescreva para 2–1 ou use autêntica imperfeita"], ["Sensível dobrada no V", "tentar 'reforçar' a dominante", "deixe a sensível numa só voz e dobre a fundamental do V"], ["I sem terça no fim", "todas as vozes correm para a tônica", "leve uma voz interna à terça (do 5º grau do V, por grau, ou da fundamental, por 3ª)"], ["Acorde de chegada no tempo fraco", "a letra foi encaixada sem olhar a métrica", "desloque a cadência para que o I caia no tempo forte; prolongue o V se preciso"], ["Chamar de 'perfeita' uma cadência com I⁶ ou V⁶", "olhar só os acordes, não o baixo", "perfeita exige fundamentais no baixo; com inversão, é imperfeita — escolha conscientemente"]] },
+        { type: "example", score: EX.sensivelNaoResolve, verdict: "incorreto", caption: "Autêntica com a sensível do soprano descendo", commentary: "B4 → G4 no soprano enfraquece a cadência: o ouvido esperava C5. O motor aponta e sugere subir para C5; o restante da escrita pode ficar como está." },
+      ],
+    },
+    {
+      title: "5. Cadência, texto e estilo",
+      blocks: [
+        { type: "paragraph", text: "O arranjador lê o texto como uma partitura de pontuação. Fim de estrofe pede autêntica perfeita; vírgula e pergunta, semicadência; uma virada do texto ('mas…', 'e então…') ou uma repetição antes do final combina com a cadência de engano, que adia a conclusão e justifica mais uma frase." },
+        { type: "table", caption: "Decisões do arranjador: o mesmo final de soprano (B4 → C5) com harmonias diferentes", headers: ["Harmonização", "Efeito", "Quando escolher"], rows: [["V → I (autêntica perfeita)", "fecha", "último verso; fim de seção"], ["V → vi (engano)", "surpreende e reabre", "antes de repetir o refrão; texto que contradiz a expectativa"], ["V → I⁶ (imperfeita)", "chega, mas continua andando", "fim de verso no meio da estrofe"], ["IV → I com soprano C–C (plagal, se o soprano repetir a tônica)", "confirma, suave", "coda, 'Amém', depois de uma autêntica"]] },
+        { type: "callout", tone: "atencao", title: "Regra de estilo, não lei", text: "A hierarquia acima vale para a escrita coral tradicional e para a maior parte do repertório tonal. No pop e no gospel, IV → I e ♭VII → I fecham canções inteiras, e terminar em V7sus4 ou num acorde com 9ª é comum. O que não muda em nenhum estilo: a cadência precisa coincidir com a pontuação e com o tempo forte." },
+      ],
+    },
+    {
+      title: "6. Síntese e exercício independente",
+      blocks: [
+        { type: "list", items: ["Cadência = progressão final + grau do soprano + tempo forte.", "Escreva primeiro soprano e baixo da cadência; depois coloque a sensível numa só voz e resolva-a.", "Perfeita exige fundamentais no baixo e tônica no soprano; qualquer outra coisa é imperfeita — o que pode ser exatamente o que você quer.", "Escolha a cadência pela pontuação do texto."] },
+        {
+          type: "challenge",
+          title: "Pergunta e resposta",
+          task: "Harmonize o soprano dado em Dó maior: o 1º compasso ('Vens já?') deve terminar numa semicadência e o 2º ('Sim, vou.') numa autêntica perfeita. Escreva contralto, tenor e baixo, uma nota por mínima.",
+          start: EXD.desafioCadStart,
+          constraints: ["Não altere o soprano.", "Um acorde por mínima, só tríades e o V7 (sem acordes alterados).", "Estilo coral tradicional; extensões padrão de SATB."],
+          criteria: ["O 2º acorde é V e o último é I, ambos com a fundamental no baixo.", "A sensível (B) aparece uma só vez em cada acorde de dominante e sobe para C quando o I chega.", "Se usar V7, a sétima (F) desce para E.", "O motor não aponta erros nem alertas no estilo tradicional."],
+          hints: [
+            "Comece pelo baixo das duas cadências: o que o baixo faz numa semicadência e numa autêntica perfeita?",
+            "O D5 do compasso 2 pertence ao V. Para que a resposta soe mais firme que a pergunta, experimente transformar esse V em V7 — a sétima F pode ficar no contralto.",
+            "Baixo possível: C3 – G2 | G2 – C3. Com isso, o tenor pode sustentar G3 no 1º compasso e subir para a sensível B3 no 2º.",
+          ],
+          solution: {
+            score: EXD.desafioCadSol,
+            commentary: "I – V | V7 – I. No 1º compasso, o soprano desce C5 → B4 e o baixo C3 → G2: a pergunta fica suspensa na dominante. No 2º, as vozes superiores sobem uma 3ª sobre o baixo parado (o V vira V7 com o F4 no contralto); depois, sensível B3 → C4 no tenor e sétima F4 → E4 no contralto. O I final fica sem quinta — o preço normal de um V7 completo resolvendo bem.",
+            alternatives: ["Com D5 no soprano, o 1º tempo do compasso 2 também aceitaria ii⁶ (F3 no baixo; D5 é a fundamental do ii). Mas então não sobraria tempo para o V antes do I, e ii⁶ → I não é cadência autêntica: aqui o V (ou V7) é obrigatório.", "Manter o V sem sétima no 2º compasso também resolve: contralto D4 → E4 e tenor B3 → C4 dão um I completo (C3, C4, E4, C5). O V7 só torna a 'resposta' mais enfática."],
+          },
+        },
       ],
     },
   ],

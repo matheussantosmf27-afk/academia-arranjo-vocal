@@ -27,6 +27,7 @@ function blockWords(b: ContentBlock): number {
   if (b.type === "callout") return words(b.title) + words(b.text);
   if (b.type === "table") return b.rows.flat().reduce((n, c) => n + words(c), words(b.caption));
   if (b.type === "example") return words(b.commentary);
+  if (b.type === "challenge") return [b.task, ...b.constraints, ...b.criteria, ...b.hints, b.solution.commentary, ...(b.solution.alternatives ?? [])].reduce((n, t) => n + words(t), 0);
   return b.instructions.reduce((n, i) => n + words(i), 0);
 }
 

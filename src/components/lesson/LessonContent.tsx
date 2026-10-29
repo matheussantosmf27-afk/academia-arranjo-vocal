@@ -1,6 +1,7 @@
 import type { ContentBlock, Lesson } from "@/content/curriculum/types";
 import { buildPracticeItems } from "@/domain/exercises/engine";
 import type { ChoiceItem } from "@/domain/exercises/types";
+import { Challenge } from "./Challenge";
 import { ExampleBlock } from "./ExampleBlock";
 import { ListeningBlock } from "./ListeningBlock";
 import { QuickCheck } from "./QuickCheck";
@@ -43,6 +44,8 @@ function Block({ block }: { block: ContentBlock }) {
       return <ExampleBlock score={block.score} verdict={block.verdict} caption={block.caption} commentary={block.commentary} />;
     case "listening":
       return <ListeningBlock title={block.title} score={block.score} instructions={block.instructions} {...(block.focus ? { focus: block.focus } : {})} />;
+    case "challenge":
+      return <Challenge block={block} />;
   }
 }
 
