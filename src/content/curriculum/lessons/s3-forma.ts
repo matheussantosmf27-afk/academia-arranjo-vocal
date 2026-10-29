@@ -1,6 +1,7 @@
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { EX } from "../examples";
 import { EXA } from "../examples-arranjo";
+import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /* 3º semestre — FOR301 Forma e Estrutura do Arranjo e HAR301 Harmonia para Arranjadores II. */
@@ -79,6 +80,39 @@ export const lessonFormaEnergia: Lesson = {
           score: EXA.melodiaHarmonizada,
           instructions: ["Ouça primeiro o exemplo com pad, depois este.", "Descreva o que mudou: densidade, ritmo, dinâmica?"],
           focus: [["S", "A", "T", "B"]],
+        },
+      ],
+    },
+    {
+      title: "4. Demonstração: desenhar a curva antes de escrever",
+      blocks: [
+        { type: "paragraph", text: "Problema: uma canção com forma A B A B C B (verso, refrão, verso, refrão, ponte, refrão), 3 minutos, coro SATB. Onde fica o clímax e como cada seção contribui?" },
+        { type: "list", ordered: true, items: [
+          "Marque o ponto culminante da melodia em cada seção. Se o refrão tem a nota mais aguda, ele é o candidato natural a clímax — mas qual dos três refrões?",
+          "Escolha o último refrão como clímax e o primeiro verso como ponto mais baixo. A ponte (C) é o 'vale' antes da subida final.",
+          "Para cada seção, decida qual dos cinco controles muda (dinâmica, densidade, registro, ritmo, harmonia). Mude um ou dois por vez, não todos.",
+          "Desenhe a curva com números de 1 a 5: A=1, B=3, A=2, B=4, C=2, B=5. Ela sobe em ondas, recua antes de cada subida e termina no máximo.",
+          "Confira o fim: depois do clímax, o arranjo termina forte (no tempo) ou pousa (ritardando, acorde longo)? A decisão depende da letra.",
+        ] },
+        { type: "table", caption: "A curva traduzida em recursos", headers: ["Seção", "Energia (1–5)", "O que muda em relação à anterior"], rows: [["A (verso 1)", "1", "uníssono ou pad; p"], ["B (refrão 1)", "3", "homofonia (densidade) e mf"], ["A (verso 2)", "2", "melodia nos tenores (cor nova), mp"], ["B (refrão 2)", "4", "baixo rítmico (ritmo) e f"], ["C (ponte)", "2", "só três vozes, harmonia nova (ii, vi), p"], ["B (refrão final)", "5", "meio tom acima, melodia em oitavas, ff"]] },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Clímax no primeiro refrão", "o resto do arranjo soa como declínio", "reserve os recursos mais fortes para o fim"], ["Mudar todos os parâmetros a cada seção", "o ouvinte perde a referência", "mude um ou dois por vez"], ["Sem recuo antes do clímax", "o clímax não se destaca", "uma seção mais leve logo antes"], ["Repetir o refrão igual três vezes", "monotonia", "o mesmo, mas diferente: textura, naipe, registro"]] },
+        { type: "list", items: ["Forma = repetição + contraste.", "A curva de energia cresce em ondas e tem um único clímax.", "Controles: dinâmica, densidade, registro, ritmo e harmonia."] },
+        {
+          type: "challenge",
+          title: "Curva de energia de um hino estrófico",
+          task: "Um hino tem quatro estrofes iguais (forma A A A A) e será cantado por SATB a cappella. Desenhe a curva de energia (1 a 5) e diga, para cada estrofe, qual controle muda e por quê.",
+          constraints: ["A melodia é a mesma nas quatro estrofes.", "Use pelo menos três controles diferentes ao longo do arranjo.", "Um único clímax."],
+          criteria: ["A curva não é uma reta: há pelo menos um recuo.", "Cada estrofe muda um ou dois controles em relação à anterior.", "O clímax coincide com a estrofe de texto mais intenso (ou com a última)."],
+          hints: ["Numa forma estrófica, a única fonte de contraste é o arranjo: textura, naipe da melodia, dinâmica, harmonia, modulação.", "Uma estrofe em uníssono no começo deixa espaço para crescer depois.", "Muitos hinos guardam um descant para a última estrofe."],
+          solution: {
+            commentary: "Uma curva possível: 2 – 3 – 1 – 5. Estrofe 1 (2): uníssono de todo o coro, mf — apresenta a melodia. Estrofe 2 (3): homofonia a quatro vozes (densidade) — a harmonia aparece. Estrofe 3 (1): melodia nos contraltos com pad leve em 'uh', p (densidade e registro diminuem) — o recuo, ideal se o texto for mais introspectivo. Estrofe 4 (5): homofonia com descant dos sopranos e, se o grupo sustenta, meio tom acima (registro e harmonia), f. O clímax fica no fim e é preparado pelo recuo da estrofe 3.",
+            alternatives: ["Se o texto mais intenso for o da estrofe 3, o clímax pode estar ali, e a estrofe 4 'pousa' em p, com final em fermata."],
+          },
         },
       ],
     },
@@ -240,6 +274,34 @@ export const lessonVariacao: Lesson = {
         { type: "example", score: CHORALE_SATB_C, verdict: "correto", caption: "Final por cadência autêntica", commentary: "O final mais simples e eficaz: V – I com a sensível subindo à tônica." },
       ],
     },
+    {
+      title: "5. Demonstração: o mesmo refrão em três versões",
+      blocks: [
+        { type: "paragraph", text: "A 'Canção do Caminho' aparece três vezes como refrão. Veja como cada técnica da seção 1 vira uma decisão concreta — e por que a ordem importa." },
+        { type: "table", caption: "Três versões e o que cada uma acrescenta", headers: ["Versão", "Técnica", "Partitura do curso", "O que o ouvinte percebe"], rows: [["1", "homofonia simples", "harmonização em bloco (exemplo da aula de texturas)", "a canção, clara"], ["2", "troca de naipe + contracanto", "melodia no tenor com sopranos em notas longas", "a mesma canção, com outra cor"], ["3", "oitavas + modulação", "melodia em sopranos e tenores, meio tom acima", "o ponto mais alto do arranjo"]] },
+        { type: "paragraph", text: "Repare que cada versão mantém a melodia reconhecível e muda só um ou dois parâmetros. A ordem segue a curva de energia: da versão mais simples para a mais cheia." },
+        { type: "example", score: EXA.melodiaNoTenor, verdict: "correto", caption: "Versão 2: a melodia no tenor", commentary: "Mesmo material, cor diferente. Sopranos e contraltos ficam em notas longas, acima e mais suaves, para não cobrir a melodia." },
+      ],
+    },
+    {
+      title: "6. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Variar tanto que a melodia some", "o refrão deixa de ser reconhecido", "a melodia é intocável; varie o que está em volta"], ["Contracanto que se move junto com a melodia", "duas linhas competindo", "mova-o nas pausas e notas longas"], ["Modulação sem preparação", "o coro desafina na entrada", "interlúdio curto terminando na nova dominante"], ["Final sem relação com a curva", "o arranjo 'para' em vez de terminar", "escolha o final pela energia acumulada"]] },
+        { type: "list", items: ["O mesmo, mas diferente: varie textura, naipe, harmonia, registro, densidade.", "Contracanto se move quando a melodia para.", "O final confirma a curva: forte se o arranjo cresceu até o fim; pousado se o clímax veio antes."] },
+        {
+          type: "challenge",
+          title: "Três refrões, cinco técnicas",
+          task: "Planeje três versões de um refrão de oito compassos para SATB, usando ao todo pelo menos cinco técnicas diferentes da caixa de ferramentas, e escolha o final.",
+          constraints: ["A melodia continua reconhecível nas três versões.", "Cada versão acrescenta algo em relação à anterior.", "Indique o tipo de final (repetição lenta, tag, suspenso ou abrupto)."],
+          criteria: ["Cinco técnicas diferentes, cada uma nomeada.", "A energia cresce de uma versão para a outra (ou há um recuo justificado).", "O final combina com a curva."],
+          hints: ["Comece pela versão 3 (a mais cheia) e tire recursos para chegar às versões 1 e 2.", "Rearmonização e redução também contam como técnicas.", "Um tag (a frase final repetida com harmonia mais rica) combina com um arranjo que cresceu até o fim."],
+          solution: {
+            commentary: "Uma solução: Versão 1 — homofonia simples, mf (técnica: nova textura em relação ao verso). Versão 2 — redução nos quatro primeiros compassos (só contraltos e tenores), depois melodia nos tenores com contracanto dos sopranos em 'uh' (redução, troca de naipe, contracanto); dois acordes rearmonizados (vi no lugar de I, ii no lugar de IV). Versão 3 — modulação meio tom acima, melodia em oitavas (sopranos + tenores), baixo rítmico, f. Final: tag — a última frase repetida duas vezes, a segunda com o IV trocado por ii7 e a cadência alargada (ritardando). Técnicas: nova textura, redução, troca de naipe, contracanto, rearmonização, modulação.",
+            alternatives: ["Se o clímax do arranjo estiver numa ponte antes do último refrão, a versão 3 pode ser mais contida e o final, suspenso em pp."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-variacao",
@@ -356,6 +418,42 @@ export const lessonTensoes: Lesson = {
         { type: "example", score: EXA.bossa, verdict: "correto", caption: "Dm7 – G7 – Cmaj7", commentary: "O Dó5 do soprano (sétima de Dm7) desce para Si4 (terça de G7) e permanece como sétima maior de Cmaj7: uma única nota percorre três funções." },
         { type: "example", score: EXA.add9Tradicional, verdict: "incorreto", caption: "Cadd9 no coral tradicional", commentary: "No estilo tradicional, o Ré5 não pertence ao acorde de Dó e não é preparado nem resolvido: o motor o aponta como dissonância sem tratamento." },
         { type: "listening", title: "Ouça a nota que muda de função", score: EXA.bossa, instructions: ["Ouça só o soprano: Dó – Si – Si.", "Ouça tudo: perceba como a mesma nota Si soa diferente sobre G7 e sobre Cmaj7."], focus: [["S"], ["S", "A", "T", "B"]] },
+      ],
+    },
+    {
+      title: "3. Demonstração: de tríades a acordes com cor",
+      blocks: [
+        { type: "paragraph", text: "Problema: uma progressão I – vi – ii – V – I em tríades (estilo popular) soa 'escolar'. Como acrescentar sétimas e nonas sem tornar o trecho difícil de afinar?" },
+        { type: "list", ordered: true, items: [
+          "Identifique as notas comuns entre acordes vizinhos: elas são as candidatas a virar tensão sem que ninguém precise saltar.",
+          "Transforme uma nota que se repete em sétima: no I → vi (C → Am), o G do soprano continua e passa a ser a sétima de Am7.",
+          "Leve as vozes internas por grau até as notas de cor: B (sétima maior do I) a partir de C, F (sétima do V7) mantida do ii.",
+          "Mantenha fundamental no baixo e terça presente em todos os acordes; omita a quinta se faltar voz.",
+          "Ouça no estilo popular e confira que nenhuma tensão chega por salto grande.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Uma nota que 'muda de função' sem se mover (fundamental → sétima → nona) é o recurso mais afinável do arranjo popular: o cantor mantém a nota e o acorde muda por baixo. Se o seu coro for inseguro, use só esse tipo de tensão." },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Nona a um semitom de outra voz no grave", "soa como erro", "nona no agudo, longe de clusters graves"], ["Tensão alcançada por salto", "desafina", "chegue por grau ou nota comum"], ["Omitir a terça para caber a tensão", "acorde ambíguo", "omita a quinta"], ["Tensões no estilo tradicional sem tratamento", "dissonância sem preparação", "no coral tradicional, sétimas preparadas e resolvidas"]] },
+        { type: "list", items: ["No popular, sétimas e nonas são cor.", "Fundamental no baixo, terça e sétima nas vozes internas, tensão no agudo.", "Notas comuns e graus conjuntos tornam as tensões afináveis."] },
+        {
+          type: "challenge",
+          title: "Acrescente a cor sem saltos",
+          task: "A progressão C – Am – Dm – G – C está escrita em tríades (estilo popular). Reescreva-a como Cmaj7 – Am7 – Dm7 – G7 – Cmaj7, mantendo o baixo e o soprano G4 sempre que possível e movendo as vozes internas só por grau ou nota comum.",
+          start: EXD.tensStart,
+          revises: true,
+          constraints: ["Baixo igual ao da partitura dada.", "Cada voz se move no máximo um grau por acorde.", "Estilo popular a cappella."],
+          criteria: ["Cada acorde tem fundamental, terça e sétima.", "Nenhuma voz salta.", "O motor, no estilo popular, só registra observações informativas."],
+          hints: ["No Cmaj7, a sétima é B: o tenor pode começar em B3.", "No Am7, a sétima é G — já está no soprano. O tenor sobe B3 → C4 (terça de Am).", "No Dm7, a sétima é C: o tenor mantém C4. No G7, a sétima F fica no contralto, que já cantava F4 no Dm7."],
+          solution: {
+            score: EXD.tensSol,
+            commentary: "Soprano G4 – G4 | A4 – G4 | G4; contralto E4 – E4 | F4 – F4 | E4; tenor B3 – C4 | C4 – B3 | B3; baixo C3 – A2 | D3 – G2 | C3. O G4 do soprano é quinta do Cmaj7 e sétima do Am7; o C4 do tenor é terça do Am7 e sétima do Dm7; o F4 do contralto é terça do Dm7 e sétima do G7, e desce para E4. Ninguém salta: as cores vêm de notas que ficam paradas enquanto o baixo anda. O B3 final (sétima maior do I) não 'resolve' — no estilo popular, é cor; o motor registra só uma informação sobre a sensível.",
+            alternatives: ["Terminar em C6 (tenor B3 → A3) dá um final mais 'nostálgico'; o motor cifra esse acorde como Am7/C (vi⁶₅), que tem as mesmas notas."],
+          },
+        },
       ],
     },
   ],

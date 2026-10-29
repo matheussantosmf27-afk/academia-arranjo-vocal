@@ -283,6 +283,40 @@ export const lessonContraponto: Lesson = {
         { type: "listening", title: "Duas linhas", score: EX.duasVozes, instructions: ["Ouça cada voz separada e depois juntas."], focus: [["S"], ["B"], ["S", "B"]] },
       ],
     },
+    {
+      title: "2. Demonstração: uma entrada imitativa num arranjo",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha um motivo curto da melodia (um ou dois compassos) que funcione sobre uma harmonia simples — idealmente um único acorde.",
+          "Decida o intervalo da imitação: à oitava (mais fácil de afinar) ou à quinta (soa como uma fuga). Decida a distância no tempo: um compasso é o mais comum.",
+          "Escreva a primeira voz até o fim; depois copie-a para a segunda voz, deslocada. Agora confira cada tempo: onde as duas vozes se encontram, o intervalo é consonante ou é nota de passagem?",
+          "Corrija os choques mudando a primeira voz (e, portanto, a cópia), não só a segunda — num cânone, as duas são a mesma melodia.",
+          "Acrescente um baixo simples (pedal ou fundamentais) e confira os seis pares.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "No coro, a imitação mais eficaz costuma ser curta: duas ou três entradas sucessivas no início de uma seção, depois homofonia. Cânones longos exigem vozes muito seguras e escondem o texto (cada naipe canta uma palavra diferente ao mesmo tempo)." },
+      ],
+    },
+    {
+      title: "3. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Imitação sem defasagem", "paralelas o tempo todo", "desloque a entrada pelo menos um tempo"], ["Corrigir só a voz que entra depois", "a imitação deixa de ser imitação", "corrija a melodia original"], ["Consonâncias perfeitas no meio da frase entre as vozes extremas", "linhas que se fundem", "3ªs e 6ªs no meio; 5ªs e 8ªs no início e no fim"], ["Imitação que esconde o texto importante", "o público não entende", "imite em sílaba neutra ou só em palavras repetidas"]] },
+        { type: "list", items: ["Duas linhas independentes: consonâncias imperfeitas, movimento contrário.", "Imitação: mesmo motivo, outra voz, defasado no tempo.", "No coro, imitações curtas e seguras rendem mais que cânones longos."] },
+        {
+          type: "challenge",
+          title: "Um cânone sobre o pedal de Dó",
+          task: "A melodia do soprano está dada sobre um pedal de Dó no baixo. Faça o tenor imitá-la à oitava inferior, entrando um compasso depois, e confira se as duas linhas soam bem juntas.",
+          start: EXD.canoneStart,
+          constraints: ["O tenor canta exatamente a melodia do soprano, uma oitava abaixo e um compasso depois.", "Não altere o soprano nem o baixo.", "O tenor termina junto com o soprano, no compasso 4."],
+          criteria: ["Nos tempos fortes, soprano e tenor formam consonâncias (3ªs, 6ªs, 8ªs, 10ªs).", "As dissonâncias que aparecem são notas de passagem por grau.", "O motor só registra observações informativas."],
+          hints: ["O tenor começa no compasso 2 com E3 – F3 – G3 – E3.", "No compasso 4, o tenor canta o compasso 3 do soprano, uma oitava abaixo, enquanto o soprano sustenta C5.", "Confira o compasso 3: soprano E5 – D5 – C5 contra tenor G3 – C4."],
+          solution: {
+            score: EXD.canoneSol,
+            commentary: "Tenor: pausa | E3 F3 G3 E3 | G3 C4 | E4 D4 C4. Como toda a melodia cabe no acorde de Dó (com F e D como notas de passagem), qualquer trecho soa bem contra qualquer outro — é o princípio dos rounds. No compasso 3, o C5 do soprano encontra o C4 do tenor (8ª) depois de vir de D5 sobre G3: não há paralelismo, porque o intervalo anterior era uma 12ª e as vozes se movem em direções diferentes.",
+            alternatives: ["Imitação à quinta inferior (o tenor começa em A2…) exigiria mudar a harmonia de cada compasso: sobre um pedal de Dó, ela produziria choques no tempo forte. A imitação à oitava é a escolha natural sobre harmonia estática."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-contraponto",
@@ -323,6 +357,36 @@ export const lessonProsodia: Lesson = {
         { type: "example", score: EX.semRespiracao, verdict: "observacao", caption: "20 segundos sem pausa", commentary: "O motor sugere planejar respirações (heurística de 15 s). Em coro, a respiração escalonada resolve notas longas — indique-a na partitura." },
         { type: "callout", tone: "atencao", title: "Limite do motor", text: "O motor ainda não lê a acentuação das sílabas. Ao escrever a letra no Estúdio, marque as sílabas tônicas em maiúsculas para conferir visualmente o alinhamento com os tempos fortes." },
         { type: "listening", title: "Respire com a frase", score: EX.melodiaFrase, instructions: ["Cante e respire apenas na pausa."], focus: [["S"]] },
+      ],
+    },
+    {
+      title: "2. Silabação, melisma e o peso das palavras",
+      blocks: [
+        { type: "paragraph", text: "Silabação é uma nota por sílaba: o texto fica claro e o ritmo da fala, preservado. Melisma é uma sílaba sobre várias notas: o texto fica mais lento e a palavra ganha destaque. A escolha é de interpretação do texto: melisma em 'glória', 'amor', 'luz' (palavras que o texto quer sublinhar, com vogal aberta e sílaba tônica); silabação em narrativas e diálogos." },
+        { type: "table", caption: "Onde respirar e onde não respirar", headers: ["Lugar", "Respirar?", "Por quê"], rows: [["Vírgula, ponto, fim de verso", "sim", "o texto já pausa"], ["Antes de uma palavra importante", "sim, se houver tempo", "a respiração destaca a palavra"], ["Entre artigo e substantivo ('a / luz')", "não", "separa o que o ouvido junta"], ["No meio de uma palavra", "nunca", "erro de arranjo, não do cantor"], ["Em nota longa sem pausa possível", "respiração escalonada", "o naipe reveza o fôlego"]] },
+        { type: "paragraph", text: "Demonstração com o verso 'Fica comigo, que a tarde já cai, e o caminho é longo' em quatro vozes: 1) marque as vírgulas (depois de 'comigo' e de 'cai'); 2) meça cada trecho no andamento escolhido; 3) coloque as respirações nas vírgulas, nas quatro vozes ao mesmo tempo, encurtando a nota anterior em vez de acrescentar compassos; 4) evite respirar entre 'que' e 'a tarde' ou entre 'o' e 'caminho'; 5) se 'longo' terminar numa nota longa, indique respiração escalonada só se a nota passar de uns 8 segundos." },
+      ],
+    },
+    {
+      title: "3. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Pausa só na melodia", "as outras vozes respiram onde der", "planeje respirações para todas as vozes"], ["Melisma em sílaba átona ou artigo", "o texto fica incompreensível", "melisma em sílaba tônica de palavra importante"], ["Respiração entre artigo e substantivo", "quebra a unidade da frase", "respire antes do artigo"], ["Frases de mais de 15 s sem indicação", "respirações aleatórias", "pausas no texto ou respiração escalonada indicada"]] },
+        { type: "list", items: ["Respire onde o texto respira.", "Melisma destaca; silabação esclarece.", "Todas as vozes precisam de respirações coerentes com o texto."] },
+        {
+          type: "challenge",
+          title: "Respirações para 'Canta, coração'",
+          task: "A melodia abaixo (♩ = 60) dura 28 segundos sem pausa. Insira as respirações nos lugares que o texto pede, sem acrescentar compassos.",
+          start: EXD.prosStart,
+          revises: true,
+          constraints: ["Mesmo número de compassos e mesmas alturas.", "Respire só onde houver vírgula ou fim de frase.", "Nenhum trecho com mais de 15 s sem pausa."],
+          criteria: ["As pausas caem depois de sílabas finais de palavra, nunca no meio.", "O motor não sugere mais respirações.", "O texto continua alinhado: tônicas nas notas longas ou nos tempos fortes."],
+          hints: ["Onde estão as vírgulas? Depois de 'Canta', 'coração' e 'longe'.", "Depois de 'Canta' não há tempo (a nota é uma mínima seguida de outra sílaba). As notas longas de 'ção' e 'lon-' são os melhores lugares.", "Encurte notas longas antes das vírgulas e use pausas de semínima; no compasso 6, 'lon-ge' precisa caber inteiro antes da pausa."],
+          solution: {
+            score: EXD.prosSol,
+            commentary: "Duas respirações, nas duas vírgulas mais fortes: depois de 'coração,' (compasso 3: a semibreve vira mínima pontuada + pausa de semínima) e depois de 'longe,' (compasso 6: 'lon-' e 'ge' passam a caber no mesmo compasso, com uma pausa no fim, e 'vai.' fica sozinho no compasso 7). As alturas e a ordem das notas não mudaram; os trechos sem pausa ficam com cerca de 11, 11 e 4 segundos. Repare na armadilha: respirar logo depois de 'lon-' separaria a palavra em duas.",
+            alternatives: ["Respiração escalonada em vez de pausas: os sopranos alternam o momento de respirar e a linha soa contínua — útil se o caráter pedir uma frase longa sem cortes."],
+          },
+        },
       ],
     },
   ],
@@ -367,6 +431,48 @@ export const lessonAcompanhamento: Lesson = {
         { type: "example", score: EX.ttbbBaixoFora, verdict: "incorreto", caption: "Introdução grave demais", commentary: "Começar fora da extensão do baixo compromete a afinação desde o primeiro acorde." },
         { type: "callout", tone: "dica", title: "Acompanhamento instrumental", text: "Nesta versão o Estúdio escreve apenas vozes. Para arranjos com piano, planeje o acompanhamento como uma quinta camada: dobrar o baixo e a harmonia, sem duplicar a melodia o tempo todo, dá apoio sem tirar a independência do coro." },
         { type: "listening", title: "Ouça a introdução", score: CHORALE_TTBB_G, instructions: ["Ouça e cante a primeira nota do Tenor II em seguida."], focus: [["T1", "T2", "B1", "B2"]] },
+      ],
+    },
+    {
+      title: "2. Demonstração: uma introdução que entrega a nota",
+      blocks: [
+        { type: "paragraph", text: "Problema: um hino em Sol maior começa com o soprano em D5 sobre o acorde de Sol. Precisamos de quatro compassos de introdução a cappella, em bocca chiusa, que deem a tonalidade, o andamento e a primeira nota de cada naipe." },
+        { type: "list", ordered: true, items: [
+          "Escolha o material: os dois últimos compassos do hino (que terminam em cadência autêntica) ou um motivo da melodia. Aqui, a cadência final: o público ouve o 'fim' antes do começo, e o coro aprende a tonalidade.",
+          "Decida onde terminar: na tônica (a introdução 'fecha' e o hino recomeça) ou na dominante (a introdução 'chama' a entrada). Com a cadência final, a introdução termina na tônica.",
+          "Pense na primeira nota de cada naipe: o soprano precisa de D5. Se o último acorde da introdução tiver D5 no soprano, a entrada é por nota comum — a mais segura de todas.",
+          "Se a introdução terminasse no V7 (D–F♯–A–C), o D5 também estaria disponível como nota comum, e o F♯ e o C de outras vozes resolveriam na entrada.",
+          "Confira extensão e dinâmica: a introdução fica na mesma região do hino e um nível de dinâmica abaixo dele.",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "Introdução em bocca chiusa ('mm') soa suave e não antecipa o texto. Com 'uh' ou 'ah', ela fica mais presente. Se o coro tiver dificuldade para encontrar a nota, a introdução pode terminar em uníssono na primeira nota de cada naipe — menos elegante, mais segura." },
+      ],
+    },
+    {
+      title: "3. Interlúdios, erros comuns e síntese",
+      blocks: [
+        { type: "paragraph", text: "Interlúdio é a ponte entre estrofes ou seções. Ele faz duas coisas: dá um respiro ao texto e prepara a próxima entrada (inclusive uma modulação). Receita segura: dois a quatro compassos com um motivo da melodia, terminando na dominante da tonalidade seguinte." },
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Introdução que termina num acorde sem relação com a entrada", "o coro não acha a nota", "termine na dominante ou na tônica com a primeira nota em evidência"], ["Introdução longa demais", "o público se dispersa", "2 a 8 compassos, com material da própria canção"], ["Introdução fora da extensão", "afinação insegura desde o início", "escreva-a na mesma região do arranjo"], ["Acompanhamento que dobra a melodia o tempo todo", "o coro perde autonomia", "apoio harmônico e rítmico; melodia só em momentos de reforço"]] },
+        { type: "list", items: ["Introdução: tonalidade, andamento, caráter e a primeira nota.", "Termine na dominante ou na tônica com a nota inicial em evidência.", "Interlúdio: respiro + preparação da próxima entrada."] },
+      ],
+    },
+    {
+      title: "4. Exercício independente",
+      blocks: [
+        {
+          type: "challenge",
+          title: "Dois compassos antes do 'Vou'",
+          task: "Escreva dois compassos de introdução SATB, em bocca chiusa, que terminem num acorde de dominante e levem o soprano à sua primeira nota (E4) e cada naipe à nota do primeiro acorde do verso (dado no compasso 3).",
+          start: EXD.introStart,
+          revises: true,
+          constraints: ["Mantenha o compasso 3 (primeiro acorde do verso) como está.", "Estilo coral tradicional; um acorde por mínima.", "Termine o compasso 2 em V ou V7."],
+          criteria: ["Cada voz chega à sua nota do compasso 3 por grau ou por nota comum.", "A sensível do último acorde está presente uma vez.", "O motor não aponta erros nem alertas."],
+          hints: ["Que nota do V7 de Dó desce por grau para E4?", "Se o soprano terminar em F4, de onde ele pode vir? Pense em G4 – A4 – G4 – F4.", "Baixo possível: C3 – F3 | G3 – G2."],
+          solution: {
+            score: EXD.introSol,
+            commentary: "I – IV | V – V7: soprano G4 – A4 | G4 – F4 e a sétima F4 resolve no E4 do verso. O tenor sustenta C4 e B3, e a sensível B3 desce para G3 no acorde do verso (voz interna, recurso aceito e registrado só como informação). O baixo cai uma oitava (G3 → G2) no V7 para dar peso à chegada. No IV → V, soprano, contralto e tenor descem enquanto o baixo sobe.",
+            alternatives: ["Uma introdução com os dois últimos compassos da canção (que terminam na tônica) também funciona: o soprano termina em C5 e precisa saltar para E4 — viável, mas menos 'entregue' que a sétima resolvendo."],
+          },
+        },
       ],
     },
   ],
@@ -415,6 +521,41 @@ export const lessonModulacao: Lesson = {
         { type: "paragraph", text: "Para ir de Dó maior a Sol maior, escolha um acorde que pertença às duas tonalidades (pivô): Lá menor é vi em Dó e ii em Sol. Depois do pivô, use a dominante da nova tonalidade (D7) e confirme com uma cadência. Limitação atual: o motor analisa tudo na tonalidade da partitura, então a nova região aparece como funções secundárias." },
         { type: "example", score: EX.paralelas, verdict: "incorreto", caption: "Reharmonização em bloco", commentary: "Trocar acordes sem cuidar da condução cria paralelas; reharmonizar é sempre reconduzir as vozes." },
         { type: "listening", title: "Ouça a tonicização", score: EX.tonicizacao, instructions: ["Ouça o contralto: F♯ → G.", "Ouça o conjunto e sinta o 'brilho' do V⁷/V."], focus: [["A"], ["S", "A", "T", "B"]] },
+      ],
+    },
+    {
+      title: "3. Demonstração passo a passo: escrever um V7/V",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Encontre o acorde que vai ser tonicizado: em Ré maior, o V é Lá maior (A–C♯–E).",
+          "Construa a dominante dele: a quinta acima de A é E; E7 = E–G♯–B–D. O G♯ é a 'sensível secundária' (não pertence a Ré maior).",
+          "Faça o G♯ chegar por grau (de G ou de F♯) e subir para A no acorde seguinte.",
+          "Prepare a sétima D: ela é a tônica de Ré maior, então pode estar no acorde anterior como nota comum e descer para C♯ (terça do V).",
+          "Confira: duas tendências resolvendo ao mesmo tempo (G♯ → A, D → C♯) e nenhuma 5ª paralela no movimento do baixo D → E.",
+        ] },
+        { type: "callout", tone: "atencao", title: "Tonicização × modulação", text: "Tonicizar é visitar a dominante de um grau por um instante e voltar; modular é mudar de tônica de fato, confirmando a nova tonalidade com uma cadência. O motor analisa sempre na tonalidade da partitura: numa modulação real, cifra a nova região como funções secundárias. Para uma modulação longa, mude a tonalidade em Propriedades a partir do compasso da cadência." },
+        { type: "table", caption: "Reharmonizar sem perder a condução", headers: ["Troca", "Exemplo em Dó", "Cuidado de condução"], rows: [["V por V7/V – V", "G → D7 – G", "F♯ sobe para G; C (sétima) desce para B"], ["IV por ii⁶", "F → Dm/F", "mesmo baixo, uma nota muda"], ["I por vi", "C → Am", "duas notas comuns; atenção à terça dobrada"], ["V por vii°⁶", "G → B°/D", "sensível no meio, baixo D"]] },
+      ],
+    },
+    {
+      title: "4. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Sensível secundária descendo", "a tonicização não se ouve", "G♯ (em Ré) sobe para A"], ["Falsa relação (G no soprano, G♯ no baixo em seguida)", "choque cromático entre vozes", "o cromatismo na mesma voz: G → G♯"], ["Reharmonizar trocando só os acordes", "paralelas e saltos", "reconduza todas as vozes"], ["Modular sem cadência na nova tonalidade", "o ouvido não confirma a mudança", "V7 → I na nova tonalidade"]] },
+        { type: "list", items: ["Dominante secundária: V ou V7 de outro grau; sensível secundária sobe.", "Modulação por acorde comum (pivô) + cadência na nova tonalidade.", "Reharmonizar é reconduzir."] },
+        {
+          type: "challenge",
+          title: "Tonicizar a dominante em Ré",
+          task: "Soprano e baixo estão dados para I – V7/V | V – I em Ré maior. Escreva contralto e tenor resolvendo a sensível secundária e a sétima.",
+          start: EXD.modStart,
+          constraints: ["Não altere soprano nem baixo.", "O V7/V deve ter G♯.", "Estilo coral tradicional."],
+          criteria: ["G♯ chega por grau e sobe para A.", "A sétima D (no soprano) desce para C♯.", "O motor cifra V7/V e não aponta erros nem alertas."],
+          hints: ["A sétima do E7 é D — o soprano já a tem, preparada no I.", "O contralto pode fazer F♯4 → G♯4 → A4.", "Cuidado com o tenor: A3 → B3 com o baixo D3 → E3 dá quintas paralelas. Comece o tenor em D4."],
+          solution: {
+            score: EXD.modSol,
+            commentary: "Contralto F♯4 – G♯4 | A4 – F♯4 (a sensível secundária sobe); tenor D4 – B3 | A3 – A3; o soprano faz D5 – D5 – C♯5 – D5: a mesma nota é tônica do I, sétima preparada do V7/V e desce para C♯5. O motor cifra I – V7/V – V – I sem problemas.",
+            alternatives: ["Com o V7/V em primeira inversão (baixo G♯2), a sensível secundária fica no baixo e sobe para A2 — mas, vindo de D3, o baixo teria de saltar uma 4ª aumentada (D3 → G♯2), difícil de cantar. A inversão funciona quando o baixo chega ao G♯ por grau, de G ou de A."],
+          },
+        },
       ],
     },
   ],

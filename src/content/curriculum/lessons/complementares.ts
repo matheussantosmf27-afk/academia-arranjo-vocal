@@ -807,6 +807,40 @@ export const lessonHarmoniaCromatica: Lesson = {
         { type: "example", score: EXA.gospelBlocoParalelo, verdict: "observacao", caption: "Paralelismo tonal", commentary: "Tríades deslizando pela escala: no estilo popular, só sugestões. No tradicional, seriam erros." },
       ],
     },
+    {
+      title: "4. Demonstração: inserir um empréstimo modal",
+      blocks: [
+        { type: "list", ordered: true, items: [
+          "Escolha o ponto: o empréstimo funciona melhor numa cadência plagal (IV – iv – I) ou como cor num acorde que se repete.",
+          "Identifique a nota alterada: o iv de Dó (Fá menor) difere do IV (Fá maior) só no Lá → Lá♭.",
+          "Coloque essa nota numa voz que já tenha Lá no IV: a mudança será de um semitom, na mesma voz.",
+          "Faça a nota alterada continuar por grau: Lá♭ desce para Sol (quinta do I).",
+          "Confira: nenhuma outra voz canta Lá natural ao mesmo tempo ou logo em seguida (falsa relação).",
+        ] },
+        { type: "callout", tone: "dica", title: "Decisões do arranjador", text: "O iv no fim de uma canção alegre dá um toque melancólico de 'despedida'; o ♭VI e o ♭VII antes do I dão grandeza (muito usados no pop e em trilhas). Use um empréstimo por seção: mais que isso, a tonalidade maior começa a soar menor." },
+      ],
+    },
+    {
+      title: "5. Erros comuns, síntese e exercício independente",
+      blocks: [
+        { type: "table", caption: "Erros frequentes", headers: ["Erro", "Efeito", "Correção"], rows: [["Nota alterada alcançada por salto", "difícil de afinar", "semitom na mesma voz"], ["Falsa relação (A♮ numa voz, A♭ em outra)", "choque", "o cromatismo fica numa voz só"], ["2ª aumentada na mesma voz", "intervalo difícil", "grafia e caminho por semitons"], ["Planing no estilo tradicional", "paralelas", "planing só no estilo popular ou moderno"]] },
+        { type: "list", items: ["Empréstimo: iv, ♭VI, ♭VII do modo menor.", "Napolitana e sextas aumentadas resolvem por semitom.", "Cromatismo afinável = semitom ou nota comum em cada voz."] },
+        {
+          type: "challenge",
+          title: "Um 'Amém' com empréstimo",
+          task: "Soprano (C5 sustentado) e baixo estão dados para I – IV | iv – I em Dó maior. Escreva contralto e tenor de modo que o Lá♭ do iv chegue por semitom.",
+          start: EXD.cromStart,
+          constraints: ["Não altere soprano nem baixo.", "O iv tem Lá♭.", "Estilo coral tradicional."],
+          criteria: ["A mesma voz canta Lá (no IV), Lá♭ (no iv) e Sol (no I).", "Nenhuma falsa relação.", "O motor não aponta erros nem alertas."],
+          hints: ["Quem canta o Lá no IV? Escolha uma voz interna.", "O tenor pode fazer G3 – A3 – A♭3 – G3.", "O contralto fica com E e F (terça do I, fundamental do IV/iv)."],
+          solution: {
+            score: EXD.cromSol,
+            commentary: "Tenor G3 – A3 | A♭3 – G3: a linha cromática A → A♭ → G fica numa voz só, em semitons — fácil de afinar e sem falsa relação. Contralto E4 – F4 | F4 – E4. O soprano parado em C5 e o baixo F3 parado nos dois acordes do meio fazem do Lá♭ o único acontecimento: toda a cor nova vem de uma nota.",
+            alternatives: ["A linha cromática também pode ficar no contralto (G4 – A4 | A♭4 – G4, sob o C5 do soprano), deixando a cor mais audível; o tenor passa então para E4 – F4 | F4 – E4, no alto da tessitura — confira com o motor antes de adotar."],
+          },
+        },
+      ],
+    },
   ],
   exercises: {
     id: "ex-harmonia-cromatica",
