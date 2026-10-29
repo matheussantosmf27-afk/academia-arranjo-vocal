@@ -102,4 +102,14 @@ export const EXD = {
   modSol: satb("exd-desafio-modulacao-sol", "Solução: a sétima preparada e a sensível secundária G♯", { S: "D5:h D5:h | C#5:h D5:h", A: "F#4:h G#4:h | A4:h F#4:h", T: "D4:h B3:h | A3:h A3:h", B: "D3:h E3:h | A2:h D3:h" }, { key: "D" }),
   cromStart: satb("exd-desafio-cromatico", "'Amém' com empréstimo: soprano e baixo dados", { S: "C5:h C5:h | C5:h C5:h", A: rests(2), T: rests(2), B: "C3:h F3:h | F3:h C3:h" }),
   cromSol: satb("exd-desafio-cromatico-sol", "Solução: I – IV – iv – I com o Lá♭ chegando por semitom", { S: "C5:h C5:h | C5:h C5:h", A: "E4:h F4:h | F4:h E4:h", T: "G3:h A3:h | Ab3:h G3:h", B: "C3:h F3:h | F3:h C3:h" }),
+  // ——— 4º semestre ———
+  marStart: satb("exd-desafio-mar-sereno", "'Mar sereno': melodia para rearmonizar", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marDim: satb("exd-desafio-diminuto-sol", "Solução: C – G | Am – C♯°7 | Dm – G7 | C", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h E4:h | F4:h F4:h | E4:w", T: "G3:h G3:h | E3:h Bb3:h | A3:h G3:h | G3:w", B: "C3:h G2:h | A2:h C#3:h | D3:h G2:h | C3:w" }, { style: "popular-a-cappella" }),
+  marDia: satb("exd-desafio-rearm-diatonica-sol", "Solução: C – G/D | Am/E – G7/F | Am/E – G/D | C", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h D4:h | C4:h D4:h | E4:w", T: "G3:h G3:h | A3:h B3:h | A3:h G3:h | G3:w", B: "C3:h D3:h | E3:h F3:h | E3:h D3:h | C3:w" }, { style: "popular-a-cappella" }),
+  marDiaStart: satb("exd-desafio-rearm-diatonica", "'Mar sereno': rearmonize só com acordes diatônicos", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marDimStart: satb("exd-desafio-diminuto", "'Mar sereno': insira um diminuto de passagem", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marBaixoStart: satb("exd-desafio-rearm-baixo", "'Mar sereno': escreva primeiro o baixo", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marBaixo: satb("exd-desafio-rearm-baixo-sol", "Solução: baixo subindo C – D – E – F – F♯ – G – C contra a melodia", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h E4:h | F#4:h D4:h | E4:w", T: "G3:h G3:h | A3:h A3:h | C4:h G3:h | G3:w", B: "C3:h D3:h | E3:h F3:h | F#3:h G3:h | C3:w" }, { style: "popular-a-cappella" }),
+  ttbb7Start: ttbb("exd-desafio-ttbb-setima", "E7 → A: lead e baixo dados", { T1: "r:w | r:w", T2: "B3:w | A3:w", B1: "r:w | r:w", B2: "E3:w | A2:w" }, { key: "A" }),
+  ttbb7Sol: ttbb("exd-desafio-ttbb-setima-sol", "Solução: sétima completa no quarteto e resolução com o grave aberto", { T1: "D4:w | C#4:w", T2: "B3:w | A3:w", B1: "G#3:w | E3:w", B2: "E3:w | A2:w" }, { key: "A" }),
 } as const;
