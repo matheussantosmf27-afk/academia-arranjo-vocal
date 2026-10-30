@@ -215,7 +215,7 @@ export const EAR_COMPARISONS: readonly EarComparison[] = [
     explanation: "Na versão marcada, o tenor canta a mesma melodia uma oitava abaixo, um compasso depois: um cânone. Na outra, ele canta junto com o soprano, nota contra nota em movimento paralelo, e as duas linhas viram uma só.",
     formation: "SATB", key: "G", time: "4/4",
     marked: { S: "G4:q A4:q B4:q B4:q | B4:q C5:q D5:h | D5:q B4:q B4:h | G4:w", A: R(4), T: "r:w | G3:q A3:q B3:q B3:q | B3:q C4:q D4:h | D4:q B3:q B3:h", B: "G2:w | G2:w | G2:w | G2:w" },
-    plain: { S: "G4:q A4:q B4:q B4:q | B4:q C5:q D5:h", A: R(2), T: "C4:q D4:q E4:q E4:q | E4:q F4:q G4:h", B: "G2:w | G2:w" },
+    plain: { S: "G4:q A4:q B4:q B4:q | B4:q C5:q D5:h | D5:q B4:q B4:h | G4:w", A: R(4), T: "C4:q D4:q E4:q E4:q | E4:q F4:q G4:h | G4:q E4:q E4:h | B3:w", B: "G2:w | G2:w | G2:w | G2:w" },
   },
   {
     topic: "respiracao",
@@ -275,10 +275,10 @@ export const EAR_COMPARISONS: readonly EarComparison[] = [
   {
     topic: "anacruse",
     question: "Em qual versão a melodia começa antes do primeiro tempo forte (anacruse)?",
-    explanation: "Na versão marcada, 'ca-mi-' ocupam os tempos 2 e 3 e a tônica 'NHAR' cai no tempo forte seguinte. Na outra, a melodia começa no tempo 1 e as tônicas caem nos tempos fracos.",
+    explanation: "Na versão marcada, 'ca-mi-' ocupam os tempos 2 e 3 e a tônica 'NHAR' cai no tempo forte seguinte. Na outra, com as mesmas notas e a mesma duração total, a melodia começa no tempo 1: 'ca-', 'con-' e 'ti-', sílabas átonas, ficam longas ou caem em tempo forte.",
     formation: "SATB", key: "C", time: "3/4",
     marked: { S: 'r:q E4:q"ca- F4:q"mi- | G4:h"nhar C5:q"con- | B4:h"ti- A4:q"go | G4:h.', A: "r:h. | r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h. | r:h." },
-    plain: { S: 'E4:q"ca- F4:q"mi- G4:q"nhar | C5:q"con- B4:q"ti- A4:q"go | G4:h.', A: "r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h." },
+    plain: { S: 'E4:h"ca- F4:q"mi- | G4:q"nhar C5:h"con- | B4:q"ti- A4:h"go | G4:h.', A: "r:h. | r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h. | r:h." },
   },
   {
     topic: "menor-melodica",

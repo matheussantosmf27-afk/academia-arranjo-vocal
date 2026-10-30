@@ -19,7 +19,8 @@ describe("comparações auditivas", () => {
       const b = versionScore(c, "plain");
       const both = comparisonScore(c, true);
       expect(both.measureCount, c.topic).toBe(a.measureCount + 1 + b.measureCount);
-      expect(versionScore(c, "plain").measureCount).toBe(b.measureCount);
+      // mesma duração nas duas versões: o tamanho do trecho não pode servir de pista
+      expect(b.measureCount, c.topic).toBe(a.measureCount);
     }
   });
 
