@@ -18,7 +18,7 @@ const VAGUE = /^(entender|compreender|conhecer|saber|aprender|perceber|ter no(ç
 /** Geradores que pedem decisão de escrita (escolher entre realizações conferidas pelo motor). */
 const PRODUCTION: GeneratorSpec["type"][] = ["realization", "ttbb-voicing", "ssaa-voicing", "reharm-choice", "voice-leading-error"];
 /** Geradores com escuta como parte da tarefa. */
-const EAR: GeneratorSpec["type"][] = ["cadence-identification"];
+const EAR: GeneratorSpec["type"][] = ["cadence-identification", "ear-comparison"];
 
 const words = (s: string) => s.split(/\s+/).filter(Boolean).length;
 function blockWords(b: ContentBlock): number {
@@ -84,7 +84,7 @@ export function auditLesson(lesson: Lesson): LessonAudit {
   const shownFirstRate = seen ? seenFirst / seen : 0;
   const gens = spec?.generators ?? [];
   const generatedItems = items.length - statics.length;
-  const earItems = items.filter((i) => i.earOnly).length + gens.filter((g) => EAR.includes(g.type)).reduce((n, g) => n + g.count, 0);
+  const earItems = items.filter((i) => i.earOnly).length + gens.filter((g) => EAR.includes(g.type) || ("earOnly" in g && g.earOnly)).reduce((n, g) => n + g.count, 0);
   let earInReview = false;
   if (spec) for (let seed = 1; seed <= 10 && !earInReview; seed++) earInReview = buildReviewSet(spec, seed).some((i) => i.earOnly);
   const productionItems = gens.filter((g) => PRODUCTION.includes(g.type)).reduce((n, g) => n + g.count, 0);

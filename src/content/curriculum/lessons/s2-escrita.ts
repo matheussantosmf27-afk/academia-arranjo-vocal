@@ -344,7 +344,7 @@ export const lessonTexturas: Lesson = {
         explanation: "Vozes acima da melodia tendem a encobri-la; precisam ser discretas.",
       },
     ],
-    generators: [{ type: "motion-type", count: 3 }, { type: "voice-leading-error", count: 2, ruleIds: ["conducao.paralelas"] }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["textura-pad", "melodia-interna", "oitavas"] }, { type: "motion-type", count: 3 }, { type: "voice-leading-error", count: 2, ruleIds: ["conducao.paralelas"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo pad e variação de textura.",
   application: {
@@ -511,7 +511,7 @@ export const lessonVoicings: Lesson = {
         explanation: "A mesma escrita recebe julgamentos diferentes conforme o estilo.",
       },
     ],
-    generators: [{ type: "voice-leading-error", count: 3, ruleIds: ["vozes.espacamento", "vozes.cruzamento", "conducao.paralelas"] }, { type: "chord-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["espacamento"] }, { type: "chord-identification", count: 1, earOnly: true }, { type: "voice-leading-error", count: 3, ruleIds: ["vozes.espacamento", "vozes.cruzamento", "conducao.paralelas"] }, { type: "chord-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a definição de posição fechada.",
   application: {
@@ -704,7 +704,7 @@ export const lessonSilabas: Lesson = {
         explanation: "Indicar o fechamento evita que cada cantor feche num momento diferente.",
       },
     ],
-    generators: [{ type: "range-check", count: 3 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["textura-pad", "melodia-interna"] }, { type: "range-check", count: 3 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a escolha da sílaba de pad.",
   application: {

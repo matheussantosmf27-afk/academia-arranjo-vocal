@@ -66,9 +66,17 @@ test("tentativa completa de exercícios com feedback e registro no perfil", asyn
   // exemplos renderizados em notação real (SVG do VexFlow)
   await expect(page.locator(".score-surface svg").first()).toBeVisible();
   await page.getByRole("button", { name: "Iniciar tentativa" }).click();
+  let earItems = 0;
   for (let i = 0; i < 30; i++) {
     const verificacao = page.locator("section[aria-labelledby='exercicios']");
-    const option = verificacao.locator("fieldset button[aria-pressed]").first();
+    // comparação auditiva: só o player antes da resposta; a partitura aparece depois
+    const ear = await verificacao.locator("legend", { hasText: "Ouça as duas versões" }).isVisible();
+    if (ear) {
+      earItems += 1;
+      await expect(verificacao.getByText("Notação oculta até a resposta")).toBeVisible();
+      await expect(verificacao.locator("fieldset .score-surface")).toHaveCount(0);
+    }
+    const option = verificacao.getByRole("group", { name: "Alternativas", exact: true }).getByRole("button").first();
     await option.click();
     await expect(verificacao.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
     const reveal = verificacao.getByRole("button", { name: "Mostrar a resposta" });
@@ -78,11 +86,13 @@ test("tentativa completa de exercícios com feedback e registro no perfil", asyn
       await reveal.click();
     }
     await expect(verificacao.getByRole("status").filter({ hasText: /Correto\.|Resposta destacada/ })).toBeVisible();
+    if (ear) await expect(verificacao.locator("fieldset .score-surface")).toBeVisible();
     const next = page.getByRole("button", { name: /Próximo|Ver resultado/ });
     const label = await next.textContent();
     await next.click();
     if (label?.includes("Ver resultado")) break;
   }
+  expect(earItems).toBe(2);
   await expect(page.getByRole("heading", { name: "Resultado" })).toBeVisible();
   await expect(page.getByRole("button", { name: "Nova tentativa" })).toBeVisible();
   await page.goto("/perfil");
@@ -206,7 +216,7 @@ test("revisão espaçada: aula concluída há três dias volta com itens novos e
   await expect(revisao.getByRole("heading", { name: "Revisão espaçada", level: 3 })).toBeVisible();
   await revisao.getByRole("button", { name: "Iniciar revisão" }).click();
   for (let i = 0; i < 10; i++) {
-    await revisao.locator("fieldset button[aria-pressed]").first().click();
+    await revisao.getByRole("group", { name: "Alternativas", exact: true }).getByRole("button").first().click();
     await expect(revisao.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
     const reveal = revisao.getByRole("button", { name: "Mostrar a resposta" });
     if (await reveal.isVisible()) await reveal.click();

@@ -232,7 +232,7 @@ export function AnswerFlow({
       <fieldset className={styles.item}>
         <legend className={styles.prompt}>{item.prompt}</legend>
         <ItemMedia item={item} answered={revealed} />
-        <div className={styles.options}>
+        <div className={styles.options} role="group" aria-label="Alternativas">
           {item.options.map((o) => {
             const isCorrect = o.id === item.correctOptionId;
             const pickedWrong = (o.id === first && !firstCorrect) || (o.id === retry.second && !secondCorrect);

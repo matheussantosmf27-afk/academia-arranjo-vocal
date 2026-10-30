@@ -15,6 +15,7 @@ import {
   generateReharmItems,
   generateTtbbVoicingItems,
 } from "./generators2";
+import { generateEarComparisonItems } from "./ear-library";
 import { createRng, shuffle } from "./random";
 import type { AnswerRecord, ExerciseItem, ExerciseSetSpec, GeneratorSpec, MasteryResult } from "./types";
 
@@ -38,6 +39,7 @@ function generateItems(generators: readonly GeneratorSpec[], rng: ReturnType<typ
     else if (g.type === "counterpoint-interval") generated.push(...generateCounterpointIntervalItems(rng, g.count, g.earOnly ? { earOnly: true } : {}));
     else if (g.type === "ssaa-voicing") generated.push(...generateSsaaVoicingItems(rng, g.count));
     else if (g.type === "conducting") generated.push(...generateConductingItems(rng, g.count));
+    else if (g.type === "ear-comparison") generated.push(...generateEarComparisonItems(rng, g.count, g.topics));
     else generated.push(...generateNctItems(rng, g.count));
   }
   return generated;
