@@ -1,6 +1,7 @@
 import type { Clef, FormationId } from "../music/formations";
 import type { Pitch } from "../music/pitch";
 import type { Score } from "../music/score";
+import type { EarTopic } from "./ear-library";
 
 export interface ChoiceOption {
   readonly id: string;
@@ -54,7 +55,9 @@ export type GeneratorSpec =
   /** Distribuição de um acorde em SSAA (vozes iguais agudas, sem baixo real). */
   | { readonly type: "ssaa-voicing"; readonly count: number }
   /** Regência e ensaio: gesto de cada tempo, preparação da anacruse, duração da frase. */
-  | { readonly type: "conducting"; readonly count: number };
+  | { readonly type: "conducting"; readonly count: number }
+  /** Percepção: ouvir duas versões do mesmo trecho e dizer em qual está o fenômeno da aula. */
+  | { readonly type: "ear-comparison"; readonly count: number; readonly topics: readonly EarTopic[] };
 
 export interface ExerciseSetSpec {
   readonly id: string;

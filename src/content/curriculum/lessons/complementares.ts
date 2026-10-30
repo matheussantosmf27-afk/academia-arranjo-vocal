@@ -172,7 +172,7 @@ export const lessonDuasVozes: Lesson = {
         explanation: "O ouvido acompanha a voz mais aguda; cruzar a melodia confunde o ouvinte.",
       },
     ],
-    generators: [{ type: "motion-type", count: 3 }, { type: "interval-identification", count: 2, maxNumber: 8 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["paralelas"] }, { type: "motion-type", count: 1, earOnly: true }, { type: "motion-type", count: 3 }, { type: "interval-identification", count: 2, maxNumber: 8 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo os intervalos que podem andar em paralelo.",
   application: {
@@ -356,6 +356,7 @@ export const lessonBaixoCantoDado: Lesson = {
       },
     ],
     generators: [
+      { type: "ear-comparison", count: 1, topics: ["sensivel"] }, { type: "cadence-identification", count: 1, earOnly: true },
       { type: "realization", count: 2, mode: "baixo-dado" },
       { type: "realization", count: 2, mode: "canto-dado" },
     ],
@@ -549,7 +550,7 @@ export const lessonEscritaBloco: Lesson = {
         explanation: "Ré, Fá♯ e Lá são a 9ª, a 11ª aumentada e a 13ª de Dó.",
       },
     ],
-    generators: [{ type: "chord-identification", count: 2 }, { type: "seventh-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["cores"] }, { type: "seventh-identification", count: 1, earOnly: true }, { type: "chord-identification", count: 2 }, { type: "seventh-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a definição de bloco fechado.",
   application: {
@@ -727,7 +728,7 @@ export const lessonContracantoAtivoPassivo: Lesson = {
         explanation: "Separação de registro e ritmo mantém as duas linhas audíveis.",
       },
     ],
-    generators: [{ type: "motion-type", count: 3 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["contracanto", "textura-pad"] }, { type: "motion-type", count: 3 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a definição de contracanto ativo.",
   application: {
@@ -915,7 +916,7 @@ export const lessonHarmoniaCromatica: Lesson = {
         explanation: "No paralelismo tonal, as qualidades mudam conforme a escala.",
       },
     ],
-    generators: [{ type: "seventh-identification", count: 2 }, { type: "chord-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["emprestimo", "modal"] }, { type: "seventh-identification", count: 2 }, { type: "chord-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo o empréstimo modal.",
   application: {

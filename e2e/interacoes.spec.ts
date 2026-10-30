@@ -15,7 +15,7 @@ test.describe("interações de aprendizagem", () => {
     await page.goto("/licoes/oficio-do-arranjador");
     await expect(page.getByRole("navigation", { name: "Seções da aula" })).toBeVisible();
     const quick = page.getByRole("complementary", { name: "Pare e pense" }).first();
-    await quick.locator("fieldset button[aria-pressed]").first().click();
+    await quick.getByRole("group", { name: "Alternativas", exact: true }).getByRole("button").first().click();
     // acerto mostra a explicação; erro mostra uma dica e a segunda chance, sem revelar a resposta
     await expect(quick.getByRole("status")).toContainText(/Correto\.|Ainda não\./);
   });

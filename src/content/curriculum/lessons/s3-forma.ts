@@ -350,7 +350,7 @@ export const lessonVariacao: Lesson = {
         explanation: "Comum no barbershop, gospel e pop a cappella.",
       },
     ],
-    generators: [{ type: "motion-type", count: 3 }, { type: "voice-leading-error", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["melodia-interna", "contracanto"] }, { type: "motion-type", count: 3 }, { type: "voice-leading-error", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo o contracanto.",
   application: {
@@ -504,7 +504,7 @@ export const lessonTensoes: Lesson = {
         explanation: "Movimentos pequenos e notas comuns são a base da afinação coral.",
       },
     ],
-    generators: [{ type: "seventh-identification", count: 3 }, { type: "chord-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["cores"] }, { type: "seventh-identification", count: 1, earOnly: true }, { type: "seventh-identification", count: 3 }, { type: "chord-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a nota a omitir.",
   application: {

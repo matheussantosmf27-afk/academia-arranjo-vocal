@@ -141,7 +141,23 @@ A matriz automática completa (exemplos por veredito, escutas, itens de verifica
 ## F. Pendências e limites
 
 - **Validação humana**: nenhuma aula foi revista por um especialista em arranjo ou regência nem testada com estudantes nesta etapa. A conferência musical automática cobre só as 39 soluções na partitura (e apenas as regras que o motor verifica); as 50 soluções escritas e todas as demonstrações em texto dependem da minha revisão.
-- **Avaliação**: os exercícios independentes não contam para o domínio (são prática com autoconferência). A verificação de cada aula não mudou; a auditoria automática continua apontando 27 aulas sem item auditivo na verificação nem na revisão e 44 sem item de decisão de escrita avaliado nem projeto — pendências da etapa anterior, não tratadas aqui.
+- **Avaliação**: os exercícios independentes não contam para o domínio (são prática com autoconferência). A verificação de cada aula não mudou; a auditoria automática continua apontando 44 aulas sem item de decisão de escrita avaliado nem projeto. A falta de itens auditivos foi tratada depois, na seção G.
 - **Prosódia e regência** continuam sem verificação automática (o motor não lê acentuação nem gesto); os exercícios dessas aulas são escritos.
-- **Duração**: as durações anunciadas não foram alteradas; com o conteúdo novo, a estimativa da auditoria ficou dentro de 0,5×–1,5× do anunciado em todas as aulas, mas o tempo real precisa ser medido com estudantes.
+- **Duração**: as durações anunciadas não foram alteradas (exceto `espacamento-cruzamento`, de 45 para 50 min, por causa dos itens auditivos da seção G); com o conteúdo novo, a estimativa da auditoria ficou dentro de 0,5×–1,5× do anunciado em todas as aulas, mas o tempo real precisa ser medido com estudantes.
 - **Repertório citado** continua apenas como referência de estudo; nenhum trecho de obra protegida foi reproduzido (melodias e exemplos são originais do curso).
+
+## G. Itens auditivos nas verificações
+
+Antes: 68 das 89 aulas não tinham nenhum item auditivo na verificação, e 27 não tinham nem na revisão espaçada. Agora todas as 89 têm pelo menos dois itens auditivos pontuados na verificação, e esses itens também voltam na revisão espaçada.
+
+- **Novo tipo de item: comparação auditiva** (`ear-comparison`, em `src/domain/exercises/ear-library.ts`). O aluno ouve duas versões do mesmo trecho, separadas por um compasso de pausa, sem ver a partitura. Depois diz em qual versão está o fenômeno da aula: "Na 1ª versão", "Na 2ª versão" ou "Nas duas versões". A ordem das versões é sorteada a cada tentativa. A partitura e a explicação aparecem depois da resposta.
+- **27 temas**: paralelas, sensível, sétima, espaçamento, grave em TTBB, pad, melodia na voz interna, oitavas, retardo, empréstimo modal, dominantes secundárias, diminuto de passagem, SubV, linha de baixo, cores modais, contracanto, imitação, respiração do coro, dobra da melodia, grave em SSAA, quintas em SSA, notas de cor (SATB e TTBB), anacruse, menor melódica, tessitura e chamada e resposta. Todo o material vem dos exemplos originais do próprio curso.
+- **Verificação automática** (`src/domain/exercises/__tests__/ear-library.test.ts`):
+  - Nos 11 temas que o motor sabe verificar, ele encontra o fenômeno na versão marcada e não na outra: paralelas, sensível, sétima, espaçamento, grave em TTBB, oitavas, retardo, dobra da melodia, grave em SSAA, intervalo aumentado da menor e tessitura.
+  - A versão de comparação não tem erros do motor. A exceção é contracanto e imitação, em que a comparação é o próprio movimento paralelo que a aula aponta como problema.
+- **Itens de ouvido já existentes**: em 37 aulas entrou também um item de ouvido dos geradores que já existiam (intervalo, acorde, tétrade, cadência, movimento entre vozes, consonância), escolhido conforme o tema da aula. São itens a mais na verificação; os itens visuais continuam.
+- A auditoria passou a contar como auditivos os geradores marcados `earOnly`, além de cadências e comparações.
+
+**Limites.**
+- Os temas sem regra no motor (pad, textura, rearmonizações, cores, anacruse, contracanto, chamada e resposta) foram conferidos só por mim. Ninguém testou com estudantes se as diferenças se ouvem bem no sintetizador do navegador.
+- As comparações não são transpostas, para que as notas citadas na explicação continuem certas. A variação entre tentativas vem da ordem das versões e da alternância entre os temas da aula.

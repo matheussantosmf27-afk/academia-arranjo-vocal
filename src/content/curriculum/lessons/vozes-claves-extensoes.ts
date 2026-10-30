@@ -306,7 +306,7 @@ export const lessonVozes: Lesson = {
         optionFeedback: { c: "Transpor uma oitava abaixo leva o baixo para fora da extensão e embola o grave: arranjar para TTBB exige reescrever a distribuição." },
       },
     ],
-    generators: [{ type: "range-check", count: 6 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["tessitura", "grave-ttbb"] }, { type: "range-check", count: 6 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo os três itens essenciais (ordem TTBB, clave do tenor, altura escrita × sonora).",
   application: {

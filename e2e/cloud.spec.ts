@@ -29,7 +29,7 @@ test("conta: tentativa recorrigida no servidor, arranjo versionado e isolamento 
   await pa.getByRole("button", { name: "Iniciar tentativa" }).click();
   for (let i = 0; i < 30; i++) {
     const verificacao = pa.locator("section[aria-labelledby='exercicios']");
-    await verificacao.locator("fieldset button[aria-pressed]").first().click();
+    await verificacao.getByRole("group", { name: "Alternativas", exact: true }).getByRole("button").first().click();
     await expect(verificacao.getByRole("status").filter({ hasText: /Correto\.|Ainda não\./ })).toBeVisible();
     const reveal = verificacao.getByRole("button", { name: "Mostrar a resposta" });
     if (await reveal.isVisible()) await reveal.click();

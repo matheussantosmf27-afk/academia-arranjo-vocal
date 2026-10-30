@@ -334,7 +334,7 @@ export const lessonACappellaPop: Lesson = {
         explanation: "Sem mesa de som, o equilíbrio nasce da partitura.",
       },
     ],
-    generators: [{ type: "function-identification", count: 2 }, { type: "range-check", count: 1 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["textura-pad", "oitavas"] }, { type: "function-identification", count: 2 }, { type: "range-check", count: 1 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo os papéis do grupo.",
   application: {
@@ -480,7 +480,7 @@ export const lessonBaixoPercussao: Lesson = {
         explanation: "Notação simples + estilo + pontos de marcação.",
       },
     ],
-    generators: [{ type: "range-check", count: 3 }, { type: "function-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["baixo-linha"] }, { type: "cadence-identification", count: 1, earOnly: true }, { type: "range-check", count: 3 }, { type: "function-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a função do baixo.",
   application: {
@@ -791,7 +791,7 @@ export const lessonMpbVocal: Lesson = {
         explanation: "A sétima menor é a identidade modal do baião.",
       },
     ],
-    generators: [{ type: "seventh-identification", count: 2 }, { type: "chord-identification", count: 3 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["cores"] }, { type: "seventh-identification", count: 1, earOnly: true }, { type: "seventh-identification", count: 2 }, { type: "chord-identification", count: 3 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a síncope do samba.",
   application: {
@@ -966,7 +966,7 @@ export const lessonPartituraEnsaio: Lesson = {
         explanation: "Tecnicamente desnecessário, mas evita que o cantor repita o sustenido por memória.",
       },
     ],
-    generators: [{ type: "range-check", count: 3 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["respiracao", "tessitura"] }, { type: "range-check", count: 3 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a escrita de figuras na barra.",
   application: {

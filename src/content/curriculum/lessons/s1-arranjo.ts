@@ -237,7 +237,7 @@ export const lessonOficio: Lesson = {
         explanation: "Extensões, dificuldade, número de vozes e estilo dependem de quem vai cantar.",
       },
     ],
-    generators: [{ type: "range-check", count: 2 }, { type: "voice-leading-error", count: 1, ruleIds: ["conducao.paralelas"] }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["oitavas", "textura-pad"] }, { type: "range-check", count: 2 }, { type: "voice-leading-error", count: 1, ruleIds: ["conducao.paralelas"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo o papel do arranjador e a diferença entre estilos.",
   application: {
@@ -798,7 +798,7 @@ export const lessonVozCantada: Lesson = {
         explanation: "Reserve o agudo forte dos tenores para grupos que você conhece.",
       },
     ],
-    generators: [{ type: "range-check", count: 4 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["tessitura", "respiracao"] }, { type: "range-check", count: 4 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo tessitura e respiração.",
   application: {

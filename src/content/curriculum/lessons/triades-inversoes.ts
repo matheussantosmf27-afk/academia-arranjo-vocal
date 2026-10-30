@@ -273,7 +273,7 @@ export const lessonTriades: Lesson = {
         explanation: "A quinta pode ser omitida (dobrando-se a fundamental). A terça define o modo e não deve faltar.",
       },
     ],
-    generators: [{ type: "chord-identification", count: 8 }],
+    generators: [{ type: "chord-identification", count: 2, earOnly: true }, { type: "chord-identification", count: 8 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo os itens sobre baixo/inversão e duplicação da sensível.",
   application: {

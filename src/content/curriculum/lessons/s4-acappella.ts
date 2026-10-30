@@ -103,7 +103,7 @@ export const lessonAcappellaSolistas: Lesson = {
       { id: "as-dueto", kind: "choice", skill: "conducao-de-vozes", prompt: "Que intervalos fazem um dueto soar cheio e cantável?", options: [{ id: "a", label: "Terças e sextas" }, { id: "b", label: "Quintas e oitavas paralelas" }, { id: "c", label: "Segundas e sétimas" }], correctOptionId: "a", explanation: "Consonâncias imperfeitas podem andar em paralelo sem perder a independência." },
       { id: "as-revezar", kind: "choice", skill: "arranjo", prompt: "Por que revezar solistas entre as estrofes?", options: [{ id: "a", label: "Muda o timbre a cada seção e faz a música avançar" }, { id: "b", label: "Para cada cantor descansar a voz o arranjo inteiro" }, { id: "c", label: "Porque a harmonia muda" }], correctOptionId: "a", explanation: "A harmonia pode ser a mesma; o que muda é a cor da voz que conduz." },
     ],
-    generators: [{ type: "range-check", count: 3 }, { type: "ttbb-voicing", count: 2 }, { type: "interval-identification", count: 2, maxNumber: 8 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["melodia-interna", "oitavas"] }, { type: "range-check", count: 3 }, { type: "ttbb-voicing", count: 2 }, { type: "interval-identification", count: 2, maxNumber: 8 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a transposição para o solista.",
   application: {
@@ -191,7 +191,7 @@ export const lessonAcappellaTexturas: Lesson = {
       { id: "at-eco", kind: "choice", skill: "arranjo", prompt: "Quando o eco entre duas vozes funciona melhor?", options: [{ id: "a", label: "Com frases curtas e harmonia parada" }, { id: "b", label: "Com frases longas e muitas trocas de acorde" }, { id: "c", label: "Quando as vozes cantam textos diferentes" }], correctOptionId: "a", explanation: "Frases curtas evitam que as duas camadas de texto se embaralhem." },
       { id: "at-push", kind: "choice", skill: "arranjo", prompt: "O que é a antecipação ('push')?", options: [{ id: "a", label: "O acorde novo chega um pouco antes do tempo forte, ligado a ele" }, { id: "b", label: "Acelerar o andamento" }, { id: "c", label: "Cantar a nota mais forte" }], correctOptionId: "a", explanation: "É uma síncope harmônica: dá balanço sem mudar o andamento." },
     ],
-    generators: [{ type: "motion-type", count: 3 }, { type: "ttbb-voicing", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["oitavas", "textura-pad", "contracanto"] }, { type: "motion-type", count: 3 }, { type: "ttbb-voicing", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a definição de bloco.",
   application: {
@@ -277,7 +277,7 @@ export const lessonAcappellaVocalBand: Lesson = {
       { id: "vb-ostinato", kind: "choice", skill: "arranjo", prompt: "O que é um baixo em ostinato?", options: [{ id: "a", label: "Um padrão curto que se repete, mudando de altura com a harmonia" }, { id: "b", label: "Uma nota longa sem mudança" }, { id: "c", label: "O baixo cantando a melodia" }], correctOptionId: "a", explanation: "O ostinato carrega o ritmo e a harmonia ao mesmo tempo." },
       { id: "vb-beatbox", kind: "choice", skill: "arranjo", prompt: "Num grupo com beatbox, o que muda para o baixo?", options: [{ id: "a", label: "Fica livre para uma linha mais melódica, sem marcar o tempo sozinho" }, { id: "b", label: "Deixa de cantar" }, { id: "c", label: "Passa a cantar a melodia principal" }], correctOptionId: "a", explanation: "Com a percussão vocal marcando o tempo, o baixo pode andar mais." },
     ],
-    generators: [{ type: "chord-identification", count: 3 }, { type: "motion-type", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["textura-pad"] }, { type: "chord-identification", count: 1, earOnly: true }, { type: "chord-identification", count: 3 }, { type: "motion-type", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo onde colocar o riff.",
   application: {
@@ -358,7 +358,7 @@ export const lessonAcappellaBlocos: Lesson = {
       { id: "bc-dim", kind: "choice", skill: "acordes", prompt: "Entre Sol e Lá menor, que acorde de passagem faz o baixo subir por semitom?", options: [{ id: "a", label: "Sol♯°7" }, { id: "b", label: "Fá maior" }, { id: "c", label: "Ré menor" }], correctOptionId: "a", explanation: "O diminuto no semitom do meio funciona como dominante de Lá menor." },
       { id: "bc-planing", kind: "choice", skill: "conducao-de-vozes", prompt: "O motor aponta quintas paralelas num trecho de planing. O que fazer?", options: [{ id: "a", label: "Manter se o efeito é intencional e curto, chegando num acorde funcional" }, { id: "b", label: "Sempre reescrever em movimento contrário" }, { id: "c", label: "Trocar o estilo para tradicional" }], correctOptionId: "a", explanation: "No planing as paralelas são a própria ideia; use com intenção e moderação." },
     ],
-    generators: [{ type: "seventh-identification", count: 3 }, { type: "chord-identification", count: 1 }, { type: "voice-leading-error", count: 2, ruleIds: ["conducao.paralelas"] }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["diminuto"] }, { type: "seventh-identification", count: 1, earOnly: true }, { type: "seventh-identification", count: 3 }, { type: "chord-identification", count: 1 }, { type: "voice-leading-error", count: 2, ruleIds: ["conducao.paralelas"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo o papel do baixo no clichê.",
   application: {
@@ -443,7 +443,7 @@ export const lessonAcappellaBaixo: Lesson = {
       { id: "lb-pedal", kind: "choice", skill: "harmonia-funcional", prompt: "Em A7/D sobre um pedal de Ré, o que precisa resolver?", options: [{ id: "a", label: "A sétima (Sol) desce para Fá♯ na volta a Ré" }, { id: "b", label: "O baixo sobe para Mi" }, { id: "c", label: "Nada: o pedal anula as resoluções" }], correctOptionId: "a", explanation: "O pedal segura o baixo, mas as dissonâncias das vozes de cima continuam resolvendo." },
       { id: "lb-oitavas", kind: "choice", skill: "conducao-de-vozes", prompt: "Barítono e baixo em oitavas durante uma linha inteira. O que acontece?", options: [{ id: "a", label: "Oitavas paralelas: uma voz deixa de contribuir para a harmonia" }, { id: "b", label: "O acorde fica mais completo" }, { id: "c", label: "Nada; é sempre recomendado" }], correctOptionId: "a", explanation: "Dobre só um acorde de reforço; numa linha, perde-se uma voz." },
     ],
-    generators: [{ type: "function-identification", count: 3 }, { type: "chord-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["baixo-linha"] }, { type: "cadence-identification", count: 1, earOnly: true }, { type: "function-identification", count: 3 }, { type: "chord-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a inversão para a linha do baixo.",
   application: {

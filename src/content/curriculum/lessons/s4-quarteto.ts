@@ -107,7 +107,7 @@ export const lessonQuartetoMasculino: Lesson = {
       { id: "qm-baritono", kind: "choice", skill: "escrita-ttbb", prompt: "Por que o barítono cruza o lead com frequência no barbershop?", options: [{ id: "a", label: "Para completar o acorde sem mudar a melodia" }, { id: "b", label: "Porque o barítono é a voz principal" }, { id: "c", label: "É um erro tolerado por tradição" }], correctOptionId: "a", explanation: "O barítono pega a nota que falta no acorde; se ela está acima da melodia, ele sobe. No estilo popular o motor só informa o cruzamento." },
       { id: "qm-clave", kind: "choice", skill: "leitura-vocal", prompt: "Na pauta dos tenores (clave de sol com 8 embaixo), um Sol escrito na segunda linha soa como…", options: [{ id: "a", label: "Sol3, uma oitava abaixo do escrito" }, { id: "b", label: "Sol4, como escrito" }, { id: "c", label: "Sol2, duas oitavas abaixo" }], correctOptionId: "a", explanation: "O 8 embaixo da clave indica que tudo soa uma oitava abaixo." },
     ],
-    generators: [{ type: "range-check", count: 4 }, { type: "ttbb-voicing", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["grave-ttbb", "cores-ttbb"] }, { type: "range-check", count: 4 }, { type: "ttbb-voicing", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a voz do lead e o papel do tenor.",
   application: {
@@ -196,7 +196,7 @@ export const lessonTtbbVoicing: Lesson = {
       { id: "tv-grave", kind: "choice", skill: "escrita-ttbb", prompt: "Num acorde de Sol maior com o baixo em Sol2, onde a terça (Si) soa mais clara?", options: [{ id: "a", label: "Nos tenores (Si3)" }, { id: "b", label: "No barítono, logo acima do baixo (Si2)" }, { id: "c", label: "Dobrada no baixo e no barítono" }], correctOptionId: "a", explanation: "Uma terça maior sobre Sol2 fica abaixo do limite grave (Si♭2) e embola; no Tenor I ou II ela soa limpa.", optionFeedback: { b: "Sol2–Si2 é uma terça maior abaixo do limite grave: o acorde embola." } },
       { id: "tv-ring", kind: "choice", skill: "acordes", prompt: "Qual acorde produz o 'ring' característico do quarteto barbershop?", options: [{ id: "a", label: "A sétima de dominante completa" }, { id: "b", label: "Uma tríade sem a quinta" }, { id: "c", label: "Um cluster de segundas" }], correctOptionId: "a", explanation: "Com as quatro notas e afinação justa, os harmônicos se reforçam e surge o 'ring'." },
     ],
-    generators: [{ type: "ttbb-voicing", count: 4 }, { type: "voice-leading-error", count: 2, ruleIds: ["vozes.espacamento", "vozes.cruzamento", "conducao.paralelas"] }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["grave-ttbb"] }, { type: "seventh-identification", count: 1, earOnly: true }, { type: "ttbb-voicing", count: 4 }, { type: "voice-leading-error", count: 2, ruleIds: ["vozes.espacamento", "vozes.cruzamento", "conducao.paralelas"] }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo onde colocar a terça.",
   application: {
@@ -283,7 +283,7 @@ export const lessonTtbbChamadaResposta: Lesson = {
       { id: "cr-silabas", kind: "choice", skill: "arranjo", prompt: "Para o acompanhamento rítmico em sílabas soar como percussão, prefira…", options: [{ id: "a", label: "Consoantes curtas: 'doo', 'dm', 'bm'" }, { id: "b", label: "Vogais longas: 'ah', 'oh'" }, { id: "c", label: "O texto completo da canção" }], correctOptionId: "a", explanation: "O ataque da consoante marca o ritmo; vogais longas viram pad." },
       { id: "cr-pad", kind: "choice", skill: "texto-e-prosodia", prompt: "Um pad em 'uh' de cinco compassos lentos sem pausa. O que fazer?", options: [{ id: "a", label: "Escrever pausas curtas ou indicar respiração escalonada" }, { id: "b", label: "Nada: o cantor dá um jeito" }, { id: "c", label: "Trocar a vogal por 'ah'" }], correctOptionId: "a", explanation: "A respiração é decisão do arranjo; o motor sugere planejá-la a partir de 15 segundos." },
     ],
-    generators: [{ type: "ttbb-voicing", count: 3 }, { type: "motion-type", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["chamada"] }, { type: "motion-type", count: 1, earOnly: true }, { type: "ttbb-voicing", count: 3 }, { type: "motion-type", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo o papel da resposta.",
   application: {
@@ -370,7 +370,7 @@ export const lessonTtbbUnissono: Lesson = {
       { id: "un-motor", kind: "choice", skill: "conducao-de-vozes", prompt: "O motor aponta oitavas paralelas num trecho em que o quarteto dobra a melodia em oitavas. O que isso significa?", options: [{ id: "a", label: "É dobramento intencional da melodia; registre a intenção" }, { id: "b", label: "O trecho precisa ser reescrito em quatro vozes independentes" }, { id: "c", label: "O motor está com defeito" }], correctOptionId: "a", explanation: "A regra protege a independência das vozes; quando todas cantam a mesma linha, não há independência a proteger." },
       { id: "un-escada", kind: "choice", skill: "escrita-ttbb", prompt: "Nas entradas em escada de um acorde maior, qual nota faz o acorde soar maior?", options: [{ id: "a", label: "A terça" }, { id: "b", label: "A quinta" }, { id: "c", label: "A fundamental dobrada" }], correctOptionId: "a", explanation: "Fundamental e quinta soam 'ocas'; a terça define o modo." },
     ],
-    generators: [{ type: "interval-identification", count: 3, maxNumber: 8 }, { type: "ttbb-voicing", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 1, topics: ["oitavas"] }, { type: "interval-identification", count: 1, earOnly: true, maxNumber: 8 }, { type: "interval-identification", count: 3, maxNumber: 8 }, { type: "ttbb-voicing", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo onde abrir o uníssono.",
   application: {
@@ -457,7 +457,7 @@ export const lessonTtbbCores: Lesson = {
       { id: "co-iv", kind: "choice", skill: "harmonia-funcional", prompt: "Em Sol maior, o Cm6 antes da tônica é…", options: [{ id: "a", label: "Um empréstimo modal (iv do modo menor)" }, { id: "b", label: "Uma modulação para Dó menor" }, { id: "c", label: "Um erro de harmonia" }], correctOptionId: "a", explanation: "O iv menor vem de Sol menor e volta para Sol maior: cor, não modulação." },
       { id: "co-pedal", kind: "choice", skill: "harmonia-funcional", prompt: "O que caracteriza um baixo pedal?", options: [{ id: "a", label: "O baixo sustenta uma nota enquanto a harmonia muda em cima" }, { id: "b", label: "O baixo canta a melodia" }, { id: "c", label: "O baixo sai e só os tenores cantam" }], correctOptionId: "a", explanation: "O chão fica parado e os acordes passam por cima (C/G, D/G)." },
     ],
-    generators: [{ type: "seventh-identification", count: 3 }, { type: "function-identification", count: 2 }],
+    generators: [{ type: "ear-comparison", count: 2, topics: ["cores-ttbb", "emprestimo"] }, { type: "seventh-identification", count: 3 }, { type: "function-identification", count: 2 }],
   },
   masteryDescription: "≥ 80% de acertos, incluindo a nota omitida no acorde de sexta.",
   application: {
