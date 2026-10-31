@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useId, useMemo, useState } from "react";
 import type { ChallengeBlock } from "@/content/curriculum/types";
 import { analyzeHarmony } from "@/domain/validation";
+import { ASSISTANCE_PT } from "@/domain/production/task";
+import { useProductionAttempts } from "@/lib/production/store";
 import { ScoreView } from "../notation/ScoreView";
 import { VoicePlayer } from "../audio/VoicePlayer";
 import { ExampleBlock } from "./ExampleBlock";
@@ -16,7 +18,21 @@ const NO_FLAGS = new Map<string, "erro" | "alerta" | "sugestao" | "info">();
  * específica; a solução comentada fica fechada até o aluno declarar que tentou.
  * Nada aqui conta para o domínio: é prática de produção, conferida pelos critérios.
  */
-export function Challenge({ block }: { block: ChallengeBlock }) {
+/** Situação do aluno na tarefa corrigida, a partir das conferências registradas. */
+function TaskStatus({ taskId }: { taskId: string }) {
+  const attempts = useProductionAttempts().filter((a) => a.taskId === taskId && a.kind === "producao");
+  if (!attempts.length) return <span className="muted" style={{ fontSize: "0.88rem" }}>Ainda não conferida.</span>;
+  const solved = attempts.find((a) => a.passed);
+  return solved ? (
+    <span className={`chip ${solved.assistance === "autonomo" ? "chip-ok" : "chip-alerta"}`}>Resolvida · {ASSISTANCE_PT[solved.assistance].toLowerCase()}</span>
+  ) : (
+    <span className="chip">
+      {attempts.length} conferência(s), ainda não resolvida
+    </span>
+  );
+}
+
+export function Challenge({ block, taskId = null }: { block: ChallengeBlock; taskId?: string | null }) {
   const [hints, setHints] = useState(0);
   const [tried, setTried] = useState(false);
   const [open, setOpen] = useState(false);
@@ -39,9 +55,21 @@ export function Challenge({ block }: { block: ChallengeBlock }) {
           <figcaption className="muted">Material de partida: {block.start.title}</figcaption>
           <ScoreView score={block.start} flagged={NO_FLAGS} {...(harmony ? { harmony } : {})} playhead={playhead} />
           <VoicePlayer score={block.start} onPosition={setPlayhead} compact />
-          <Link className="btn btn-sm" href={`/estudio?exemplo=${block.start.id}`} style={{ alignSelf: "flex-start" }}>
-            Abrir no laboratório de escrita
-          </Link>
+          <div style={{ display: "flex", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
+            {taskId ? (
+              <>
+                <Link className="btn btn-sm btn-accent" href={`/estudio?tarefa=${encodeURIComponent(taskId)}`}>
+                  Resolver no laboratório (correção automática)
+                </Link>
+                <TaskStatus taskId={taskId} />
+              </>
+            ) : (
+              <Link className="btn btn-sm" href={`/estudio?exemplo=${block.start.id}`}>
+                Abrir no laboratório de escrita
+              </Link>
+            )}
+          </div>
+          {!taskId && <p className="muted" style={{ margin: 0, fontSize: "0.88rem" }}>Este exercício é conferido por você, pelos critérios abaixo: o motor não mede o que ele pede (prosódia, cor, escolha de formação).</p>}
         </figure>
       )}
       <div className={styles.challengeCols}>

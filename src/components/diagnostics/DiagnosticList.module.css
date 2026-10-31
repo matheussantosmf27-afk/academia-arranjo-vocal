@@ -12,3 +12,4 @@
 .rule { font-size: 0.75rem; color: var(--ink-3); }
 .exception { background: var(--paper-2); padding: 8px 10px; border-radius: var(--radius-sm); }
 .empty { color: var(--ok); font-weight: 500; margin: 0; }
+.styles { font-size: 0.86rem; color: var(--ink-2); margin: 4px 0; }

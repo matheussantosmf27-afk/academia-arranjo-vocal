@@ -13,6 +13,8 @@ const NAV: Array<{ href: string; label: string; short: string; icon: ReactNode }
   { href: "/laboratorio", label: "Laboratório auditivo", short: "Auditivo", icon: <path d="M12 3a7 7 0 0 0-7 7v5a3 3 0 0 0 3 3h1v-7H7v-1a5 5 0 0 1 10 0v1h-2v7h1a3 3 0 0 0 3-3v-5a7 7 0 0 0-7-7z" /> },
   { href: "/repertorio", label: "Repertório", short: "Repertório", icon: <path d="M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zm12-2a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
   { href: "/projetos", label: "Trabalhos práticos", short: "Trabalhos", icon: <path d="M3 5h7l2 2h9v12H3z" /> },
+  { href: "/meu-arranjo", label: "Meu arranjo (projeto cumulativo)", short: "Meu arranjo", icon: <path d="M5 4h10l4 4v12H5zM14 4v5h5M8 13h8M8 16h6" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
+  { href: "/avaliacao", label: "Avaliação de transferência", short: "Avaliação", icon: <path d="M9 11l3 3 8-8M20 12v7a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h11" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
   { href: "/estudio", label: "Laboratório de escrita", short: "Escrita", icon: <path d="M3 6h18M3 9h18M3 12h18M3 15h18M3 18h18M8 4v10" fill="none" stroke="currentColor" strokeWidth="1.6" /> },
   { href: "/perfil", label: "Competências", short: "Competências", icon: <path d="M12 2l2.9 6.3L22 9.2l-5.2 4.7L18.2 21 12 17.3 5.8 21l1.4-7.1L2 9.2l7.1-.9z" /> },
 ];

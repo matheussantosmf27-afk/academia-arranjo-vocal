@@ -10,6 +10,14 @@ import styles from "./VoicePlayer.module.css";
 export const SYNTH_NOTICE =
   "Áudio sintetizado no navegador: os timbres de vogal sugerem uma voz, mas não imitam cantores reais (sem vibrato, consoantes nem afinação expressiva). Serve para conferir alturas, ritmo, condução e equilíbrio aproximado.";
 
+/** O que o áudio sintetizado não mostra e um quarteto de verdade mostra. */
+export const HUMAN_VS_SYNTH = [
+  "Afinação: cantores ajustam terças e sétimas ao acorde (afinação justa); o sintetizador usa o temperamento igual, então um acorde \"limpo\" aqui pode soar diferente no coro.",
+  "Equilíbrio: no sintetizador todas as vozes têm o mesmo volume; no coro, notas agudas soam mais forte e o grave do contralto e do tenor some com facilidade.",
+  "Cansaço e tessitura: o sintetizador canta qualquer nota pelo tempo que for; um cantor real sente a permanência no agudo e precisa respirar.",
+  "Texto: consoantes, vogais e respirações mudam o ritmo percebido; o sintetizador canta só vogais.",
+] as const;
+
 /**
  * Controles de reprodução com seleção de vozes (completo, voz isolada, pares ou qualquer combinação),
  * opções de estudo (metrônomo, contagem, timbre, trecho em loop) e cursor sincronizado via `onPosition`.
@@ -213,6 +221,15 @@ export function VoicePlayer({
         </details>
       )}
       {!compact && <small>{SYNTH_NOTICE}</small>}
+      <details className={styles.options}>
+        <summary>Áudio sintetizado × quarteto real</summary>
+        <ul style={{ margin: "4px 0", paddingLeft: 18, fontSize: "0.86rem" }}>
+          {HUMAN_VS_SYNTH.map((t) => (
+            <li key={t}>{t}</li>
+          ))}
+        </ul>
+        <small>Antes de dar um arranjo por pronto, cante cada voz ou peça a um quarteto que leia: o que o ouvido humano percebe aqui é só uma aproximação.</small>
+      </details>
     </div>
   );
 }

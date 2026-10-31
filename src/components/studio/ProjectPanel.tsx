@@ -10,6 +10,7 @@ import type { Score, StyleProfileId } from "@/domain/music/score";
 import { useAuth } from "@/lib/auth/useAuth";
 import { LISTENING_CHECKLIST, type PracticeState, loadPractice, savePractice } from "@/lib/projects/practice";
 import styles from "./ProjectPanel.module.css";
+import { HumanEvaluationForm } from "../HumanEvaluationForm";
 
 const SELF: Array<{ id: CriterionId; label: string }> = [
   { id: "criatividade", label: "Criatividade" },
@@ -211,6 +212,7 @@ export function ProjectPanel({ project, score, style, onStatus }: { project: Pro
       </div>
       {result && <RubricView result={result} />}
       {comparison && <ComparisonView c={comparison} />}
+      <HumanEvaluationForm target={`projeto:${project.id}`} score={{ ...score, metadata: { ...score.metadata, style } }} title={project.title} />
     </section>
   );
 }

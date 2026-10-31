@@ -1,10 +1,20 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
-import { Studio, StudioFallback } from "@/components/studio/Studio";
+import { StudioFallback } from "@/components/studio/Studio";
+import { StudioGate } from "@/components/studio/StudioGate";
+import { isTestTask, publicTask, resolveTask } from "@/content/tasks";
 
 export const metadata: Metadata = { title: "Laboratório de escrita" };
 
-export default function StudioPage() {
+export default async function StudioPage({ searchParams }: { searchParams: Promise<Record<string, string | string[] | undefined>> }) {
+  const sp = await searchParams;
+  const taskId = typeof sp.tarefa === "string" ? sp.tarefa : null;
+  const full = taskId ? (resolveTask(taskId) ?? null) : null;
+  // Contexto de teste só vale para as tarefas da bateria fixa; senão, é prática comum.
+  const teste = sp.teste === "pre" ? "pre-teste" : sp.teste === "pos" ? "pos-teste" : null;
+  const context = full ? (teste && isTestTask(teste, full.id) ? teste : full.kind) : "producao";
+  const task = full ? publicTask(full) : null;
+  const hasSolution = !!full?.solution;
   return (
     <div className="page page-wide">
       <header className="page-header">
@@ -16,7 +26,7 @@ export default function StudioPage() {
         </p>
       </header>
       <Suspense fallback={<StudioFallback />}>
-        <Studio />
+        <StudioGate task={task} context={context} hasSolution={hasSolution} />
       </Suspense>
     </div>
   );

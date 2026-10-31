@@ -24,6 +24,10 @@ const PAGES = [
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },
   { path: "/repertorio", ready: "h1" },
+  { path: "/avaliacao", ready: "h1" },
+  { path: "/meu-arranjo", ready: "h1" },
+  { path: "/estudo", ready: "h1" },
+  { path: "/estudio?tarefa=harmonizacao-satb%3Aharmonize-uma-frase-em-mi-maior", ready: "[data-testid='task-panel']" },
   { path: "/perfil", ready: "h1" },
   { path: "/entrar", ready: "h1" },
 ];
