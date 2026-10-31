@@ -1,4 +1,5 @@
 import { scoreFromText } from "@/domain/music/text-notation";
+import { MELODIA } from "./examples-arranjo";
 
 /**
  * Partituras das demonstrações passo a passo e dos exercícios independentes
@@ -37,8 +38,8 @@ export const EXD = {
   harmChalStart: satb("exd-desafio-harm", "Melodia dada em Mi maior", { S: "B4:h C#5:h | B4:h A4:h | G#4:h F#4:h | E4:w", A: rests(4), T: rests(4), B: rests(4) }, { key: "E" }),
   harmChalSol: satb("exd-desafio-harm-sol", "Solução: I – IV | I – V⁶₅ | I – V | I", { S: "B4:h C#5:h | B4:h A4:h | G#4:h F#4:h | E4:w", A: "G#4:h E4:h | E4:h B3:h | E4:h D#4:h | B3:w", T: "B3:h A3:h | G#3:h F#3:h | B3:h B3:h | G#3:w", B: "E3:h A2:h | E3:h D#3:h | E3:h B2:h | E3:w" }, { key: "E" }),
   // ——— 1º semestre ———
-  procStart: satb("exd-desafio-processo", "Canção do Caminho: escreva o baixo do esqueleto", { S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q', A: rests(4), T: rests(4), B: rests(4) }),
-  procSol: satb("exd-desafio-processo-sol", "Esqueleto: soprano e baixo", { S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q', A: rests(4), T: rests(4), B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q" }),
+  procStart: satb("exd-desafio-processo", "Hino à Alegria: escreva o baixo do esqueleto", { S: MELODIA, A: rests(4), T: rests(4), B: rests(4) }, { key: "G" }),
+  procSol: satb("exd-desafio-processo-sol", "Esqueleto: soprano e baixo", { S: MELODIA, A: rests(4), T: rests(4), B: "G2:h E3:h | D3:h G2:h | E3:h A2:h | D3:h G2:h" }, { key: "G" }),
   ritmoStart: satb("exd-desafio-ritmo", "'Caminhar contigo' com as tônicas fora do lugar", { S: 'E4:q"ca- F4:q"mi- G4:q"nhar | C5:q"con- B4:q"ti- A4:q"go | G4:h.', A: "r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h." }, { time: "3/4" }),
   ritmoSol: satb("exd-desafio-ritmo-sol", "Com anacruse: NHAR e TI nos tempos fortes", { S: 'r:q E4:q"ca- F4:q"mi- | G4:h"nhar C5:q"con- | B4:h"ti- A4:q"go | G4:h.', A: "r:h. | r:h. | r:h. | r:h.", T: "r:h. | r:h. | r:h. | r:h.", B: "r:h. | r:h. | r:h. | r:h." }, { time: "3/4" }),
   intStart: satb("exd-desafio-intervalos", "Contralto dado: escreva o soprano em 3ªs e 6ªs", { S: rests(4), A: "C4:h D4:h | E4:h F4:h | E4:h D4:h | C4:w", T: rests(4), B: rests(4) }),
@@ -71,8 +72,8 @@ export const EXD = {
   sabSol: satb("exd-desafio-sab-sol", "Solução: uma terça em cada acorde", { S: "E5:h D5:h | C5:h B4:h | C5:w", A: "G4:h B4:h | G4:h G4:h | E4:w", T: "r:w | r:w | r:w", B: "C3:h G2:h | E3:h G2:h | C3:w" }),
   blocoStart: satb("exd-desafio-bloco", "Melodia sobre pedal de Sol (estilo popular)", { S: "B4:q A4:q G4:q A4:q | B4:w", A: rests(2), T: rests(2), B: "G2:w | G2:w" }, { key: "G", style: "popular-a-cappella" }),
   blocoSol: satb("exd-desafio-bloco-sol", "Solução: bloco fechado de três vozes sobre o pedal", { S: "B4:q A4:q G4:q A4:q | B4:w", A: "G4:q E4:q D4:q E4:q | G4:w", T: "D4:q C4:q B3:q C4:q | D4:w", B: "G2:w | G2:w" }, { key: "G", style: "popular-a-cappella" }),
-  ccStart: satb("exd-desafio-contracanto", "Canção do Caminho: melodia e baixo dados", { S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q', A: rests(4), T: rests(4), B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q" }),
-  ccSol: satb("exd-desafio-contracanto-sol", "Solução: o tenor anda quando a melodia para", { S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q', A: rests(4), T: "G3:w | A3:q C4:q E4:h | E4:h G3:q D4:q | E4:q C4:q E4:q r:q", B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q" }),
+  ccStart: satb("exd-desafio-contracanto", "Hino à Alegria: melodia, contralto e baixo dados", { S: MELODIA, A: "G4:h G4:h | F#4:h D4:h | E4:h E4:h | F#4:h D4:h", T: rests(4), B: "G2:h E3:h | D3:h G2:h | E3:h A2:h | D3:h G2:h" }, { key: "G" }),
+  ccSol: satb("exd-desafio-contracanto-sol", "Solução: o tenor anda quando a melodia para", { S: MELODIA, A: "G4:h G4:h | F#4:h D4:h | E4:h E4:h | F#4:h D4:h", T: 'D4:h"uh C4:h | A3:w | B3:h C4:h~ | C4:h B3:q D4:q', B: "G2:h E3:h | D3:h G2:h | E3:h A2:h | D3:h G2:h" }, { key: "G" }),
   ttbbDemoErro: ttbb("exd-ttbb-demo-erro", "Primeira tentativa: SATB transposto 'no automático'", { T1: "D4:h G4:h", T2: "B3:h C4:h", B1: "D3:h E3:h", B2: "G2:h C3:h" }, { key: "C" }),
   ttbbDemo: ttbb("exd-ttbb-demo", "V → I em TTBB: quinta e oitava no grave, melodia no Tenor II", { T1: "D4:h E4:h", T2: "B3:h C4:h", B1: "G3:h G3:h", B2: "G2:h C3:h" }, { key: "C" }),
   vozStart: satb("exd-desafio-voicings", "Sol maior: soprano e baixo dados", { S: "B4:w | B4:w", A: "r:w | r:w", T: "r:w | r:w", B: "G2:w | G2:w" }, { key: "G" }),
@@ -105,16 +106,16 @@ export const EXD = {
   cromStart: satb("exd-desafio-cromatico", "'Amém' com empréstimo: soprano e baixo dados", { S: "C5:h C5:h | C5:h C5:h", A: rests(2), T: rests(2), B: "C3:h F3:h | F3:h C3:h" }),
   cromSol: satb("exd-desafio-cromatico-sol", "Solução: I – IV – iv – I com o Lá♭ chegando por semitom", { S: "C5:h C5:h | C5:h C5:h", A: "E4:h F4:h | F4:h E4:h", T: "G3:h A3:h | Ab3:h G3:h", B: "C3:h F3:h | F3:h C3:h" }),
   // ——— 4º semestre ———
-  marStart: satb("exd-desafio-mar-sereno", "'Mar sereno': melodia para rearmonizar", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marStart: satb("exd-desafio-mar-sereno", "Frase de exercício: melodia para rearmonizar", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
   marDim: satb("exd-desafio-diminuto-sol", "Solução: C – G | Am – C♯°7 | Dm – G7 | C", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h E4:h | F4:h F4:h | E4:w", T: "G3:h G3:h | E3:h Bb3:h | A3:h G3:h | G3:w", B: "C3:h G2:h | A2:h C#3:h | D3:h G2:h | C3:w" }, { style: "popular-a-cappella" }),
   marDia: satb("exd-desafio-rearm-diatonica-sol", "Solução: C – G/D | Am/E – G7/F | Am/E – G/D | C", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h D4:h | C4:h D4:h | E4:w", T: "G3:h G3:h | A3:h B3:h | A3:h G3:h | G3:w", B: "C3:h D3:h | E3:h F3:h | E3:h D3:h | C3:w" }, { style: "popular-a-cappella" }),
-  marDiaStart: satb("exd-desafio-rearm-diatonica", "'Mar sereno': rearmonize só com acordes diatônicos", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
-  marDimStart: satb("exd-desafio-diminuto", "'Mar sereno': insira um diminuto de passagem", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
-  marBaixoStart: satb("exd-desafio-rearm-baixo", "'Mar sereno': escreva primeiro o baixo", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marDiaStart: satb("exd-desafio-rearm-diatonica", "Frase de exercício: rearmonize só com acordes diatônicos", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marDimStart: satb("exd-desafio-diminuto", "Frase de exercício: insira um diminuto de passagem", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
+  marBaixoStart: satb("exd-desafio-rearm-baixo", "Frase de exercício: escreva primeiro o baixo", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: rests(4), T: rests(4), B: rests(4) }, { style: "popular-a-cappella" }),
   marBaixo: satb("exd-desafio-rearm-baixo-sol", "Solução: baixo subindo C – D – E – F – F♯ – G – C contra a melodia", { S: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", A: "E4:h D4:h | C4:h E4:h | F#4:h D4:h | E4:w", T: "G3:h G3:h | A3:h A3:h | C4:h G3:h | G3:w", B: "C3:h D3:h | E3:h F3:h | F#3:h G3:h | C3:w" }, { style: "popular-a-cappella" }),
   ttbb7Start: ttbb("exd-desafio-ttbb-setima", "E7 → A: lead e baixo dados", { T1: "r:w | r:w", T2: "B3:w | A3:w", B1: "r:w | r:w", B2: "E3:w | A2:w" }, { key: "A" }),
   ttbb7Sol: ttbb("exd-desafio-ttbb-setima-sol", "Solução: sétima completa no quarteto e resolução com o grave aberto", { T1: "D4:w | C#4:w", T2: "B3:w | A3:w", B1: "G#3:w | E3:w", B2: "E3:w | A2:w" }, { key: "A" }),
-  ssaStart: ssaa("exd-desafio-ssa", "'Mar sereno' para SSA: melodia dada", { S1: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", S2: rests(4), A1: rests(4), A2: rests(4) }),
+  ssaStart: ssaa("exd-desafio-ssa", "Frase de exercício para SSA: melodia dada", { S1: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", S2: rests(4), A1: rests(4), A2: rests(4) }),
   ssaSol: ssaa("exd-desafio-ssa-sol", "Solução: três vozes, contralto em fundamentais e terças", { S1: "C5:h B4:h | A4:h G4:h | A4:h B4:h | C5:w", S2: "G4:h G4:h | E4:h E4:h | E4:h F4:h | E4:w", A1: "E4:h E4:h | C4:h C4:h | C4:h D4:h | C4:w", A2: rests(4) }),
   revStart: satb("exd-desafio-revisao", "Trecho para revisar: I – ii | V – I com vários problemas", { S: "E5:h F5:h | D5:h C5:h", A: "G4:h A4:h | G4:h E4:h", T: "E4:h F4:h | B3:h C4:h", B: "C3:h D3:h | G2:h C2:h" }),
 } as const;

@@ -1,10 +1,11 @@
+import { CASTELO_FORTE } from "../../repertorio";
 import { EXC } from "../examples-cp";
 import { EXD } from "../examples-didatica";
 import type { Lesson } from "../types";
 
 /**
  * CTP301 — Contraponto Vocal. Das espécies ao contracanto, ao descant e ao
- * quodlibet. Cantus firmus, melodias e exemplos são originais e conferidos pelo motor.
+ * quodlibet. O cantus firmus e os exercícios são do curso; o cânone e o contracanto usam melodias em domínio público (Frère Jacques, Nicaea). Tudo é conferido pelo motor.
  */
 
 export const lessonCpPrimeira: Lesson = {
@@ -379,7 +380,7 @@ export const lessonCpImitacao: Lesson = {
       title: "1. Cânone",
       blocks: [
         { type: "paragraph", text: "No cânone, uma voz canta a melodia e outra a repete, igual, alguns tempos depois. Para funcionar, cada trecho da melodia precisa soar bem contra o trecho anterior. O jeito mais simples: todos os trechos sobre o mesmo acorde (como nos rounds infantis) ou sobre uma progressão que se repete." },
-        { type: "example", score: EXC.canone, verdict: "correto", caption: "Cânone à oitava sobre pedal", commentary: "O tenor canta a mesma melodia do soprano, uma oitava abaixo e um compasso depois. Os tempos fortes cabem no acorde de Sol, com terças, sextas e décimas entre as vozes. O Dó dos dois (2º tempo dos compassos 2 e 3) é nota de passagem: soa como quarta sobre o pedal e, no compasso 3, como sétima contra o Si do soprano, mas chega e sai por grau e resolve logo no Ré." },
+        { type: "example", score: EXC.canone, verdict: "correto", caption: "Frère Jacques em cânone, sobre pedal", commentary: "O cânone tradicional francês 'Frère Jacques' (domínio público), como as crianças cantam: o tenor entra com a mesma melodia, uma oitava abaixo, dois compassos depois. Enquanto ele canta 'Frère Jacques', o soprano já está em 'dormez-vous?', e os dois trechos andam em décimas sobre o pedal de Sol. O Dó do soprano (2º tempo dos compassos 3 e 4) é nota de passagem e resolve logo no Ré." },
         { type: "listening", title: "Siga as entradas", score: EXC.canone, instructions: ["Ouça o soprano.", "Ouça o tenor e perceba que é a mesma melodia, atrasada.", "Ouça os dois juntos."], focus: [["S"], ["T"], ["S", "T", "B"]] },
         { type: "example", score: EXC.canoneParalelo, verdict: "incorreto", caption: "Imitação sem defasagem", commentary: "Se a segunda voz canta a mesma melodia ao mesmo tempo, só que uma quinta abaixo, não há imitação: há quintas paralelas do começo ao fim." },
       ],
@@ -463,6 +464,7 @@ export const lessonCpQuatroVozes: Lesson = {
         { type: "paragraph", text: "A quatro vozes, independência não é cada voz fazer tudo diferente: é cada uma ter um desenho reconhecível. Uma regra prática: quando uma voz se move, pelo menos uma outra segura ou vai na direção contrária. O ritmo também se divide: uma voz em semínimas, outra em mínimas, outra com uma ligadura." },
         { type: "example", score: EXC.quatroVozes, verdict: "correto", caption: "C – Am – G7 – C com quatro desenhos", commentary: "O soprano desce Mi – Ré – Dó – Si – Dó; o contralto sobe Sol – Lá e desce Fá – Mi (a sétima resolve); o tenor sobe Dó – Mi e salta para Sol; o baixo desce Dó – Lá – Sol e volta a Dó." },
         { type: "listening", title: "Quatro desenhos", score: EXC.quatroVozes, instructions: ["Ouça cada voz sozinha e cante.", "Ouça as quatro e tente seguir o contralto."], focus: [["S"], ["A"], ["T"], ["B"], ["S", "A", "T", "B"]] },
+        { type: "example", score: CASTELO_FORTE.score, verdict: "observacao", caption: "Castelo Forte (Lutero, harmonização de Bach, BWV 302)", commentary: "Repertório real (domínio público): quatro linhas independentes. O soprano canta a melodia de Lutero em semínimas; o baixo anda em colcheias, ligando um acorde ao outro; contralto e tenor têm desenho próprio e às vezes se cruzam, o que o motor aponta como alerta. O final é IV – V – I, com o soprano descendo Fá♯ – Mi – Ré." },
       ],
     },
     {
@@ -544,14 +546,14 @@ export const lessonCpContracanto: Lesson = {
       title: "1. Complementar",
       blocks: [
         { type: "paragraph", text: "O contracanto é contraponto aplicado: uma segunda melodia, mais discreta que a principal. A regra de ouro é a complementaridade: quando a melodia sustenta ou pausa, o contracanto anda; quando a melodia anda, ele segura. Assim o ouvido não precisa escolher qual seguir." },
-        { type: "example", score: EXC.contracanto, verdict: "correto", caption: "O contralto responde nas pausas", commentary: "Compasso 1: melodia em movimento, contracanto parado (Sol). Compasso 2: a melodia pausa e o contracanto anda (Lá – Sol). Compasso 3: a melodia sustenta Ré e pausa; o contracanto sobe Lá – Si para entregar a frase." },
-        { type: "listening", title: "Pergunta e resposta", score: EXC.contracanto, instructions: ["Ouça só o soprano e repare nas pausas.", "Ouça soprano e contralto: quem anda em cada momento?"], focus: [["S"], ["S", "A"]] },
+        { type: "example", score: EXC.contracanto, verdict: "correto", caption: "O contralto anda nas notas longas", commentary: "Sobre 'Santo! Santo! Santo!'. Compasso 1: a melodia anda em semínimas e o contracanto segura (Ré). Compasso 2: a melodia sustenta o Ré e o contracanto anda em semínimas (Fá♯ – Lá – Sol – Si). Compasso 3: a melodia volta a andar e o contracanto segura Sol. Compasso 4: nas notas longas da cadência, ele anda de novo (Fá♯ – Lá – Sol – Ré)." },
+        { type: "listening", title: "Pergunta e resposta", score: EXC.contracanto, instructions: ["Ouça só o soprano e repare nas notas longas.", "Ouça soprano e contralto: quem anda em cada momento?"], focus: [["S"], ["S", "A"]] },
       ],
     },
     {
       title: "2. Não é dobrar",
       blocks: [
-        { type: "example", score: EXC.contracantoOitavas, verdict: "observacao", caption: "Dobrar não é contracanto", commentary: "O contralto canta a melodia uma oitava abaixo, inclusive as pausas: o motor sugere evitar as oitavas paralelas. É um dobramento útil para dar peso, mas não acrescenta uma segunda ideia." },
+        { type: "example", score: EXC.contracantoOitavas, verdict: "observacao", caption: "Dobrar não é contracanto", commentary: "O contralto canta a melodia uma oitava abaixo, nota por nota: o motor sugere evitar as oitavas paralelas. É um dobramento útil para dar peso, mas não acrescenta uma segunda ideia." },
         { type: "callout", tone: "dica", title: "Ligação com o 2º semestre", text: "A aula 'Contracanto ativo e passivo' mostrou os tipos de contracanto. Aqui o foco é a técnica de contraponto por trás deles: complementaridade de ritmo, movimento contrário e consonâncias imperfeitas." },
       ],
     },
@@ -621,7 +623,7 @@ export const lessonCpDescant: Lesson = {
       title: "1. Descant",
       blocks: [
         { type: "paragraph", text: "O descant é uma linha nova, acima da melodia, típica da última estrofe de hinos: a congregação (ou parte do coro) canta a melodia e os sopranos, livres dela, cantam por cima. Funciona quando anda em movimento contrário à melodia e repousa nas notas comuns." },
-        { type: "example", score: EXC.descant, verdict: "correto", caption: "Melodia no tenor, descant no soprano", commentary: "Quando a melodia desce (Mi – Ré – Dó), o descant sobe (Dó – Ré – Mi), e vice-versa. As duas terminam em Dó, uma oitava de distância, por movimento contrário." },
+        { type: "example", score: EXC.descant, verdict: "correto", caption: "Melodia no tenor, descant no soprano", commentary: "'Santo! Santo! Santo!' no tenor e um descant em notas longas no registro brilhante (Si4 – Ré5 – Dó5 – Ré5), como um teto. Nas trocas importantes, os dois andam em sentido contrário: quando a melodia chega ao Mi (compasso 3), o descant desce para Dó; quando ela desce ao Ré, ele sobe. A melodia termina na terça (Si) e o descant na quinta (Ré), para não dobrar a terça." },
         { type: "listening", title: "Duas linhas, um hino", score: EXC.descant, instructions: ["Ouça o tenor (a melodia).", "Ouça o soprano (o descant).", "Ouça os quatro."], focus: [["T"], ["S"], ["S", "A", "T", "B"]] },
         { type: "example", score: EXC.descantOitavas, verdict: "incorreto", caption: "'Descant' que só repete a melodia", commentary: "O soprano cantando a melodia uma oitava acima do tenor dá oitavas paralelas o tempo todo: não é descant, é dobramento." },
       ],
@@ -630,7 +632,7 @@ export const lessonCpDescant: Lesson = {
       title: "2. Quodlibet",
       blocks: [
         { type: "paragraph", text: "No quodlibet, duas melodias diferentes (às vezes de canções diferentes) são cantadas juntas porque cabem na mesma harmonia. O arranjador apresenta cada uma sozinha e depois as combina, de preferência com ritmos contrastantes." },
-        { type: "example", score: EXC.quodlibet, verdict: "correto", caption: "Luz da manhã + Sol vai nascer", commentary: "O soprano canta 'Luz da manhã' em mínimas; o tenor canta outra melodia, com semínimas onde o soprano sustenta. As duas cabem na harmonia C – G – C – G7 – C." },
+        { type: "callout", tone: "dica", title: "Um quodlibet célebre", text: "Bach termina as Variações Goldberg (1741) com um quodlibet: sobre a harmonia do tema, combina trechos de duas canções populares alemãs da época, 'Ich bin so lang nicht bei dir g'west' e 'Kraut und Rüben'. É o mesmo princípio em escala de mestre: melodias que já existem, encaixadas na mesma harmonia. Antes de escrever o seu, confira acorde por acorde, porque duas melodias conhecidas raramente cabem juntas sem paralelas." },
         { type: "list", items: ["Confira acorde por acorde: as notas das duas melodias pertencem ao acorde ou são passagem.", "Dê ritmos diferentes às melodias para o ouvido separá-las.", "Apresente cada melodia sozinha antes de combinar.", "Use como clímax: é o momento em que o arranjo 'amarra' o que veio antes."] },
       ],
     },
@@ -642,7 +644,7 @@ export const lessonCpDescant: Lesson = {
           "Para cada acorde, liste as notas do acorde disponíveis entre C5 e F5 (o registro brilhante do soprano).",
           "Escolha a sequência em movimento contrário à melodia: quando ela sobe, o descant desce.",
           "Prefira notas longas: o descant é uma linha de 'teto', não uma segunda melodia agitada.",
-          "Termine numa consonância perfeita com a melodia (8ª ou 15ª) por movimento contrário.",
+          "Termine por movimento contrário numa consonância com a melodia; se ela terminar na terça do acorde, prefira a quinta ou a fundamental no descant, para não dobrar a terça.",
         ] },
         { type: "callout", tone: "atencao", title: "Quodlibet: conferir acorde por acorde", text: "Para combinar duas melodias existentes, faça uma tabela: compasso, acorde, nota da melodia 1, nota da melodia 2. Cada par precisa pertencer ao acorde ou ser passagem por grau. Se dois ou três pontos falharem, ajuste o ritmo de uma das melodias (adiantar ou atrasar uma nota) antes de mudar notas." },
       ],

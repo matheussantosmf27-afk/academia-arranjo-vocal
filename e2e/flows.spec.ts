@@ -230,3 +230,17 @@ test("revisão espaçada: aula concluída há três dias volta com itens novos e
   await expect(page.getByRole("heading", { name: "Competências em quatro dimensões" })).toBeVisible();
   await expect(page.getByText(/revisão aprovada|^revisão$/).first()).toBeVisible();
 });
+
+test("repertório: peças reais com fonte, áudio e abertura no laboratório", async ({ page }) => {
+  await page.goto("/repertorio");
+  await expect(page.getByRole("heading", { level: 1, name: "Hinos e corais de verdade" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Castelo Forte/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: /Santo! Santo! Santo!/ })).toBeVisible();
+  const castelo = page.locator("section#castelo-forte");
+  await expect(castelo.locator(".score-surface svg").first()).toBeVisible();
+  await castelo.getByText("Fonte e direitos").click();
+  await expect(castelo.getByRole("link", { name: /corpus do music21/ })).toBeVisible();
+  await castelo.getByRole("link", { name: "Abrir no laboratório de escrita" }).click();
+  await expect(page).toHaveURL(/estudio\?exemplo=rep-castelo-forte/);
+  await expect(page.locator(".score-surface svg")).toBeVisible();
+});

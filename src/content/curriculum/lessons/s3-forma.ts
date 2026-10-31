@@ -277,7 +277,7 @@ export const lessonVariacao: Lesson = {
     {
       title: "5. Demonstração: o mesmo refrão em três versões",
       blocks: [
-        { type: "paragraph", text: "A 'Canção do Caminho' aparece três vezes como refrão. Veja como cada técnica da seção 1 vira uma decisão concreta — e por que a ordem importa." },
+        { type: "paragraph", text: "O 'Hino à Alegria' aparece três vezes como refrão. Veja como cada técnica da seção 1 vira uma decisão concreta — e por que a ordem importa." },
         { type: "table", caption: "Três versões e o que cada uma acrescenta", headers: ["Versão", "Técnica", "Partitura do curso", "O que o ouvinte percebe"], rows: [["1", "homofonia simples", "harmonização em bloco (exemplo da aula de texturas)", "a canção, clara"], ["2", "troca de naipe + contracanto", "melodia no tenor com sopranos em notas longas", "a mesma canção, com outra cor"], ["3", "oitavas + modulação", "melodia em sopranos e tenores, meio tom acima", "o ponto mais alto do arranjo"]] },
         { type: "paragraph", text: "Repare que cada versão mantém a melodia reconhecível e muda só um ou dois parâmetros. A ordem segue a curva de energia: da versão mais simples para a mais cheia." },
         { type: "example", score: EXA.melodiaNoTenor, verdict: "correto", caption: "Versão 2: a melodia no tenor", commentary: "Mesmo material, cor diferente. Sopranos e contraltos ficam em notas longas, acima e mais suaves, para não cobrir a melodia." },

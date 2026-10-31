@@ -72,13 +72,13 @@ export const lessonOficio: Lesson = {
           title: "Um modelo para começar, não a lista completa",
           text: "Melodia, harmonia e ritmo/textura são categorias didáticas: ajudam a ler um arranjo pela primeira vez, mas não descrevem tudo. Ao longo do curso entram também a forma e o contraste entre seções (FOR301), a prosódia e a respiração (TXT301), o timbre, a dinâmica e a densidade de cada naipe (TEX201, EST401), a articulação e as sílabas (TEX201) e a interação entre vozes no contraponto (CTP301).",
         },
-        { type: "example", score: EXA.melodiaSo, verdict: "correto", caption: "Ponto de partida: só a melodia", commentary: "É o material que o arranjador recebe. Uma frase de quatro compassos que sobe ao Dó5 no compasso 2 e termina na tônica. Tudo o que vem depois é decisão do arranjo." },
+        { type: "example", score: EXA.melodiaSo, verdict: "correto", caption: "Ponto de partida: só a melodia", commentary: "É o material que o arranjador recebe. A 2ª frase do 'Hino à Alegria', de Beethoven (domínio público): quatro compassos em Sol maior que sobem por grau até o Ré5, descem e terminam na tônica. Tudo o que vem depois é decisão do arranjo." },
         {
           type: "example",
           score: EXA.melodiaHarmonizada,
           verdict: "correto",
           caption: "Uma decisão possível: harmonização em bloco",
-          commentary: "As quatro vozes cantam a letra juntas (homofonia). A melodia continua no soprano; contralto, tenor e baixo dão os acordes I – IV⁶ – I – vi⁶ – V – I. É a textura do hino e do coral de igreja.",
+          commentary: "As quatro vozes cantam a letra juntas (homofonia). A melodia continua no soprano; contralto, tenor e baixo dão os acordes I – IV⁶ | V⁷ – I | vi – ii | V – I. É a textura do hino e do coral de igreja.",
         },
         {
           type: "listening",
@@ -138,7 +138,7 @@ export const lessonOficio: Lesson = {
     {
       title: "5. Demonstração: do briefing às primeiras decisões",
       blocks: [
-        { type: "paragraph", text: "Situação: um coro de igreja amador com 24 cantores (9 sopranos, 8 contraltos, 3 tenores, 4 baixos) vai cantar a 'Canção do Caminho' num culto daqui a cinco semanas, com um ensaio por semana, sem instrumentos. Veja como cada resposta do briefing vira uma decisão concreta." },
+        { type: "paragraph", text: "Situação: um coro de igreja amador com 24 cantores (9 sopranos, 8 contraltos, 3 tenores, 4 baixos) vai cantar a 2ª frase do 'Hino à Alegria' num culto daqui a cinco semanas, com um ensaio por semana, sem instrumentos. Veja como cada resposta do briefing vira uma decisão concreta." },
         { type: "table", caption: "Cada resposta do briefing elimina opções", headers: ["Pergunta", "Resposta", "Decisão que ela provoca"], rows: [["Para quem?", "SATB amador, só 3 tenores", "tenor nunca sozinho com a melodia; tessitura de tenor entre E3 e D4"], ["Para quê?", "culto, congregação ouvindo o texto", "letra inteligível em todas as vozes durante as estrofes"], ["Com instrumentos?", "a cappella", "o baixo precisa dar a fundamental nos tempos fortes; dar a nota inicial com uma introdução curta"], ["Estilo?", "coral tradicional", "condução sem paralelas; homofonia como textura principal"], ["Tempo de ensaio?", "cinco ensaios", "no máximo duas texturas diferentes; nada de divisi"]] },
         { type: "paragraph", text: "Repare no que NÃO foi decidido ainda: os acordes, a tonalidade exata e a forma. O briefing não escreve o arranjo — ele estreita o caminho, para que as decisões musicais seguintes sejam rápidas e coerentes." },
         { type: "callout", tone: "dica", title: "Alternativa com outro briefing", text: "Se o mesmo grupo fosse cantar num festival, com três meses de ensaio, a resposta 'Para quê?' mudaria: haveria espaço para um verso com melodia nos contraltos e pad em 'uh', e para um final com divisi nos sopranos. Mesma canção, mesmos cantores, outro arranjo." },
@@ -152,7 +152,7 @@ export const lessonOficio: Lesson = {
         {
           type: "challenge",
           title: "Briefing de um coro escolar",
-          task: "Um coro escolar com 30 adolescentes (vozes femininas e masculinas ainda em muda) vai cantar a 'Canção do Caminho' numa formatura, com piano, em seis ensaios. Escreva o briefing (as cinco perguntas) e, a partir dele, três decisões concretas de arranjo com a justificativa de cada uma.",
+          task: "Um coro escolar com 30 adolescentes (vozes femininas e masculinas ainda em muda) vai cantar a 2ª frase do 'Hino à Alegria' numa formatura, com piano, em seis ensaios. Escreva o briefing (as cinco perguntas) e, a partir dele, três decisões concretas de arranjo com a justificativa de cada uma.",
           constraints: ["Cada decisão precisa citar a resposta do briefing que a justifica.", "Não escreva notas ainda: só decisões (textura, quem canta a melodia, tonalidade aproximada, uso do piano…)."],
           criteria: ["As cinco perguntas respondidas com dados do enunciado, sem inventar informações.", "As três decisões são verificáveis (alguém poderia conferir se o arranjo as cumpre).", "Pelo menos uma decisão leva em conta a muda vocal dos meninos."],
           hints: ["Comece pelo 'Para quem?': o que a muda vocal muda na extensão dos meninos?", "O piano está disponível. Que trabalho das três camadas ele pode assumir para aliviar o coro?", "Uma formação comum para esse caso é 'SAB' (soprano, contralto e uma voz masculina de extensão curta, por volta de A2–D4)."],
@@ -320,13 +320,13 @@ export const lessonProcesso: Lesson = {
     {
       title: "4. Demonstração: as sete etapas numa canção curta",
       blocks: [
-        { type: "paragraph", text: "Vamos aplicar o método à 'Canção do Caminho' (quatro compassos), para um coro SATB amador, estilo tradicional. As etapas 1 a 4 não produzem nenhuma nota nova — e mesmo assim decidem quase tudo." },
+        { type: "paragraph", text: "Vamos aplicar o método à 2ª frase do 'Hino à Alegria' (quatro compassos), para um coro SATB amador, estilo tradicional. As etapas 1 a 4 não produzem nenhuma nota nova — e mesmo assim decidem quase tudo." },
         { type: "list", ordered: true, items: [
-          "Ouvir e transcrever: a melodia está em Dó maior, 4/4, de E4 a C5. A letra 'Vou pelo caminho com a gente' cabe sílaba por nota, com 'mi-' no tempo forte do compasso 2.",
-          "Analisar: uma frase só, com ponto culminante C5 no compasso 2 e cadência na tônica (B4 → C5) no fim.",
+          "Ouvir e transcrever: a melodia está em Sol maior, 4/4, de G4 a D5. O texto original de Schiller ('Wir betreten feuertrunken…') cabe sílaba por nota, com uma só colcheia ('-lig-') no compasso 4.",
+          "Analisar: uma frase só, em arco: sobe por grau até o D5 (ponto culminante, compassos 1–2), desce e termina na tônica, com A4 → G4 sobre V – I.",
           "Briefing: SATB amador, culto, a cappella, estilo tradicional, quatro ensaios.",
-          "Mapa: uma única textura (homofonia), melodia no soprano, intensidade mf com pequeno crescendo até o C5.",
-          "Esqueleto: o baixo é escrito agora, inteiro — C3 | A2 C3 | C3 G2 | C3 — e conferido contra o soprano.",
+          "Mapa: uma única textura (homofonia), melodia no soprano, intensidade mf com pequeno crescendo até o D5.",
+          "Esqueleto: o baixo é escrito agora, inteiro — G2 E3 | D3 G2 | E3 A2 | D3 G2 — e conferido contra o soprano.",
           "Preenchimento: contralto e tenor completam os acordes com notas comuns (veja a versão harmonizada na aula anterior).",
           "Revisão: motor no estilo tradicional; cantar contralto e tenor sozinhos; tocar no andamento real.",
         ] },
@@ -342,15 +342,15 @@ export const lessonProcesso: Lesson = {
         {
           type: "challenge",
           title: "Só o esqueleto",
-          task: "Escreva apenas o baixo para a 'Canção do Caminho', com no máximo dois acordes por compasso, de modo que soprano e baixo formem um esqueleto sem 5ªs ou 8ªs paralelas e com cadência autêntica no final.",
+          task: "Escreva apenas o baixo para a 2ª frase do 'Hino à Alegria' (Beethoven), em Sol maior, com no máximo dois acordes por compasso, de modo que soprano e baixo formem um esqueleto sem 5ªs ou 8ªs paralelas e com cadência autêntica no final.",
           start: EXD.procStart,
-          constraints: ["Não escreva contralto nem tenor.", "Baixo entre G2 e C4.", "Termine com G (V) → C (I) no baixo."],
-          criteria: ["O baixo muda de nota nos tempos fortes (1 e 3), não nas colcheias da melodia.", "Nenhuma 5ª ou 8ª paralela entre soprano e baixo.", "A última nota do baixo é C3 sob o C5 do soprano."],
-          hints: ["A melodia tem notas de passagem nas semínimas: harmonize só as notas dos tempos 1 e 3.", "No compasso 2, o C5 do tempo forte aceita C (I) ou A (vi) no baixo; um baixo que desce por grau ou por 3ª dá linha.", "Um esqueleto possível começa com C3 sustentado no compasso 1 e passa por A2 no compasso 2."],
+          constraints: ["Não escreva contralto nem tenor.", "Baixo entre E2 e C4.", "Termine com D (V) → G (I) no baixo."],
+          criteria: ["O baixo muda de nota só nos tempos 1 e 3, não em cada semínima da melodia.", "Nenhuma 5ª ou 8ª paralela entre soprano e baixo.", "A última nota do baixo é G2 sob o G4 do soprano."],
+          hints: ["A melodia anda em semínimas: harmonize só as notas dos tempos 1 e 3; as dos tempos 2 e 4 passam.", "No compasso 2, o D5 do tempo forte seguido de C5 cabe inteiro num D7: D3 no baixo.", "Cuidado com o compasso 1 → 2: C5 com C3 no baixo seguido de D5 com D3 dá oitavas em tempos fortes. Ponha o Dó com o Mi no baixo (C/E)."],
           solution: {
             score: EXD.procSol,
-            commentary: "C3 | A2 – C3 | C3 – G2 | C3. O baixo sustenta a tônica no compasso 1 (as semínimas da melodia passam por cima), desce para A2 no ponto culminante — o C5 sobre A forma uma 10ª e dá cor de vi — e prepara a cadência com G2 sob o B4. Nas duas trocas de acorde do compasso 2, soprano e baixo se movem em direções opostas; no compasso 3, o baixo fica parado enquanto a melodia anda (movimento oblíquo). Com este esqueleto, as vozes internas da versão harmonizada praticamente não precisam saltar.",
-            alternatives: ["C3 | C3 – E3 | F3 – G3 | C3: baixo subindo por grau até a dominante, mais 'caminhante'; confira se o G3 → C3 final soa conclusivo o bastante (salto de 5ª descendente, sim).", "Com o compasso 3 em ii⁶ (F3) → V (G2) a cadência fica mais preparada, mas o salto de 7ª no baixo pede cuidado: prefira F3 → G3."],
+            commentary: "G2 – E3 | D3 – G2 | E3 – A2 | D3 – G2, ou seja, G – C/E | D7 – G | Em – Am | D – G. O baixo sobe G2 – E3 enquanto a melodia sobe, mas sem formar oitavas com ela: o Dó do soprano cai sobre o Mi do baixo (uma 13ª). No compasso 2, o D3 sustenta o D5 – C5 da melodia (fundamental e sétima do D7) e o G2 recebe a resolução da sétima, C5 → B4. O compasso 3 desce E3 – A2 (vi – ii) para preparar a cadência D – G do compasso 4.",
+            alternatives: ["G2 – C3 | D3 – G2 | E3 – A2 | D3 – G2: com o Dó no estado fundamental o esqueleto de duas vozes também passa no motor, mas soprano e baixo ficam em oitava nos tempos 3 do compasso 1 e 1 do compasso 2; com quatro vozes, prefira o C/E.", "G2 – E3 | D3 – G2 | C3 – A2 | D3 – G2: o IV (C3 sob o G4 da melodia) no lugar do vi também funciona e deixa o baixo descer por grau até o A2."],
           },
         },
       ],

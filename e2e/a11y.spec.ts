@@ -23,6 +23,7 @@ const PAGES = [
   { path: "/estudio", ready: ".score-surface svg" },
   { path: "/laboratorio", ready: "h1" },
   { path: "/projetos", ready: "h1" },
+  { path: "/repertorio", ready: "h1" },
   { path: "/perfil", ready: "h1" },
   { path: "/entrar", ready: "h1" },
 ];

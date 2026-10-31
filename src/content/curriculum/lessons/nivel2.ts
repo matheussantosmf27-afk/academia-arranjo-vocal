@@ -1,3 +1,4 @@
+import { NUN_DANKET } from "../../repertorio";
 import { CHORALE_TTBB_G } from "@/domain/music/examples";
 import { EX } from "../examples";
 import { EXD } from "../examples-didatica";
@@ -306,6 +307,7 @@ export const lessonDuplicacoes: Lesson = {
         { type: "example", score: EX.tercaDobrada, verdict: "observacao", caption: "I com a terça dobrada", commentary: "Recomendação: num acorde maior em estado fundamental, a terça dobrada fica proeminente." },
         { type: "example", score: EX.cadEngano, verdict: "correto", caption: "vi com terça dobrada após V", commentary: "Aqui a terça dobrada é a solução recomendada — o motor reconhece a exceção." },
         { type: "listening", title: "Peso da terça", score: EX.tercaDobrada, instructions: ["Ouça o acorde e depois apenas soprano + tenor (as duas terças)."], focus: [["S", "T"], ["S", "A", "T", "B"]] },
+        { type: "example", score: NUN_DANKET.score, verdict: "observacao", caption: "Nun danket alle Gott (Bach, BWV 386): dobras de um mestre", commentary: "Repertório real (domínio público). Num dos acordes, Bach dobra a sensível, o que a escrita escolar evita: o motor marca como erro. Abra os diagnósticos, encontre o acorde e ouça: o efeito incomoda? Saber a regra é o que permite reconhecer quando alguém a quebra de propósito." },
       ],
     },
     {

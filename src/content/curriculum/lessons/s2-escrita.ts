@@ -240,7 +240,7 @@ export const lessonTexturas: Lesson = {
           score: EXA.melodiaNoTenor,
           verdict: "correto",
           caption: "A melodia no tenor",
-          commentary: "O tenor canta a melodia uma oitava abaixo; soprano e contralto sustentam notas longas acima, e o baixo dá a fundamental. O acorde final ganha o soprano no Dó5 como 'teto' brilhante.",
+          commentary: "O tenor canta a melodia uma oitava abaixo; soprano e contralto sustentam notas longas acima, e o baixo dá a fundamental. No acorde final, o soprano fica no Si4, a terça, como um 'teto' suave.",
         },
         { type: "example", score: EXA.ttbbMelodiaT2, verdict: "correto", caption: "Em TTBB: a melodia no Tenor II", commentary: "No coro masculino, a melodia no Tenor II fica no centro do acorde, com o Tenor I fazendo uma 'harmonia de cima'. É a distribuição clássica do barbershop e do coro masculino." },
       ],

@@ -1,3 +1,4 @@
+import { SANTO_SANTO_SANTO, WACHET_AUF } from "../../repertorio";
 import { CHORALE_SATB_C, CHORALE_TTBB_G } from "@/domain/music/examples";
 import { REVISION_LEVELS } from "../didactics";
 import { EX } from "../examples";
@@ -32,10 +33,10 @@ export const lessonAnaliseMelodica: Lesson = {
     {
       title: "2. Demonstração: a análise completa de uma melodia curta",
       blocks: [
-        { type: "paragraph", text: "Vamos aplicar os quatro passos à 'Canção do Caminho' (E4 G4 A4 G4 | C5 G4 | A4 C5 B4 | C5), em Dó maior, 4/4." },
-        { type: "table", caption: "Análise compasso a compasso", headers: ["Compasso", "Notas estruturais (tempos 1 e 3)", "Notas de passagem/ornamento", "Função implícita"], rows: [["1", "E4, A4", "G4 (tempo 2), G4 (tempo 4)", "tônica (E e G pertencem ao I; A4 é bordadura de G4)"], ["2", "C5 (ponto culminante), G4", "—", "C5 sustentado: I ou vi; G4: I"], ["3", "A4, B4", "C5 (tempo 2)", "A4 pede IV ou vi; B4 longo pede V"], ["4", "C5", "—", "tônica: cadência autêntica implícita (B4 → C5)"]] },
-        { type: "list", ordered: true, items: ["Frase: uma só, de quatro compassos, com respiração no fim (pausa de semínima).", "Ponto culminante: C5, no 1º tempo do compasso 2 — cedo, mas repetido como nota final, o que dá unidade.", "Cadência implícita: 7 → 1 no soprano (B4 → C5), com a sensível longa no compasso 3: autêntica.", "Cantabilidade: âmbito de 6ª menor (E4–C5), saltos de 3ª e 4ª compensados por grau; nenhuma nota fora da tessitura do soprano."] },
-        { type: "callout", tone: "dica", title: "Por que isso economiza tempo", text: "Com esta tabela pronta, a harmonização já está meio decidida: os acordes só mudam nos tempos 1 e 3, o compasso 3 prepara a cadência e o compasso 4 é tônica. As notas de passagem não recebem acorde próprio." },
+        { type: "paragraph", text: "Vamos aplicar os quatro passos à 2ª frase do 'Hino à Alegria', de Beethoven (B4 B4 C5 D5 | D5 C5 B4 A4 | G4 G4 A4 B4 | A4 G4 G4), em Sol maior, 4/4." },
+        { type: "table", caption: "Análise compasso a compasso", headers: ["Compasso", "Notas estruturais (tempos 1 e 3)", "Notas de passagem/ornamento", "Função implícita"], rows: [["1", "B4, C5", "B4 repetido (tempo 2), D5 (tempo 4, antecipa o compasso 2)", "B4: I; C5: IV (com o Mi no baixo, para não formar oitavas)"], ["2", "D5 (ponto culminante), B4", "C5 (tempo 2), A4 (tempo 4)", "D5 – C5 cabem no V⁷ (fundamental e sétima); B4: I"], ["3", "G4, A4", "G4 repetido (tempo 2), B4 (tempo 4, bordadura)", "G4: vi; A4: ii, preparando a cadência"], ["4", "A4, G4", "G4 em colcheia (antecipação)", "A4 sobre V, G4 na tônica: cadência autêntica implícita (2 → 1)"]] },
+        { type: "list", ordered: true, items: ["Frase: uma só, de quatro compassos, com respiração no fim.", "Ponto culminante: D5, no tempo 4 do compasso 1 e repetido no tempo 1 do compasso 2 — a melodia sobe até ele e desce, num arco.", "Cadência implícita: 2 → 1 no soprano (A4 → G4) sobre V – I: autêntica.", "Cantabilidade: âmbito de 5ª justa (G4–D5), só graus conjuntos e notas repetidas; nenhuma nota fora da tessitura do soprano."] },
+        { type: "callout", tone: "dica", title: "Por que isso economiza tempo", text: "Com esta tabela pronta, a harmonização já está meio decidida: os acordes só mudam nos tempos 1 e 3, o compasso 3 prepara a cadência e o compasso 4 é V – I. As notas de passagem não recebem acorde próprio." },
       ],
     },
     {
@@ -97,6 +98,7 @@ export const lessonHarmonizacao: Lesson = {
         { type: "paragraph", text: "Harmonizar não é procurar 'um acorde que caiba' em cada nota. É decidir onde a música repousa, por onde passa e com que velocidade os acordes mudam. Por isso o trabalho começa pela melodia — com as ferramentas da aula de análise melódica — e não pela pauta do baixo." },
         { type: "list", ordered: true, items: ["Marque as frases e as respirações.", "Decida a cadência de cada fim de frase (o grau final do soprano sugere: 1 ou 3 → autêntica; 2, 5 ou 7 sustentados → semicadência).", "Separe notas estruturais (tempos fortes, notas longas) de notas de passagem: só as estruturais recebem acorde próprio.", "Defina o ritmo harmônico: aqui, um acorde por mínima; em hinos rápidos, um por compasso."] },
         { type: "table", caption: "Que acordes contêm cada grau do soprano (modo maior)", headers: ["Grau no soprano", "Acordes que o contêm", "Observação"], rows: [["1", "I, IV, vi", "I no início e no fim; IV e vi no meio da frase"], ["2", "V, ii, vii°", "V na semicadência; ii prepara o V"], ["3", "I, vi, iii", "iii é raro como acorde próprio em escrita coral"], ["4", "IV, ii, V7 (como sétima)", "como sétima do V7, desce para 3"], ["5", "I, V, iii", "I⁶₄ cadencial quando o baixo é a dominante"], ["6", "IV, ii, vi", "ii⁶ e IV dão baixo ativo antes do V"], ["7", "V, vii°, iii", "a sensível sobe para 1 no soprano"]] },
+        { type: "example", score: SANTO_SANTO_SANTO.score, verdict: "observacao", caption: "Santo! Santo! Santo! na harmonização original de Dykes (1861)", commentary: "Repertório real (domínio público): o modelo de hino a quatro vozes. As vozes mudam de acorde juntas, quase sempre por grau ou com notas comuns, e o texto se entende em todas. Na cadência final, o tenor resolve a sétima do Lá maior (Sol → Fá♯) e o contralto, a sensível (Dó♯ → Ré)." },
       ],
     },
     {
@@ -596,6 +598,7 @@ export const lessonEstilo: Lesson = {
       blocks: [
         { type: "example", score: EX.paralelas, verdict: "incorreto", caption: "Coral tradicional", commentary: "Paralelas são erro de convenção." },
         { type: "example", score: EX.paralelasPopular, verdict: "observacao", caption: "Popular a cappella", commentary: "O mesmo fato vira sugestão. O relatório sempre diz o que encontrou; o estilo decide o peso." },
+        { type: "example", score: WACHET_AUF.score, verdict: "observacao", caption: "Wachet auf (Nicolai, harmonização de Bach, BWV 140.7)", commentary: "Repertório real para análise de estilo. Compare o que o motor aponta com o que você ouve: o soprano chega ao Sol agudo, o baixo ao Mi♭ grave e há sétimas que não resolvem do jeito escolar. Em Bach, cada desvio tem um motivo melódico; numa revisão de estilo, a pergunta é sempre se o desvio é intencional e se soa." },
       ],
     },
     {

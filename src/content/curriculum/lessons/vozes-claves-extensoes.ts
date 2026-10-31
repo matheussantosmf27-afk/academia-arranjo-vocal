@@ -231,12 +231,12 @@ export const lessonVozes: Lesson = {
         {
           type: "challenge",
           title: "A melodia cabe neste naipe?",
-          task: "A 'Canção do Caminho' (E4 a C5, nota média por volta de G4) será cantada pelos tenores de um coro TTBB amador (Tenor II na melodia). Decida em que oitava e em que tonalidade escrevê-la, e diga como ela aparece na partitura (clave e notas escritas).",
+          task: "A 2ª frase do 'Hino à Alegria' (em Sol: G4 a D5, nota média por volta de B4) será cantada pelos tenores de um coro TTBB amador (Tenor II na melodia). Decida em que oitava e em que tonalidade escrevê-la, e diga como ela aparece na partitura (clave e notas escritas).",
           constraints: ["Use as tessituras desta aula (Tenor II no TTBB: E3–D4).", "Mantenha a melodia inteira na mesma oitava."],
           criteria: ["Nota mais grave e mais aguda calculadas na altura sonora.", "A nota média fica perto do centro da tessitura do tenor.", "A grafia na clave de sol com 8 está coerente com a altura sonora."],
-          hints: ["Em Dó maior, uma oitava abaixo, a melodia iria de E3 a C4: está na tessitura do Tenor II?", "Se quiser a melodia mais brilhante, que tonalidade leva o C4 (ponto mais alto) para D4, o topo da tessitura do Tenor II?", "Na clave de sol com 8, uma nota que soa E3 é escrita na 1ª linha (E4 escrito)."],
+          hints: ["Em Sol maior, uma oitava abaixo, a melodia iria de G3 a D4: está na tessitura do Tenor II?", "O D4 (ponto mais alto) fica no topo da tessitura do Tenor II. Que tonalidade traz a melodia um tom abaixo?", "Na clave de sol com 8, uma nota que soa G3 é escrita na 2ª linha (G4 escrito)."],
           solution: {
-            commentary: "Uma oitava abaixo, em Dó maior, a melodia soa de E3 a C4, com nota média por volta de G3 — no centro da tessitura do Tenor II (E3–D4). É uma boa escolha. Para mais brilho, Ré maior (F♯3 a D4, média A3) leva o ponto culminante ao topo da tessitura: aceitável se ele for curto. Mi maior (G♯3 a E4) já passa da tessitura do Tenor II — nesse caso, a melodia iria melhor para o Tenor I. Na partitura, o tenor usa a clave de sol com 8: em Dó, as notas escritas são as mesmas da melodia original (E4 a C5), e soam uma oitava abaixo.",
+            commentary: "Uma oitava abaixo, em Sol maior, a melodia soa de G3 a D4, com nota média por volta de B3: cabe na tessitura do Tenor II (E3–D4), com o ponto culminante no topo — aceitável, porque o D4 aparece só duas vezes, em semínimas. Fá maior (F3 a C4, média A3) põe a melodia no centro da tessitura: é a escolha mais segura para um grupo amador. Lá maior (A3 a E4) já passa da tessitura do Tenor II; nesse caso, a melodia iria melhor para o Tenor I. Na partitura, o tenor usa a clave de sol com 8: em Sol, as notas escritas são as mesmas da melodia original (G4 a D5), e soam uma oitava abaixo.",
             alternatives: ["Se o grupo tiver um Tenor I confortável até G4, a melodia pode ir para ele em Fá ou Sol maior, liberando o Tenor II para a harmonia."],
           },
         },

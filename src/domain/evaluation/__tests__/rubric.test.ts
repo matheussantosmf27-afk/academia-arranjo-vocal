@@ -43,7 +43,7 @@ describe("rubrica de avaliação", () => {
     const inicio = evaluateRubric({ score: p.starting, style: p.style, starting: p.starting, melodyVoice: p.melodyVoice, justifications: ["", "", ""] });
     expect(crit(inicio, "requisitos").level).toBe(1);
     expect(crit(inicio, "requisitos").evidence).toContain("Melodia dada preservada");
-    const alterada = { ...p.starting, parts: p.starting.parts.map((x) => (x.voice === "S" ? { ...x, events: x.events.map((e, i) => (i === 0 && e.kind === "note" ? { ...e, pitch: { ...e.pitch, step: "A" as const } } : e)) } : x)) };
+    const alterada = { ...p.starting, parts: p.starting.parts.map((x) => (x.voice === "S" ? { ...x, events: x.events.map((e, i) => (i === 0 && e.kind === "note" ? { ...e, pitch: { ...e.pitch, step: e.pitch.step === "A" ? ("B" as const) : ("A" as const) } } : e)) } : x)) };
     expect(crit(evaluateRubric({ score: alterada, style: p.style, starting: p.starting, melodyVoice: "S" }), "requisitos").evidence).toContain("A melodia dada foi alterada");
   });
   it("requisitos: notas novas nos compassos vazios da voz da melodia não contam como alteração", () => {
