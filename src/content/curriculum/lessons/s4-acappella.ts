@@ -142,9 +142,9 @@ export const lessonAcappellaTexturas: Lesson = {
       blocks: [
         { type: "paragraph", text: "O eco é uma imitação curta: uma voz repete a frase da outra um tempo depois. Funciona melhor com frases curtas e harmonia parada, para que as duas camadas de texto não se atrapalhem." },
         { type: "example", score: EXA2.eco, verdict: "correto", caption: "O tenor ecoa o lead", commentary: "Em 'Frère Jacques' (domínio público), cada motivo é cantado duas vezes. Aqui o lead canta o primeiro 'dormez-vous?' e o Tenor I responde com o segundo, nas mesmas notas, enquanto o lead respira; barítono e baixo seguram o acorde de Sol." },
-        { type: "example", score: EXA2.textoContraUh, verdict: "correto", caption: "Tenores com texto, barítono e baixo em 'uh'", commentary: "A 2ª frase de 'Ah! vous dirai-je, maman' (domínio público): as duas vozes de cima dizem o texto em terças; as de baixo viram 'colchão' em 'uh', com o baixo em C – G | D – G. O texto fica claro e o acorde, completo." },
+        { type: "example", score: EXA2.textoContraUh, verdict: "correto", caption: "Tenores com texto, barítono e baixo em 'uh'", commentary: "A 2ª frase de 'Ah! vous dirai-je, maman' (domínio público): a melodia está no Tenor II (Dó – Dó – Si – Si – Lá – Lá – Sol), e o Tenor I canta o mesmo texto uma terça acima; as de baixo viram 'colchão' em 'uh', com o baixo em C – G | D – G. O texto fica claro e o acorde, completo." },
         { type: "example", score: EXA2.antecipacao, verdict: "correto", caption: "Antecipação ('push')", commentary: "O acorde de Dó chega na última colcheia do compasso 1, ligado ao tempo forte do compasso 2: é a síncope que dá balanço ao gospel e ao pop." },
-        { type: "listening", title: "Ouça o eco", score: EXA2.eco, instructions: ["Ouça só o lead.", "Ouça lead e barítono juntos."], focus: [["T2"], ["T2", "B1"]] },
+        { type: "listening", title: "Ouça o eco", score: EXA2.eco, instructions: ["Ouça só o lead.", "Ouça lead e Tenor I juntos: o eco vem no compasso 2."], focus: [["T2"], ["T1", "T2"]] },
         ESTUDO,
       ],
     },
