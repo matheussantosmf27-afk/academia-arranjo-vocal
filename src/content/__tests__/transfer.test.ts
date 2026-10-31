@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { REPERTORIO } from "@/content/repertorio";
-import { POST_TEST_SEED, PRE_TEST_SEED, postTest, preTest, resolveTask } from "@/content/tasks";
+import { POST_TEST_SEED, PRE_TEST_SEED, isTestTask, newTransferTaskId, postTest, preTest, publicTask, resolveTask } from "@/content/tasks";
 import { LESSON_TASKS } from "@/content/production-tasks";
 import { TRANSFER_MELODIES } from "@/content/transfer-melodies";
 import { checkTask } from "@/domain/production/task";
@@ -70,6 +70,11 @@ describe("avaliação de transferência", () => {
     const mel = (ts: typeof pre) => ts.map((t) => parseTransferId(t.id)!.melodyId);
     expect(new Set(mel(pre)).size).toBe(pre.length);
     expect(new Set(mel(post)).size).toBe(post.length);
+    // nenhuma melodia aparece nos dois testes
+    expect(mel(post).filter((m) => mel(pre).includes(m))).toEqual([]);
+    expect(isTestTask("pre-teste", pre[0]!.id)).toBe(true);
+    expect(isTestTask("pos-teste", pre[0]!.id)).toBe(false);
+    expect(isTestTask("pre-teste", generateTransferTask("harmonizar", TRANSFER_MELODIES, 5)!.id)).toBe(false);
   });
 
   it("a correção de erros parte de uma partitura com pelo menos um erro objetivo, três pontos graves e soprano intacto", () => {
@@ -80,6 +85,15 @@ describe("avaliação de transferência", () => {
       expect(r.serious.length).toBeGreaterThanOrEqual(3);
       expect(r.checks.find((c) => c.id === "preserva")?.ok).toBe(true);
     }
+  });
+
+  it("tarefa enviada ao navegador não leva a solução; ids gerados no servidor são resolvíveis", () => {
+    const t = resolveTask(preTest()[0]!.id)!;
+    expect(t.solution).toBeDefined();
+    expect("solution" in publicTask(t)).toBe(false);
+    const id = newTransferTaskId("corrigir", 9, "paralelas")!;
+    expect(resolveTask(id)?.lessonId).toBe("paralelas");
+    expect(newTransferTaskId("corrigir", 9, "nao-existe")).toBeNull();
   });
 
   it("prática ligada a uma aula: credita a aula e rejeita aula inexistente", () => {

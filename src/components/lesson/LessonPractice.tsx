@@ -2,16 +2,16 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { TRANSFER_MELODIES } from "@/content/transfer-melodies";
-import { newSeed } from "@/domain/exercises/random";
+import { createTransferTask } from "@/app/actions/production";
 import { ASSISTANCE_PT } from "@/domain/production/task";
-import { TRANSFER_KIND_PT, type TransferKind, generateTransferTask, parseTransferId } from "@/domain/production/transfer";
+import { TRANSFER_KIND_PT, type TransferKind, parseTransferId } from "@/domain/production/transfer";
 import { useProductionAttempts } from "@/lib/production/store";
 
 /** Prática corrigida com melodia inédita, creditada à aula (registro de ajuda incluído). */
 export function LessonPractice({ lessonId, kind }: { lessonId: string; kind: TransferKind }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const mine = useProductionAttempts().filter((a) => parseTransferId(a.taskId)?.lessonId === lessonId);
   const tasks = new Set(mine.map((a) => a.taskId));
   const solved = mine.filter((a) => a.passed);
@@ -36,13 +36,23 @@ export function LessonPractice({ lessonId, kind }: { lessonId: string; kind: Tra
         aria-busy={busy}
         onClick={() => {
           setBusy(true);
-          const t = generateTransferTask(kind, TRANSFER_MELODIES, newSeed(), lessonId);
-          if (t) router.push(`/estudio?tarefa=${encodeURIComponent(t.id)}`);
-          else setBusy(false);
+          setError(null);
+          void createTransferTask(kind, lessonId).then((r) => {
+            if (r.ok) router.push(`/estudio?tarefa=${encodeURIComponent(r.taskId)}`);
+            else {
+              setError(r.error);
+              setBusy(false);
+            }
+          });
         }}
       >
         {busy ? "Preparando…" : "Nova situação no laboratório"}
       </button>
+      {error && (
+        <p role="alert" style={{ color: "var(--erro)" }}>
+          {error}
+        </p>
+      )}
     </section>
   );
 }

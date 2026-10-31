@@ -2,10 +2,9 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { TRANSFER_MELODIES } from "@/content/transfer-melodies";
-import { newSeed } from "@/domain/exercises/random";
+import { createTransferTask } from "@/app/actions/production";
 import { ASSISTANCE_PT } from "@/domain/production/task";
-import { TRANSFER_KINDS, TRANSFER_KIND_PT, type TransferKind, generateTransferTask, parseTransferId } from "@/domain/production/transfer";
+import { TRANSFER_KINDS, TRANSFER_KIND_PT, type TransferKind, parseTransferId } from "@/domain/production/transfer";
 import { useProductionAttempts } from "@/lib/production/store";
 
 const WHAT: Record<TransferKind, string> = {
@@ -21,19 +20,27 @@ export function TransferHub() {
   const router = useRouter();
   const attempts = useProductionAttempts().filter((a) => a.kind === "transferencia");
   const [busy, setBusy] = useState<TransferKind | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   const start = (kind: TransferKind) => {
     setBusy(kind);
-    const task = generateTransferTask(kind, TRANSFER_MELODIES, newSeed());
-    if (!task) {
-      setBusy(null);
-      return;
-    }
-    router.push(`/estudio?tarefa=${encodeURIComponent(task.id)}`);
+    setError(null);
+    void createTransferTask(kind).then((r) => {
+      if (r.ok) router.push(`/estudio?tarefa=${encodeURIComponent(r.taskId)}`);
+      else {
+        setError(r.error);
+        setBusy(null);
+      }
+    });
   };
 
   return (
     <div style={{ display: "grid", gap: 16 }}>
+      {error && (
+        <p role="alert" style={{ color: "var(--erro)", margin: 0 }}>
+          {error}
+        </p>
+      )}
       {TRANSFER_KINDS.map((kind) => {
         const mine = attempts.filter((a) => parseTransferId(a.taskId)?.kind === kind);
         const tasks = new Set(mine.map((a) => a.taskId));

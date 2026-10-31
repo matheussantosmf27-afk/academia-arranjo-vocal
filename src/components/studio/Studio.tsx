@@ -66,16 +66,11 @@ function firstEventId(score: Score): string | null {
 }
 
 /** Partitura inicial: rascunho (?projeto=) ou exemplo (?exemplo=) da URL; senão, o coral SATB. */
-function taskContext(params: URLSearchParams, kind: "producao" | "transferencia"): TaskContext {
-  const t = params.get("teste");
-  return t === "pre" ? "pre-teste" : t === "pos" ? "pos-teste" : kind;
-}
-
-function resolveInitial(params: URLSearchParams, task: ProductionTask | null): { score: Score; message: string } {
+function resolveInitial(params: URLSearchParams, task: ProductionTask | null, ctx: TaskContext): { score: Score; message: string } {
   const taskId = params.get("tarefa");
   if (taskId && !task) return { score: CHORALE_SATB_C, message: "Tarefa não encontrada: o endereço pode estar incompleto." };
   if (task) {
-    const saved = loadTaskSession(sessionKey(task, taskContext(params, task.kind)));
+    const saved = loadTaskSession(sessionKey(task, ctx));
     return saved?.score ? { score: saved.score, message: "Tarefa retomada de onde você parou." } : { score: task.start, message: "Tarefa aberta: escreva no editor e use \"Conferir\" no painel da tarefa." };
   }
   if (params.get("meu-arranjo")) {
@@ -103,13 +98,13 @@ function resolveInitial(params: URLSearchParams, task: ProductionTask | null): {
 }
 
 /** `task`: tarefa corrigida resolvida no servidor a partir de ?tarefa= (não leva o currículo inteiro ao navegador). */
-export function Studio({ task = null }: { task?: ProductionTask | null }) {
+export function Studio({ task = null, taskContext: ctx = "producao", hasSolution = false }: { task?: ProductionTask | null; taskContext?: TaskContext; hasSolution?: boolean }) {
   const params = useSearchParams();
   const router = useRouter();
-  const [initial] = useState(() => resolveInitial(new URLSearchParams(params.toString()), task));
+  const [initial] = useState(() => resolveInitial(new URLSearchParams(params.toString()), task, ctx));
   const [practiceProject] = useState(() => getProject(params.get("pratica") ?? ""));
   const [cumulative] = useState(() => params.get("meu-arranjo") !== null);
-  const [taskCtx] = useState<TaskContext>(() => taskContext(new URLSearchParams(params.toString()), task?.kind ?? "producao"));
+  const taskCtx = ctx;
   const [history, setHistory] = useState<History<Score>>(() => createHistory(initial.score));
   const score = history.present;
   const [selected, setSelected] = useState<string | null>(firstEventId(initial.score));
@@ -486,6 +481,7 @@ export function Studio({ task = null }: { task?: ProductionTask | null }) {
         <TaskPanel
           task={task}
           context={taskCtx}
+          hasSolution={hasSolution}
           score={score}
           onLoad={(s, m) => load(s, m)}
           onStatus={setStatus}

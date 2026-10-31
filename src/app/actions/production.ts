@@ -1,7 +1,9 @@
 "use server";
 
 import { z } from "zod";
-import { resolveTask } from "@/content/tasks";
+import { isTestTask, newTransferTaskId, resolveTask } from "@/content/tasks";
+import { newSeed } from "@/domain/exercises/random";
+import { TRANSFER_KINDS, type TransferKind } from "@/domain/production/transfer";
 import { parseScore } from "@/domain/music/schema";
 import { type ProductionAttempt, assistanceLevel, checkTask } from "@/domain/production/task";
 import { ENGINE_VERSION } from "@/domain/validation";
@@ -33,6 +35,7 @@ export async function recordProductionAttemptRemote(raw: unknown): Promise<Actio
   const task = resolveTask(taskId);
   if (!task) return { ok: false, error: "Tarefa desconhecida." };
   if ((context === "producao") !== (task.kind === "producao")) return { ok: false, error: "Contexto incompatível com a tarefa." };
+  if ((context === "pre-teste" || context === "pos-teste") && !isTestTask(context, task.id)) return { ok: false, error: "Esta tarefa não faz parte do teste indicado." };
   const score = parseScore(parsed.data.score);
   if (!score.ok) return { ok: false, error: "Partitura inválida." };
   const r = checkTask(task, score.score);
@@ -86,4 +89,25 @@ export async function listProductionAttemptsRemote(): Promise<ActionResult<{ att
       ruleIds: r.rule_ids as string[],
     })),
   };
+}
+
+/**
+ * Solução de referência de uma tarefa. Não vai na página: o painel pede só depois da primeira
+ * conferência (e o pedido conta como "com solução" no registro de ajuda).
+ */
+export async function getTaskSolution(taskId: unknown): Promise<ActionResult<{ solution: NonNullable<ReturnType<typeof resolveTask>>["solution"] | null }>> {
+  const id = z.string().min(1).max(200).safeParse(taskId);
+  if (!id.success) return { ok: false, error: "Tarefa inválida." };
+  const task = resolveTask(id.data);
+  if (!task) return { ok: false, error: "Tarefa desconhecida." };
+  return { ok: true, solution: task.solution ?? null };
+}
+
+/** Gera no servidor uma situação de transferência nova (semente aleatória) e devolve o id. */
+export async function createTransferTask(kind: unknown, lessonId?: unknown): Promise<ActionResult<{ taskId: string }>> {
+  const k = z.enum(TRANSFER_KINDS as [TransferKind, ...TransferKind[]]).safeParse(kind);
+  const l = z.string().max(100).optional().safeParse(lessonId ?? undefined);
+  if (!k.success || !l.success) return { ok: false, error: "Tipo de situação inválido." };
+  const id = newTransferTaskId(k.data, newSeed(), l.data);
+  return id ? { ok: true, taskId: id } : { ok: false, error: "Não foi possível gerar a situação." };
 }

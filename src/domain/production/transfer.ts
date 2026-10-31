@@ -262,10 +262,10 @@ export function generateTransferTask(kind: TransferKind, pool: readonly Transfer
   return buildTransferTask(kind, pick(rng, options), seed, practiceLesson);
 }
 
-/** Bateria com um item de cada tipo e melodias diferentes entre si. */
-export function transferBattery(pool: readonly TransferMelody[], seed: number): ProductionTask[] {
+/** Bateria com um item de cada tipo e melodias diferentes entre si (e das melodias em `exclude`). */
+export function transferBattery(pool: readonly TransferMelody[], seed: number, exclude: ReadonlySet<string> = new Set()): ProductionTask[] {
   const rng = createRng(seed);
-  const used = new Set<string>();
+  const used = new Set<string>(exclude);
   const out: ProductionTask[] = [];
   for (const kind of TRANSFER_KINDS) {
     const options = shuffle(rng, eligible(kind, pool).filter((m) => !used.has(m.id)));

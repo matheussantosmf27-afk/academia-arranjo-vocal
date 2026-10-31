@@ -7,7 +7,7 @@ import { ASSISTANCE_PT, type ProductionAttempt, type ProductionTask, type TaskRe
 import { TRANSFER_KIND_PT, parseTransferId } from "@/domain/production/transfer";
 import { useAuth } from "@/lib/auth/useAuth";
 import { type TaskSession, clearTaskSession, loadTaskSession, newSession, recordProductionAttempt, saveTaskSession } from "@/lib/production/store";
-import { recordProductionAttemptRemote } from "@/app/actions/production";
+import { getTaskSolution, recordProductionAttemptRemote } from "@/app/actions/production";
 import { DiagnosticList } from "../diagnostics/DiagnosticList";
 import { ExampleBlock } from "../lesson/ExampleBlock";
 import styles from "./ProjectPanel.module.css";
@@ -25,7 +25,9 @@ const uid = () => (typeof crypto !== "undefined" && "randomUUID" in crypto ? cry
  * referência só aparece depois da primeira conferência e, se aberta antes do acerto,
  * o acerto deixa de contar como autônomo.
  */
-export function TaskPanel({ task, context, score, onLoad, onStatus, onFocusEvents }: {
+export function TaskPanel({ task, context, hasSolution, score, onLoad, onStatus, onFocusEvents }: {
+  /** A tarefa tem solução de referência (ela não vem na página; é pedida ao servidor). */
+  hasSolution: boolean;
   task: ProductionTask;
   context: TaskContext;
   score: Score;
@@ -39,6 +41,22 @@ export function TaskPanel({ task, context, score, onLoad, onStatus, onFocusEvent
   const [result, setResult] = useState<TaskResult | null>(null);
   const [checking, setChecking] = useState(false);
   const [showSolution, setShowSolution] = useState(session.log.solutionOpened);
+  const [solution, setSolution] = useState<ProductionTask["solution"] | null>(null);
+  const [solutionError, setSolutionError] = useState<string | null>(null);
+
+  // Solução já aberta antes (por exemplo, depois de recarregar): busca de novo no servidor.
+  useEffect(() => {
+    if (!showSolution || solution) return;
+    let active = true;
+    void getTaskSolution(task.id).then((r) => {
+      if (!active) return;
+      if (r.ok && r.solution) setSolution(r.solution);
+      else setSolutionError(r.ok ? "Esta tarefa não tem solução de referência." : r.error);
+    });
+    return () => {
+      active = false;
+    };
+  }, [showSolution, solution, task.id]);
   const resultRef = useRef<HTMLDivElement>(null);
   const transfer = parseTransferId(task.id);
   const isTest = context === "pre-teste" || context === "pos-teste";
@@ -172,12 +190,12 @@ export function TaskPanel({ task, context, score, onLoad, onStatus, onFocusEvent
         <button type="button" className="btn btn-sm btn-ghost" onClick={restart}>
           Recomeçar
         </button>
-        {task.solution && session.checked > 0 && !showSolution && (
+        {hasSolution && session.checked > 0 && !showSolution && (
           <button type="button" className="btn btn-sm btn-ghost" onClick={openSolution}>
             Ver solução de referência
           </button>
         )}
-        {task.solution && session.checked === 0 && <span className="muted" style={{ fontSize: "0.88rem" }}>A solução de referência fica disponível depois da primeira conferência.</span>}
+        {hasSolution && session.checked === 0 && <span className="muted" style={{ fontSize: "0.88rem" }}>A solução de referência fica disponível depois da primeira conferência.</span>}
       </div>
 
       {result && (
@@ -209,13 +227,18 @@ export function TaskPanel({ task, context, score, onLoad, onStatus, onFocusEvent
         </div>
       )}
 
-      {showSolution && task.solution && (
+      {showSolution && !solution && (
+        <p className="muted" role="status">
+          {solutionError ?? "Carregando a solução de referência…"}
+        </p>
+      )}
+      {showSolution && solution && (
         <div className={styles.rubric}>
           <h3>Solução de referência</h3>
-          {task.solution.score ? (
-            <ExampleBlock score={task.solution.score} verdict="correto" caption={task.solution.score.title} commentary={task.solution.commentary} />
+          {solution.score ? (
+            <ExampleBlock score={solution.score} verdict="correto" caption={solution.score.title} commentary={solution.commentary} />
           ) : (
-            <p>{task.solution.commentary}</p>
+            <p>{solution.commentary}</p>
           )}
           <p className="muted" style={{ fontSize: "0.88rem" }}>
             Compare com a sua versão: diferenças não são erros se a sua passa nos critérios. Há muitas soluções corretas.
