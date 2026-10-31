@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import { parseScore } from "@/domain/music/schema";
 import { validateScore } from "@/domain/validation/engine";
 import { LESSONS } from "../curriculum/curriculum";
+import { EXA2 } from "../curriculum/examples-acappella";
 import { LAB_EXAMPLES } from "../lab-examples";
 import { REPERTORIO } from "../repertorio";
 
@@ -31,5 +32,14 @@ describe("repertório em domínio público", () => {
     expect(REPERTORIO.filter((p) => ids.has(p.score.id)).length).toBeGreaterThanOrEqual(6);
     const texto = JSON.stringify(LESSONS);
     for (const antiga of ["Canção do Caminho", "Luz da manhã", "Rio de Paz", "Mar sereno", "Sol vai nascer", "Cante o povo", "Passarinho"]) expect(texto).not.toContain(antiga);
+  });
+
+  it("os trechos de a cappella cantam letras de canções reais, não frases inventadas", () => {
+    const letras = Object.values(EXA2)
+      .flatMap((sc) => sc.parts.map((p) => p.events.map((e) => (e.kind === "note" && e.lyric ? e.lyric : "")).filter(Boolean).join(" ")))
+      .join(" | ")
+      .replace(/- /g, "");
+    for (const antiga of ["Canta meu", "Vem Senhor", "Eu sei meu", "Não tenho nada", "Toma meu", "Ele vem"]) expect(letras).not.toContain(antiga);
+    expect(letras).toContain("Frère Jacques");
   });
 });
