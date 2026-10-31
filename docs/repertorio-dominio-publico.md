@@ -73,13 +73,23 @@ Cada peça aparece no site com:
 
 **Uma combinação que não deu certo.** Testei um quodlibet com duas melodias verificadas, "Hino à Alegria" e "Ah! vous dirai-je". As duas formam quintas e oitavas paralelas entre si em qualquer harmonia. Por isso o exemplo inventado virou uma explicação com um quodlibet histórico, em vez de uma nova combinação forçada.
 
+## Trechos de a cappella (segunda etapa)
+
+Os dez trechos de pop/gospel a cappella que tinham melodia com letra inventada ("Canta, meu coração", "Vem, Senhor", "Eu sei meu lugar", "Não tenho nada", "Toma meu coração", "Ele vem me buscar") agora usam fragmentos de canções reais. Os acompanhamentos (riffs, "uh", "bm") são do curso.
+
+| Exemplo | Melodia real |
+|---|---|
+| dueto em terças, melodia em oitavas, estrofe em uníssono, texto sobre "uh" | "Ah! vous dirai-je, maman" (Brilha, brilha, estrelinha) |
+| solo do barítono, solo agudo demais | "Santo! Santo! Santo!" |
+| eco, riff no barítono, riff no grave | "Frère Jacques" |
+| refrão em bloco | Doxologia, última frase |
+
+Cada exemplo continua com o veredito que a aula declara, conferido pelo motor.
+
 ## O que continua com texto do curso
 
-- **Trechos curtos de textura** (2 a 3 compassos) do pop e do gospel a cappella, com sílabas e frases genéricas como "Canta, meu coração" ou "Vem, Senhor". Não são apresentados como canções com título; servem para mostrar eco, backing, ostinato e similares.
 - **Exercícios escritos de prosódia e respiração** com versos do curso, como "Guarda-me, Senhor". São textos para exercício, sem melodia, e não são canções.
-- **Fragmentos de 2 a 4 notas** em exercícios de cadência e de ritmo.
-
-Se quiser, esses trechos também podem receber textos reais em domínio público numa próxima etapa.
+- **Fragmentos de 2 a 4 notas** em exercícios de cadência e de ritmo, e sílabas como "uh", "bop" e "dm".
 
 ## Verificação
 

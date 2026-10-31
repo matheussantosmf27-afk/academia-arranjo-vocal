@@ -18,20 +18,26 @@ const satb = (id: string, title: string, voices: S, o: Opts = {}) =>
 
 const R = (n: number) => Array.from({ length: n }, () => "r:w").join(" | ");
 const POP = { style: "popular-a-cappella" } as const;
+/**
+ * As melodias com texto vêm de canções em domínio público: "Ah! vous dirai-je, maman"
+ * (séc. XVIII, a melodia de "Brilha, brilha, estrelinha"), "Santo! Santo! Santo!"
+ * (Dykes/Heber), "Frère Jacques" e a Doxologia (Old 100th). Os acompanhamentos são do curso.
+ */
+const AH_LEAD = 'F3:q"Ah! F3:q"vous C4:q"di- C4:q"rai- | D4:q"je, D4:q"ma- C4:h"man,';
 
 export const EXA2 = {
   // ── Solistas e dueto ───────────────────────────────────────────────
   duetoTercas: ttbb(
     "exa2-dueto-tercas",
-    "Dueto: lead e barítono em terças e sextas",
-    { T1: R(2), T2: 'B3:q"Can- C4:q"ta D4:q"meu B3:q"co- | A3:h"ra- G3:h"ção', B1: 'G3:q"Can- A3:q"ta B3:q"meu G3:q"co- | F#3:h"ra- B2:h"ção', B2: R(2) },
-    POP,
+    "Dueto: lead e barítono em terças (Ah! vous dirai-je, maman)",
+    { T1: R(2), T2: AH_LEAD, B1: 'D3:q"Ah! D3:q"vous A3:q"di- A3:q"rai- | Bb3:q"je, Bb3:q"ma- A3:h"man,', B2: R(2) },
+    { key: "F", ...POP },
   ),
   melodiaEmOitavas: ttbb(
     "exa2-melodia-oitavas",
     "Lead e baixo cantam a mesma melodia em oitavas",
-    { T1: R(2), T2: 'B3:q"Can- C4:q"ta D4:q"meu B3:q"co- | A3:h"ra- G3:h"ção', B1: R(2), B2: 'B2:q"Can- C3:q"ta D3:q"meu B2:q"co- | A2:h"ra- G2:h"ção' },
-    POP,
+    { T1: R(2), T2: AH_LEAD, B1: R(2), B2: 'F2:q"Ah! F2:q"vous C3:q"di- C3:q"rai- | D3:q"je, D3:q"ma- C3:h"man,' },
+    { key: "F", ...POP },
   ),
   soloBaritono: ttbb(
     "exa2-solo-baritono",
@@ -39,26 +45,26 @@ export const EXA2 = {
     {
       T1: 'r:w | r:w | D4:h"glo- E4:h"ri- | D4:w"a',
       T2: 'r:w | r:w | A3:h"glo- C#4:h"ri- | A3:w"a',
-      B1: 'D3:q"Can- E3:q"ta F#3:q"meu A3:q"co- | G3:h"ra- F#3:h"ção | F#3:h"glo- A3:h"ri- | F#3:w"a',
-      B2: 'A2:w"uh | B2:w | D3:h A2:h | D3:w',
+      B1: 'D3:q"Ho- D3:q"ly, F#3:q"ho- F#3:q"ly, | A3:h"ho- A3:h"ly! | F#3:h"glo- A3:h"ri- | F#3:w"a',
+      B2: 'A2:w"uh | A2:w | D3:h A2:h | D3:w',
     },
     { key: "D", ...POP },
   ),
   soloAgudoDemais: ttbb(
     "exa2-solo-agudo",
     "Solo do barítono escrito no registro do tenor",
-    { T1: R(2), T2: R(2), B1: 'A3:q"Can- B3:q"ta D4:q"meu F4:q"co- | E4:h"ra- D4:h"ção', B2: 'D3:w"uh | D3:w' },
+    { T1: R(2), T2: R(2), B1: 'D4:q"Ho- D4:q"ly, F#4:q"ho- F#4:q"ly, | A4:h"ho- A4:h"ly!', B2: 'D3:w"uh | D3:w' },
     { key: "D", ...POP },
   ),
   // ── Texturas do grupo ──────────────────────────────────────────────
   eco: ttbb(
     "exa2-eco",
-    "Eco: o barítono repete a frase do lead um tempo depois",
+    "Eco: o tenor repete o 'dormez-vous?' do lead (Frère Jacques)",
     {
-      T1: R(3),
-      T2: 'D4:q"Vem D4:q"Se- B3:h"nhor | C4:q"Vem C4:q"Se- A3:h"nhor | B3:w"_',
-      B1: 'r:q B3:q"Vem B3:q"Se- G3:q"nhor | r:q A3:q"Vem A3:q"Se- F#3:q"nhor | G3:w"_',
-      B2: 'G2:w"bm | D3:w"bm | G2:w"bm',
+      T1: 'r:w | B3:q"dor- C4:q"mez- D4:h"vous? | D4:w"_',
+      T2: 'B3:q"dor- C4:q"mez- D4:h"vous? | r:w | B3:w"_',
+      B1: 'G3:w"uh | G3:w | G3:w',
+      B2: 'G2:w"bm | G2:w"bm | G2:w"bm',
     },
     POP,
   ),
@@ -66,10 +72,10 @@ export const EXA2 = {
     "exa2-texto-uh",
     "Tenores com o texto em terças; barítono e baixo em 'uh'",
     {
-      T1: 'D4:q"Eu E4:q"sei D4:h"meu | E4:h"lu- C4:h"gar | D4:w"_',
-      T2: 'B3:q"Eu C4:q"sei B3:h"meu | C4:h"lu- A3:h"gar | B3:w"_',
-      B1: 'G3:w"uh | G3:h F#3:h | G3:w',
-      B2: 'G2:w"uh | C3:h D3:h | G2:w',
+      T1: 'E4:q"Ce E4:q"qui D4:q"cau- D4:q"se | C4:q"mon C4:q"tour- B3:h"ment?',
+      T2: 'C4:q"Ce C4:q"qui B3:q"cau- B3:q"se | A3:q"mon A3:q"tour- G3:h"ment?',
+      B1: 'G3:h"uh G3:h | F#3:h D3:h',
+      B2: 'C3:h"uh G2:h | D3:h G2:h',
     },
     POP,
   ),
@@ -77,21 +83,21 @@ export const EXA2 = {
     "exa2-estrofe-unissono",
     "SATB: estrofe com todo o grupo na melodia (uníssono e oitavas)",
     {
-      S: 'B4:q"Não A4:q"te- G4:q"nho A4:q"na- | B4:h"da B4:h"_',
-      A: 'B4:q"Não A4:q"te- G4:q"nho A4:q"na- | B4:h"da B4:h"_',
-      T: 'B3:q"Não A3:q"te- G3:q"nho A3:q"na- | B3:h"da B3:h"_',
-      B: 'B2:q"Não A2:q"te- G2:q"nho A2:q"na- | B2:h"da B2:h"_',
+      S: 'F4:q"Ah! F4:q"vous C5:q"di- C5:q"rai- | D5:q"je, D5:q"ma- C5:h"man,',
+      A: 'F4:q"Ah! F4:q"vous C5:q"di- C5:q"rai- | D5:q"je, D5:q"ma- C5:h"man,',
+      T: 'F3:q"Ah! F3:q"vous C4:q"di- C4:q"rai- | D4:q"je, D4:q"ma- C4:h"man,',
+      B: 'F2:q"Ah! F2:q"vous C3:q"di- C3:q"rai- | D3:q"je, D3:q"ma- C3:h"man,',
     },
-    POP,
+    { key: "F", ...POP },
   ),
   refraoBloco: satb(
     "exa2-refrao-bloco",
-    "SATB: refrão em bloco, todos no mesmo ritmo e texto",
+    "SATB: refrão em bloco, todos no mesmo ritmo e texto (Doxologia)",
     {
-      S: 'B4:h"To- B4:h"ma | C5:h"meu A4:h"co- | B4:w"ração',
-      A: 'G4:h"To- G4:h"ma | G4:h"meu F#4:h"co- | G4:w"ração',
-      T: 'D4:h"To- E4:h"ma | E4:h"meu D4:h"co- | D4:w"ração',
-      B: 'G3:h"To- E3:h"ma | C3:h"meu D3:h"co- | G2:w"ração',
+      S: 'D5:h"Come B4:h"ye | G4:h"be- A4:q"fore C5:q"Him | B4:h"and A4:h"re- | G4:w"joice.',
+      A: 'D4:h"Come E4:h"ye | E4:h"be- F#4:q"fore F#4:q"Him | G4:h"and F#4:h"re- | G4:w"joice.',
+      T: 'B3:h"Come B3:h"ye | C4:h"be- C4:q"fore C4:q"Him | D4:h"and D4:h"re- | D4:w"joice.',
+      B: 'G2:h"Come E3:h"ye | E3:h"be- D3:q"fore D3:q"Him | B2:h"and D3:h"re- | G2:w"joice.',
     },
     POP,
   ),
@@ -110,14 +116,14 @@ export const EXA2 = {
   // ── Vocal band ─────────────────────────────────────────────────────
   riffBop: ttbb(
     "exa2-riff-bop",
-    "Riff em terças nos tenores, melodia no barítono e 'bm' no baixo",
+    "Riff em quartas nos tenores, Frère Jacques no barítono e 'bm' no baixo",
     {
-      T1: 'r:8 D4:8"bop D4:8"bop D4:8"ba r:8 D4:8"bop E4:8"ba D4:8"bop | r:8 E4:8"bop E4:8"bop E4:8"ba r:8 E4:8"bop E4:8"ba E4:8"bop | D4:w"bop',
-      T2: 'r:8 B3:8"bop B3:8"bop B3:8"ba r:8 B3:8"bop C4:8"ba B3:8"bop | r:8 C4:8"bop C4:8"bop C4:8"ba r:8 C4:8"bop C4:8"ba C4:8"bop | B3:w"bop',
-      B1: 'G3:q"E- A3:q"le B3:h"vem | G3:h"me E3:h"bus- | G3:w"car',
-      B2: 'G2:w"bm | C3:w"bm | G2:w"bm',
+      T1: 'r:8 D4:8"bop D4:8"bop D4:8"ba r:8 D4:8"bop E4:8"ba D4:8"bop | r:8 D4:8"bop D4:8"bop D4:8"ba r:8 D4:8"bop E4:8"ba D4:8"bop',
+      T2: 'r:8 A3:8"bop A3:8"bop A3:8"ba r:8 A3:8"bop B3:8"ba A3:8"bop | r:8 A3:8"bop A3:8"bop A3:8"ba r:8 A3:8"bop B3:8"ba A3:8"bop',
+      B1: 'D3:q"Frè- E3:q"re F#3:q"Jac- D3:q"ques, | D3:q"frè- E3:q"re F#3:q"Jac- D3:q"ques,',
+      B2: 'A2:w"bm | A2:w"bm',
     },
-    POP,
+    { key: "D", ...POP },
   ),
   baixoOstinato: ttbb(
     "exa2-baixo-ostinato",
@@ -132,10 +138,10 @@ export const EXA2 = {
   ),
   riffGrave: ttbb(
     "exa2-riff-grave",
-    "O mesmo riff em terças, levado para barítono e baixo",
+    "Um riff em terças levado para barítono e baixo",
     {
       T1: R(2),
-      T2: 'D4:h"E- B3:h"le | G3:w"vem',
+      T2: 'G3:q"Frè- A3:q"re B3:q"Jac- G3:q"ques, | G3:q"frè- A3:q"re B3:q"Jac- G3:q"ques,',
       B1: 'r:8 B2:8"bop B2:8"bop B2:8"ba r:8 B2:8"bop B2:8"ba B2:8"bop | B2:w',
       B2: 'r:8 G2:8"bop G2:8"bop G2:8"ba r:8 G2:8"bop G2:8"ba G2:8"bop | G2:w',
     },
