@@ -1,7 +1,40 @@
 "use client";
 
-import { CATEGORY_PT, type Diagnostic, SEVERITY_PT } from "@/domain/validation";
+import { CATEGORY_PT, type Diagnostic, type RuleMeta, SEVERITY_PT, STYLE_PROFILES, ruleCatalog } from "@/domain/validation";
+import type { StyleProfileId } from "@/domain/music/score";
 import styles from "./DiagnosticList.module.css";
+
+const RULES = new Map<string, RuleMeta>(ruleCatalog().map((r) => [r.id, r]));
+const STYLES = Object.keys(STYLE_PROFILES) as StyleProfileId[];
+const STYLE_SHORT: Record<StyleProfileId, string> = { "coral-tradicional": "Coral tradicional", "coral-contemporaneo": "Coral contemporâneo", "popular-a-cappella": "Popular a cappella" };
+
+const CATEGORY_NOTE: Partial<Record<Diagnostic["category"], string>> = {
+  "erro-objetivo": "Erro objetivo: vale em qualquer estilo (é físico ou de escrita, não de gosto).",
+  "convencao-estilistica": "Convenção do estilo: em outro estilo pode ser um recurso intencional. Veja abaixo como cada estilo julga esta escrita.",
+  "escolha-estetica": "Escolha estética: o motor só aponta; a decisão é sua (ouça e justifique).",
+};
+
+/** Como cada estilo julga a regra: a mesma escrita pode ser erro num estilo e recurso em outro. */
+function StyleVerdicts({ ruleId }: { ruleId: string }) {
+  const meta = RULES.get(ruleId);
+  if (!meta) return null;
+  const values = STYLES.map((s) => meta.severityByStyle[s]);
+  if (values.every((v) => v === values[0])) return null;
+  return (
+    <p className={styles.styles}>
+      <strong>Como cada estilo julga: </strong>
+      {STYLES.map((s, i) => {
+        const v = meta.severityByStyle[s];
+        return (
+          <span key={s}>
+            {i > 0 && " · "}
+            {STYLE_SHORT[s]}: {v === "off" ? "não se aplica" : SEVERITY_PT[v].toLowerCase()}
+          </span>
+        );
+      })}
+    </p>
+  );
+}
 
 export function DiagnosticList({
   diagnostics,
@@ -34,9 +67,17 @@ export function DiagnosticList({
             </summary>
             <div className={styles.body}>
               <p className={styles.message}>{d.message}</p>
+              {d.location.voices.length > 0 && (
+                <p className={styles.meta}>
+                  <strong>Vozes: </strong>
+                  {d.location.voices.join(" e ")}
+                </p>
+              )}
               <p className={styles.meta}>
                 <span className="chip">{CATEGORY_PT[d.category]}</span> <code className={styles.rule}>{d.ruleId}</code>
               </p>
+              {CATEGORY_NOTE[d.category] && <p className={styles.meta}>{CATEGORY_NOTE[d.category]}</p>}
+              <StyleVerdicts ruleId={d.ruleId} />
               <p>
                 <strong>A regra: </strong>
                 {d.explanation}

@@ -45,6 +45,12 @@ import { useAuth } from "@/lib/auth/useAuth";
 import { loadDraft, saveDraft } from "@/lib/projects/store";
 import { getProject } from "@/content/projects";
 import { ProjectPanel } from "./ProjectPanel";
+import { TaskPanel, type TaskContext, sessionKey } from "./TaskPanel";
+import { CumulativePanel } from "./CumulativePanel";
+import { getCumulativeMelody } from "@/content/cumulative";
+import { loadCumulative } from "@/lib/projects/cumulative";
+import type { ProductionTask } from "@/domain/production/task";
+import { loadTaskSession } from "@/lib/production/store";
 import { TutorPanel } from "./TutorPanel";
 import { DiagnosticList } from "../diagnostics/DiagnosticList";
 import { ScoreView } from "../notation/ScoreView";
@@ -60,7 +66,26 @@ function firstEventId(score: Score): string | null {
 }
 
 /** Partitura inicial: rascunho (?projeto=) ou exemplo (?exemplo=) da URL; senão, o coral SATB. */
-function resolveInitial(params: URLSearchParams): { score: Score; message: string } {
+function taskContext(params: URLSearchParams, kind: "producao" | "transferencia"): TaskContext {
+  const t = params.get("teste");
+  return t === "pre" ? "pre-teste" : t === "pos" ? "pos-teste" : kind;
+}
+
+function resolveInitial(params: URLSearchParams, task: ProductionTask | null): { score: Score; message: string } {
+  const taskId = params.get("tarefa");
+  if (taskId && !task) return { score: CHORALE_SATB_C, message: "Tarefa não encontrada: o endereço pode estar incompleto." };
+  if (task) {
+    const saved = loadTaskSession(sessionKey(task, taskContext(params, task.kind)));
+    return saved?.score ? { score: saved.score, message: "Tarefa retomada de onde você parou." } : { score: task.start, message: "Tarefa aberta: escreva no editor e use \"Conferir\" no painel da tarefa." };
+  }
+  if (params.get("meu-arranjo")) {
+    const st = loadCumulative();
+    const mel = st ? getCumulativeMelody(st.melodyId) : undefined;
+    if (st && mel) {
+      const s = st.working ?? st.versions[st.versions.length - 1]?.score ?? mel.score;
+      return { score: s, message: `Meu arranjo: ${mel.title}.` };
+    }
+  }
   const practice = params.get("pratica");
   const project = practice ? getProject(practice) : undefined;
   if (project) {
@@ -77,11 +102,14 @@ function resolveInitial(params: URLSearchParams): { score: Score; message: strin
   return s ? { score: s, message: `Exemplo "${s.title}" aberto.` } : { score: CHORALE_SATB_C, message: "" };
 }
 
-export function Studio() {
+/** `task`: tarefa corrigida resolvida no servidor a partir de ?tarefa= (não leva o currículo inteiro ao navegador). */
+export function Studio({ task = null }: { task?: ProductionTask | null }) {
   const params = useSearchParams();
   const router = useRouter();
-  const [initial] = useState(() => resolveInitial(new URLSearchParams(params.toString())));
+  const [initial] = useState(() => resolveInitial(new URLSearchParams(params.toString()), task));
   const [practiceProject] = useState(() => getProject(params.get("pratica") ?? ""));
+  const [cumulative] = useState(() => params.get("meu-arranjo") !== null);
+  const [taskCtx] = useState<TaskContext>(() => taskContext(new URLSearchParams(params.toString()), task?.kind ?? "producao"));
   const [history, setHistory] = useState<History<Score>>(() => createHistory(initial.score));
   const score = history.present;
   const [selected, setSelected] = useState<string | null>(firstEventId(initial.score));
@@ -343,7 +371,7 @@ export function Studio() {
   const save = () => {
     const r = saveDraft(score);
     setStatus(r.ok ? `Rascunho salvo neste navegador (${new Date(r.updatedAt).toLocaleTimeString("pt-BR")}).` : `Falha ao salvar: ${r.error}`);
-    if (r.ok && !practiceProject) router.replace(`/estudio?projeto=${encodeURIComponent(score.id)}`, { scroll: false });
+    if (r.ok && !practiceProject && !task && !cumulative) router.replace(`/estudio?projeto=${encodeURIComponent(score.id)}`, { scroll: false });
   };
 
   const saveCloud = async () => {
@@ -454,6 +482,19 @@ export function Studio() {
         />
       )}
 
+      {task && (
+        <TaskPanel
+          task={task}
+          context={taskCtx}
+          score={score}
+          onLoad={(s, m) => load(s, m)}
+          onStatus={setStatus}
+          onFocusEvents={(ids) => {
+            if (ids[0]) setSelected(ids[0]);
+          }}
+        />
+      )}
+      {cumulative && <CumulativePanel score={score} onLoad={(s, m) => load(s, m)} onStatus={setStatus} />}
       {practiceProject && <ProjectPanel project={practiceProject} score={score} style={style} onStatus={setStatus} />}
 
       <div className={styles.header}>
@@ -479,6 +520,21 @@ export function Studio() {
               {score.timeSignature.beats}/{score.timeSignature.beatType}
             </span>
             <span className="chip">{score.measureCount} compassos</span>
+            <label className={styles.inline}>
+              Arranjo:
+              <input
+                type="text"
+                value={score.metadata.arranger ?? ""}
+                maxLength={120}
+                placeholder="seu nome"
+                onChange={(e) => {
+                  const arranger = e.target.value;
+                  setHistory((h) => ({ ...h, present: { ...h.present, metadata: { ...h.present.metadata, ...(arranger ? { arranger } : { arranger: undefined }) } } }));
+                }}
+                style={{ width: 140 }}
+                aria-label="Arranjador"
+              />
+            </label>
             <label className={styles.inline}>
               ♩ =
               <input

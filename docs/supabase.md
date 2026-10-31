@@ -3,6 +3,7 @@
 ## Situação
 - **Projeto exclusivo:** `academia-arranjo-vocal` (ref `ixdydyinjruesjjpswxe`, região sa-east-1), criado em 2026-10-22. Para liberar a vaga do plano gratuito, o projeto `vozes-em-harmonia` foi **pausado** por decisão do responsável (pode ser reativado no painel do Supabase; reativá-lo exige pausar outro projeto ou mudar de plano).
 - **Migrations aplicadas** (os nomes dos arquivos coincidem com as versões remotas): esquema + RLS + triggers, índices de FKs e revogação de RPC da função de trigger.
+- **Evolução pedagógica** (migração `20261031175242_producao_autonomia_estudo`): tabelas `production_attempts` (só leitura e inserção pelo dono; sem UPDATE/DELETE) e `musical_profiles` (dono), e `evaluations.source` ampliado para `professor` com a coluna `evaluator_name`. RLS conferido no banco numa transação desfeita: o dono lê a própria tentativa, outro usuário lê 0 linhas, inserir em nome de outro é recusado (42501) e UPDATE não afeta nada. Advisor de segurança sem alertas novos.
 - **Catálogo** carregado: 5 níveis, 8 unidades, 22 lições (3 publicadas), 21 pré-requisitos. Gerado do código: `npm run db:catalog` → `supabase/seed/catalog.sql`.
 - **Advisors:** segurança sem alertas; performance apenas "índice não usado" (esperado com o banco vazio).
 - **Teste de fumaça na API real:** catálogo legível por anônimo; arranjos invisíveis para anônimo; escrita anônima em arranjos e no catálogo recusada (401); função de trigger não exposta via RPC.

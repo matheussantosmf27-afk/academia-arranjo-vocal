@@ -10,6 +10,8 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { LESSONS, LEVELS } from "@/content/curriculum/curriculum";
 import type { ContentBlock, Lesson } from "@/content/curriculum/types";
 import { PROJECTS } from "@/content/projects";
+import { LESSON_TASKS } from "@/content/production-tasks";
+import { lessonPracticeKind } from "@/content/lesson-practice";
 import { buildExerciseSet, buildReviewSet } from "@/domain/exercises/engine";
 import type { GeneratorSpec } from "@/domain/exercises/types";
 
@@ -113,6 +115,84 @@ export function auditLesson(lesson: Lesson): LessonAudit {
   return { lesson, unitCode, words: w, examples: ex, listening, staticItems: statics.length, firstOptionCorrect, shownFirstRate, generatedItems, generatorTypes: [...new Set(gens.map((g) => g.type))], earItems, earInReview, productionItems, vagueObjectives, estimate, project, demonstration, commonErrors, challenges, flags };
 }
 
+/**
+ * Cobertura pedagógica: as oito perguntas do ciclo de aprendizagem, cada uma com um critério
+ * verificável no conteúdo. "parcial" quando existe algo, mas abaixo do critério.
+ */
+export type Coverage = "sim" | "parcial" | "não";
+export interface CoverageRow {
+  readonly lesson: Lesson;
+  readonly explicacao: Coverage;
+  readonly demonstracao: Coverage;
+  readonly exemplo: Coverage;
+  readonly compreensao: Coverage;
+  readonly producao: Coverage;
+  readonly aplicacao: Coverage;
+  readonly feedback: Coverage;
+  readonly autonomia: Coverage;
+}
+
+export const COVERAGE_CRITERIA: Record<Exclude<keyof CoverageRow, "lesson">, string> = {
+  explicacao: "sim: 300 palavras ou mais de texto explicativo; parcial: menos",
+  demonstracao: "sim: seção de demonstração passo a passo; parcial: só exemplo correto comentado",
+  exemplo: "sim: exemplo correto e contraexemplo (com problema ou para observar); parcial: só um tipo",
+  compreensao: "sim: verificação com 4 itens ou mais e item auditivo (na verificação ou na revisão); parcial: verificação sem escuta",
+  producao: "sim: exercício independente na partitura; parcial: só exercício escrito",
+  aplicacao: "sim: aplicação no laboratório ou trabalho prático ligado à aula; parcial: só exercício na partitura",
+  feedback: "sim: tarefa corrigida pelo motor (conferência com critérios e diagnósticos), da própria aula ou prática relacionada gerada com melodia inédita; parcial: itens de decisão de escrita corrigidos ou autoconferência por critérios",
+  autonomia: "sim: tarefa corrigida que registra a ajuda usada (autônomo, dica, demonstração, solução), da própria aula ou prática relacionada; parcial: dicas progressivas sem registro",
+};
+
+export function coverageOf(r: LessonAudit): CoverageRow {
+  const tasks = LESSON_TASKS.filter((t) => t.lessonId === r.lesson.id).length + (lessonPracticeKind(r.lesson) ? 1 : 0);
+  const blocks = r.lesson.sections.flatMap((s) => s.blocks);
+  const hints = blocks.some((b) => b.type === "challenge" && b.hints.length > 0);
+  const items = r.staticItems + r.generatedItems;
+  const contra = r.examples.incorreto + r.examples.observacao;
+  return {
+    lesson: r.lesson,
+    explicacao: r.words >= 300 ? "sim" : r.words > 0 ? "parcial" : "não",
+    demonstracao: r.demonstration ? "sim" : r.examples.correto > 0 ? "parcial" : "não",
+    exemplo: r.examples.correto > 0 && contra > 0 ? "sim" : r.examples.correto + contra > 0 ? "parcial" : "não",
+    compreensao: items >= 4 && (r.earItems > 0 || r.earInReview) ? "sim" : items > 0 ? "parcial" : "não",
+    producao: r.challenges.scored > 0 ? "sim" : r.challenges.written > 0 ? "parcial" : "não",
+    aplicacao: r.lesson.application || r.project ? "sim" : r.challenges.scored > 0 ? "parcial" : "não",
+    feedback: tasks > 0 ? "sim" : r.productionItems > 0 || r.challenges.written + r.challenges.scored > 0 ? "parcial" : "não",
+    autonomia: tasks > 0 ? "sim" : hints ? "parcial" : "não",
+  };
+}
+
+function coverageReport(rows: readonly LessonAudit[]): string {
+  const cov = rows.map(coverageOf);
+  const keys = Object.keys(COVERAGE_CRITERIA) as (keyof typeof COVERAGE_CRITERIA)[];
+  const NAMES: Record<(typeof keys)[number], string> = { explicacao: "Explicação", demonstracao: "Demonstração", exemplo: "Exemplo", compreensao: "Compreensão", producao: "Produção", aplicacao: "Aplicação real", feedback: "Feedback", autonomia: "Autonomia" };
+  const mark = (c: Coverage) => (c === "sim" ? "✔" : c === "parcial" ? "◐" : "✘");
+  const L: string[] = [];
+  L.push("# Matriz de cobertura pedagógica (gerada)");
+  L.push("");
+  L.push(`Gerada por \`npm run audit:curriculum\`. ${cov.length} aulas disponíveis. ✔ atende ao critério; ◐ parcial; ✘ ausente.`);
+  L.push("");
+  L.push("## Critérios");
+  L.push("");
+  for (const k of keys) L.push(`- **${NAMES[k]}** — ${COVERAGE_CRITERIA[k]}.`);
+  L.push("");
+  L.push("## Resumo");
+  L.push("");
+  L.push("| Pergunta | ✔ | ◐ | ✘ |");
+  L.push("|---|---|---|---|");
+  for (const k of keys) L.push(`| ${NAMES[k]} | ${cov.filter((c) => c[k] === "sim").length} | ${cov.filter((c) => c[k] === "parcial").length} | ${cov.filter((c) => c[k] === "não").length} |`);
+  L.push("");
+  L.push(`Aulas completas (✔ nas oito): ${cov.filter((c) => keys.every((k) => c[k] === "sim")).length}.`);
+  L.push("");
+  L.push("## Por aula");
+  L.push("");
+  L.push(`| Aula | ${keys.map((k) => NAMES[k]).join(" | ")} |`);
+  L.push(`|---|${keys.map(() => "---").join("|")}|`);
+  for (const c of cov) L.push(`| \`${c.lesson.id}\` ${c.lesson.title} | ${keys.map((k) => mark(c[k])).join(" | ")} |`);
+  L.push("");
+  return L.join("\n");
+}
+
 function main() {
   const rows = LESSONS.filter((l) => l.status === "disponivel").map(auditLesson);
   const count = (pred: (r: LessonAudit) => boolean) => rows.filter(pred).length;
@@ -183,6 +263,9 @@ function main() {
   lines.push("");
   mkdirSync("docs/auditoria", { recursive: true });
   writeFileSync("docs/auditoria/matriz-das-aulas.md", lines.join("\n"));
+  const coverage = coverageReport(rows);
+  writeFileSync("docs/auditoria/cobertura-pedagogica.md", coverage);
+  console.log(coverage.split("\n").slice(0, 26).join("\n"));
   console.log(lines.slice(0, 14).join("\n"));
 }
 

@@ -67,7 +67,9 @@ Ver `supabase/migrations/20261022170550_esquema_inicial.sql`:
 - `exercise_attempts` (evidência imutável: semente, respostas, resultado), `lesson_progress`
 - `arrangements` → `arrangement_versions` (imutáveis, JSON do `Score` com `schema_version`)
 - `validation_reports` (versão do motor + configuração + diagnósticos — reprodutível)
-- `evaluations` (rubrica por critério + evidências; origem automática, autoavaliação ou tutor)
+- `evaluations` (rubrica por critério + evidências; origem automática, autoavaliação, tutor ou professor, com `evaluator_name`)
+- `production_attempts` (cada conferência de tarefa de escrita: tarefa, contexto — aula, transferência, pré ou pós-teste —, nível de ajuda, correções, regras apontadas e a partitura conferida; recorrigida no servidor; imutável)
+- `musical_profiles` (perfil musical inicial do estudo pedagógico, com consentimento opcional)
 - RLS em todas as tabelas; dados privados restritos a `auth.uid() = user_id`; triggers impedem apontar para versões de outro usuário.
 
 ## Plano de implementação

@@ -8,6 +8,8 @@ import {
   getLesson,
 } from "@/content/curriculum/curriculum";
 import { LessonContent, sectionId } from "@/components/lesson/LessonContent";
+import { LessonPractice } from "@/components/lesson/LessonPractice";
+import { lessonPracticeKind } from "@/content/lesson-practice";
 import { LessonGuide } from "@/components/lesson/LessonGuide";
 import {
   LessonExercises,
@@ -141,6 +143,7 @@ export default async function LessonPage({
               </section>
               <LessonContent lesson={lesson} />
               <LessonExercises lesson={lesson} />
+              {lessonPracticeKind(lesson) && <LessonPractice lessonId={lesson.id} kind={lessonPracticeKind(lesson)!} />}
               {lesson.application && (
                 <section aria-labelledby="aplicacao">
                   <h2 id="aplicacao">{lesson.application.title}</h2>

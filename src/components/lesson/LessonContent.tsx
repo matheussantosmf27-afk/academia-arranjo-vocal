@@ -1,13 +1,14 @@
 import type { ContentBlock, Lesson } from "@/content/curriculum/types";
 import { buildPracticeItems } from "@/domain/exercises/engine";
 import type { ChoiceItem } from "@/domain/exercises/types";
+import { taskIdFor } from "@/content/production-tasks";
 import { Challenge } from "./Challenge";
 import { ExampleBlock } from "./ExampleBlock";
 import { ListeningBlock } from "./ListeningBlock";
 import { QuickCheck } from "./QuickCheck";
 import styles from "./Lesson.module.css";
 
-function Block({ block }: { block: ContentBlock }) {
+function Block({ block, lessonId }: { block: ContentBlock; lessonId: string }) {
   switch (block.type) {
     case "paragraph":
       return <p>{block.text}</p>;
@@ -45,7 +46,7 @@ function Block({ block }: { block: ContentBlock }) {
     case "listening":
       return <ListeningBlock title={block.title} score={block.score} instructions={block.instructions} {...(block.focus ? { focus: block.focus } : {})} />;
     case "challenge":
-      return <Challenge block={block} />;
+      return <Challenge block={block} taskId={taskIdFor(lessonId, block) ?? null} />;
   }
 }
 
@@ -75,7 +76,7 @@ export function LessonContent({ lesson }: { lesson: Lesson }) {
         <section key={s.title} id={sectionId(i)} aria-labelledby={`${sectionId(i)}-t`} data-lesson-section>
           <h2 id={`${sectionId(i)}-t`}>{s.title}</h2>
           {s.blocks.map((b, k) => (
-            <Block key={k} block={b} />
+            <Block key={k} block={b} lessonId={lesson.id} />
           ))}
           {checks[i] && <QuickCheck item={checks[i]} />}
         </section>
