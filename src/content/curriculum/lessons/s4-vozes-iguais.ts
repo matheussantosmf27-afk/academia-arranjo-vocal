@@ -41,14 +41,14 @@ export const lessonSsaFormacao: Lesson = {
           ],
         },
         { type: "callout", tone: "satb", title: "Escrita", text: "Duas pautas em clave de sol: sopranos em cima (Soprano I com haste para cima, Soprano II para baixo) e contraltos embaixo, do mesmo jeito. Em SSA, a pauta de baixo tem só o Contralto I; no motor, a linha do Contralto II fica em pausa." },
-        { type: "example", score: EXS.hino, verdict: "correto", caption: "Luz da manhã em SSAA", commentary: "Melodia no Soprano I; o Contralto II canta fundamentais (Dó4 e Sol3), o Contralto I e o Soprano II completam o acorde. Nenhuma vizinha fica a mais de uma oitava da outra." },
+        { type: "example", score: EXS.hino, verdict: "correto", caption: "Santo! Santo! Santo! em SSAA", commentary: "Melodia no Soprano I, em Lá♭ maior; o Contralto II faz o papel do baixo com fundamentais (Lá♭3, Ré♭4) e, no Mi♭ maior, a terça Sol3, que sobe para Lá♭. O Contralto I e o Soprano II completam o acorde. Nenhuma vizinha fica a mais de uma oitava da outra." },
         { type: "listening", title: "Quatro vozes agudas", score: EXS.hino, instructions: ["Ouça o Contralto II sozinho: é ele que dá o chão.", "Ouça as duas contraltos.", "Ouça as quatro vozes."], focus: [["A2"], ["A1", "A2"], ["S1", "S2", "A1", "A2"]] },
       ],
     },
     {
       title: "2. O erro de quem vem do coro misto",
       blocks: [
-        { type: "example", score: EXS.graveDemais, verdict: "incorreto", caption: "Contralto II escrito como baixo", commentary: "A mesma harmonia, com o Contralto II descendo a Dó3, como faria um baixo. A nota está fora da extensão de qualquer contralto e abre um buraco de mais de uma oitava entre as contraltos." },
+        { type: "example", score: EXS.graveDemais, verdict: "incorreto", caption: "Contralto II escrito como baixo", commentary: "A mesma harmonia, com o Contralto II uma oitava abaixo (Lá♭2), como faria um baixo. A nota está fora da extensão de qualquer contralto e abre um buraco de mais de uma oitava entre as contraltos." },
         { type: "list", items: ["O acorde fica uma oitava mais alto que no coro misto: pense em terças e sextas, não em décimas.", "O Contralto II canta fundamentais e terças; quintas no grave deixam o acorde instável.", "Sem baixo real, o acorde soa mais leve: isso é uma cor, não um defeito.", "Escute coros femininos e infantis antes de escrever (ver bibliografia da disciplina)."] },
       ],
     },
@@ -122,14 +122,14 @@ export const lessonSsaTresVozes: Lesson = {
           headers: ["Acorde", "Notas", "Em SSA", "Omissão comum"],
           rows: [["Tríade", "1 – 3 – 5", "Uma nota em cada voz", "Nenhuma (ou a quinta, dobrando a fundamental)"], ["Dominante com sétima", "1 – 3 – 5 – 7", "Fundamental, terça e sétima", "Quinta"], ["Acorde com nona (add9)", "1 – 3 – 5 – 9", "Terça, nona e fundamental", "Quinta"], ["Sus4", "1 – 4 – 5", "Uma nota em cada voz", "Nenhuma"]],
         },
-        { type: "example", score: EXS.ssa, verdict: "correto", caption: "Luz da manhã em SSA", commentary: "A contralto canta Dó, Si, Dó, Ré, Dó: fundamentais e terças. No Sol7 (compasso 3), sai a quinta e ficam Si (melodia), Fá (Soprano II) e Ré (contralto); o Fá desce para Mi e o Si sobe para Dó." },
+        { type: "example", score: EXS.ssa, verdict: "correto", caption: "Santo! Santo! Santo! em SSA", commentary: "A contralto canta Dó, Fá, Sol, Lá♭, Fá, Fá, Sol, Lá♭: só fundamentais e terças (A♭ – Fm | E♭ – A♭ | Fm – Fm | E♭ – A♭). Com três vozes nem tudo cabe: no Mi♭ maior, ficam Mi♭ (melodia), Si♭ (Soprano II) e Sol (contralto). O Soprano II começa e termina em uníssono com a melodia." },
         { type: "listening", title: "Três vozes, três notas", score: EXS.ssa, instructions: ["Ouça a contralto: ela faz o baixo.", "Ouça Soprano II e contralto juntas.", "Ouça as três."], focus: [["A1"], ["S2", "A1"], ["S1", "S2", "A1"]] },
       ],
     },
     {
       title: "2. A contralto nas quintas",
       blocks: [
-        { type: "example", score: EXS.ssaQuintas, verdict: "incorreto", caption: "A contralto saltando para as quintas", commentary: "A contralto canta Sol, Ré, Mi, Sol, Ré, Fá: quase sempre a quinta do acorde, o que deixa a harmonia em segunda inversão. No fim, a sétima (Fá) salta para Dó em vez de descer, e o Soprano II é empurrado para baixo da nota anterior da contralto." },
+        { type: "example", score: EXS.ssaQuintas, verdict: "incorreto", caption: "A contralto saltando para as quintas", commentary: "A contralto canta Mi♭, Dó, Si♭, Mi♭, Dó, Dó, Si♭, Mi♭: quase sempre a quinta do acorde, o que deixa a harmonia em segunda inversão e afasta a contralto das sopranos. O motor aponta mais de uma oitava entre o Soprano II e a contralto e, no fim, o Soprano I descendo abaixo da nota anterior do Soprano II." },
         { type: "callout", tone: "dica", title: "Regra prática", text: "Escreva primeiro a linha da contralto como se fosse um baixo (fundamentais e terças, por grau ou saltos de quarta e quinta) e só depois preencha o Soprano II." },
       ],
     },
@@ -153,8 +153,8 @@ export const lessonSsaTresVozes: Lesson = {
         { type: "list", items: ["SSA: uma nota do acorde para cada voz.", "Na sétima, sai a quinta.", "A contralto é a linha grave: fundamentais e terças."] },
         {
           type: "challenge",
-          title: "'Mar sereno' para SSA",
-          task: "Harmonize 'Mar sereno' (melodia no Soprano I) para três vozes iguais: escreva Soprano II e Contralto I, com a contralto em fundamentais e terças.",
+          title: "Frase de exercício para SSA",
+          task: "Harmonize a frase de exercício C5 B4 | A4 G4 | A4 B4 | C5 (melodia no Soprano I) para três vozes iguais: escreva Soprano II e Contralto I, com a contralto em fundamentais e terças.",
           start: EXD.ssaStart,
           constraints: ["Não altere a melodia; Contralto II em pausa.", "Contralto I só em fundamentais e terças.", "No acorde de dominante, inclua a sétima (F)."],
           criteria: ["Cada acorde tem terça.", "Nenhuma 5ª ou 8ª paralela entre as três vozes.", "O motor não aponta erros nem alertas."],
@@ -204,7 +204,7 @@ export const lessonSsaQuatroVozes: Lesson = {
       title: "1. Fechado é o normal",
       blocks: [
         { type: "paragraph", text: "Com quatro vozes numa faixa de duas oitavas, a posição fechada (vozes a uma terça ou quarta umas das outras) é natural e soa cheia. A posição aberta funciona quando a melodia está alta, mas nenhuma vizinha deve passar de uma oitava. Dobre a fundamental; a terça só quando a condução pedir, e nunca a sensível." },
-        { type: "example", score: EXS.hino, verdict: "correto", caption: "Dobramentos em SSAA", commentary: "No Dó maior do início, Dó está dobrado (Soprano II e Contralto II); no Sol maior, Sol (Contralto I e Contralto II). As vozes andam pouco e por grau." },
+        { type: "example", score: EXS.hino, verdict: "correto", caption: "Dobramentos em SSAA", commentary: "No Lá♭ maior do início, Lá♭ está dobrado (Soprano I e Contralto II); no Ré♭ maior, Ré♭ (Soprano II e Contralto II). As vozes andam pouco, por grau ou mantendo notas comuns." },
         { type: "listening", title: "Bloco fechado", score: EXS.hino, instructions: ["Ouça Soprano II e Contralto I: o meio do acorde.", "Ouça as quatro."], focus: [["S2", "A1"], ["S1", "S2", "A1", "A2"]] },
       ],
     },
@@ -284,14 +284,14 @@ export const lessonSsaBaixo: Lesson = {
       title: "1. Uma linha, não só fundamentais",
       blocks: [
         { type: "paragraph", text: "O Contralto II tem pouco espaço no grave: de Sol3 a Dó4 é onde ela soa firme. Por isso, em vez de saltar entre fundamentais, prefira linhas por grau usando acordes em primeira inversão (Sol/Si, Dó/Mi). A linha fica cantável e a harmonia ganha direção." },
-        { type: "example", score: EXS.baixoLinha, verdict: "correto", caption: "Contralto II com linha de baixo", commentary: "Dó – Si – Dó – Lá – Si – Sol – Dó: o Sol/Si aparece duas vezes para a linha andar por grau, e o Si (sensível) sempre sobe para Dó ou desce para Sol dentro do mesmo acorde." },
+        { type: "example", score: EXS.baixoLinha, verdict: "correto", caption: "Contralto II com linha de baixo", commentary: "Lá♭ – Lá♭ – Si♭ – Dó – Ré♭ – Ré♭ – Sol – Lá♭: a linha sobe por grau do Lá♭ ao Ré♭, com o E♭/B♭ de passagem entre o A♭ e o A♭/C; no fim, o Sol (sensível) sobe para Lá♭." },
         { type: "listening", title: "A linha grave", score: EXS.baixoLinha, instructions: ["Cante o Contralto II sozinho.", "Ouça Soprano I e Contralto II: as vozes externas.", "Ouça as quatro."], focus: [["A2"], ["S1", "A2"], ["S1", "S2", "A1", "A2"]] },
       ],
     },
     {
       title: "2. Dobrar a melodia não é baixo",
       blocks: [
-        { type: "example", score: EXS.baixoOitavas, verdict: "incorreto", caption: "Contralto II dobrando a melodia", commentary: "O Contralto II canta a melodia uma oitava abaixo: oitavas paralelas o tempo todo, um V⁶₄ fora de contexto e a sensível dobrada. A harmonia perde o chão." },
+        { type: "example", score: EXS.baixoOitavas, verdict: "incorreto", caption: "Contralto II dobrando a melodia", commentary: "O Contralto II canta a melodia uma oitava abaixo: oitavas paralelas o tempo todo e acordes em ⁶₄ fora de contexto. A harmonia perde o chão." },
         { type: "callout", tone: "atencao", title: "Vozes externas", text: "Mesmo sem baixo real, Soprano I e Contralto II são as vozes externas: o ouvido escuta a relação entre elas. Movimento contrário entre as duas é o que mais dá firmeza ao arranjo." },
       ],
     },
@@ -369,7 +369,7 @@ export const lessonSsaInfantil: Lesson = {
           headers: ["Faixa", "Região confortável", "Escrita indicada"],
           rows: [["5 a 7 anos", "Ré4–Si4", "Uníssono, ecos, ostinatos curtos"], ["8 a 10 anos", "Dó4–Ré5", "Uníssono, cânone, duas vozes em terças"], ["11 a 13 anos", "Si3–Mi5 (Fá5 com preparo)", "Duas e três vozes (SSA)"], ["Coro juvenil (muda vocal)", "Varia muito", "Partes flexíveis; meninos podem precisar de linha própria"]],
         },
-        { type: "example", score: EXS.infantil, verdict: "correto", caption: "Duas vozes em Sol maior", commentary: "A melodia fica entre Sol4 e Mi5; a segunda voz começa em uníssono, anda em terças paralelas e volta ao uníssono no fim. O texto tem uma sílaba por nota." },
+        { type: "example", score: EXS.infantil, verdict: "correto", caption: "Duas vozes em Sol maior", commentary: "'Ah! vous dirai-je, maman', a melodia que no Brasil se canta como 'Brilha, brilha, estrelinha' (domínio público). Fica entre Sol4 e Mi5; a segunda voz começa em uníssono, passa por uma quinta e segue em terças paralelas, voltando ao uníssono no fim. O texto francês, do século XVIII, tem uma sílaba por nota." },
         { type: "listening", title: "Primeira e segunda voz", score: EXS.infantil, instructions: ["Cante a melodia.", "Cante a segunda voz.", "Ouça as duas."], focus: [["S1"], ["S2"], ["S1", "S2"]] },
       ],
     },
@@ -449,9 +449,9 @@ export const lessonSsaTexturas: Lesson = {
       title: "1. A melodia no meio",
       blocks: [
         { type: "paragraph", text: "Em vozes iguais, todas cantam na mesma região, então a melodia pode morar em qualquer voz. Passar a melodia para o Soprano II ou para o Contralto I numa estrofe dá cor nova; o cuidado é deixar as vozes de cima sustentando notas longas em dinâmica mais suave, para a melodia aparecer." },
-        { type: "example", score: EXS.melodiaInterna, verdict: "correto", caption: "Melodia no Soprano II", commentary: "O Soprano I sustenta Mi5 quase o tempo todo (pode ser em 'u'), e a melodia anda no Soprano II, em Lá maior. As contraltos completam o acorde com notas comuns." },
+        { type: "example", score: EXS.melodiaInterna, verdict: "correto", caption: "Melodia no Soprano II", commentary: "O Soprano I sustenta Fá5 quase o tempo todo (pode ser em 'u'), e a melodia anda no Soprano II, em Fá maior. As contraltos entram no compasso 2, quando a melodia já subiu, e completam o acorde; no último acorde, o Contralto II respira e as outras três fecham em Fá – Lá – Fá." },
         { type: "listening", title: "Onde está a melodia?", score: EXS.melodiaInterna, instructions: ["Ouça o Soprano II sozinho.", "Ouça as quatro e siga o Soprano II."], focus: [["S2"], ["S1", "S2", "A1", "A2"]] },
-        { type: "example", score: EXS.melodiaCruzada, verdict: "incorreto", caption: "Contralto passando por cima da melodia", commentary: "No compasso 2, o Contralto I sobe a Dó♯5, acima do Lá4 da melodia: cruzamento, um buraco de mais de uma oitava entre as contraltos e uma nota acima da tessitura. O ouvido passa a seguir a contralto." },
+        { type: "example", score: EXS.melodiaCruzada, verdict: "incorreto", caption: "Contralto passando por cima da melodia", commentary: "No compasso 2, o Contralto I sobe a Mi5, acima do Dó5 da melodia: cruzamento, um buraco de mais de uma oitava entre as contraltos e uma nota acima da extensão. O ouvido passa a seguir a contralto." },
       ],
     },
     {
@@ -528,10 +528,10 @@ export const lessonSsaAdaptacao: Lesson = {
     {
       title: "1. O original e a cópia",
       blocks: [
-        { type: "example", score: EXR.original, verdict: "correto", caption: "O original em SATB", commentary: "Luz da manhã com harmonia simples, em coro misto: baixo em Dó3 e Sol2, tenor entre Si3 e Ré4." },
-        { type: "example", score: EXS.adaptacaoDireta, verdict: "incorreto", caption: "Tenor uma oitava acima no Soprano II", commentary: "Copiar o tenor uma oitava acima põe o Soprano II em Ré5 enquanto a melodia está em Si4: cruzamento no compasso 3. O baixo uma oitava acima funcionou; o tenor, não." },
+        { type: "example", score: EXR.original, verdict: "correto", caption: "O original em SATB", commentary: "Santo! Santo! Santo! com harmonia simples, em coro misto, em Sol maior: baixo entre Sol2 e Sol3, tenor entre Fá♯3 e Ré4." },
+        { type: "example", score: EXS.adaptacaoDireta, verdict: "incorreto", caption: "Tenor uma oitava acima no Soprano II", commentary: "Transposto para Lá♭ e copiado 'no automático': o tenor uma oitava acima põe o Soprano II em Dó5 e Mi♭5 enquanto a melodia está em Lá♭4 e Dó5 — cruzamento logo no compasso 1. O baixo uma oitava acima também sobe acima da nota anterior do Contralto I. Copiar não funciona." },
         { type: "paragraph", text: "Subir o baixo uma oitava costuma funcionar (vira o Contralto II). O problema é o tenor: uma oitava acima, ele cai na região da melodia. A solução é redistribuir as notas do acorde entre Soprano II e Contralto I, mantendo melodia e baixo." },
-        { type: "example", score: EXS.hino, verdict: "correto", caption: "A adaptação redistribuída", commentary: "Melodia e baixo (uma oitava acima) iguais ao original; o contralto do coro misto virou Contralto I e o Soprano II pegou as notas que faltavam, sempre abaixo da melodia." },
+        { type: "example", score: EXS.hino, verdict: "correto", caption: "A adaptação redistribuída", commentary: "A melodia meio tom acima (Lá♭ maior) e a harmonia simples redistribuída: o Contralto II faz o baixo uma oitava acima, com a terça Sol3 no lugar do Mi♭ nos acordes de Mi♭ maior; o Contralto I e o Soprano II dividem as notas que faltam, sempre abaixo da melodia." },
         { type: "listening", title: "Compare", score: EXS.hino, instructions: ["Ouça o Soprano II e compare com o tenor do original.", "Ouça as quatro."], focus: [["S2"], ["S1", "S2", "A1", "A2"]] },
       ],
     },

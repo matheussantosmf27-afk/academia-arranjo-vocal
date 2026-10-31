@@ -43,14 +43,14 @@ export const lessonRegGesto: Lesson = {
           ],
         },
         { type: "callout", tone: "dica", title: "Preparação", text: "Antes da entrada, o regente faz um tempo de preparação no andamento da música: o coro respira nesse gesto. Numa anacruse, a preparação é o tempo imediatamente anterior à entrada, e não o tempo 1." },
-        { type: "example", score: EXG.hino3, verdict: "correto", caption: "Hino em 3/4 com anacruse", commentary: "O coro entra no terceiro tempo ('Vem'), sobre o acorde de Ré (V), e chega ao Sol no tempo forte do compasso 2. A preparação é o gesto do tempo 2 (para fora), onde o coro respira." },
+        { type: "example", score: EXG.hino3, verdict: "correto", caption: "Hino em 3/4 com anacruse", commentary: "A 1ª frase de 'Amazing Grace' (domínio público). O coro entra no terceiro tempo ('A-'), sobre o acorde de Lá, e chega ao '-ma-' no tempo forte do compasso 2. A preparação é o gesto do tempo 2 (para fora), onde o coro respira." },
         { type: "listening", title: "Sinta o três", score: EXG.hino3, instructions: ["Ouça e marque os tempos com a mão: baixo, fora, cima.", "Ouça de novo e respire no tempo 2, antes da entrada."], focus: [["S", "A", "T", "B"], ["S"]] },
       ],
     },
     {
       title: "2. Andamento é decisão",
       blocks: [
-        { type: "example", score: EXG.hinoLento, verdict: "observacao", caption: "O mesmo hino a ♩ = 36", commentary: "Nas mesmas notas, a frase passa a durar 16,7 s sem pausa e o motor sugere um ponto de respiração. Um andamento lento demais pode quebrar a frase que, no tempo certo, cabe numa respiração." },
+        { type: "example", score: EXG.hinoLento, verdict: "observacao", caption: "O mesmo hino a ♩ = 36", commentary: "Nas mesmas notas, a frase passa a durar 21,7 s sem pausa e o motor sugere um ponto de respiração. Um andamento lento demais pode quebrar a frase que, no tempo certo, cabe numa respiração." },
         { type: "list", items: ["Corte: um pequeno círculo ou gesto para cima e para dentro, no tempo em que o som termina.", "Fermata: o gesto para, sustentado; o corte vem quando o regente decide.", "Mantenha o gesto pequeno e o ictus claro: gesto grande não significa forte."] },
       ],
     },
@@ -356,8 +356,8 @@ export const lessonRegRespiracao: Lesson = {
       title: "1. Onde respirar",
       blocks: [
         { type: "paragraph", text: "O coro respira onde o texto respira: vírgulas, fim de verso, antes de uma palavra importante. Uma frase muito longa sem pausa obriga cada cantor a respirar quando consegue, e o texto se quebra em lugares diferentes. O motor sugere atenção quando uma voz canta mais de 15 segundos sem pausa." },
-        { type: "example", score: EXG.fraseLonga, verdict: "observacao", caption: "Seis compassos sem pausa", commentary: "A ♩ = 72, a frase dura 20 segundos para todas as vozes. Cada cantor vai respirar num lugar diferente." },
-        { type: "example", score: EXG.fraseRespirada, verdict: "correto", caption: "A mesma frase com respiração escrita", commentary: "Uma pausa de semínima no fim do compasso 3, depois de 'na', divide a frase em duas metades de cerca de 10 segundos, e todo o coro respira junto." },
+        { type: "example", score: EXG.fraseLonga, verdict: "observacao", caption: "Seis compassos sem pausa", commentary: "As duas primeiras frases da Doxologia (Old 100th, domínio público), sem pausa: a ♩ = 72, duram 20 segundos para todas as vozes. Cada cantor vai respirar num lugar diferente." },
+        { type: "example", score: EXG.fraseRespirada, verdict: "correto", caption: "A mesma frase com respiração escrita", commentary: "Uma pausa de semínima no fim do compasso 3, depois de 'dwell' (o fim do 1º verso do salmo), divide o trecho em duas metades de cerca de 10 segundos, e todo o coro respira junto." },
         { type: "listening", title: "Respire na pausa", score: EXG.fraseRespirada, instructions: ["Cante a melodia e respire no compasso 3.", "Ouça as quatro vozes."], focus: [["S"], ["S", "A", "T", "B"]] },
       ],
     },
@@ -439,7 +439,7 @@ export const lessonRegEquilibrio: Lesson = {
         { type: "paragraph", text: "Num coral, a melodia aparece quando as outras vozes cantam um pouco mais suave, e não quando mais gente canta a melodia. Peça dinâmica diferente por naipe (melodia 'mf', acompanhamento 'mp') e ouça de longe." },
         { type: "example", score: EXR.original, verdict: "correto", caption: "Melodia no soprano, acompanhamento discreto", commentary: "As outras vozes andam pouco e em região média; com um 'mp' nelas, a melodia aparece sem esforço." },
         { type: "listening", title: "Primeiro plano", score: EXR.original, instructions: ["Ouça só a melodia.", "Ouça as quatro e tente seguir a melodia."], focus: [["S"], ["S", "A", "T", "B"]] },
-        { type: "example", score: EXG.melodiaDobrada, verdict: "incorreto", caption: "Tenor dobrando a melodia para 'reforçar'", commentary: "Para ajudar sopranos inseguras, o tenor passa a cantar a melodia uma oitava abaixo: oitavas paralelas o tempo todo e a sensível dobrada no Sol7. O arranjo perde a voz do tenor e o acorde fica pesado." },
+        { type: "example", score: EXG.melodiaDobrada, verdict: "incorreto", caption: "Tenor dobrando a melodia para 'reforçar'", commentary: "Para ajudar sopranos inseguras, o tenor passa a cantar a melodia uma oitava abaixo: oitavas paralelas o tempo todo e terças dobradas. O arranjo perde a voz do tenor e o acorde fica pesado." },
       ],
     },
     {
@@ -596,9 +596,9 @@ export const lessonRegAdaptacao: Lesson = {
       title: "1. A tonalidade do seu coro",
       blocks: [
         { type: "paragraph", text: "A tonalidade não é a do original: é a que o seu coro canta bem. Verifique primeiro o naipe mais frágil (em coros amadores, quase sempre os tenores) e o ponto mais agudo da melodia." },
-        { type: "example", score: EXG.descantRe, verdict: "observacao", caption: "O hino com descant em Ré maior", commentary: "Um tom acima, a melodia no tenor chega a Fá♯4, o descant a Fá♯5 e a contralto a Dó♯5: as três vozes passam da região confortável. Para tenores amadores, é o limite." },
-        { type: "example", score: EXC.descant, verdict: "correto", caption: "O mesmo hino em Dó maior", commentary: "Em Dó, o tenor (melodia) fica entre Si3 e Mi4 e o descant chega a Mi5: tudo dentro das tessituras." },
-        { type: "listening", title: "Compare as tonalidades", score: EXC.descant, instructions: ["Ouça o tenor em Dó.", "Ouça as quatro vozes."], focus: [["T"], ["S", "A", "T", "B"]] },
+        { type: "example", score: EXG.descantRe, verdict: "observacao", caption: "O hino com descant em Lá maior", commentary: "Um tom acima, a melodia no tenor chega a Fá♯4, acima da tessitura confortável do tenor, e o descant fica no Mi5, o topo da tessitura do soprano. Para tenores amadores, é o limite." },
+        { type: "example", score: EXC.descant, verdict: "correto", caption: "O mesmo hino em Sol maior", commentary: "Em Sol, o tenor (melodia) fica entre Sol3 e Mi4 e o descant chega a Ré5: tudo dentro das tessituras." },
+        { type: "listening", title: "Compare as tonalidades", score: EXC.descant, instructions: ["Ouça o tenor em Sol.", "Ouça as quatro vozes."], focus: [["T"], ["S", "A", "T", "B"]] },
       ],
     },
     {

@@ -18,6 +18,7 @@ export interface ProjectSpec {
 
 const R4 = "r:w | r:w | r:w | r:w";
 const R6 = "r:w | r:w | r:w | r:w | r:w | r:w";
+const R7 = `${R6} | r:w`;
 const R8 = `${R4} | ${R4}`;
 
 export const PROJECTS: readonly ProjectSpec[] = [
@@ -26,7 +27,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Hino a quatro vozes (SATB)",
     level: 2,
     lessonId: "harmonizacao-satb",
-    summary: "Harmonize uma melodia original de hino em Sol maior com acordes primários, ii e cadências claras.",
+    summary: "Harmonize as duas últimas frases da Doxologia (Old 100th, Saltério de Genebra, 1551; domínio público), em Lá maior, com acordes primários, ii e cadências claras.",
     steps: [
       "Analise a melodia: frases, ponto culminante e cadências implícitas.",
       "Escreva o baixo em contraponto com o soprano (movimento contrário, inversões para linhas por grau).",
@@ -37,10 +38,10 @@ export const PROJECTS: readonly ProjectSpec[] = [
       id: "projeto-hino-satb",
       title: "Hino a quatro vozes",
       formation: "SATB",
-      key: "G",
+      key: "A",
       time: "4/4",
       tempo: 76,
-      voices: { S: "G4:q A4:q B4:q G4:q | A4:q B4:q A4:h | B4:q C5:q D5:q B4:q | A4:q F#4:q G4:h", A: R4, T: R4, B: R4 },
+      voices: { S: 'A4:h"Him B4:q"serve C#5:q"with | B4:q"mirth, A4:q"His F#4:h"praise | G#4:h"forth A4:h"tell; | E5:h"Come C#5:h"ye | A4:h"be- B4:q"fore D5:q"Him | C#5:h"and B4:h"re- | A4:w"joice.', A: R7, T: R7, B: R7 },
     }),
     melodyVoice: "S",
     style: "coral-tradicional",
@@ -76,7 +77,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Arranjo completo com introdução",
     level: 4,
     lessonId: "analise-estilistica-revisao",
-    summary: "Harmonize a melodia em duas frases, escreva dois compassos de introdução e prepare a partitura final com dinâmicas e respirações.",
+    summary: "Harmonize 'Ah! vous dirai-je, maman' (a melodia de 'Brilha, brilha, estrelinha'; domínio público), em duas frases, escreva dois compassos de introdução e prepare a partitura final com dinâmicas e respirações.",
     steps: [
       "Os dois primeiros compassos estão vazios: escreva neles a introdução (copiar/colar ajuda a reaproveitar a cadência final).",
       "Harmonize as duas frases (semicadência e cadência autêntica).",
@@ -87,10 +88,10 @@ export const PROJECTS: readonly ProjectSpec[] = [
       id: "projeto-arranjo-completo",
       title: "Arranjo completo",
       formation: "SATB",
-      key: "C",
+      key: "G",
       time: "4/4",
       tempo: 80,
-      voices: { S: "r:w | r:w | E4:q G4:q C5:q B4:q | A4:h G4:q r:q | A4:q B4:q C5:q D5:q | C5:w", A: R6, T: R6, B: R6 },
+      voices: { S: 'r:w | r:w | G4:q"Ah! G4:q"vous D5:q"di- D5:q"rai- | E5:q"je, E5:q"ma- D5:h"man, | C5:q"ce C5:q"qui B4:q"cau- B4:q"se | A4:q"mon A4:q"tour- G4:h"ment?', A: R6, T: R6, B: R6 },
     }),
     melodyVoice: "S",
     style: "coral-contemporaneo",
@@ -101,7 +102,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Quarteto gospel (TTBB)",
     level: 4,
     lessonId: "ttbb-modulacao-final",
-    summary: "A melodia está no lead (Tenor II), em Sol maior. Arranje-a para quarteto masculino com chamada e resposta, uma cor gospel e uma última frase meio tom acima.",
+    summary: "A 2ª frase do 'Hino à Alegria' (Beethoven; domínio público) está no lead (Tenor II), em Sol maior. Arranje-a para quarteto masculino com chamada e resposta, uma cor gospel e uma última frase meio tom acima.",
     steps: [
       "Compassos 1–4: harmonize o lead com o tenor acima, barítono e baixo (fundamental e quinta embaixo, terça nos tenores).",
       "Use ao menos uma cor do quarteto gospel (I6, Imaj7, iv6 emprestado ou baixo pedal).",
@@ -118,7 +119,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
       tempo: 76,
       voices: {
         T1: R8,
-        T2: 'B3:q"Há D4:q"um C4:q"ri- B3:q"o | A3:h"de B3:h"paz | C4:q"que B3:q"cor- A3:q"re_a- A3:q"té | G3:w"mim | r:w | r:w | r:w | r:w',
+        T2: 'B3:q"Wir B3:q"be- C4:q"tre- D4:q"ten | D4:q"feu- C4:q"er- B3:q"trun- A3:q"ken, | G3:q"Himm- G3:q"li- A3:q"sche, B3:q"dein | A3:q."Hei- G3:8"lig- G3:h"tum! | r:w | r:w | r:w | r:w',
         B1: R8,
         B2: R8,
       },
@@ -136,7 +137,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Grupo a cappella gospel (TTBB)",
     level: 4,
     lessonId: "acappella-modulacoes",
-    summary: "A melodia está no barítono, em Ré maior. Arranje para quarteto a cappella: solo com 'uh', refrão em bloco com eco, baixo em ostinato e a repetição do refrão um tom acima.",
+    summary: "A 1ª frase de 'Santo! Santo! Santo!' (Nicaea, Dykes, 1861; domínio público) está no barítono, em Ré maior. Arranje para quarteto a cappella: solo com 'uh', refrão em bloco com eco, baixo em ostinato e a repetição do refrão um tom acima.",
     steps: [
       "Compassos 1–4: solo do barítono; baixo em 'uh' ou em ostinato, tenores em silêncio ou em pad.",
       "Compassos 5–6: refrão em bloco (todos com o texto) e um eco curto de uma voz.",
@@ -154,7 +155,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
       voices: {
         T1: R8,
         T2: R8,
-        B1: 'D3:q"Can- E3:q"ta F#3:q"meu A3:q"co- | G3:h"ra- F#3:h"ção | E3:q"um F#3:q"can- G3:q"to E3:q"no- | D3:w"vo | r:w | r:w | r:w | r:w',
+        B1: 'D3:q"Ho- D3:q"ly, F#3:q"ho- F#3:q"ly, | A3:h"ho- A3:h"ly! | B3:h"Lord B3:q"God B3:q"Al- | A3:h"migh- F#3:h"ty! | r:w | r:w | r:w | r:w',
         B2: R8,
       },
     }),
@@ -171,7 +172,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Rearmonização do segundo refrão (SATB)",
     level: 4,
     lessonId: "rearm-no-arranjo",
-    summary: "A melodia 'Luz da manhã' aparece duas vezes. A primeira já está harmonizada; rearmonize a repetição com pelo menos três técnicas da disciplina, mantendo a melodia.",
+    summary: "A 1ª frase de 'Santo! Santo! Santo!' (domínio público) aparece duas vezes. A primeira já está harmonizada; rearmonize a repetição com pelo menos três técnicas da disciplina, mantendo a melodia.",
     steps: [
       "Compassos 1–4: ouça a harmonia simples e não altere nada.",
       "Compassos 5–8: rearmonize com ao menos três técnicas (substituição diatônica, dominante secundária, SubV, empréstimo modal, diminuto, pedal ou linha de baixo).",
@@ -182,14 +183,14 @@ export const PROJECTS: readonly ProjectSpec[] = [
       id: "projeto-rearmonizacao",
       title: "Rearmonização do segundo refrão",
       formation: "SATB",
-      key: "C",
+      key: "G",
       time: "4/4",
       tempo: 72,
       voices: {
-        S: 'E5:h"Luz D5:h"da | C5:h"ma- E5:h"nhã | D5:h"vem B4:h"che- | C5:h"gar r:h | E5:h"Luz D5:h"da | C5:h"ma- E5:h"nhã | D5:h"vem B4:h"che- | C5:w"gar',
-        A: `G4:h G4:h | E4:h G4:h | G4:h F4:h | E4:h r:h | ${R4}`,
-        T: `C4:h B3:h | C4:h C4:h | B3:h D4:h | C4:h r:h | ${R4}`,
-        B: `C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:h r:h | ${R4}`,
+        S: 'G4:q"Ho- G4:q"ly, B4:q"ho- B4:q"ly, | D5:h"ho- D5:h"ly! | E5:h"Lord E5:q"God E5:q"Al- | D5:h"migh- B4:q"ty! r:q | G4:q"Ho- G4:q"ly, B4:q"ho- B4:q"ly, | D5:h"ho- D5:h"ly! | E5:h"Lord E5:q"God E5:q"Al- | D5:h"migh- B4:h"ty!',
+        A: `D4:h G4:h | F#4:h G4:h | G4:h G4:h | D4:h D4:q r:q | ${R4}`,
+        T: `B3:h D4:h | D4:h B3:h | G3:h G3:h | F#3:h G3:q r:q | ${R4}`,
+        B: `G2:h G3:h | D3:h G2:h | C3:h C3:h | D3:h G2:q r:q | ${R4}`,
       },
     }),
     melodyVoice: "S",
@@ -205,7 +206,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Descant para um hino (SATB)",
     level: 3,
     lessonId: "cp-descant-quodlibet",
-    summary: "A melodia 'Luz da manhã' está no tenor e o baixo já está escrito. Escreva um descant no soprano, em movimento contrário à melodia, e complete o contralto.",
+    summary: "A 1ª frase de 'Santo! Santo! Santo!' (domínio público) está no tenor e o baixo já está escrito. Escreva um descant no soprano, em movimento contrário à melodia, e complete o contralto.",
     steps: [
       "Cante a melodia do tenor e marque onde ela sobe e onde desce.",
       "Escreva o descant no soprano preferindo movimento contrário, terças, sextas e décimas com a melodia.",
@@ -216,14 +217,14 @@ export const PROJECTS: readonly ProjectSpec[] = [
       id: "projeto-descant",
       title: "Descant para um hino",
       formation: "SATB",
-      key: "C",
+      key: "G",
       time: "4/4",
       tempo: 72,
       voices: {
         S: R4,
         A: R4,
-        T: 'E4:h"Luz D4:h"da | C4:h"ma- E4:h"nhã | D4:h"vem B3:h"che- | C4:w"gar',
-        B: "C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:w",
+        T: 'G3:q"Ho- G3:q"ly, B3:q"ho- B3:q"ly, | D4:h"ho- D4:h"ly! | E4:h"Lord E4:q"God E4:q"Al- | D4:h"migh- B3:h"ty!',
+        B: "G2:h G3:h | D3:h G2:h | C3:h C3:h | D3:h G2:h",
       },
     }),
     melodyVoice: "T",
@@ -239,7 +240,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
     title: "Hino para coro feminino (SSAA)",
     level: 4,
     lessonId: "ssa-adaptacao",
-    summary: "A melodia 'Canta o coral' está no Soprano I, em Sol maior. Escreva Soprano II, Contralto I e Contralto II, com o Contralto II como linha de baixo.",
+    summary: "A 2ª frase do 'Hino à Alegria' (Beethoven; domínio público) está no Soprano I, em Sol maior. Escreva Soprano II, Contralto I e Contralto II, com o Contralto II como linha de baixo.",
     steps: [
       "Cante a melodia e escolha um acorde por mínima.",
       "Escreva o Contralto II como linha de baixo (fundamentais e terças, entre Sol3 e Ré4).",
@@ -254,7 +255,7 @@ export const PROJECTS: readonly ProjectSpec[] = [
       time: "4/4",
       tempo: 72,
       voices: {
-        S1: 'D5:h"Can- B4:h"ta | C5:q"o A4:q"co- B4:h"ral | A4:q"de G4:q"vo- A4:q"zes B4:q"i- | G4:w"guais',
+        S1: 'B4:q"Wir B4:q"be- C5:q"tre- D5:q"ten | D5:q"feu- C5:q"er- B4:q"trun- A4:q"ken, | G4:q"Himm- G4:q"li- A4:q"sche, B4:q"dein | A4:q."Hei- G4:8"lig- G4:h"tum!',
         S2: R4,
         A1: R4,
         A2: R4,

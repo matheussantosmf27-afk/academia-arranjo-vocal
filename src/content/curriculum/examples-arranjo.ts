@@ -14,41 +14,58 @@ const ttbb = (id: string, title: string, voices: Record<"T1" | "T2" | "B1" | "B2
 
 const R = (n: number) => Array.from({ length: n }, () => "r:w").join(" | ");
 
-/** Melodia original usada como fio condutor do curso ("Canção do Caminho"). */
-const MELODIA = 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho | A4:q"com C5:q"a B4:h"gen- | C5:h."te r:q';
+/**
+ * Melodia usada como fio condutor das aulas de arranjo: a 2ª frase do "Hino à Alegria"
+ * (Beethoven, 9ª Sinfonia, 1824; texto de Schiller, 1785), em Sol maior. Domínio público;
+ * melodia conferida na transcrição da Wikipédia (Ode to Joy). As harmonizações são do curso.
+ */
+export const MELODIA = 'B4:q"Wir B4:q"be- C5:q"tre- D5:q"ten | D5:q"feu- C5:q"er- B4:q"trun- A4:q"ken, | G4:q"Himm- G4:q"li- A4:q"sche, B4:q"dein | A4:q."Hei- G4:8"lig- G4:h"tum!';
+const G = { key: "G" } as const;
+/** A mesma melodia uma oitava abaixo (tenores). */
+const MELODIA_8VB = MELODIA.replace(/([A-G][#b]?)(\d)/g, (_, n: string, o: string) => `${n}${Number(o) - 1}`);
 
 export const EXA = {
-  melodiaSo: satb("exa-melodia-so", "Canção do Caminho — a melodia sozinha", { S: MELODIA, A: R(4), T: R(4), B: R(4) }),
-  melodiaHarmonizada: satb("exa-melodia-harmonizada", "Canção do Caminho — harmonização em bloco (homofonia)", {
-    S: MELODIA,
-    A: "C4:q E4:h. | F4:h E4:h | E4:h G4:h | E4:h. r:q",
-    T: "G3:h C4:h | C4:h C4:h | C4:h D4:h | C4:h. r:q",
-    B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q",
-  }),
-  unissonoOitavas: satb("exa-unissono-oitavas", "Canção do Caminho — melodia em oitavas (sopranos e tenores)", {
-    S: MELODIA,
-    A: R(4),
-    T: "E3:q G3:q A3:q G3:q | C4:h G3:h | A3:q C4:q B3:h | C4:h. r:q",
-    B: R(4),
-  }),
+  melodiaSo: satb("exa-melodia-so", "Hino à Alegria (2ª frase) — a melodia sozinha", { S: MELODIA, A: R(4), T: R(4), B: R(4) }, G),
+  melodiaHarmonizada: satb(
+    "exa-melodia-harmonizada",
+    "Hino à Alegria — harmonização em bloco (homofonia): G – C/E | D7 – G | Em – Am | D – G",
+    {
+      S: MELODIA,
+      A: "G4:h G4:h | F#4:h D4:h | E4:h E4:h | F#4:h D4:h",
+      T: "D4:h C4:h | A3:h G3:h | B3:h C4:h | A3:h B3:h",
+      B: "G2:h E3:h | D3:h G2:h | E3:h A2:h | D3:h G2:h",
+    },
+    G,
+  ),
+  unissonoOitavas: satb("exa-unissono-oitavas", "Hino à Alegria — melodia em oitavas (sopranos e tenores)", { S: MELODIA, A: R(4), T: MELODIA_8VB, B: R(4) }, G),
   unissonoOitavasPop: satb(
     "exa-unissono-oitavas-pop",
-    "Canção do Caminho — melodia em oitavas, avaliada no estilo popular",
-    { S: MELODIA, A: R(4), T: "E3:q G3:q A3:q G3:q | C4:h G3:h | A3:q C4:q B3:h | C4:h. r:q", B: R(4) },
-    { style: "popular-a-cappella" },
+    "Hino à Alegria — melodia em oitavas, avaliada no estilo popular",
+    { S: MELODIA, A: R(4), T: MELODIA_8VB, B: R(4) },
+    { ...G, style: "popular-a-cappella" },
   ),
-  melodiaPad: satb("exa-melodia-pad", "Melodia com 'pad' de vozes sustentadas em 'uh'", {
-    S: MELODIA,
-    A: 'C4:q"uh E4:h. | E4:w | E4:h G4:h | E4:h. r:q',
-    T: 'G3:w"uh | G3:w | C4:h D4:h | C4:h. r:q',
-    B: 'C3:w"uh | C3:w | C3:h G2:h | C3:h. r:q',
-  }),
-  melodiaNoTenor: satb("exa-melodia-no-tenor", "A melodia passa para o tenor", {
-    S: "G4:w | G4:w | C5:h D5:h | C5:h. r:q",
-    A: "C4:q E4:h. | E4:w | E4:h D4:h | E4:h. r:q",
-    T: 'E3:q"Vou G3:q"pe- A3:q"lo G3:q"ca- | C4:h"mi- G3:h"nho | A3:q"com C4:q"a B3:h"gen- | C4:h."te r:q',
-    B: "C3:w | C3:w | C3:h G2:h | C3:h. r:q",
-  }),
+  melodiaPad: satb(
+    "exa-melodia-pad",
+    "Melodia com 'pad' de vozes sustentadas em 'uh'",
+    {
+      S: MELODIA,
+      A: 'G4:w"uh | G4:w | E4:h E4:h | F#4:h D4:h',
+      T: 'D4:w"uh | D4:w | B3:h C4:h | A3:h B3:h',
+      B: 'B2:w"uh | B2:w | E3:h A2:h | D3:h G2:h',
+    },
+    G,
+  ),
+  melodiaNoTenor: satb(
+    "exa-melodia-no-tenor",
+    "A melodia passa para o tenor",
+    {
+      S: "D5:w | D5:w | D5:h C5:h | A4:h B4:h",
+      A: "G4:w | G4:w | G4:h E4:h | F#4:h G4:h",
+      T: MELODIA_8VB,
+      B: "B2:w | B2:w | B2:h A2:h | D3:h G2:h",
+    },
+    G,
+  ),
   tresVozes: satb("exa-tres-vozes", "Três vozes (SAB): soprano, contralto e baixo", { S: "C5:h B4:h | C5:w", A: "E4:h D4:h | E4:w", T: "r:w | r:w", B: "C3:h G2:h | C3:w" }),
   tresVozesSemTerca: satb("exa-tres-vozes-sem-terca", "Três vozes em quintas e oitavas, sem terça", { S: "G4:h D5:h | C5:w", A: "C4:h G4:h | G4:w", T: "r:w | r:w", B: "C3:h G2:h | C3:w" }),
   fechado: satb("exa-fechado", "Posição fechada: soprano, contralto e tenor dentro de uma oitava", { S: "G4:h A4:h | G4:w", A: "E4:h F4:h | E4:w", T: "C4:h C4:h | C4:w", B: "C3:h F3:h | C3:w" }),
@@ -76,12 +93,12 @@ export const EXA = {
     "exa-pop-lead-backing",
     "Pop a cappella: lead, backing em 'dum' e baixo vocal",
     {
-      S: 'E4:q"Vou G4:q"pe- A4:q"lo G4:q"ca- | C5:h"mi- G4:h"nho',
-      A: 'r:q C4:q"dum r:q C4:q"dum | r:q E4:q"dum r:q E4:q"dum',
-      T: 'r:q G3:q"dum r:q G3:q"dum | r:q G3:q"dum r:q G3:q"dum',
-      B: 'C3:q"dm r:q G2:q"dm r:q | C3:q"dm r:q C3:q"dm r:q',
+      S: MELODIA.split(" | ").slice(0, 2).join(" | "),
+      A: 'r:q G4:q"dum r:q G4:q"dum | r:q F#4:q"dum r:q G4:q"dum',
+      T: 'r:q D4:q"dum r:q E4:q"dum | r:q A3:q"dum r:q D4:q"dum',
+      B: 'G2:q"dm r:q C3:q"dm r:q | D3:q"dm r:q G2:q"dm r:q',
     },
-    { style: "popular-a-cappella" },
+    { ...G, style: "popular-a-cappella" },
   ),
   baixoVocal: satb(
     "exa-baixo-vocal",
@@ -118,18 +135,28 @@ export const EXA = {
   tessituraAlta: satb("exa-tessitura-alta", "Soprano amador sustentado em Lá5", { S: "A5:w | A5:w", A: "C5:w | C5:w", T: "F4:w | F4:w", B: "F3:w | F3:w" }, { key: "F" }),
   ttbbMelodiaT2: ttbb("exa-ttbb-t2", "TTBB com a melodia no Tenor II", { T1: "B3:h C4:h | B3:w", T2: "G3:h A3:h | G3:w", B1: "D3:h E3:h | D3:w", B2: "G2:h C3:h | G2:w" }),
   // 2º semestre — duas vozes e contracanto
-  duetoTercas: satb("exa-dueto-tercas", "Dueto: a segunda voz em terças e sextas sob a melodia", {
-    S: MELODIA,
-    A: 'C4:q"Vou E4:q"pe- F4:q"lo E4:q"ca- | E4:h"mi- E4:h"nho | F4:q"com E4:q"a G4:h"gen- | E4:h."te r:q',
-    T: R(4),
-    B: R(4),
-  }),
-  contracantoAtivo: satb("exa-contracanto-ativo", "Contracanto ativo no tenor: move-se quando a melodia para", {
-    S: MELODIA,
-    A: "C4:q E4:h. | F4:h E4:h | E4:h G4:h | E4:h. r:q",
-    T: 'G3:h"uh C4:h | C4:q A3:q G3:q C4:q | C4:h D4:h | C4:q G3:q C4:q r:q',
-    B: "C3:w | A2:h C3:h | C3:h G2:h | C3:h. r:q",
-  }),
+  duetoTercas: satb(
+    "exa-dueto-tercas",
+    "Dueto: a segunda voz em terças e sextas sob a melodia",
+    {
+      S: MELODIA,
+      A: 'G4:q"Wir G4:q"be- A4:q"tre- F#4:q"ten | B4:q"feu- A4:q"er- G4:q"trun- F#4:q"ken, | E4:q"Himm- E4:q"li- F#4:q"sche, G4:q"dein | F#4:q."Hei- E4:8"lig- B3:h"tum!',
+      T: R(4),
+      B: R(4),
+    },
+    G,
+  ),
+  contracantoAtivo: satb(
+    "exa-contracanto-ativo",
+    "Contracanto ativo no tenor: move-se quando a melodia para",
+    {
+      S: MELODIA,
+      A: "G4:h G4:h | F#4:h D4:h | E4:h E4:h | F#4:h D4:h",
+      T: 'D4:h"uh C4:h | A3:w | B3:h C4:h | A3:q C4:q B3:q D4:q',
+      B: "G2:h E3:h | D3:h G2:h | E3:h A2:h | D3:h G2:h",
+    },
+    G,
+  ),
   // 2º semestre — escrita em bloco (estilo popular)
   quartas: satb(
     "exa-quartas",
@@ -151,5 +178,5 @@ export const EXA = {
     T: R(3),
     B: "C3:q F3:q G3:q C3:q | A2:q D3:q G2:h | C3:w",
   }),
-  exercicioCantoDado: satb("exa-exercicio-canto-dado", "Exercício: canto dado (escreva contralto, tenor e baixo)", { S: MELODIA, A: R(4), T: R(4), B: R(4) }),
+  exercicioCantoDado: satb("exa-exercicio-canto-dado", "Exercício: canto dado (escreva contralto, tenor e baixo)", { S: MELODIA, A: R(4), T: R(4), B: R(4) }, G),
 } as const;

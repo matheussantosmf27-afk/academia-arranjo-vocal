@@ -46,8 +46,8 @@ export const lessonQuartetoMasculino: Lesson = {
           ],
         },
         { type: "paragraph", text: "A melodia no Tenor II deixa espaço para uma voz acima dela. O tenor 'emoldura' o lead por cima, e o acorde fica completo com a melodia no meio da textura, região em que a voz masculina tem mais corpo e o texto se entende melhor." },
-        { type: "example", score: EXT.leadSo, verdict: "correto", caption: "A melodia sozinha, no lead", commentary: "Rio de Paz, melodia original do curso, em Sol maior: cabe confortável na tessitura do Tenor II (Mi3–Ré4)." },
-        { type: "example", score: EXT.leadHarmonizado, verdict: "correto", caption: "Lead no meio, tenor acima", commentary: "O tenor fica acima do lead, quase sempre em terças; barítono completa o acorde e o baixo segura as fundamentais. O motor só registra a sensível do barítono descendo no fim (informação: em voz interna, é comum)." },
+        { type: "example", score: EXT.leadSo, verdict: "correto", caption: "A melodia sozinha, no lead", commentary: "A 2ª frase do 'Hino à Alegria' (Beethoven, domínio público), uma oitava abaixo e em Fá maior: de Fá3 a Dó4, cabe confortável na tessitura do Tenor II (Mi3–Ré4)." },
+        { type: "example", score: EXT.leadHarmonizado, verdict: "correto", caption: "Lead no meio, tenor acima", commentary: "O tenor fica acima do lead em mínimas (Dó – Ré – Mi – Fá – Ré – Dó), o barítono completa o acorde e o baixo dá as fundamentais ou as terças (F/A, B♭/D, Gm/B♭). O lead, no meio do acorde, continua sendo a voz que se ouve." },
         { type: "listening", title: "Ouça cada papel", score: EXT.leadHarmonizado, instructions: ["Ouça só o lead (Tenor II).", "Acrescente o tenor por cima e perceba a 'moldura'.", "Ouça barítono e baixo juntos: é a base harmônica.", "Ouça os quatro."], focus: [["T2"], ["T1", "T2"], ["B1", "B2"], ["T1", "T2", "B1", "B2"]] },
       ],
     },
@@ -225,7 +225,7 @@ export const lessonTtbbChamadaResposta: Lesson = {
       title: "1. Chamada e resposta",
       blocks: [
         { type: "paragraph", text: "Herança dos spirituals e do gospel: uma voz lança a frase e as outras respondem. No quarteto, quem chama costuma ser o baixo, que tem timbre e região próprios. A resposta do trio repete ou completa o texto em bloco." },
-        { type: "example", score: EXT.chamadaResposta, verdict: "correto", caption: "O baixo chama, o trio responde", commentary: "Compassos 1 e 3: o baixo sozinho arpeja o acorde e diz o texto. Compassos 2 e 4: o trio responde em bloco, com o baixo segurando a fundamental." },
+        { type: "example", score: EXT.chamadaResposta, verdict: "correto", caption: "O baixo chama, o trio responde", commentary: "Com palavras do hino 'Holy, holy, holy' (Heber, domínio público). Compassos 1 e 3: o baixo sozinho arpeja o acorde e diz 'Holy Lord'. Compassos 2 e 4: o trio responde em bloco, com o baixo segurando a fundamental." },
         { type: "listening", title: "Pergunta e resposta", score: EXT.chamadaResposta, instructions: ["Ouça só o baixo.", "Ouça só o trio.", "Ouça tudo e marque onde cada um entra."], focus: [["B2"], ["T1", "T2", "B1"], ["T1", "T2", "B1", "B2"]] },
         { type: "list", items: ["A resposta pode repetir o texto, ecoar a última palavra ou comentar ('oh, sim').", "Alterne quem chama: o lead numa estrofe, o baixo na outra.", "Deixe a resposta mais curta que a chamada para a frase andar."] },
       ],
@@ -234,7 +234,7 @@ export const lessonTtbbChamadaResposta: Lesson = {
       title: "2. 'Doo' rítmico e o pad que respira",
       blocks: [
         { type: "paragraph", text: "Sob o lead, as outras vozes podem virar banda: o baixo marca os tempos com 'dm' ou 'bm', e tenor e barítono fazem os contratempos em 'doo'. Use consoantes curtas para o ritmo aparecer e vogais abertas só no fim da frase." },
-        { type: "example", score: EXT.backingDoo, verdict: "correto", caption: "Lead com 'doo' nos contratempos", commentary: "Baixo nos tempos 1 e 3, tenor e barítono nos tempos 2 e 4: o acompanhamento de guitarra virou vozes. O motor só comenta, como informação, um Dó4 do tenor sobre o acorde de Sol." },
+        { type: "example", score: EXT.backingDoo, verdict: "correto", caption: "Lead com 'doo' nos contratempos", commentary: "Baixo nos tempos 1 e 3, tenor e barítono nos tempos 2 e 4: o acompanhamento de guitarra virou vozes. No último compasso, os quatro chegam juntos ao acorde final." },
         { type: "paragraph", text: "O oposto do 'doo' é o pad: vozes sustentadas em 'uh' sob um solo. Ele funciona, mas precisa respirar, e quem respira é o arranjador." },
         { type: "example", score: EXT.padSemRespirar, verdict: "observacao", caption: "Pad de 21 segundos", commentary: "Cinco compassos lentos sem pausa: o motor sugere planejar respirações. Escreva uma pausa curta no fim da frase ou indique respiração escalonada." },
         ESTUDO,
@@ -312,7 +312,7 @@ export const lessonTtbbUnissono: Lesson = {
       title: "1. Uma linha que vira quatro",
       blocks: [
         { type: "paragraph", text: "Quatro homens cantando a mesma melodia (tenores em uníssono, barítono e baixo uma oitava abaixo) têm força e clareza de texto. Quando a frase chega na palavra importante, as vozes se separam e o acorde aparece: o contraste é o efeito." },
-        { type: "example", score: EXT.unissonoAbre, verdict: "observacao", caption: "Uníssono que se abre em 'paz'", commentary: "Compasso 1 em uníssono e oitavas; compasso 2 abre em D – G. O motor sugere evitar oitavas e uníssonos paralelos: aqui elas são a textura escolhida (dobramento da melodia), não perda de independência. Registre a intenção." },
+        { type: "example", score: EXT.unissonoAbre, verdict: "observacao", caption: "Uníssono que se abre no compasso 2", commentary: "Compasso 1 em uníssono e oitavas; compasso 2 abre em C – F/A. O motor sugere evitar oitavas e uníssonos paralelos: aqui elas são a textura escolhida (dobramento da melodia), não perda de independência. Registre a intenção." },
         { type: "listening", title: "Ouça a abertura", score: EXT.unissonoAbre, instructions: ["Ouça os tenores no compasso 1: uma só linha.", "Ouça os quatro e perceba o acorde surgir no compasso 2."], focus: [["T1", "T2"], ["T1", "T2", "B1", "B2"]] },
         { type: "callout", tone: "atencao", title: "Uníssono não é preguiça", text: "Use o uníssono onde o texto pede unidade (uma afirmação, o título da canção) e abra onde pede emoção. Uníssono do começo ao fim é só melodia dobrada." },
       ],

@@ -22,18 +22,22 @@ const ttbb = (id: string, title: string, voices: V, opts: { key?: string; time?:
 
 const R = (n: number) => Array.from({ length: n }, () => "r:w").join(" | ");
 
-/** Melodia original do lead ("Rio de Paz"), no Tenor II. */
-const LEAD = 'B3:q"Há D4:q"um C4:q"ri- B3:q"o | A3:h"de B3:h"paz | C4:q"que B3:q"cor- A3:q"re_a- A3:q"té | G3:w"mim';
+/**
+ * Melodia do lead, no Tenor II: a 2ª frase do "Hino à Alegria" (Beethoven, 1824; texto de
+ * Schiller; domínio público), uma oitava abaixo e em Fá maior, para caber no quarteto.
+ */
+const LEAD = 'A3:q"Wir A3:q"be- Bb3:q"tre- C4:q"ten | C4:q"feu- Bb3:q"er- A3:q"trun- G3:q"ken, | F3:q"Himm- F3:q"li- G3:q"sche, A3:q"dein | G3:q."Hei- F3:8"lig- F3:h"tum!';
+const F = { key: "F" } as const;
 
 export const EXT = {
   // ── Papéis no quarteto ─────────────────────────────────────────────
-  leadSo: ttbb("ext-lead-so", "Rio de Paz — a melodia no lead (Tenor II)", { T1: R(4), T2: LEAD, B1: R(4), B2: R(4) }),
-  leadHarmonizado: ttbb("ext-lead-harmonizado", "Rio de Paz — lead no Tenor II, tenor acima, barítono e baixo", {
-    T1: "D4:q D4:q E4:q D4:q | D4:h D4:h | E4:q D4:q D4:q C4:q | B3:w",
-    T2: LEAD,
-    B1: "G3:q B3:q G3:q G3:q | F#3:h G3:h | G3:q G3:q F#3:q F#3:q | D3:w",
-    B2: "G2:q G2:q C3:q G2:q | D3:h G2:h | C3:q G2:q D3:q D3:q | G2:w",
-  }),
+  leadSo: ttbb("ext-lead-so", "Hino à Alegria — a melodia no lead (Tenor II)", { T1: R(4), T2: LEAD, B1: R(4), B2: R(4) }, F),
+  leadHarmonizado: ttbb(
+    "ext-lead-harmonizado",
+    "Hino à Alegria — lead no Tenor II, tenor acima, barítono e baixo",
+    { T1: "C4:h D4:h | E4:h F4:h | D4:h D4:h | C4:h C4:h", T2: LEAD, B1: "F3:h F3:h | G3:h F3:h | F3:h D3:h | E3:h F3:h", B2: "A2:h D3:h | C3:h A2:h | Bb2:h Bb2:h | C3:h A2:h" },
+    F,
+  ),
   tenorAbaixoDoLead: ttbb("ext-tenor-abaixo", "Tenor I escrito abaixo do lead", {
     T1: "G3:h F#3:h | G3:w",
     T2: "B3:h A3:h | B3:w",
@@ -74,10 +78,10 @@ export const EXT = {
     "ext-chamada-resposta",
     "Chamada e resposta: o baixo chama, o trio responde",
     {
-      T1: 'r:w | D4:q"vem D4:q"pro D4:h"rio | r:w | C4:h"o- B3:h"lá',
-      T2: 'r:w | B3:q"vem B3:q"pro B3:h"rio | r:w | A3:h"o- G3:h"lá',
-      B1: 'r:w | G3:q"vem G3:q"pro G3:h"rio | r:w | F#3:h"o- D3:h"lá',
-      B2: 'G2:q"Vem B2:q"pro D3:h"rio | G2:w | C3:q"Vem E3:q"pro G3:h"rio | D3:h G2:h',
+      T1: 'r:w | D4:q"Ho- D4:q"ly D4:h"Lord! | r:w | C4:h"A- B3:h"men.',
+      T2: 'r:w | B3:q"Ho- B3:q"ly D4:h"Lord! | r:w | A3:h"A- G3:h"men.',
+      B1: 'r:w | G3:q"Ho- G3:q"ly G3:h"Lord! | r:w | F#3:h"A- D3:h"men.',
+      B2: 'G2:q"Ho- B2:q"ly D3:h"Lord, | G2:w | C3:q"Ho- E3:q"ly G3:h"Lord, | D3:h G2:h',
     },
     { style: "popular-a-cappella" },
   ),
@@ -85,12 +89,12 @@ export const EXT = {
     "ext-backing-doo",
     "Lead com 'doo' rítmico de barítono e tenor e baixo nos tempos",
     {
-      T1: 'r:q D4:q"doo r:q D4:q"doo | r:q C4:q"doo r:q C4:q"doo | r:q D4:q"doo r:q C4:q"doo | B3:w"doo',
+      T1: 'r:q C4:q"doo r:q D4:q"doo | r:q E4:q"doo r:q F4:q"doo | r:q D4:q"doo r:q D4:q"doo | r:q C4:q"doo C4:h"doo',
       T2: LEAD,
-      B1: 'r:q G3:q"doo r:q G3:q"doo | r:q F#3:q"doo r:q G3:q"doo | r:q G3:q"doo r:q F#3:q"doo | G3:w"doo',
-      B2: 'G2:q"dm r:q D3:q"dm r:q | D3:q"dm r:q G2:q"dm r:q | C3:q"dm r:q D3:q"dm r:q | G2:w"dm',
+      B1: 'r:q F3:q"doo r:q F3:q"doo | r:q G3:q"doo r:q F3:q"doo | r:q F3:q"doo r:q D3:q"doo | r:q E3:q"doo F3:h"doo',
+      B2: 'A2:q"dm r:q D3:q"dm r:q | C3:q"dm r:q A2:q"dm r:q | Bb2:q"dm r:q Bb2:q"dm r:q | C3:q"dm r:q A2:h"dm',
     },
-    { style: "popular-a-cappella" },
+    { key: "F", style: "popular-a-cappella" },
   ),
   padSemRespirar: ttbb(
     "ext-pad-sem-respirar",
@@ -109,12 +113,12 @@ export const EXT = {
     "ext-unissono-abre",
     "Uníssono e oitavas que se abrem em harmonia no fim da frase",
     {
-      T1: 'B3:q"Há D4:q"um C4:q"ri- B3:q"o | D4:h"de D4:h"paz',
-      T2: 'B3:q"Há D4:q"um C4:q"ri- B3:q"o | A3:h"de B3:h"paz',
-      B1: 'B2:q"Há D3:q"um C3:q"ri- B2:q"o | F#3:h"de G3:h"paz',
-      B2: 'B2:q"Há D3:q"um C3:q"ri- B2:q"o | D3:h"de G2:h"paz',
+      T1: 'A3:q"Wir A3:q"be- Bb3:q"tre- C4:q"ten | E4:h"feu- F4:h"er-',
+      T2: 'A3:q"Wir A3:q"be- Bb3:q"tre- C4:q"ten | C4:q"feu- Bb3:q"er- A3:q"trun- G3:q"ken,',
+      B1: 'A2:q"Wir A2:q"be- Bb2:q"tre- C3:q"ten | G3:h"feu- F3:h"er-',
+      B2: 'A2:q"Wir A2:q"be- Bb2:q"tre- C3:q"ten | C3:h"feu- A2:h"er-',
     },
-    { style: "popular-a-cappella" },
+    { key: "F", style: "popular-a-cappella" },
   ),
   entradasEmEscada: ttbb(
     "ext-entradas-escada",

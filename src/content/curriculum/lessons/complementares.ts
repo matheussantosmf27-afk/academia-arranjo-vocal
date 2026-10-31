@@ -1,3 +1,4 @@
+import { NOITE_FELIZ } from "../../repertorio";
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { EX } from "../examples";
 import { EXA } from "../examples-arranjo";
@@ -46,6 +47,7 @@ export const lessonDuasVozes: Lesson = {
             ["Segundas, quartas, sétimas", "Tensão", "Como notas de passagem ou retardos, resolvendo por grau"],
           ],
         },
+        { type: "example", score: NOITE_FELIZ.score, verdict: "observacao", caption: "Noite Feliz (Gruber, 1818): o dueto original", commentary: "Repertório real (domínio público): na primeira versão, a segunda voz acompanha a melodia quase sempre uma terça ou uma sexta abaixo, no mesmo ritmo. É o dueto em terças e sextas mais conhecido do mundo. O motor só faz sugestões: a peça foi escrita para duas vozes, e tenor e baixo estão em pausa." },
       ],
     },
     {
@@ -60,7 +62,7 @@ export const lessonDuasVozes: Lesson = {
           score: EXA.duetoTercas,
           verdict: "correto",
           caption: "Dueto em terças e sextas",
-          commentary: "O contralto canta a mesma letra alternando terças e sextas abaixo da melodia (terças no compasso 1; sexta e terça nos compassos 2 e 3), sem nunca ultrapassá-la. O final numa sexta (Mi4 sob Dó5) é mais doce do que um uníssono.",
+          commentary: "O contralto canta a mesma letra quase sempre uma terça abaixo da melodia; no tempo 4 do compasso 1 passa para a sexta (Ré5 sobre Fá♯4), sem nunca ultrapassá-la. O final numa sexta (Sol4 sobre Si3) é mais doce do que um uníssono.",
         },
         { type: "listening", title: "Cante a segunda voz", score: EXA.duetoTercas, instructions: ["Cante o contralto enquanto ouve o soprano.", "Ouça as duas vozes juntas: elas se fundem?"], focus: [["A"], ["S", "A"]] },
       ],
@@ -599,7 +601,7 @@ export const lessonContracantoAtivoPassivo: Lesson = {
           score: EXA.contracantoAtivo,
           verdict: "correto",
           caption: "Contracanto ativo no tenor",
-          commentary: "Quando a melodia sustenta (compassos 2 e 4), o tenor caminha em semínimas pelas notas do acorde; quando a melodia anda, ele sustenta. As duas linhas se alternam no primeiro plano.",
+          commentary: "Enquanto a melodia anda em semínimas (compassos 1 a 3), o tenor fica em mínimas e semibreves; no compasso 4, quando a melodia para no Sol, ele resolve a sétima (Dó → Si) e sobe ao Ré. As duas linhas se alternam no primeiro plano.",
         },
         { type: "listening", title: "Ouça o diálogo", score: EXA.contracantoAtivo, instructions: ["Ouça só soprano e tenor.", "Perceba que um se move enquanto o outro sustenta."], focus: [["S", "T"], ["S", "A", "T", "B"]] },
       ],
@@ -641,15 +643,15 @@ export const lessonContracantoAtivoPassivo: Lesson = {
         {
           type: "challenge",
           title: "Um tenor que dialoga",
-          task: "Melodia e baixo da 'Canção do Caminho' estão dados. Escreva um contracanto ativo no tenor: parado quando a melodia anda, em movimento quando ela sustenta.",
+          task: "Melodia (2ª frase do 'Hino à Alegria'), contralto e baixo estão dados. Escreva um contracanto ativo no tenor: quase parado enquanto a melodia anda em semínimas, em movimento quando ela sustenta.",
           start: EXD.ccStart,
-          constraints: ["Não altere soprano nem baixo; deixe o contralto em pausa.", "Tenor entre E3 e E4.", "Só notas dos acordes (I, vi, I, vi⁶, V, I) e notas de passagem por grau."],
-          criteria: ["No compasso 1 (melodia em semínimas), o tenor sustenta.", "Nos compassos 2 a 4, o tenor se move durante as notas longas da melodia.", "O motor não aponta erros nem alertas."],
-          hints: ["Compasso 1: uma nota do acorde de Dó, sustentada (semibreve).", "Compasso 2: sob o C5 longo (acorde de Lá menor), o tenor pode andar A3 – C4; depois sustenta.", "Cuidado com o compasso 3: se o tenor fizer C4 → G3 enquanto o baixo faz C3 → G2, aparecem oitavas paralelas."],
+          constraints: ["Não altere soprano, contralto nem baixo.", "Tenor entre D3 e E4.", "Acordes: G – C/E | D7 – G | Em – Am | D – G; use notas dos acordes, notas de passagem por grau e, se quiser, uma nota preparada que se torne dissonante."],
+          criteria: ["Nos compassos 1 a 3 (melodia em semínimas), o tenor anda no máximo em mínimas.", "No compasso 4, quando a melodia sustenta o Sol final, o tenor se move.", "O motor não aponta erros nem alertas."],
+          hints: ["Compasso 2: uma nota comum ao D7 e ao G pode ficar a semibreve inteira.", "No compasso 3, termine no Dó do acorde de Lá menor e segure essa nota sobre o acorde de Ré: ela vira a sétima do D7 e pede para descer.", "No compasso 4, a sétima desce para Si quando chega o Sol maior; depois o tenor ainda pode subir ao Ré."],
           solution: {
             score: EXD.ccSol,
-            commentary: "Tenor: G3 (semibreve) | A3 – C4 – E4 | E4 – G3 – D4 | E4 – C4 – E4. No compasso 1, a melodia anda e o tenor sustenta G3. No compasso 2, sob o C5 longo, o tenor sobe A3 – C4 e chega a E4, que segura enquanto a melodia vai para G4. No compasso 3, ele segura E4 enquanto a melodia faz A4 – C5 e anda G3 – D4 sob o B4 longo. No final, o arpejo E4 – C4 – E4 enfeita o C5 sustentado. Os dois planos se alternam, como pede o contracanto ativo.",
-            alternatives: ["Um contracanto acima da melodia (descant) nas sopranos II, entrando só nos compassos 2–4, é outra forma de diálogo — reservada, em geral, para a última estrofe."],
+            commentary: "Tenor: D4 – C4 | A3 (semibreve) | B3 – C4 ligado | C4 – B3 – D4. Nos três primeiros compassos o tenor anda em mínimas (e fica parado no compasso 2) enquanto a melodia anda em semínimas. O C4 do fim do compasso 3 é preparado no acorde de Lá menor e ligado ao compasso 4, onde vira a sétima do D7 enquanto a melodia faz Lá – Sol. Quando a melodia para no Sol final, o tenor se move: C4 resolve em B3 e sobe ao D4. Os dois planos se alternam, como pede o contracanto ativo.",
+            alternatives: ["Um contracanto acima da melodia (descant) nas sopranos II, entrando só no compasso 4, é outra forma de diálogo — reservada, em geral, para a última estrofe."],
           },
         },
       ],

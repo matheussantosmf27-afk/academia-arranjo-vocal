@@ -1,3 +1,4 @@
+import { DOXOLOGIA, FRONTE_ENSANGUENTADA } from "../../repertorio";
 import { CHORALE_SATB_C } from "@/domain/music/examples";
 import { EX } from "../examples";
 import { EXD } from "../examples-didatica";
@@ -66,13 +67,13 @@ export const lessonEscalas: Lesson = {
         {
           type: "challenge",
           title: "Tonalidade para tenores e para sopranos",
-          task: "A 'Canção do Caminho' (em Dó: E4 a C5, nota média por volta de G4) será cantada primeiro pelos sopranos e depois, numa segunda estrofe, pelos tenores (uma oitava abaixo). Escolha UMA tonalidade que sirva às duas estrofes e justifique com as tessituras desta aula e da aula de vozes.",
+          task: "A 2ª frase do 'Hino à Alegria' (em Sol: G4 a D5, nota média por volta de B4) será cantada primeiro pelos sopranos e depois, numa segunda estrofe, pelos tenores (uma oitava abaixo). Escolha UMA tonalidade que sirva às duas estrofes e justifique com as tessituras desta aula e da aula de vozes.",
           constraints: ["Mesma tonalidade nas duas estrofes.", "Tessituras: soprano E4–E5, tenor E3–E4 (sonoro)."],
           criteria: ["Âmbito calculado na tonalidade escolhida para as duas vozes.", "Nota média perto do centro das duas tessituras.", "Armadura escrita corretamente."],
-          hints: ["Em Dó, os sopranos cantam E4–C5 (média G4) e os tenores E3–C4 (média G3). Os dois estão confortáveis?", "Subir para Ré maior coloca os sopranos em F♯4–D5 e os tenores em F♯3–D4. Ainda cabe?", "Mi maior leva os tenores a E4 no ponto culminante: no topo da tessitura."],
+          hints: ["Em Sol, os sopranos cantam G4–D5 (média B4) e os tenores G3–D4 (média B3). Os dois estão confortáveis?", "Descer para Fá maior coloca os sopranos em F4–C5 e os tenores em F3–C4. Quem ganha e quem perde?", "Lá maior leva os sopranos a E5 e os tenores a E4 no ponto culminante: no topo das duas tessituras."],
           solution: {
-            commentary: "Dó maior e Ré maior servem às duas estrofes. Em Dó, sopranos de E4 a C5 (média G4, um pouco abaixo do centro) e tenores de E3 a C4 (média G3, bem no centro). Em Ré (dois sustenidos: F♯ e C♯), sopranos de F♯4 a D5 (média A4, no centro) e tenores de F♯3 a D4 (média A3, ainda confortável). Ré é a escolha mais equilibrada; Dó favorece os tenores. Mi maior (quatro sustenidos) já coloca o ponto culminante dos tenores em E4, no limite da tessitura.",
-            alternatives: ["Se os tenores forem fracos no agudo e os sopranos fortes, Dó maior é preferível: perde-se um pouco de brilho nos sopranos, ganha-se segurança nos tenores."],
+            commentary: "Sol maior e Fá maior servem às duas estrofes. Em Sol (um sustenido: F♯), sopranos de G4 a D5 (média B4, no centro de E4–E5) e tenores de G3 a D4 (média B3, também no centro de E3–E4): é a escolha mais equilibrada. Em Fá (um bemol: B♭), sopranos de F4 a C5 (média A4, um pouco abaixo do centro) e tenores de F3 a C4 (média A3, bem confortável): favorece os tenores. Lá maior (três sustenidos) já leva o ponto culminante a E5 nos sopranos e E4 nos tenores, no limite das duas tessituras.",
+            alternatives: ["Se os tenores forem fracos no agudo e os sopranos fortes, Fá maior é preferível: perde-se um pouco de brilho nos sopranos, ganha-se segurança nos tenores."],
           },
         },
       ],
@@ -384,7 +385,7 @@ export const lessonCadencias: Lesson = {
   unitId: "n1-u2",
   status: "disponivel",
   prerequisites: ["graus-funcoes"],
-  estimatedMinutes: 50,
+  estimatedMinutes: 55,
   competencies: ["harmonia-funcional", "percepcao", "escrita-satb"],
   objectives: [
     "Reconhecer de ouvido e na partitura as quatro cadências principais, com pelo menos 80% de acerto.",
@@ -398,6 +399,8 @@ export const lessonCadencias: Lesson = {
         { type: "paragraph", text: "Cadência é o modo como uma frase termina. Três coisas a definem: os dois últimos acordes (a progressão), o grau da escala no soprano e a posição métrica — o acorde de chegada cai num tempo forte e costuma durar mais. Mudou qualquer uma das três, muda a força da pontuação." },
         { type: "paragraph", text: "Por isso o arranjador harmoniza as cadências antes do resto: elas são os pontos fixos da forma. Sabendo onde cada frase repousa (ponto final) ou fica suspensa (vírgula, pergunta), o caminho até lá pode ser escolhido de trás para a frente." },
         { type: "table", caption: "As quatro cadências e o que observar em cada uma", headers: ["Cadência", "Acordes", "Soprano típico", "Efeito", "Pontuação do texto"], rows: [["Autêntica perfeita", "V(7) → I, ambos no estado fundamental", "2–1 ou 7–1", "conclusão plena", "ponto final, fim de estrofe"], ["Autêntica imperfeita", "V → I com 3 ou 5 no soprano, ou um dos acordes invertido", "2–3, 5–5, 7–1 sobre I⁶", "conclusiva, mas pede mais", "ponto e vírgula, fim de frase interna"], ["Plagal", "IV → I", "1–1 (nota comum) ou 6–5", "repouso suave, 'Amém'", "coda, confirmação depois de uma autêntica"], ["Semicadência", "qualquer acorde → V", "2, 7 ou 5 sustentados", "suspensão", "vírgula, pergunta, dois-pontos"], ["De engano", "V → vi", "7–1 ou 2–1 (como na autêntica)", "surpresa, adiamento", "'mas…', virada do texto, repetição antes do fim"]] },
+        { type: "example", score: DOXOLOGIA.score, verdict: "observacao", caption: "Doxologia (Old 100th) na harmonização de Bach", commentary: "Repertório real (domínio público): a Doxologia na harmonização de J. S. Bach (BWV 130.6). Cada frase acaba numa cadência; ouça a última: o baixo salta Sol → Dó (V – I), o soprano desce Ré → Dó e a sétima do acorde de Sol, no tenor (Fá), desce para Mi. O motor aponta vários alertas ao longo do coral: Bach escreve com liberdades que as regras escolares não preveem, e vale a pena ouvir cada uma." },
+        { type: "example", score: FRONTE_ENSANGUENTADA.score, verdict: "observacao", caption: "Ó Fronte Ensanguentada: o coral termina na dominante", commentary: "Repertório real: a harmonização de Bach na Paixão segundo São Mateus (BWV 244.62). A última frase não volta a Lá menor: termina no acorde de Mi maior, a dominante, com o baixo fazendo Sol♯ – Lá – Mi. Uma cadência suspensiva no fim de uma peça inteira." },
       ],
     },
     {

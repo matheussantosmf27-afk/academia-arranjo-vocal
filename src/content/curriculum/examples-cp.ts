@@ -20,6 +20,9 @@ const satb = (id: string, title: string, voices: S, o: Opts = {}) =>
     ...(o.style ? { style: o.style } : {}),
   });
 
+/** 1ª frase de "Santo! Santo! Santo!" (Nicaea), em Sol maior, com o texto de Heber. */
+const NICAEA = 'G4:q"Ho- G4:q"ly, B4:q"ho- B4:q"ly, | D5:h"ho- D5:h"ly! | E5:h"Lord E5:q"God E5:q"Al- | D5:h"migh- B4:h"ty!';
+const NICAEA_8VB = 'G3:q"Ho- G3:q"ly, B3:q"ho- B3:q"ly, | D4:h"ho- D4:h"ly! | E4:h"Lord E4:q"God E4:q"Al- | D4:h"migh- B3:h"ty!';
 const R = (n: number) => Array.from({ length: n }, () => "r:w").join(" | ");
 
 /** Cantus firmus original, no baixo, em mínimas. */
@@ -100,21 +103,22 @@ export const EXC = {
   }),
 
   // ── Imitação e cânone ──────────────────────────────────────────────
+  // "Frère Jacques" (cânone tradicional francês, séc. XVIII; domínio público), melodia conferida na Wikipédia.
   canone: satb(
     "exc-canone",
-    "Cânone à oitava: o tenor repete a melodia do soprano um compasso depois, sobre pedal",
+    "Cânone à oitava: o tenor entra com 'Frère Jacques' dois compassos depois do soprano, sobre pedal",
     {
-      S: 'G4:q"Can- A4:q"te_o B4:q"po- B4:q"vo | B4:q"can- C5:q"te_a D5:h"voz | D5:q"de B4:q"to- B4:h"dos | G4:w"_',
+      S: 'G4:q"Frè- A4:q"re B4:q"Jac- G4:q"ques, | G4:q"frè- A4:q"re B4:q"Jac- G4:q"ques, | B4:q"dor- C5:q"mez- D5:h"vous? | B4:q"dor- C5:q"mez- D5:h"vous?',
       A: R(4),
-      T: 'r:w | G3:q"Can- A3:q"te_o B3:q"po- B3:q"vo | B3:q"can- C4:q"te_a D4:h"voz | D4:q"de B3:q"to- B3:h"dos',
+      T: 'r:w | r:w | G3:q"Frè- A3:q"re B3:q"Jac- G3:q"ques, | G3:q"frè- A3:q"re B3:q"Jac- G3:q"ques,',
       B: "G2:w | G2:w | G2:w | G2:w",
     },
     { key: "G" },
   ),
   canoneParalelo: satb("exc-canone-paralelo", "Imitação sem defasagem: o tenor canta junto, uma quinta abaixo", {
-    S: 'G4:q"Can- A4:q"te_o B4:q"po- B4:q"vo | B4:q"can- C5:q"te_a D5:h"voz',
+    S: 'G4:q"Frè- A4:q"re B4:q"Jac- G4:q"ques, | G4:q"frè- A4:q"re B4:q"Jac- G4:q"ques,',
     A: R(2),
-    T: 'C4:q"Can- D4:q"te_o E4:q"po- E4:q"vo | E4:q"can- F4:q"te_a G4:h"voz',
+    T: 'C4:q"Frè- D4:q"re E4:q"Jac- C4:q"ques, | C4:q"frè- D4:q"re E4:q"Jac- C4:q"ques,',
     B: "G2:w | G2:w",
   }, { key: "G" }),
 
@@ -133,44 +137,29 @@ export const EXC = {
   }),
 
   // ── Contracanto e descant ──────────────────────────────────────────
+  // Sobre "Santo! Santo! Santo!" (Nicaea, Dykes, 1861; domínio público), como na disciplina de rearmonização.
   contracanto: satb(
     "exc-contracanto",
-    "Contracanto que responde nas pausas da melodia",
-    {
-      S: 'E5:q"Eu D5:q"sei C5:h"bem | r:h B4:q"que C5:q"sim | D5:h"Se- r:h | C5:w"nhor',
-      A: "G4:w | A4:q G4:q G4:h | G4:h A4:q B4:q | E4:w",
-      T: R(4),
-      B: "C3:w | C3:h G2:h | G2:w | C3:w",
-    },
-    { style: "popular-a-cappella" },
+    "Contracanto que se move nas notas longas da melodia",
+    { S: NICAEA, A: 'D4:w"uh | F#4:q A4:q G4:q B4:q | G4:w | F#4:q A4:q G4:q D4:q', T: R(4), B: "G2:h G3:h | D3:h G2:h | C3:h C3:h | D3:h G2:h" },
+    { key: "G", style: "popular-a-cappella" },
   ),
   contracantoOitavas: satb(
     "exc-contracanto-oitavas",
     "'Contracanto' que só dobra a melodia uma oitava abaixo",
-    {
-      S: 'E5:q"Eu D5:q"sei C5:h"bem | r:h B4:q"que C5:q"sim | D5:h"Se- r:h | C5:w"nhor',
-      A: "E4:q D4:q C4:h | r:h B3:q C4:q | D4:h r:h | C4:w",
-      T: R(4),
-      B: "C3:w | C3:h G2:h | G2:w | C3:w",
-    },
-    { style: "popular-a-cappella" },
+    { S: NICAEA, A: "G3:q G3:q B3:q B3:q | D4:h D4:h | E4:h E4:q E4:q | D4:h B3:h", T: R(4), B: "G2:h G3:h | D3:h G2:h | C3:h C3:h | D3:h G2:h" },
+    { key: "G", style: "popular-a-cappella" },
   ),
-  descant: satb("exc-descant", "Descant: a melodia no tenor e uma linha nova acima, no soprano", {
-    S: "C5:h D5:h | E5:h C5:h | B4:h D5:h | C5:w",
-    A: "G4:h B4:h | G4:h G4:h | G4:h F4:h | E4:w",
-    T: 'E4:h"Luz D4:h"da | C4:h"ma- E4:h"nhã | D4:h"vem B3:h"che- | C4:w"gar',
-    B: "C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:w",
-  }),
-  descantOitavas: satb("exc-descant-oitavas", "'Descant' que repete a melodia uma oitava acima", {
-    S: "E5:h D5:h | C5:h E5:h | D5:h B4:h | C5:w",
-    A: "G4:h B4:h | G4:h G4:h | G4:h F4:h | E4:w",
-    T: 'E4:h"Luz D4:h"da | C4:h"ma- E4:h"nhã | D4:h"vem B3:h"che- | C4:w"gar',
-    B: "C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:w",
-  }),
-  quodlibet: satb("exc-quodlibet", "Quodlibet: duas melodias diferentes cantadas ao mesmo tempo sobre a mesma harmonia", {
-    S: 'E5:h"Luz D5:h"da | C5:h"ma- E5:h"nhã | D5:h"vem B4:h"che- | C5:w"gar',
-    A: "G4:h G4:h | E4:h G4:h | G4:h F4:h | E4:w",
-    T: 'G3:q"Sol A3:q"vai B3:h"nas- | C4:h"cer G3:h"de | B3:q"no- A3:q"vo D4:h"pra | C4:w"nós',
-    B: "C3:h G2:h | C3:h C3:h | G2:h G2:h | C3:w",
-  }),
+  descant: satb(
+    "exc-descant",
+    "Descant: a melodia no tenor e uma linha nova acima, no soprano",
+    { S: "B4:h D5:h | D5:h D5:h | C5:h C5:h | D5:h D5:h", A: "D4:h G4:h | F#4:h G4:h | G4:h G4:h | F#4:h G4:h", T: NICAEA_8VB, B: "G2:h G3:h | D3:h B2:h | C3:h A2:h | D3:h G2:h" },
+    { key: "G" },
+  ),
+  descantOitavas: satb(
+    "exc-descant-oitavas",
+    "'Descant' que repete a melodia uma oitava acima",
+    { S: NICAEA.replace(/"[^ ]*/g, ""), A: "D4:h G4:h | F#4:h G4:h | G4:h G4:h | F#4:h G4:h", T: NICAEA_8VB, B: "G2:h G3:h | D3:h B2:h | C3:h A2:h | D3:h G2:h" },
+    { key: "G" },
+  ),
 } as const;
